@@ -2793,7 +2793,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['23','6 Nov 2026',['Invoice reader: contract numbers printed with a label and date (for example CONT NO.YRL 1109 - 01.10.2026) are now understood and matched to the right contract','New email alert: only the first letter of your name turns red and pulses','Orderbook on desktop: columns line up in every row, even when a row has document icons']],
+const APP_LOG=[['24','6 Nov 2026',['Invoices read from email or upload now fill the form straight away. Just check and save','Reader warnings only show real problems, and dates are read day first']],['23','6 Nov 2026',['Invoice reader: contract numbers printed with a label and date (for example CONT NO.YRL 1109 - 01.10.2026) are now understood and matched to the right contract','New email alert: only the first letter of your name turns red and pulses','Orderbook on desktop: columns line up in every row, even when a row has document icons']],
  ['22','6 Nov 2026',['Email inbox: the secret is now fixed and saved with your account (same on every device, no more Make secret). Vercel no longer needs MAIL_SECRET. Run supabase-mailbox.sql once more']],
  ['21','6 Nov 2026',['Clearer look on phone: solid coloured status chips, bolder numbers, darker secondary text, cards stand out from the page']],
  ['20','6 Nov 2026',['Orderbook cards: swipe gestures removed, swiping left or right changes page again. Tap a card for Open and Mark options']],
@@ -3594,7 +3594,7 @@ async function impRun(list){const st=$('#impst');if(!st)return;const fs=[...list
   const r=await fetch('/api/read-invoice',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+tok},body:JSON.stringify({files})});
   let j=null;try{j=await r.json()}catch(e){}
   if(!r.ok||!j)throw new Error(r.status==404?'The reader is not installed yet. Deploy the api folder to Vercel and add ANTHROPIC_API_KEY.':(j&&j.error)||'The reader failed. Try again.');
-  IMP=j;impReview()}
+  IMP=j;await impFill()}
  catch(e){st.innerHTML=`<div class="impe">${esc(e.message||'Something went wrong')}</div>`}}
 function cleanContractRef(s, dateOnly) {
   // "CONT NO.YRL 1109 - 01.10.2026" -> "YRL 1109". Drops a leading label (Cont No, PO No, Order No, Ref...) and a trailing date.
@@ -3659,7 +3659,8 @@ async function impFill(){const res=IMP,f=document.querySelector('.invf');if(!res
  if(res.total_quantity!=null)notes.push(Math.abs(tq-res.total_quantity)<.5?`<div class="impg">Total quantity ${impN(tq)} matches the document.</div>`:`<div class="impe">Total quantity is ${impN(tq)} here but ${impN(res.total_quantity)} on the document.</div>`);
  if(res.total_amount!=null&&mine!=null)notes.push(Math.abs(mine-res.total_amount)<=Math.max(.5,res.total_amount*.002)?`<div class="impg">Invoice value ${impN(mine)} matches the document total.</div>`:`<div class="impe">Invoice value here is ${impN(mine)} but the document total is ${impN(res.total_amount)}. Check the contract prices.</div>`);
  if(bad.length)notes.push(`<div class="impe">Not found in the contract, please check: ${esc(bad.join(', '))}</div>`);
- if(st)st.innerHTML=`<div class="impr"><div class="impg"><b>Invoice filled.</b> Please check the details below, then save.</div>${notes.join('')}</div>`;
+ const wn=(res.warnings||[]).filter(w=>w&&String(w).trim()).slice(0,4).map(w=>`<div class="impw2">${esc(w)}</div>`).join(''),rv=res._rev?'<div class="impw2">This is a <b>revised invoice</b>: the saved details were replaced. Nothing changes until you tap Save.</div>':'';
+ if(st)st.innerHTML=`<div class="impr"><div class="impg"><b>Invoice filled.</b> Please check the details below, then save.</div>${rv}${wn}${notes.join('')}</div>`;
  IMP=null;const sec=f.querySelector('.li');if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'})}
 function impModal(){if($('#impm'))return;const d=document.createElement('div');d.id='impm';d.innerHTML='<div class="impb" data-impclose></div><div class="impc" role="dialog" aria-modal="true" aria-label="Fill from invoice"><div class="imph"><h3>Fill from invoice</h3><button class="x" type="button" data-impclose aria-label="Close">\u2715</button></div><div class="impz" data-invimp tabindex="0" role="button"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 15v4h14v-4"/></svg></i><b>Drop the invoice and packing list here</b><span>PDF or photo. Scanned papers work too.</span></div><div class="impa"><button class="btn" type="button" data-invimp>Attach files</button></div></div>';document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add('on'))}
 function impClose(){const d=$('#impm');if(!d)return;d.classList.remove('on');setTimeout(()=>d.remove(),240)}
@@ -3723,7 +3724,7 @@ async function mailOpenInvoice(r){const d=r.data||{},cs=impContracts(d).filter(c
  detail(host.id);const wait=async(f,n)=>{for(let i=0;i<n&&!f();i++)await new Promise(z=>setTimeout(z,100))};
  await wait(()=>DT&&DT.id==host.id&&DT.rec&&DT.inv,80);AM=ex?'invedit':'inv';if(ex)EINV=ex.id;DI=2;detail(host.id,1);
  await wait(()=>$('#impst'),60);
- IMP={...d,_rev:!!ex};impReview()}
+ IMP={...d,_rev:!!ex};await impFill()}
 async function mailBill(r){const d=r.data||{},cs=impContracts(d).filter(c=>c.no).map(c=>c.no),ins=(d.invoice_numbers||[]).filter(Boolean),box=$('#mpv');if(!box)return;
  let L=[];if(cs.length){const{data}=await sb.from('invoices').select('*').overlaps('contract_numbers',cs);L=data||[]}
  if(ins.length){const{data}=await sb.from('invoices').select('*').in('invoice_number',ins);(data||[]).forEach(v=>{if(!L.some(x=>x.id==v.id))L.push(v)})}

@@ -74,7 +74,7 @@ For a bill_of_lading or airway_bill:
 - invoice_numbers: invoice numbers mentioned in the description or marks.
 - contract_numbers: buyer PO numbers mentioned, if any.
 
-Never invent values. Use null when something is not printed. Put anything unclear or inconsistent in warnings.`;
+Never invent values. Use null when something is not printed. Warnings: list ONLY real problems the user must act on, such as a figure you could not read, two documents that disagree, or a total that does not add up. Each warning is one short sentence, at most 3 warnings. Never write confirmations ("matches", "is consistent", "read as"), never comment on date order, and never warn about blank net or gross weights. Dates are day first (DD.MM.YYYY): 06.11.2026 is 6 November 2026 and 01.10.2026 is 1 October 2026. If nothing is wrong, return an empty list.`;
 
 async function readDocs(files, key) {
   const content = [];
