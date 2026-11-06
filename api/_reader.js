@@ -1,4 +1,5 @@
 // Shared reader: sends PDFs / photos to Claude and returns the documents found in them.
+const { cleanContractRef } = require('./_contract');
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-haiku-5-5';
 const num = { type: ['number', 'null'] };
 const str = { type: ['string', 'null'] };
@@ -57,7 +58,7 @@ For an invoice:
 - invoice_number: the exporter's invoice number exactly as printed (for example CI-005/26-27 or 725/26-27/EX).
 - invoice_date: ISO YYYY-MM-DD. The day comes first. Two digit years are 20xx.
 - currency: ISO code (US $ is USD, euro sign is EUR, pound sign is GBP, rupee sign is INR).
-- contract_numbers: every buyer PO / order number printed (for example "JP 003", "JP 004", "CJV 892") as printed and without the date. Never include invoice numbers, LUT, REX, IE code, GSTIN or bank details.
+- contract_numbers: every buyer PO / order number printed (for example "JP 003", "JP 004", "CJV 892"). Return ONLY the number itself: remove labels such as "CONT NO.", "CONTRACT NO", "PO NO", "ORDER NO", "REF" and remove any date printed next to it. Example: the text "CONT NO.YRL 1109 - 01.10.2026" must be returned as "YRL 1109". Never include invoice numbers, LUT, REX, IE code, GSTIN or bank details.
 - lines: one entry per article + colour + selection from the invoice breakdown (use packing list subtotals if the invoice has none). Never return individual box rows.
   - article: the printed article name or number for that line (for example LP or SNUFFED), else null. description: the printed goods description.
   - colour and selection: split labels such as "VERDE -GH" into colour VERDE and selection GH, and "BLACK ABC" into colour BLACK and selection ABC.
@@ -97,7 +98,13 @@ async function readDocs(files, key) {
   if (!r.ok) { const e = new Error((j && j.error && j.error.message) || 'The reader failed.'); e.status = 502; throw e; }
   const t = (j.content || []).find(c => c.type === 'tool_use');
   if (!t) { const e = new Error('The reader did not return any data.'); e.status = 502; throw e; }
-  return Array.isArray(t.input.documents) ? t.input.documents : [];
+  const docs = Array.isArray(t.input.documents) ? t.input.documents : [];
+  const uniq = a => [...new Set(a.filter(Boolean))];
+  docs.forEach(d => {
+    if (Array.isArray(d.contract_numbers)) d.contract_numbers = uniq(d.contract_numbers.map(x => cleanContractRef(x)));
+    if (Array.isArray(d.lines)) d.lines.forEach(l => { if (l && l.contract_no) l.contract_no = cleanContractRef(l.contract_no); });
+  });
+  return docs;
 }
 
 module.exports = { readDocs };
