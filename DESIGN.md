@@ -36,11 +36,3 @@ Contract: Issued, Inspected, Completed. Letter and debit note: Issued, Completed
 
 ## How to ask for a change
 Send a screenshot, say which screen, say what feels wrong in one line. One screen per request gives the best result.
-
-## Paper & ink (v26 redesign)
-- Final layer: `<style id="paper">` at the end of the CSS. It wins over everything above it. Change tokens there first.
-- Palette: paper `--panel`, desk `--page`, slips `--kbffffff`, ink `--ink` (also the accent: buttons, active chips). Colour is reserved for status (`--st-*`).
-- Type: Fraunces serif for titles and contract numbers, Figtree for body, monospace for small labels and stamps.
-- Status = stamp: outlined, uppercase, mono, slightly tilted on phone cards. Cards get a coloured spine (`border-left` in `--xs`).
-- Phone navigation: bottom dock (`#dock`, same `data-t` / `data-settings` handlers as the sidebar). Page dots are hidden. Swipe still works.
-- Desktop: dark ink sidebar, cream active item.
