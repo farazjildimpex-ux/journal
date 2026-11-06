@@ -1,12 +1,13 @@
 // Receives documents from the Gmail script, reads them and stores them for approval in the app.
 // Vercel environment variables needed: ANTHROPIC_API_KEY, SUPABASE_SERVICE_KEY. (The secret is stored in Supabase mail_settings; MAIL_SECRET in Vercel still works if you set it.)
 const { readDocs } = require('./_reader');
+const { envv } = require('./_env');
 const SB_URL = 'https://ethhzxagxejxfxkzgndk.supabase.co';
 
 const sbf = (path, opt = {}) => fetch(SB_URL + '/rest/v1/' + path, {
   ...opt,
   headers: {
-    apikey: process.env.SUPABASE_SERVICE_KEY, Authorization: 'Bearer ' + process.env.SUPABASE_SERVICE_KEY,
+    apikey: envv('SUPABASE_SERVICE_KEY'), Authorization: 'Bearer ' + envv('SUPABASE_SERVICE_KEY'),
     'Content-Type': 'application/json', ...(opt.headers || {})
   }
 });
@@ -22,7 +23,7 @@ const allowedFrom = (from, list) => {
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'Use POST' });
-  const key = process.env.ANTHROPIC_API_KEY, svc = process.env.SUPABASE_SERVICE_KEY;
+  const key = envv('ANTHROPIC_API_KEY'), svc = envv('SUPABASE_SERVICE_KEY');
   if (!svc) return res.status(500).json({ error: 'SUPABASE_SERVICE_KEY is not set in Vercel. Add it under Settings, Environment Variables (Production), then Redeploy.' });
   const sent = String(req.headers['x-mail-secret'] || '');
   if (!sent) return res.status(401).json({ error: 'Wrong secret' });
@@ -35,7 +36,7 @@ module.exports = async (req, res) => {
     const srj = await sr.json();
     if (!sr.ok) return res.status(502).json({ error: 'Could not read settings from Supabase. Check SUPABASE_SERVICE_KEY is the service_role key. ' + String((srj && srj.message) || '').slice(0, 120) });
     const set = (srj || [])[0] || { enabled: true, allowed: [] };
-    const good = [set.secret, process.env.MAIL_SECRET].filter(Boolean);
+    const good = [set.secret, envv('MAIL_SECRET')].filter(Boolean);
     if (!good.length) return res.status(500).json({ error: 'No secret yet. Run supabase-mailbox.sql in Supabase once, then open Settings, Email inbox in the app.' });
     if (!good.some(x => same(x, sent))) return res.status(401).json({ error: 'Wrong secret' });
     if (b.ping || set.enabled !== false) {

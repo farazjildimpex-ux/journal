@@ -7,7 +7,7 @@ const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') return res.status(405).json({ error: 'Use POST' });
-  const key = process.env.ANTHROPIC_API_KEY;
+  const key = require('./_env').envv('ANTHROPIC_API_KEY');
   if (!key) return res.status(500).json({ error: 'The reader is not set up yet. Add ANTHROPIC_API_KEY in Vercel (Settings, Environment Variables) and redeploy.' });
   const tok = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
   if (!tok) return res.status(401).json({ error: 'Please sign in again.' });
