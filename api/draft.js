@@ -51,10 +51,13 @@ HARD RULES
 - Do not flatter. One short, specific sentence showing you know what they do, then what you can supply that matches it.
 - Tone by company type: manufacturer = materials, specs, consistency; trader = range, margins, speed, reliable supply; agent = a partnership, not competition; brand = quality, traceability, small lots. 
 - Short: 90 to 140 words for a first email. Plain words, no hype, no "I hope this email finds you well", no "turbulent times". End with ONE easy question, not a request for a call right away unless that fits.
-- Write in ${clean(b.language, 40) || 'the language the company site uses if it is clear (Italian, Spanish, German, French), otherwise English'}. Keep it simple and correct.
+- LANGUAGE: if the company is in an English-speaking country, or no local language is clear, write English only. Otherwise write the SAME email twice in one message: the English version first, then a line with three dashes (---), then the version in the company's own language (Italian for Italy, Spanish for Spain, and so on, taken from the research language or country). Keep both natural and equivalent. The subject line is English, a slash, then the local-language subject. Set language to e.g. "English + Italian".
 - Address a named person only when RESEARCH names one for the chosen recipient; otherwise a neutral greeting.
 - ${STEPS[step]}
 - Do not include a signature, address or opt-out line.
+
+INTRODUCTION (how the sender introduces himself; rephrase naturally, never copy word for word)
+${clean(s.intro, 1200) || '(none given: introduce him in one plain sentence using SENDER FACTS)'}
 
 SENDER FACTS
 ${clean(s.facts, 1500) || '(none)'}
@@ -75,7 +78,7 @@ Other notes from the sender: ${clean(b.note, 600) || '(none)'}`;
       r = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-        body: JSON.stringify({ model: m, max_tokens: 1400, tools: [TOOL], tool_choice: { type: 'tool', name: 'write_email' }, messages: [{ role: 'user', content: prompt }] })
+        body: JSON.stringify({ model: m, max_tokens: 2400, tools: [TOOL], tool_choice: { type: 'tool', name: 'write_email' }, messages: [{ role: 'user', content: prompt }] })
       });
       j = await r.json();
       if (r.ok || ![400, 404].includes(r.status)) break;
