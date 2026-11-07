@@ -97,6 +97,7 @@ const TOOL = {
       contacts: { type: 'array', items: { type: 'object', properties: { name: { type: 'string' }, role: { type: 'string' }, email: { type: 'string' } }, required: ['name'] }, description: 'People named on the pages. Email only if printed next to or linked to that person.' },
       notes: { type: 'array', items: { type: 'string' }, description: 'At most 3 short things worth knowing before writing to them, such as certifications, brands they supply, or a named buyer. Nothing generic.' },
       facts: { type: 'array', items: { type: 'object', properties: { fact: { type: 'string' }, source_url: { type: 'string' } }, required: ['fact', 'source_url'] }, description: 'The 3 to 6 most useful facts, each with the page address it came from.' },
+      stages: { type: 'array', items: { type: 'string', enum: ['raw_hides', 'wet_blue', 'crust', 'finished_leather', 'footwear_or_goods', 'unclear'] }, description: 'Which kinds of material the company deals in, as stated in the text: raw hides or skins, wet blue, crust, finished leather, or footwear and leather goods.' },
       unclear: { type: 'array', items: { type: 'string' }, description: 'What you could not find out.' }
     },
     required: ['business_type', 'summary', 'unclear']
