@@ -1438,6 +1438,24 @@ html:not([data-theme="dark"]) body{background:var(--page)}
 }
 
 </style>
+<style id="fbcss">
+.fbmode{margin:var(--sp-4) 0 var(--sp-8)}
+.fbtop{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-8);margin:var(--sp-8) 0;font-size:var(--fs-13);color:var(--ink2)}
+.fbtop b{color:var(--ink)}
+.fbc{display:block;width:100%;text-align:left;margin-bottom:var(--sp-8);cursor:pointer;padding:var(--sp-12)}
+.fbc .lds{margin-top:var(--sp-4)}
+.fbg .fbm{margin-top:var(--sp-8);font-size:var(--fs-12);color:var(--ink3);word-break:break-word}
+.fbg.cu{opacity:.6}
+.fbw{font-style:italic}
+.fbs{margin:var(--sp-8) 0}
+.fbs .btn{margin:0}
+.fbpt{font-size:var(--fs-12);color:var(--ink3);margin:var(--sp-8) 0}
+.fbp{font-size:var(--fs-13);color:var(--ink2);margin:0 0 var(--sp-12);line-height:1.5}
+.fbbar{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.fbbar i{display:block;height:100%;background:var(--st-issued);transition:width .3s}
+.fbback{margin:var(--sp-4) 0}
+</style>
+
 <script>
 const SB_URL='https://ethhzxagxejxfxkzgndk.supabase.co',
 SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0aGh6eGFneGVqeGZ4a3pnbmRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MDQwNjIsImV4cCI6MjA2NDI4MDA2Mn0.FMCc_AwksmDGQqGdCoazcxIJ7i3635fkrJinx5gNucA';
@@ -1939,13 +1957,118 @@ function ldList(){if(!LDL)return'<div class="empty">Loading clients…</div>';co
 const ldSetup=()=>`<section class="ds ldset"><div class="ldk">One-time setup</div><p>Follow-up history needs one small table in Supabase. Copy this, paste it into the SQL Editor, tap Run, then come back here.</p><pre id="ldsql">${esc(LSQL)}</pre><button class="btn ghost wide" data-ldcopy>Copy SQL</button><button class="btn wide" data-ldretry>I’ve run it</button></section>`;
 function renderLeads(keep){const v=$('#view');if(!v)return;LDX.forEach(l=>l._i=lInfo(l));const due=LDX.filter(l=>l._i.bucket<=1).length;
  const ldSub=LDL?(due?`${due} due · `:'')+`${LDX.length} client${LDX.length==1?'':'s'}`:'Loading…',ldHead=innerWidth>=900?`<div class="dtop"><div><div class="hk" id="ldn">${ldSub}</div><h1>Buyers</h1></div><div class="dacts">${NEW.replace('data-new','data-ldnew')}</div></div>`:`<div class="head hob"><h1>Buyers</h1>${NEW.replace('data-new','data-ldnew')}<div class="sub" id="ldn">${ldSub}</div></div>`;
- v.innerHTML=`<div class="pane ${keep?'na':''}">${ldHead}${FUOK?'':ldSetup()}<input class="sbox" id="lq" type="search" placeholder="Search clients or articles" value="${esc(lq)}" autocomplete="off"><div class="chs" id="ldch">${ldChips()}</div><div id="ll">${ldList()}</div></div>`}
+ const msw=`<div class="chs fbmode"><button class="ch c-ld ${lmode=='clients'?'on':''}" data-lmode="clients">Clients</button><button class="ch c-ld ${lmode=='find'?'on':''}" data-lmode="find">Find buyers</button></div>`;
+ if(lmode=='find'){v.innerHTML=`<div class="pane ${keep?'na':''}">${ldHead}${msw}<div id="fbv">${fbView()}</div></div>`;if(!FB.loaded&&!FB.loading)fbLoad();return}
+ v.innerHTML=`<div class="pane ${keep?'na':''}">${ldHead}${msw}${FUOK?'':ldSetup()}<input class="sbox" id="lq" type="search" placeholder="Search clients or articles" value="${esc(lq)}" autocomplete="off"><div class="chs" id="ldch">${ldChips()}</div><div id="ll">${ldList()}</div></div>`}
 async function loadLeads(){if(LDB)return;LDB=true;
  try{const[a,b]=await Promise.all([sb.from('leads').select('*').order('company_name').limit(2000),sb.from('lead_followups').select('*').order('done_on',{ascending:false}).limit(5000)]);
   if(a.error)toast(a.error.message);else LDX=a.data||[];
   if(b.error){if(/lead_followups|schema cache|does not exist/i.test(b.error.message||''))FUOK=false;else toast(b.error.message)}else{FU=b.data||[];FUOK=true}
   LDL=true;LDT=Date.now()}catch(e){toast('Could not load leads')}finally{LDB=false}
  if(tab==4)renderLeads(1)}
+/* ===== Find buyers: researches the public LWG supplier directory, one country at a time ===== */
+const FBSQL=`create table if not exists lwg_companies (
+  id text primary key,
+  name text not null,
+  site_type text,
+  rating text,
+  country text,
+  country_raw text,
+  city text,
+  domain text,
+  website text,
+  phone text,
+  address text,
+  animals text,
+  materials jsonb,
+  urn text,
+  cert_until date,
+  detail_at timestamptz,
+  first_seen timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+alter table lwg_companies enable row level security;
+create policy "lwg read" on lwg_companies for select to authenticated using (true);
+create policy "lwg insert" on lwg_companies for insert to authenticated with check (true);
+create policy "lwg update" on lwg_companies for update to authenticated using (true) with check (true);`;
+const FBT={leather_manufacturer:'Leather manufacturer',trader:'Trader',subcontractor:'Subcontractor',commissioning_manufacturer:'Commissioning'};
+const FREEM=/^(gmail|googlemail|yahoo|hotmail|outlook|live|icloud|aol|msn|gmx|web|libero|virgilio|tiscali|protonmail|proton|yandex|qq|163|126)\./;
+let FB={rows:[],loaded:false,loading:false,ok:true,country:'',types:[],animals:[],showCust:false,more:60,busy:'',stop:false,newIds:[]},lmode='clients';
+const fbDom=v=>{v=String(v||'').toLowerCase().trim().replace(/^https?:\/\//,'').replace(/^www\./,'').split(/[\/?#]/)[0];return /^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(v)&&!FREEM.test(v)?v:''};
+const fbBase=n=>String(n||'').split(/\s+[-–—]\s+/)[0].trim();
+const fbKey=n=>fbBase(n).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\b(s\.?r\.?l\.?|s\.?p\.?a\.?|s\.?a\.?s\.?|s\.?n\.?c\.?|s\.?l\.?u?\.?|s\.?a\.?|ltd|limited|gmbh|co|inc|llc|lda|ltda|pvt|private|the)\b/g,' ').replace(/[^a-z0-9]+/g,'');
+function fbApiTok(){return sb.auth.getSession().then(({data})=>data&&data.session?data.session.access_token:'')}
+async function fbApi(body){const tok=await fbApiTok();const r=await fetch('/api/lwg',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+tok},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'The directory could not be reached');return j}
+async function fbLoad(){if(FB.loading)return;FB.loading=true;
+ try{let all=[],from=0;for(;;){const{data,error}=await sb.from('lwg_companies').select('id,name,site_type,rating,country,city,domain,website,phone,address,animals,materials,urn,detail_at,first_seen').range(from,from+999);
+   if(error){if(/lwg_companies|schema cache|does not exist/i.test(error.message||''))FB.ok=false;else toast(error.message);break}
+   all=all.concat(data||[]);if(!data||data.length<1000)break;from+=1000}
+  if(FB.ok)FB.rows=all;FB.loaded=true}catch(e){toast('Could not load the buyer directory')}finally{FB.loading=false}
+ try{await loadCB()}catch(e){}
+ if(tab==4&&lmode=='find')fbPaint()}
+function fbCustomers(){const dom=new Set(),keys=new Set();const add=(n,e,w)=>{const k=fbKey(n);if(k.length>=4)keys.add(k);[e,w].forEach(x=>{String(x||'').split(/[,;\s]+/).forEach(p=>{const d=fbDom(p.includes('@')?p.split('@')[1]:p);if(d)dom.add(d)})})};
+ (CB||[]).forEach(c=>add(c.name,c.email,''));(LDX||[]).forEach(l=>add(l.company_name,l.email,l.website));return{dom,keys}}
+function fbGroups(rows){const G=[],byDom=new Map(),byKey=new Map(),cust=fbCustomers();
+ const mk=r=>({rows:[r],dom:fbDom(r.domain)||fbDom(r.website),key:fbKey(r.name)});
+ const sorted=rows.slice().sort((a,b)=>(fbDom(b.domain)?1:0)-(fbDom(a.domain)?1:0));
+ sorted.forEach(r=>{const d=fbDom(r.domain)||fbDom(r.website),k=fbKey(r.name);let g=d&&byDom.get(d)||byKey.get(k);
+  if(g){g.rows.push(r);if(d&&!g.dom){g.dom=d;byDom.set(d,g)}}else{g=mk(r);G.push(g);if(d)byDom.set(d,g);if(k)byKey.set(k,g)}if(d&&!byDom.has(d))byDom.set(d,g);if(k&&!byKey.has(k))byKey.set(k,g)});
+ G.forEach(g=>{g.name=fbBase(g.rows[0].name);g.types=[...new Set(g.rows.map(r=>r.site_type).filter(Boolean))];g.animals=[...new Set(g.rows.flatMap(r=>String(r.animals||'').split(',').map(x=>x.trim()).filter(Boolean)))];
+  g.cities=[...new Set(g.rows.map(r=>r.city).filter(Boolean))];g.web=g.rows.map(r=>String(r.website||'').trim()).find(w=>fbDom(w))||'';g.phone=(g.rows.find(r=>r.phone)||{}).phone||'';
+  g.rating=['Gold','Silver','Bronze','Audited','Approved'].find(x=>g.rows.some(r=>r.rating==x))||'';g.det=g.rows.every(r=>r.detail_at);g.isNew=g.rows.some(r=>FB.newIds.includes(r.id));
+  g.cust=!!(g.dom&&cust.dom.has(g.dom))||g.rows.some(r=>{const k=fbKey(r.name);return k.length>=4&&cust.keys.has(k)})});
+ return G}
+const fbN=n=>Number(n).toLocaleString('en-GB');
+function fbView(){if(!FB.ok)return`<section class="ds ldset"><div class="ldk">One-time setup</div><p>The buyer directory needs one small table in Supabase. Copy this, paste it into the SQL Editor, tap Run, then come back here.</p><pre id="fbsql">${esc(FBSQL)}</pre><button class="btn ghost wide" data-fbcopy>Copy SQL</button><button class="btn wide" data-fbretry>I’ve run it</button></section>`;
+ if(!FB.loaded)return'<div class="empty">Loading…</div>';
+ if(!FB.rows.length)return`<section class="ds"><div class="ldk">LWG directory</div><p class="fbp">Search the Leather Working Group directory by country and type. The app reads the public list, merges companies that appear more than once, and leaves out people already in your contacts.</p><button class="btn wide" data-fbsync ${FB.busy?'disabled':''}>${FB.busy||'Get the directory'}</button></section>`;
+ return FB.country?fbCountry():fbCountries()}
+function fbCountries(){const by={};FB.rows.forEach(r=>{(by[r.country||'Unknown']=by[r.country||'Unknown']||[]).push(r)});
+ const L=Object.entries(by).map(([c,rs])=>{const g=fbGroups(rs);return{c,sites:rs.length,co:g.filter(x=>!x.cust).length,cu:g.filter(x=>x.cust).length,tr:rs.filter(r=>r.site_type=='trader').length}}).sort((a,b)=>b.sites-a.sites);
+ const nw=FB.newIds.length;
+ return`<div class="fbtop"><div><b>${fbN(FB.rows.length)}</b> sites in <b>${L.length}</b> countries</div><button class="ldq" data-fbsync ${FB.busy?'disabled':''}>${FB.busy||'Check for new members'}</button></div>${nw?`<div class="impg">${nw} new member${nw==1?'':'s'} found this time.</div>`:''}<div class="day">Pick a country</div>`+L.map(x=>`<button class="card fbc" data-fbc="${esc(x.c)}"><div class="cr"><h3>${esc(x.c)}</h3><div class="rt"><i class="fb ok">${fbN(x.co)} compan${x.co==1?'y':'ies'}</i></div></div><div class="lds"><span>${fbN(x.sites)} site${x.sites==1?'':'s'}</span>${x.tr?`<span>${fbN(x.tr)} traders</span>`:''}${x.cu?`<span>${x.cu} already yours</span>`:''}</div></button>`).join('')}
+function fbFiltered(){const rs=FB.rows.filter(r=>(r.country||'Unknown')==FB.country);let G=fbGroups(rs);
+ const tc={},ac={};G.forEach(g=>{g.types.forEach(t=>tc[t]=(tc[t]||0)+1);g.animals.forEach(a=>ac[a]=(ac[a]||0)+1)});
+ const all=G.length,cust=G.filter(g=>g.cust).length;
+ if(!FB.showCust)G=G.filter(g=>!g.cust);
+ if(FB.types.length)G=G.filter(g=>g.types.some(t=>FB.types.includes(t)));
+ if(FB.animals.length)G=G.filter(g=>g.animals.some(a=>FB.animals.includes(a)));
+ G.sort((a,b)=>(b.isNew-a.isNew)||a.name.localeCompare(b.name));return{G,tc,ac,all,cust,rs}}
+function fbNeed(){const rs=FB.rows.filter(r=>(r.country||'Unknown')==FB.country&&!r.detail_at&&(!FB.types.length||FB.types.includes(r.site_type)));return rs}
+function fbCountry(){const{G,tc,ac,all,cust,rs}=fbFiltered(),need=fbNeed(),loaded=rs.length-FB.rows.filter(r=>(r.country||'Unknown')==FB.country&&!r.detail_at).length;
+ const tch=Object.keys(tc).sort((a,b)=>tc[b]-tc[a]).map(t=>`<button class="ch c-ld ${FB.types.includes(t)?'on':''}" data-fbt="${t}">${FBT[t]||t} · ${tc[t]}</button>`).join('');
+ const ach=Object.keys(ac).sort((a,b)=>ac[b]-ac[a]).map(a=>`<button class="ch c-ld ${FB.animals.includes(a)?'on':''}" data-fba="${esc(a)}">${esc(a)} · ${ac[a]}</button>`).join('');
+ const prog=FB.busy?`<div class="fbbar"><i style="width:${FB.pct||0}%"></i></div><div class="fbpt">${esc(FB.busy)}</div><button class="ldq" data-fbstop>Stop</button>`:(need.length?`<button class="btn wide" data-fbdet>Read ${need.length} company page${need.length==1?'':'s'} (animals, website, phone)</button><div class="fbpt">Pick a type first to read fewer pages. About ${Math.max(1,Math.round(need.length/8*3/60))} min.</div>`:`<div class="fbpt">All details read for this selection.</div>`);
+ const shown=G.slice(0,FB.more);
+ return`<button class="ldq fbback" data-fbback>‹ All countries</button><div class="fbtop"><div><b>${esc(FB.country)}</b> · ${G.length} compan${G.length==1?'y':'ies'}</div><button class="ldq" data-fbcsv>Download CSV</button></div>
+ <div class="chs">${tch}</div>${ach?`<div class="chs">${ach}</div>`:''}
+ <section class="ds fbs">${prog}</section>
+ ${cust?`<div class="fbpt"><button class="ldq" data-fbcust>${FB.showCust?'Hide':'Show'} ${cust} already in your contacts</button></div>`:''}
+ ${shown.length?shown.map(fbCard).join(''):'<div class="empty">No companies match</div>'}${G.length>shown.length?`<button class="btn ghost wide" data-fbmore>Show more (${G.length-shown.length})</button>`:''}`}
+function fbCard(g){const i=FB.country?FB.rows.indexOf(g.rows[0]):0;
+ return`<div class="card fbg ${g.cust?'cu':''}"><div class="ct" data-fbopen="${esc(g.rows[0].id)}"><div class="cr"><h3>${esc(g.name)}</h3><div class="rt">${g.cust?'<i class="fb">Yours</i>':g.isNew?'<i class="fb ok">New</i>':''}</div></div><div class="lds">${g.types.map(t=>`<span class="lst" style="--c:${t=='trader'?'#2563EB':t=='commissioning_manufacturer'?'#7C3AED':t=='subcontractor'?'#8B8B93':'#0E9F6E'}">${FBT[t]||t}</span>`).join('')}${g.rating?`<span>${g.rating}</span>`:''}${g.rows.length>1?`<span>${g.rows.length} sites</span>`:''}</div>${g.animals.length?`<div class="ldar">${g.animals.map(a=>`<span class="lat">${esc(a)}</span>`).join('')}</div>`:''}<div class="fbm">${g.web?esc(fbDom(g.web)):(g.dom?esc(g.dom):'<span class="fbw">no website yet</span>')}${g.phone?' · '+esc(g.phone):''}${g.cities.length?' · '+esc(g.cities.slice(0,3).join(', ')):''}</div></div></div>`}
+function fbPaint(){const el=$('#fbv');if(el){const sy=el.closest('.pane')?el.closest('.pane').scrollTop:0;el.innerHTML=fbView();const p=el.closest('.pane');if(p)p.scrollTop=sy}}
+async function fbSync(){if(FB.busy)return;const old=new Set(FB.rows.map(r=>r.id)),got=[];FB.busy='Reading the directory…';fbPaint();
+ try{let after='',n=0;for(;;){const j=await fbApi({action:'page',after});got.push(...j.rows);n++;FB.busy=`Reading the directory… ${fbN(got.length)}${j.total?' of '+fbN(j.total):''}`;FB.pct=j.total?Math.min(95,got.length/j.total*100):0;fbPaint();if(!j.next||n>60)break;after=j.next;await new Promise(r=>setTimeout(r,200))}
+  FB.busy='Saving…';fbPaint();
+  const now=new Date().toISOString();for(let i=0;i<got.length;i+=200){const ch=got.slice(i,i+200).map(r=>({id:r.id,name:r.name,site_type:r.site_type,rating:r.rating,country:r.country,country_raw:r.country_raw,updated_at:now}));const{error}=await sb.from('lwg_companies').upsert(ch,{onConflict:'id'});if(error)throw new Error(error.message)}
+  FB.newIds=old.size?got.filter(r=>!old.has(r.id)).map(r=>r.id):[];FB.rows=[];FB.loaded=false;FB.busy='';await fbLoad();toast(FB.newIds.length?FB.newIds.length+' new members':'Directory is up to date')}
+ catch(e){FB.busy='';toast(e.message||'Could not read the directory')}fbPaint()}
+async function fbDetails(){if(FB.busy)return;const todo=fbNeed();if(!todo.length)return;FB.stop=false;let done=0;FB.busy='Reading company pages… 0 of '+todo.length;FB.pct=0;fbPaint();
+ try{for(let i=0;i<todo.length&&!FB.stop;i+=8){const ids=todo.slice(i,i+8).map(r=>r.id),j=await fbApi({action:'detail',ids}),now=new Date().toISOString(),up=[];
+   j.rows.forEach(d=>{const r=FB.rows.find(x=>x.id==d.id);if(!r)return;if(!d.missing){Object.assign(r,{urn:d.urn||r.urn,domain:d.domain||'',website:d.website||'',phone:d.phone||'',address:d.address||'',city:d.city||'',animals:d.animals||'',materials:d.materials||[]})}r.detail_at=now;
+    up.push({id:r.id,name:r.name,site_type:r.site_type,rating:r.rating,country:r.country,urn:r.urn||null,domain:r.domain||null,website:r.website||null,phone:r.phone||null,address:r.address||null,city:r.city||null,animals:r.animals||null,materials:r.materials||null,detail_at:now,updated_at:now})});
+   const{error}=await sb.from('lwg_companies').upsert(up,{onConflict:'id'});if(error)throw new Error(error.message);
+   done+=ids.length;FB.busy=`Reading company pages… ${done} of ${todo.length}`;FB.pct=done/todo.length*100;fbPaint()}}
+ catch(e){toast(e.message||'Stopped. Tap again to continue')}
+ FB.busy='';fbPaint()}
+function fbCsv(){const{G}=fbFiltered(),q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"',h=['Company','Country','Type','Animals','Sites','Cities','Website','Phone','Rating'];
+ const t=[h.map(q).join(',')].concat(G.map(g=>[g.name,FB.country,g.types.map(x=>FBT[x]||x).join('; '),g.animals.join('; '),g.rows.length,g.cities.join('; '),g.web||g.dom,g.phone,g.rating].map(q).join(','))).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+t],{type:'text/csv'}));a.download='buyers-'+FB.country.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+today()+'.csv';document.body.appendChild(a);a.click();a.remove()}
+function fbOpen(id){const r0=FB.rows.find(r=>r.id==id);if(!r0)return;const g=fbGroups(FB.rows.filter(r=>(r.country||'Unknown')==FB.country)).find(x=>x.rows.some(r=>r.id==id));if(!g)return;
+ const kv=(k,v)=>v?`<div class="kv"><span>${k}</span><b>${v}</b></div>`:'';
+ const sites=g.rows.map(r=>`<section class="ds"><div class="ldk">${esc(r.name)}</div>${kv('Type',FBT[r.site_type]||esc(r.site_type||''))}${kv('Rating',esc(r.rating||''))}${kv('Animals',esc(r.animals||''))}${kv('Address',esc(r.address||r.city||''))}${kv('Phone',esc(r.phone||''))}${kv('LWG number',esc(r.urn||''))}</section>`).join('');
+ ldSheet(g.name,`${FB.country}${g.rows.length>1?' · '+g.rows.length+' sites merged':''}`,`${g.cust?'<div class="impw2">Already in your contacts</div>':''}<section class="ds">${kv('Website',g.web?`<a href="${esc(/^https?:/.test(g.web)?g.web:'https://'+g.web)}" target="_blank" rel="noopener">${esc(g.web)}</a>`:'')}${kv('Types',g.types.map(t=>FBT[t]||t).join(', '))}${kv('Animals',esc(g.animals.join(', ')))}</section>${sites}`)}
 function ldSheet(title,sub,body,back){open(`<div class="th-h">${back?'<button class="x" data-ldback aria-label="Back">‹</button>':''}<div style="flex:1"><h2>${esc(title)}</h2>${sub?`<p>${esc(sub)}</p>`:''}</div><button class="x" data-close aria-label="Close">✕</button></div><div class="tl2">${body}</div>`,'tall');requestAnimationFrame(()=>document.querySelectorAll('.ei').forEach(grow))}
 const LSYS=['id','user_id','company_name','contact_person','email','phone','created_at','updated_at','_i'];
 function ldDetail(id){const l=LDX.find(x=>x.id==id);if(!l)return;LS={id};const I=l._i=lInfo(l),ph=String(l.phone||'').split(/[,;/]/)[0].trim(),dg=ph.replace(/\D/g,'');
@@ -2352,7 +2475,21 @@ async function onClick(t){const d=t.dataset;
  else if('lddel'in d){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to delete';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Delete'},3000);return}await ldDel()}
  else if(d.ldfdel){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to remove';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Remove'},3000);return}await ldFDel(d.ldfdel)}
  else if('ldcopy'in d){try{await navigator.clipboard.writeText(LSQL);toast('SQL copied')}catch(e){const r=document.createRange();r.selectNodeContents($('#ldsql'));const g=getSelection();g.removeAllRanges();g.addRange(r);toast('Select and copy the SQL')}}
- else if('ldretry'in d){LDL=false;LDT=0;await loadLeads();if(FUOK)toast('Follow-ups are ready');else toast('Table still not found')}
+else if(d.lmode){lmode=d.lmode;renderLeads(1)}
+ else if('fbsync'in d)await fbSync()
+ else if('fbdet'in d)await fbDetails()
+ else if('fbstop'in d){FB.stop=true}
+ else if(d.fbc){FB.country=d.fbc;FB.types=[];FB.animals=[];FB.more=60;FB.showCust=false;fbPaint();const p=$('#fbv');if(p&&p.closest('.pane'))p.closest('.pane').scrollTop=0}
+ else if('fbback'in d){FB.country='';fbPaint()}
+ else if(d.fbt){FB.types=FB.types.includes(d.fbt)?FB.types.filter(x=>x!=d.fbt):[...FB.types,d.fbt];FB.more=60;fbPaint()}
+ else if(d.fba){FB.animals=FB.animals.includes(d.fba)?FB.animals.filter(x=>x!=d.fba):[...FB.animals,d.fba];FB.more=60;fbPaint()}
+ else if('fbcust'in d){FB.showCust=!FB.showCust;fbPaint()}
+ else if('fbmore'in d){FB.more+=60;fbPaint()}
+ else if('fbcsv'in d)fbCsv()
+ else if(d.fbopen)fbOpen(d.fbopen)
+ else if('fbcopy'in d){try{await navigator.clipboard.writeText(FBSQL);toast('SQL copied')}catch(e){const r=document.createRange();r.selectNodeContents($('#fbsql'));const g=getSelection();g.removeAllRanges();g.addRange(r);toast('Select and copy the SQL')}}
+ else if('fbretry'in d){FB.ok=true;FB.loaded=false;await fbLoad();if(FB.ok)toast('Ready');else toast('Table still not found')}
+  else if('ldretry'in d){LDL=false;LDT=0;await loadLeads();if(FUOK)toast('Follow-ups are ready');else toast('Table still not found')}
  else if('newo'in d)newPicker()
  else if(d.nk)await newBlank(d.nk)
  else if(d.reorder)await reorder(d.reorder)
@@ -2794,7 +2931,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['27','7 Nov 2026',['Renamed: Leads is now Buyers, and Email inbox is now Invoice mail. Nothing else changed']],['25','6 Nov 2026',['Cleaner look: text sizes and spacing now follow one consistent scale','Behind the scenes: removed 29 unneeded style overrides']],['24','6 Nov 2026',['Invoices read from email or upload now fill the form straight away. Just check and save','Reader warnings only show real problems, and dates are read day first']],['23','6 Nov 2026',['Invoice reader: contract numbers printed with a label and date (for example CONT NO.YRL 1109 - 01.10.2026) are now understood and matched to the right contract','New email alert: only the first letter of your name turns red and pulses','Orderbook on desktop: columns line up in every row, even when a row has document icons']],
+const APP_LOG=[['28','7 Nov 2026',['Buyers: new Find buyers tab. Pick a country from the LWG directory, filter by type and animal, see merged companies without your existing customers, and download a CSV','One-time setup: run the new SQL shown on the Find buyers tab']],['27','7 Nov 2026',['Renamed: Leads is now Buyers, and Email inbox is now Invoice mail. Nothing else changed']],['25','6 Nov 2026',['Cleaner look: text sizes and spacing now follow one consistent scale','Behind the scenes: removed 29 unneeded style overrides']],['24','6 Nov 2026',['Invoices read from email or upload now fill the form straight away. Just check and save','Reader warnings only show real problems, and dates are read day first']],['23','6 Nov 2026',['Invoice reader: contract numbers printed with a label and date (for example CONT NO.YRL 1109 - 01.10.2026) are now understood and matched to the right contract','New email alert: only the first letter of your name turns red and pulses','Orderbook on desktop: columns line up in every row, even when a row has document icons']],
  ['22','6 Nov 2026',['Email inbox: the secret is now fixed and saved with your account (same on every device, no more Make secret). Vercel no longer needs MAIL_SECRET. Run supabase-mailbox.sql once more']],
  ['21','6 Nov 2026',['Clearer look on phone: solid coloured status chips, bolder numbers, darker secondary text, cards stand out from the page']],
  ['20','6 Nov 2026',['Orderbook cards: swipe gestures removed, swiping left or right changes page again. Tap a card for Open and Mark options']],
