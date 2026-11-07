@@ -2027,7 +2027,7 @@ async function fbLoad(){if(FB.loading)return;FB.loading=true;
   if(FB.ok)FB.rows=all;FB.loaded=true;
   const rr=await sb.from('lwg_research').select('*').limit(5000);if(rr.error){if(/lwg_research|schema cache|does not exist/i.test(rr.error.message||''))FRok=false}else{FRok=true;FR={};(rr.data||[]).forEach(x=>FR[x.group_key]=x)}}catch(e){toast('Could not load the buyer directory')}finally{FB.loading=false}
  try{await loadCB()}catch(e){}
- await outLoad();
+ await outLoad();await fbViewLoad();
  if(tab==4&&lmode=='find')fbPaint()}
 function fbCustomers(){const dom=new Set(),keys=new Set();const add=(n,e,w)=>{const k=fbKey(n);if(k.length>=4)keys.add(k);[e,w].forEach(x=>{String(x||'').split(/[,;\s]+/).forEach(p=>{const d=fbDom(p.includes('@')?p.split('@')[1]:p);if(d)dom.add(d)})})};
  (CB||[]).forEach(c=>add(c.name,c.email,''));(LDX||[]).forEach(l=>add(l.company_name,l.email,l.website));return{dom,keys}}
@@ -2090,7 +2090,10 @@ function fbResBox(G){if(!FRok)return`<section class="ds ldset"><div class="ldk">
  return`<section class="ds fbs"><div class="ldk">Research</div>${chips?`<div class="chs">${chips}</div>`:''}${run}${wb}</section>`}
 function fbCard(g){const i=FB.country?FB.rows.indexOf(g.rows[0]):0;
  return`<div class="card fbg ${g.cust?'cu':''}"><div class="ct" data-fbopen="${esc(g.rows[0].id)}"><div class="cr"><h3>${esc(g.name)}</h3><div class="rt">${g.cust?'<i class="fb">Yours</i>':g.isNew?'<i class="fb ok">New</i>':''}</div></div><div class="lds">${g.types.map(t=>`<span class="lst" style="--c:${t=='trader'?'#2563EB':t=='commissioning_manufacturer'?'#7C3AED':t=='subcontractor'?'#8B8B93':'#0E9F6E'}">${FBT[t]||t}</span>`).join('')}${g.rating?`<span>${g.rating}</span>`:''}${(()=>{const r=fbRes(g);return r?`<span class="lst" style="--c:#0E9F6E">${FBTY[r.business_type]||'Researched'}</span>${fbMails(r).length?`<span>✉ ${fbMails(r).length}</span>`:'<span>no email</span>'}${fbScore(g)?`<span class="lst" style="--c:#B45309">Fit ${fbScore(g)}/10</span>`:''}`:''})()}${g.rows.length>1?`<span>${g.rows.length} sites</span>`:''}</div>${g.animals.length?`<div class="ldar">${g.animals.map(a=>`<span class="lat">${esc(a)}</span>`).join('')}</div>`:''}<div class="fbm">${g.web?esc(fbDom(g.web)):(g.dom?esc(g.dom):'<span class="fbw">no website yet</span>')}${g.phone?' · '+esc(g.phone):''}${g.cities.length?' · '+esc(g.cities.slice(0,3).join(', ')):''}</div></div></div>`}
-function fbPaint(){const el=$('#fbv');if(el){const sy=el.closest('.pane')?el.closest('.pane').scrollTop:0;el.innerHTML=fbView();const p=el.closest('.pane');if(p)p.scrollTop=sy}}
+let FBVJ='';
+async function fbViewLoad(){if(FB.viewDone||!OUT.ok)return;FB.viewDone=true;try{const{data}=await sb.from('outreach_settings').select('data').eq('id','view').maybeSingle();const v=data&&data.data;if(v&&v.country){FB.country=v.country;FB.types=v.types||[];FB.animals=v.animals||[];FB.btypes=v.btypes||[];FB.hasMail=!!v.hasMail;FB.showCust=!!v.showCust;FBVJ=JSON.stringify(v)}}catch(e){}}
+function fbViewSave(){if(!FB.viewDone||!OUT.ok)return;const v={country:FB.country,types:FB.types,animals:FB.animals,btypes:FB.btypes,hasMail:FB.hasMail,showCust:FB.showCust},j=JSON.stringify(v);if(j==FBVJ)return;FBVJ=j;clearTimeout(window.__fbvt);window.__fbvt=setTimeout(()=>{sb.from('outreach_settings').upsert({id:'view',data:v,updated_at:new Date().toISOString()}).then(()=>{},()=>{})},800)}
+function fbPaint(){fbViewSave();const el=$('#fbv');if(el){const sy=el.closest('.pane')?el.closest('.pane').scrollTop:0;el.innerHTML=fbView();const p=el.closest('.pane');if(p)p.scrollTop=sy}}
 async function fbSync(){if(FB.busy)return;const old=new Set(FB.rows.map(r=>r.id)),got=[];FB.busy='Reading the directory…';fbPaint();
  try{let after='',n=0;for(;;){const j=await fbApi({action:'page',after});got.push(...j.rows);n++;FB.busy=`Reading the directory… ${fbN(got.length)}${j.total?' of '+fbN(j.total):''}`;FB.pct=j.total?Math.min(95,got.length/j.total*100):0;fbPaint();if(!j.next||n>60)break;after=j.next;await new Promise(r=>setTimeout(r,200))}
   FB.busy='Saving…';fbPaint();
@@ -3113,7 +3116,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['35','7 Nov 2026',['Buyers: Add companies from a list. Upload a CSV or paste rows from customs data or a fair exhibitor list; they merge with LWG, skip your customers and go through the same research. Logo picker lists every company; Write email now shows the real error on screen. One-time SQL for lists is shown on the import screen']],
+const APP_LOG=[['36','8 Nov 2026',['Buyers remembers your country and filters in the cloud, so the phone and the Mac open on the same screen']],
+['35','7 Nov 2026',['Buyers: Add companies from a list. Upload a CSV or paste rows from customs data or a fair exhibitor list; they merge with LWG, skip your customers and go through the same research. Logo picker lists every company; Write email now shows the real error on screen. One-time SQL for lists is shown on the import screen']],
 ['34','7 Nov 2026',['Buyers: Write emails for the best 15 at once from the filtered list, then approve them together in Emails to approve. Signature now shows your logo and signature image (choose them in Settings > Outreach)']],
 ['33','7 Nov 2026',['Researched buyers are listed best fit first (Fit x/10: trader, manufacturer or brand, buys what you supply, a named contact with an email)']],
 ['32','7 Nov 2026',['Research now skips subcontractors and websites with no leather or footwear business, so no credit is spent on them. Tap Research again on a company to force a full study']],
