@@ -70,12 +70,16 @@ ${JSON.stringify(co.profile).slice(0, 7000)}
 Recipient: ${clean(b.to_name, 80) || '(unknown)'} ${clean(b.to_email, 120)}
 Other notes from the sender: ${clean(b.note, 600) || '(none)'}`;
   try {
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: MODEL, max_tokens: 1400, tools: [TOOL], tool_choice: { type: 'tool', name: 'write_email' }, messages: [{ role: 'user', content: prompt }] })
-    });
-    const j = await r.json();
+    let r, j;
+    for (const m of [...new Set([MODEL, 'claude-haiku-5-5'])]) {   // fall back to the model the invoice reader already uses
+      r = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({ model: m, max_tokens: 1400, tools: [TOOL], tool_choice: { type: 'tool', name: 'write_email' }, messages: [{ role: 'user', content: prompt }] })
+      });
+      j = await r.json();
+      if (r.ok || ![400, 404].includes(r.status)) break;
+    }
     if (!r.ok) throw Object.assign(new Error((j && j.error && j.error.message) || 'The email could not be written.'), { status: 502 });
     const t = (j.content || []).find(c => c.type === 'tool_use');
     if (!t) throw Object.assign(new Error('No email came back.'), { status: 502 });
