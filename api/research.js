@@ -150,6 +150,10 @@ module.exports = async (req, res) => {
     const dom = site ? hostOf(site).replace(/^www\./, '') : '';
     emails = [...new Set(emails)].sort((a, c) => (c.endsWith('@' + dom) ? 1 : 0) - (a.endsWith('@' + dom) ? 1 : 0)).slice(0, 8);
     text += 'Email addresses printed on the pages: ' + (emails.join(', ') || 'none') + '\n';
+    // cheap gate, no AI: a site that never mentions leather or footwear is not a buyer for us
+    if (pages.length && !lwg && !b.force && !/leath|pell[ei]|cuoi|cuir|piel|cuero|couro|leder|tann|conceri|curtid|footwear|shoe|scarp|calzad|chaussure|schuh|sapat|boot|handbag|borse/i.test(pages.map(p => toText(p.html)).join(' '))) {
+      return res.status(200).json({ ok: true, skipped: true, emails, lwg: null, pages: pages.map(p => p.url), profile: { business_type: 'not_relevant', summary: 'Nothing about leather or footwear on the website, so it was not studied further.', buys: [], sells: [], animals: [], markets: [], site_language: '', contacts: [], notes: [], facts: [], unclear: [] } });
+    }
     if (!pages.length && !lwg) return res.status(200).json({ ok: false, reason: 'no_pages', emails: [], pages: [], profile: null });
     const r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',

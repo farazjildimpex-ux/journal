@@ -2011,7 +2011,7 @@ alter table lwg_research enable row level security;
 create policy "lwg research read" on lwg_research for select to authenticated using (true);
 create policy "lwg research insert" on lwg_research for insert to authenticated with check (true);
 create policy "lwg research update" on lwg_research for update to authenticated using (true) with check (true);`;
-const FBTY={manufacturer:'Manufacturer',tannery:'Tannery',trader:'Trader',agent:'Agent',brand:'Brand',unclear:'Unclear'};
+const FBTY={manufacturer:'Manufacturer',tannery:'Tannery',trader:'Trader',agent:'Agent',brand:'Brand',unclear:'Unclear',not_relevant:'Not a buyer'};
 let FR={},FRok=true,FRbusy=false;
 let FB={rows:[],btypes:[],hasMail:false,loaded:false,loading:false,ok:true,country:'',types:[],animals:[],showCust:false,more:60,busy:'',stop:false,newIds:[]},lmode='find';
 const fbDom=v=>{v=String(v||'').toLowerCase().trim().replace(/^https?:\/\//,'').replace(/^www\./,'').split(/[\/?#]/)[0];return /^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(v)&&!FREEM.test(v)?v:''};
@@ -2073,10 +2073,11 @@ function fbCountry(){const{G,tc,ac,all,cust,rs}=fbFiltered(),need=fbNeed(),loade
  ${fbResBox(G)}
  ${cust?`<div class="fbpt"><button class="ldq" data-fbcust>${FB.showCust?'Hide':'Show'} ${cust} already in your contacts</button></div>`:''}
  ${shown.length?shown.map(fbCard).join(''):'<div class="empty">No companies match</div>'}${G.length>shown.length?`<button class="btn ghost wide" data-fbmore>Show more (${G.length-shown.length})</button>`:''}`}
+const fbElig=g=>!g.cust&&!fbRes(g)&&g.types.some(t=>t!=='subcontractor');
 function fbResBox(G){if(!FRok)return`<section class="ds ldset"><div class="ldk">One-time setup</div><p>Research results need one more small table. Copy this, run it in the Supabase SQL Editor, then tap the button.</p><pre id="frsql">${esc(FRSQL)}</pre><button class="btn ghost wide" data-frcopy>Copy SQL</button><button class="btn wide" data-fbretry>I’ve run it</button></section>`;
- const todo=G.filter(g=>!g.cust&&!fbRes(g)),done=G.filter(g=>fbRes(g)),bt={};done.forEach(g=>{const t=fbRes(g).business_type;bt[t]=(bt[t]||0)+1});
+ const todo=G.filter(fbElig),done=G.filter(g=>fbRes(g)),bt={};done.forEach(g=>{const t=fbRes(g).business_type;bt[t]=(bt[t]||0)+1});
  const chips=Object.keys(bt).map(t=>`<button class="ch c-ld ${FB.btypes.includes(t)?'on':''}" data-fbbt="${t}">${FBTY[t]||t} · ${bt[t]}</button>`).join('')+(done.length?`<button class="ch c-ld ${FB.hasMail?'on':''}" data-fbmail>Has email</button>`:'');
- const run=FRbusy?`<div class="fbbar"><i style="width:${FB.rpct||0}%"></i></div><div class="fbpt">${esc(FRbusy)}</div><button class="ldq" data-fbrstop>Stop</button>`:(todo.length?`<button class="btn wide" data-fbresall>Research ${Math.min(todo.length,40)} compan${Math.min(todo.length,40)==1?'y':'ies'}${todo.length>40?' (next 40 of '+todo.length+')':''}</button><div class="fbpt">Reads each company's website for what they do, what they buy and who to write to. About ${Math.max(1,Math.round(Math.min(todo.length,40)*12/60))} min.</div>`:`<div class="fbpt">${done.length?done.length+' researched.':'Nothing to research here.'}</div>`);
+ const run=FRbusy?`<div class="fbbar"><i style="width:${FB.rpct||0}%"></i></div><div class="fbpt">${esc(FRbusy)}</div><button class="ldq" data-fbrstop>Stop</button>`:(todo.length?`<button class="btn wide" data-fbresall>Research ${Math.min(todo.length,40)} compan${Math.min(todo.length,40)==1?'y':'ies'}${todo.length>40?' (next 40 of '+todo.length+')':''}</button><div class="fbpt">Reads each company's website for what they do, what they buy and who to write to. Skips subcontractors and sites with no leather or footwear business, so no credit is spent on them. About ${Math.max(1,Math.round(Math.min(todo.length,40)*12/60))} min.</div>`:`<div class="fbpt">${done.length?done.length+' researched.':'Nothing to research here.'}</div>`);
  return`<section class="ds fbs"><div class="ldk">Research</div>${chips?`<div class="chs">${chips}</div>`:''}${run}</section>`}
 function fbCard(g){const i=FB.country?FB.rows.indexOf(g.rows[0]):0;
  return`<div class="card fbg ${g.cust?'cu':''}"><div class="ct" data-fbopen="${esc(g.rows[0].id)}"><div class="cr"><h3>${esc(g.name)}</h3><div class="rt">${g.cust?'<i class="fb">Yours</i>':g.isNew?'<i class="fb ok">New</i>':''}</div></div><div class="lds">${g.types.map(t=>`<span class="lst" style="--c:${t=='trader'?'#2563EB':t=='commissioning_manufacturer'?'#7C3AED':t=='subcontractor'?'#8B8B93':'#0E9F6E'}">${FBT[t]||t}</span>`).join('')}${g.rating?`<span>${g.rating}</span>`:''}${(()=>{const r=fbRes(g);return r?`<span class="lst" style="--c:#0E9F6E">${FBTY[r.business_type]||'Researched'}</span>${fbMails(r).length?`<span>✉ ${fbMails(r).length}</span>`:'<span>no email</span>'}`:''})()}${g.rows.length>1?`<span>${g.rows.length} sites</span>`:''}</div>${g.animals.length?`<div class="ldar">${g.animals.map(a=>`<span class="lat">${esc(a)}</span>`).join('')}</div>`:''}<div class="fbm">${g.web?esc(fbDom(g.web)):(g.dom?esc(g.dom):'<span class="fbw">no website yet</span>')}${g.phone?' · '+esc(g.phone):''}${g.cities.length?' · '+esc(g.cities.slice(0,3).join(', ')):''}</div></div></div>`}
@@ -2096,12 +2097,12 @@ async function fbDetails(){if(FB.busy)return;const todo=fbNeed();if(!todo.length
  catch(e){toast(e.message||'Stopped. Tap again to continue')}
  FB.busy='';fbPaint()}
 function fbGroupById(id){return fbGroups(FB.rows.filter(r=>(r.country||'Unknown')==FB.country)).find(x=>x.rows.some(r=>r.id==id))}
-async function fbResearchOne(g){const names=[...new Set(g.rows.map(r=>r.name))].slice(0,4),sites=[...new Set(g.rows.flatMap(r=>[r.website,r.domain]).filter(w=>fbDom(w)))].slice(0,3);
- const j=await fbApi({names,country:FB.country,type:g.types.map(t=>FBT[t]||t).join(', '),animals:g.animals.join(', '),sites},'/api/research');
+async function fbResearchOne(g,force){const names=[...new Set(g.rows.map(r=>r.name))].slice(0,4),sites=[...new Set(g.rows.flatMap(r=>[r.website,r.domain]).filter(w=>fbDom(w)))].slice(0,3);
+ const j=await fbApi({names,country:FB.country,type:g.types.map(t=>FBT[t]||t).join(', '),animals:g.animals.join(', '),sites,force:!!force},'/api/research');
  const key=g.dom?'d:'+g.dom:'n:'+fbKey(g.rows[0].name),now=new Date().toISOString();
  const row={group_key:key,company:g.name,country:FB.country,domain:g.dom||null,business_type:j.ok&&j.profile?j.profile.business_type:'unclear',profile:j.profile||null,emails:j.emails||[],lwg:j.lwg||null,pages:j.pages||[],status:j.ok?'done':(j.reason||'failed'),researched_at:now};
  const{error}=await sb.from('lwg_research').upsert(row,{onConflict:'group_key'});if(error)throw new Error(error.message);FR[key]=row;return row}
-async function fbResearchAll(){if(FRbusy)return;const todo=fbFiltered().G.filter(g=>!g.cust&&!fbRes(g)).slice(0,40);if(!todo.length)return;FB.rstop=false;let n=0,fail=0;FRbusy='Researching… 0 of '+todo.length;FB.rpct=0;fbPaint();
+async function fbResearchAll(){if(FRbusy)return;const todo=fbFiltered().G.filter(fbElig).slice(0,40);if(!todo.length)return;FB.rstop=false;let n=0,fail=0;FRbusy='Researching… 0 of '+todo.length;FB.rpct=0;fbPaint();
  for(const g of todo){if(FB.rstop)break;
   try{await fbResearchOne(g)}catch(e){fail++;if(/not set up|sign in|ANTHROPIC|credit|billing|rate/i.test(e.message||'')){toast(e.message);break}}
   n++;FRbusy=`Researching… ${n} of ${todo.length} · ${g.name}`;FB.rpct=n/todo.length*100;fbPaint()}
@@ -2148,7 +2149,7 @@ async function outSave(){const o={};document.querySelectorAll('[data-ou]').forEa
 const outKey=g=>g.dom?'d:'+g.dom:'n:'+fbKey(g.rows[0].name);
 const outFor=k=>OUT.drafts.filter(d=>d.group_key==k);
 const outFull=d=>(d.body||'').trim()+'\n\n'+(OUT.s.signature||'').trim()+(OUT.s.optout?'\n\n'+OUT.s.optout.trim():'');
-async function outWrite(g,step,prev){const r=fbRes(g);if(!r||!r.profile){toast('Research this company first');return}
+async function outWrite(g,step,prev){const r=fbRes(g);if(!r||!r.profile){toast('Research this company first');return}if(r.business_type=='not_relevant'){toast('The website shows no leather or footwear business');return}
  if(!(OUT.s.catalogue||'').trim()){toast('Add what you can supply in Settings > Outreach first');return}
  const p=r.profile,mails=fbMails(r),ct=(p.contacts||[]).find(c=>c.email)||null,to=ct?ct.email:(mails.find(m=>!/^(info|office|contact|sales|admin)@/i.test(m))||mails[0]||''),nm=ct&&ct.email==to?ct.name:'';
  const j=await fbApi({settings:OUT.s,company:{name:g.name,country:FB.country,profile:p},to_email:to,to_name:nm,step,previous:prev||''},'/api/draft'),e=j.email;
@@ -2592,7 +2593,7 @@ else if(d.lmode){lmode=d.lmode;renderLeads(1)}
  else if(d.fbt){FB.types=FB.types.includes(d.fbt)?FB.types.filter(x=>x!=d.fbt):[...FB.types,d.fbt];FB.more=60;fbPaint()}
  else if(d.fba){FB.animals=FB.animals.includes(d.fba)?FB.animals.filter(x=>x!=d.fba):[...FB.animals,d.fba];FB.more=60;fbPaint()}
  else if('fbcust'in d){FB.showCust=!FB.showCust;fbPaint()}
- else if(d.fbres){const g=fbGroupById(d.fbres);if(!g)return;t.disabled=true;t.textContent='Researching… about 15 seconds';try{await fbResearchOne(g);const b=$('#fbrb');if(b)b.innerHTML=fbResBody(fbGroupById(d.fbres)||g);fbPaint();toast('Research saved')}catch(e){t.disabled=false;t.textContent='Research this company';toast(e.message||'Research failed')}}
+ else if(d.fbres){const g=fbGroupById(d.fbres);if(!g)return;t.disabled=true;t.textContent='Researching… about 15 seconds';try{await fbResearchOne(g,true);const b=$('#fbrb');if(b)b.innerHTML=fbResBody(fbGroupById(d.fbres)||g);fbPaint();toast('Research saved')}catch(e){t.disabled=false;t.textContent='Research this company';toast(e.message||'Research failed')}}
  else if('fbresall'in d)await fbResearchAll()
  else if('fbrstop'in d){FB.rstop=true}
  else if(d.fbbt){FB.btypes=FB.btypes.includes(d.fbbt)?FB.btypes.filter(x=>x!=d.fbbt):[...FB.btypes,d.fbbt];FB.more=60;fbPaint()}
@@ -3056,7 +3057,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['31','7 Nov 2026',['Buyers: Write email. Drafts a short email from what each company buys and what you supply, in your voice, then waits in Emails to approve. Nothing is sent. Settings > Outreach holds what you supply, signature and past emails. Run the third SQL box once (supabase-outreach.sql)']],
+const APP_LOG=[['32','7 Nov 2026',['Research now skips subcontractors and websites with no leather or footwear business, so no credit is spent on them. Tap Research again on a company to force a full study']],
+['31','7 Nov 2026',['Buyers: Write email. Drafts a short email from what each company buys and what you supply, in your voice, then waits in Emails to approve. Nothing is sent. Settings > Outreach holds what you supply, signature and past emails. Run the third SQL box once (supabase-outreach.sql)']],
 ['30','7 Nov 2026',['Find buyers: Research. Reads a company website, works out if it is a manufacturer, trader, agent or brand, what it buys, who to write to and any email printed on the site. Every fact links to its page','Filter researched companies by business type or only those with an email','One-time setup: run the second SQL box on Find buyers']],['29','7 Nov 2026',['Buyers now opens straight on Find buyers. The old Clients tab is gone','Fixed: Get the directory said sign in again']],['28','7 Nov 2026',['Buyers: new Find buyers tab. Pick a country from the LWG directory, filter by type and animal, see merged companies without your existing customers, and download a CSV','One-time setup: run the new SQL shown on the Find buyers tab']],['27','7 Nov 2026',['Renamed: Leads is now Buyers, and Email inbox is now Invoice mail. Nothing else changed']],['25','6 Nov 2026',['Cleaner look: text sizes and spacing now follow one consistent scale','Behind the scenes: removed 29 unneeded style overrides']],['24','6 Nov 2026',['Invoices read from email or upload now fill the form straight away. Just check and save','Reader warnings only show real problems, and dates are read day first']],['23','6 Nov 2026',['Invoice reader: contract numbers printed with a label and date (for example CONT NO.YRL 1109 - 01.10.2026) are now understood and matched to the right contract','New email alert: only the first letter of your name turns red and pulses','Orderbook on desktop: columns line up in every row, even when a row has document icons']],
  ['22','6 Nov 2026',['Email inbox: the secret is now fixed and saved with your account (same on every device, no more Make secret). Vercel no longer needs MAIL_SECRET. Run supabase-mailbox.sql once more']],
  ['21','6 Nov 2026',['Clearer look on phone: solid coloured status chips, bolder numbers, darker secondary text, cards stand out from the page']],
