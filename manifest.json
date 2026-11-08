@@ -1,13 +1,13 @@
 {
-  "name": "Journal",
+  "name": "Journal \u00b7 Jild Impex",
   "short_name": "Journal",
-  "description": "Journal, orders and contacts",
+  "description": "Journal, orderbook, pending actions and buyers for Jild Impex",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#000000",
-  "theme_color": "#12141B",
+  "background_color": "#F4F5F8",
+  "theme_color": "#F4F5F8",
   "icons": [
     {
       "src": "icons/icon-192.png",
@@ -26,6 +26,52 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "id": "./",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "lang": "en-GB",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "productivity"
+  ],
+  "shortcuts": [
+    {
+      "name": "New journal entry",
+      "short_name": "New entry",
+      "url": "./index.html?go=new",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Orderbook",
+      "short_name": "Orders",
+      "url": "./index.html?go=orders",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Pending actions",
+      "short_name": "Pending",
+      "url": "./index.html?go=pending",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
