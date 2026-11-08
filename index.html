@@ -1684,6 +1684,41 @@ html[data-theme="dark"] .toast button{color:var(--blue)}
  .hxs .orp.on b{background:rgba(127,127,127,.28);color:inherit}
  .pane.hm.hl-c .dob .dch{flex-wrap:wrap}
 }
+
+/* ===== Board home ===== */
+.hbd{display:none}
+@media (min-width:900px){
+ .pane.hm.hl-d .dgrid{grid-template-columns:minmax(0,1fr) 340px;grid-template-areas:"bd jr"}
+ @media(min-width:1500px){.pane.hm.hl-d .dgrid{grid-template-columns:minmax(0,1fr) 380px}}
+ .hbd{grid-area:bd;display:flex}
+ .hbd .dch{flex-wrap:nowrap}.hbd .dch small{color:var(--mute);font-weight:600;white-space:nowrap}
+ .hbt{display:inline-flex;margin-left:var(--sp-8);padding:3px;border-radius:10px;background:var(--panel)}
+ .hbt button{padding:var(--sp-4) var(--sp-10,10px);border:0;border-radius:8px;background:none;font:inherit;font-size:var(--s12,12.5px);font-weight:600;color:var(--mute);cursor:pointer;white-space:nowrap}
+ .hbt button.on{background:var(--surf);color:var(--ink);box-shadow:0 1px 2px rgba(20,20,40,.12)}
+ .hbd .hxs{margin-left:auto}
+ .hbw{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-12);padding:var(--sp-12);background:var(--soft)}
+ .bcol{display:flex;flex-direction:column;min-height:0;border-radius:14px;background:var(--panel);transition:background .15s,box-shadow .15s}
+ html[data-theme="dark"] .bcol{background:rgba(255,255,255,.03)}
+ .bcol.over{background:var(--bl);box-shadow:inset 0 0 0 2px var(--blue)}
+ .bch{display:flex;align-items:center;gap:var(--sp-8);padding:var(--sp-12) var(--sp-12) var(--sp-8);font-size:var(--s13,13px)}
+ .bch i{width:9px;height:9px;border-radius:50%}
+ .bch b{font-weight:700;color:var(--ink)}.bch span{margin-left:auto;min-width:24px;padding:1px 8px;border-radius:99px;background:var(--surf);text-align:center;font-weight:700;font-size:12px;color:var(--ink2)}
+ .bcs{flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;display:flex;flex-direction:column;gap:var(--sp-8);padding:var(--sp-4) var(--sp-8) var(--sp-12)}
+ .bcard{flex:none;padding:var(--sp-12);border-radius:12px;background:var(--surf);box-shadow:0 1px 2px rgba(20,20,40,.06),0 8px 18px -14px rgba(20,20,40,.35);cursor:grab;transition:transform .15s,box-shadow .15s,opacity .15s;animation:up .45s cubic-bezier(.2,.9,.2,1) backwards}
+ .bcard:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(20,20,40,.06),0 14px 26px -14px rgba(20,20,40,.4)}
+ .bcard:active{cursor:grabbing}.bcard.drag{opacity:.4;transform:rotate(-1.5deg)}
+ .bcard.od{background:var(--od-bg,#FFEDE0);box-shadow:inset 3px 0 0 var(--od-ink,#A8552A),0 8px 18px -14px rgba(20,20,40,.35)}
+ html[data-theme="dark"] .bcard.od{background:var(--od-bgd,#3D2A20)}
+ .bct{display:flex;align-items:center;gap:var(--sp-8)}
+ .bct .oic{flex:none;width:26px;height:26px;border-radius:8px}.bct .oic svg{width:14px;height:14px}
+ .bct b{font-size:var(--s14,14.5px);font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+ .bct small{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+ .bsp{margin-top:var(--sp-8);font-size:var(--s13,13px);font-weight:600;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .bln{margin-top:2px;font-size:var(--s12,12.5px);line-height:1.4;color:var(--mute);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+ .bcard .dc,.bcard [class*="dchip"]{margin-top:var(--sp-6)}
+ .bempty{padding:var(--sp-20) var(--sp-12);border:1.5px dashed var(--bd);border-radius:12px;text-align:center;font-size:var(--s12,12.5px);color:var(--mute)}
+ .bmore{align-self:center}
+}
 </style>
 
 <script>
@@ -2754,15 +2789,15 @@ function render(keep){if(tab==2&&innerWidth>=900)tab=0;io&&io.disconnect();navSy
   if(!obAt&&!obBusy)loadOB();results();first=false;slide();return}
  if((tab==0||tab==1)&&innerWidth>=900){const hs=!!q.trim();obq='';
   v.innerHTML=`<div class="pane hm hl-${HL} ${f?'':'na'}${hs?' sq':''}"><div class="dtop"><div><div class="hk">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>${greetH()}</h1></div>${hlSwitch()}<div class="sbw">${SEARCH_SVG.replace('<svg','<svg class="si"')}<input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" title="Search tips: jp or micheal · join push and leather · -cancelled · &quot;exact phrase&quot;" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div>${hNew()}</div><div class="chs" id="schs" ${hs?'':'hidden'}>${schips()}</div><div class="dsr" id="sr" ${hs?'':'hidden'}></div>
-  <div class="dgrid" id="dgrid" ${hs?'hidden':''}>${HL=='a'?`<div class="htiles" id="htl">${hTiles()}</div>`:''}${HL=='b'?`<aside class="dcol h14"><div class="dch"><h2>Next 14 days</h2></div><div class="dsc" id="h14">${h14()}</div></aside>`:''}<section class="dcol dj"><div class="dch djh"><div class="dtabs" id="jtabs"><button data-jt="0" class="${tab?'':'on'}">Today</button><button data-jt="1" class="${tab?'on':''}">Earlier</button></div><div class="dacts"><button class="new gh" data-cal id="jcal" ${tab?'':'hidden'} aria-label="Jump to a date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button></div></div>${QADD}<div class="dsc" id="lst">${listHTML(f)}</div></section>
-  <section class="dcol dob" ${HL=='b'?'hidden':''}><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small>${HL=='c'?`<div class="hxs">${hxsIn()}</div>`:''}<div class="chs" id="chs">${chips()}</div></div><div class="dsc" id="obl">${obList(f)}</div></section></div></div>`;
+  <div class="dgrid" id="dgrid" ${hs?'hidden':''}>${HL=='d'?`<section class="dcol hbd"><div class="dch"><h2>Board</h2><small id="hbn"></small><div class="hbt">${[['all','All'],['contract','Contracts'],['letter','Letters'],['debit','Debit notes']].map(([k,t])=>`<button class="${HBT==k?'on':''}" data-hbt="${k}">${t}</button>`).join('')}</div><div class="hxs">${hxsIn()}</div></div><div class="hbw" id="hbd">${hBoard()}</div></section>`:''}${HL=='a'?`<div class="htiles" id="htl">${hTiles()}</div>`:''}${HL=='b'?`<aside class="dcol h14"><div class="dch"><h2>Next 14 days</h2></div><div class="dsc" id="h14">${h14()}</div></aside>`:''}<section class="dcol dj"><div class="dch djh"><div class="dtabs" id="jtabs"><button data-jt="0" class="${tab?'':'on'}">Today</button><button data-jt="1" class="${tab?'on':''}">Earlier</button></div><div class="dacts"><button class="new gh" data-cal id="jcal" ${tab?'':'hidden'} aria-label="Jump to a date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button></div></div>${QADD}<div class="dsc" id="lst">${listHTML(f)}</div></section>
+  <section class="dcol dob" ${HL=='b'||HL=='d'?'hidden':''}><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small>${HL=='c'?`<div class="hxs">${hxsIn()}</div>`:''}<div class="chs" id="chs">${chips()}</div></div><div class="dsc" id="obl">${obList(f)}</div></section></div></div>`;
   if(!OUT.loaded)outLoad().then(()=>{const t=$('#htl');if(t)t.innerHTML=hTiles()});requestAnimationFrame(fitMarks);
   $('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(homeSearch,130)};if(hs)results();first=false;slide();setTimeout(refocusSearch,60);return}
  v.innerHTML=`<div class="pane ${f?'':'na'}"><div class="head"><div><h1>${tab?'Earlier':'Today'}</h1><div class="sub">${tab?'Your journal, newest first':greetT()}</div></div>${tab?CAL:NEW}</div><div id="lst">${listHTML(f)}</div></div>`;first=false;slide()}
 /* ---- desktop Home layouts: a Dashboard, b Timeline, c Split (switch at the top of Home) ---- */
-let HL=(()=>{try{const v=localStorage.getItem('hlay');return['a','b','c'].includes(v)?v:'a'}catch(e){return'a'}})();
-const HLN={a:'Dashboard',b:'Timeline',c:'Split'};
-const hlSwitch=()=>`<div class="hlsw" role="tablist" aria-label="Home layout">${['a','b','c'].map(k=>`<button role="tab" class="${HL==k?'on':''}" aria-selected="${HL==k}" data-hl="${k}">${HLN[k]}</button>`).join('')}</div>`;
+let HL=(()=>{try{const v=localStorage.getItem('hlay2');return['d','a','b','c'].includes(v)?v:'d'}catch(e){return'd'}})(),HBT='all',HBALL=false;
+const HLN={d:'Board',a:'Dashboard',b:'Timeline',c:'Split'};
+const hlSwitch=()=>`<div class="hlsw" role="tablist" aria-label="Home layout">${['d','a','b','c'].map(k=>`<button role="tab" class="${HL==k?'on':''}" aria-selected="${HL==k}" data-hl="${k}">${HLN[k]}</button>`).join('')}</div>`;
 const hNew=()=>`<div class="hnew"><button class="new" data-hnew aria-haspopup="menu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg>New<svg class="hcv" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="hmenu" role="menu" hidden>${[['new','','Journal entry','A note, call or visit'],['nk','contract','Contract','Sale confirmation for a supplier'],['nk','letter','Letter','Sample or covering letter'],['nk','debit','Debit note','Commission debit to a supplier']].map(([a,v,t,d])=>`<button role="menuitem" data-${a}${v?`="${v}"`:''}><b>${t}</b><small>${d}</small></button>`).join('')}</div></div>`;
 const QADD='<div class="qadd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><input id="qadd" type="text" placeholder="What happened? Type and press Enter to save" autocomplete="off" enterkeyhint="done" aria-label="Quick journal entry"></div>';
 const hxsIn=()=>obAt?`<button class="orp od${obSt=='Overdue'?' on':''}" data-xst="Overdue">Overdue<b>${OB.filter(isOver).length}</b></button><button class="orp wk${obSt=='Week'?' on':''}" data-xst="Week">Due this week<b>${OB.filter(isWeek).length}</b></button>`:'';
@@ -2777,7 +2812,19 @@ function h14(){if(!obAt)return '<div class="card sk"></div>'.repeat(2);const t0=
  const strip=`<div class="h14s">${D.map(d=>{const x=new Date(d+'T00:00:00');return`<div class="hd${by[d]?' has':''}${d==D[0]?' hdt':''}" title="${by[d]?by[d].length+' due':''}"><small>${x.toLocaleDateString('en-GB',{weekday:'narrow'})}</small><b>${x.getDate()}</b><i>${by[d]?by[d].length:''}</i></div>`}).join('')}</div>`;
  const list=(od.length?`<div class="hgd od">Overdue · ${od.length}</div>`+od.map(row).join(''):'')+D.filter(d=>by[d]).map(d=>`<div class="hgd">${d==D[0]?'Today':d==D[1]?'Tomorrow':new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'})}</div>`+by[d].map(row).join('')).join('');
  return strip+(list||'<div class="empty"><b>Nothing due</b>No deliveries in the next 14 days.</div>')}
-function hRefresh(){const a=$('#hatt'),t=$('#htl'),g=$('#h14');if(a)a.innerHTML=hAttn();if(t)t.innerHTML=hTiles();if(g)g.innerHTML=h14();const n=$('#hattn');if(n)n.textContent=obAt?hDue().length:'';fitMarks()}
+/* Board: documents as cards in status columns; drag a card to change its status */
+const BSG=['Issued','Inspected','Completed'],BCOL=o=>o.st=='Inspected'?'Inspected':o.st=='Completed'?'Completed':'Issued';
+function hCard(o){const od=isOver(o);return `<div class="bcard ct t-${o.k}${od?' od':''}" draggable="true" data-orow="${o.id}" data-bid="${o.id}" tabindex="0"><div class="bct"><i class="oic">${ICON[o.k]}</i><b>${esc(o.no||'')}</b><small>${TN[o.k]}</small></div><div class="opty bsp" title="${esc(o.party||'')}" data-full="${esc(o.party||'—')}" data-mk="${esc(supMark(o.party))}">${esc(o.party||'—')}</div>${o.line?`<div class="bln">${esc(o.line)}</div>`:''}${dchip(o)||''}</div>`}
+function hBoard(){if(!obAt)return BSG.map(g=>`<div class="bcol"><div class="bch"><b>${g}</b></div><div class="bcs"><div class="card sk"></div></div></div>`).join('');
+ const L=OB.filter(o=>o.st!='Cancelled'&&(HBT=='all'||o.k==HBT)&&(!obSt||(obSt=='Overdue'?isOver(o):obSt=='Week'?isWeek(o):true))),C={Issued:[],Inspected:[],Completed:[]};
+ L.forEach(o=>C[BCOL(o)].push(o));const due=o=>o.dd||'9999';C.Issued.sort((a,b)=>cmp(due(a),due(b))||cmp(b.d,a.d));C.Inspected.sort((a,b)=>cmp(due(a),due(b))||cmp(b.d,a.d));C.Completed.sort((a,b)=>cmp(b.d,a.d));
+ const n=document.getElementById('hbn');if(n)n.textContent=L.length+' document'+(L.length==1?'':'s');
+ return BSG.map(g=>{const A=g=='Completed'&&!HBALL?C[g].slice(0,12):C[g];return `<div class="bcol" data-bst="${g}"><div class="bch"><i style="background:var(--st-${g.toLowerCase()})"></i><b>${g}</b><span>${C[g].length}</span></div><div class="bcs">${A.map(hCard).join('')||'<div class="bempty">Nothing here. Drag a card to move it.</div>'}${g=='Completed'&&C[g].length>12?`<button class="ux-link bmore" data-hball>${HBALL?'Show fewer':'Show all '+C[g].length}</button>`:''}</div></div>`}).join('')}
+document.addEventListener('dragstart',e=>{const c=e.target.closest&&e.target.closest('.bcard');if(!c)return;e.dataTransfer.setData('text/plain',c.dataset.bid);e.dataTransfer.effectAllowed='move';c.classList.add('drag');document.body.classList.add('bdrag')});
+document.addEventListener('dragend',()=>{document.querySelectorAll('.bcard.drag').forEach(x=>x.classList.remove('drag'));document.querySelectorAll('.bcol.over').forEach(x=>x.classList.remove('over'));document.body.classList.remove('bdrag')});
+document.addEventListener('dragover',e=>{const c=e.target.closest&&e.target.closest('.bcol[data-bst]');if(!c)return;e.preventDefault();e.dataTransfer.dropEffect='move';document.querySelectorAll('.bcol.over').forEach(x=>x!==c&&x.classList.remove('over'));c.classList.add('over')});
+document.addEventListener('drop',async e=>{const c=e.target.closest&&e.target.closest('.bcol[data-bst]');if(!c)return;e.preventDefault();c.classList.remove('over');const id=e.dataTransfer.getData('text/plain'),o=OB.find(x=>x.id==id),st=c.dataset.bst;if(!o||BCOL(o)==st)return;if(!STEPS[o.k].includes(st)){toast(TN[o.k]+'s go from Issued straight to Completed');return}await setSt(id,st)});
+function hRefresh(){const bd=$('#hbd');if(bd)bd.innerHTML=hBoard();const a=$('#hatt'),t=$('#htl'),g=$('#h14');if(a)a.innerHTML=hAttn();if(t)t.innerHTML=hTiles();if(g)g.innerHTML=h14();const n=$('#hattn');if(n)n.textContent=obAt?hDue().length:'';fitMarks()}
 /* supplier column: full name when it fits, otherwise the contact-book mark */
 function fitMarks(){document.querySelectorAll('.opty[data-mk]').forEach(e=>{const f=e.dataset.full,m=e.dataset.mk;if(e.querySelector('mark'))return;e.textContent=f;if(m&&m!=f&&e.scrollWidth>e.clientWidth+1)e.textContent=m})}
 /* desktop Home: quick add and the New menu */
@@ -2851,7 +2898,9 @@ async function onClick(t){const d=t.dataset;
  else if(d.pp){pgP=+d.pp;picker(d.pi,1)}
  else if(d.st){sType=sType==d.st?'all':d.st;pgS=1;schipSync();results()}
  else if('so'in d){sOpen=!sOpen;pgS=1;schipSync();results()}
- else if(d.hl){HL=d.hl;try{localStorage.setItem('hlay',HL)}catch(e){}first=true;render()}
+ else if(d.hl){HL=d.hl;try{localStorage.setItem('hlay2',HL)}catch(e){}first=true;render()}
+ else if(d.hbt){HBT=d.hbt;document.querySelectorAll('[data-hbt]').forEach(b=>b.classList.toggle('on',b.dataset.hbt==HBT));hRefresh()}
+ else if('hball'in d){HBALL=!HBALL;hRefresh()}
  else if('hnew'in d){const m=t.parentElement.querySelector('.hmenu');if(m)m.hidden=!m.hidden}
  else if(d.hgo){obSt=d.hgo;pgO=1;tab=3;first=true;render()}
  else if('hbuy'in d){tab=4;first=true;render()}
@@ -3454,7 +3503,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['46','8 Nov 2026',['Computer Home: three layouts to try (switch at the top): Dashboard with Overdue, Due this week, Invoice mail and Buyers tiles above the journal and orderbook; Timeline with the journal and the next 14 days; Split with the journal and orderbook. Type in "What happened?" and press Enter to save a journal entry. One New button with a menu. Supplier names that do not fit show their mark. Overdue and Due this week filters now work on the computer Orderbook too']],
+const APP_LOG=[['47','8 Nov 2026',['Computer Home: new Board layout (now the default). Contracts, letters and debit notes as cards in Issued, Inspected and Completed columns; drag a card to another column to change its status (with Undo). Overdue cards use your overdue colour. Filter by type, Overdue or Due this week. Today\'s journal with quick add on the right']],
+['46','8 Nov 2026',['Computer Home: three layouts to try (switch at the top): Dashboard with Overdue, Due this week, Invoice mail and Buyers tiles above the journal and orderbook; Timeline with the journal and the next 14 days; Split with the journal and orderbook. Type in "What happened?" and press Enter to save a journal entry. One New button with a menu. Supplier names that do not fit show their mark. Overdue and Due this week filters now work on the computer Orderbook too']],
 ['45','8 Nov 2026',['Today page: the Stacked order is gone; follow-ups and today\'s entries always show as separate cards']],
 ['44','8 Nov 2026',['Every page redesigned to match: text fields keep their original look; cards keep their shadows and entrance animations; on the phone, details read as label beside value; contract, letter and debit note pages have named tabs (Contract, Inspection, Invoice, Payments, Debit notes) instead of dots; Contacts is a clean list with a small Add button, and each contact has Call, Email and Edit buttons; Outreach settings split into About you, What you supply, Your voice, Signature and Mailbox; Reports dates no longer overflow; login shows your logo; dark mode messages are readable']],
 ['43','8 Nov 2026',['New layout. Phone: page names in a tab bar at the top (tap or swipe), Settings button top right, greeting moved under Today. Buyers: outreach, sources and countries as clean lists; inside a country the filters, research and companies are grouped, and on a computer they sit side by side. Settings grouped into Business, Documents, Buyers and App. Lighter, tighter lists. Dark mode filter chips fixed']],

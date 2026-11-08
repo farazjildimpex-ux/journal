@@ -53,3 +53,4 @@ Structure only; colours and fonts unchanged. Rules live in `<style id="v2">` at 
 - Long settings forms are split into named sections with a one-line explanation each, and one Save at the end.
 - Desktop Home has three trial layouts (`HL`: a Dashboard, b Timeline, c Split; stored in localStorage `hlay`). Shared pieces keep their ids (#lst, #obl, #chs, #obn); new panels: #htl tiles, #hatt Needs attention, #h14 next 14 days, refreshed by hRefresh() from obRefresh(). Remove the losing layouts once Faraz picks one.
 - Supplier column: full name when it fits, otherwise the contact-book mark (fitMarks()).
+- Board home (HL d, default, localStorage `hlay2`): three status columns (Issued, Inspected, Completed; Sent and other open states sit in Issued, Cancelled hidden). Cards are `.bcard.ct` with data-orow (click opens), draggable; drop calls setSt() (toast with Undo). Letters and debit notes have no Inspected step.
