@@ -1,6 +1,7 @@
 *.zip
 .DS_Store
-node_modules/
-.vercel/
 .env
 .env.*
+.vercel/
+node_modules
+node_modules/

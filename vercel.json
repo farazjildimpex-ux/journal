@@ -44,6 +44,9 @@
     "api/mail-intake.js": {
       "maxDuration": 60
     },
+    "api/outreach.js": {
+      "maxDuration": 30
+    },
     "api/draft.js": {
       "maxDuration": 60
     },
