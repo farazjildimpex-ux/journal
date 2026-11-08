@@ -51,6 +51,4 @@ Structure only; colours and fonts unchanged. Rules live in `<style id="v2">` at 
 - Detail pages (contract, letter, debit note): header = back, document number, then named tabs with an underline. No page dots anywhere.
 - People lists use initials avatars (`uxRow(...,{av:uxInit(name)})`). A person's page starts with quick actions (Call, Email, Edit).
 - Long settings forms are split into named sections with a one-line explanation each, and one Save at the end.
-- Desktop Home: Board (default, `hlay2`='d') or Split ('c'). Board = open documents in Issued and Inspected columns; a Complete drop zone (`.bdone`) appears on the right only while dragging; drop calls setSt() (toast with Undo). Letters and debit notes have no Inspected step. Cards: number + date, supplier (mark when it does not fit), article, then type tag and due indicator; left edge in the type colour (--tc); overdue uses the overdue colour.
-- Search on desktop Home filters in place: Board cards / Split orderbook (via obq) and the journal column (jSearchHTML, all dates). No separate results page there.
-- Supplier column: full name when it fits, otherwise the contact-book mark (fitMarks()).
+- Desktop Home stays as Faraz had it (journal and orderbook side by side). Board, dashboard and timeline layouts were tried on 8 Nov and rejected; do not reintroduce them.
