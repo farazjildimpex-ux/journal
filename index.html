@@ -1623,6 +1623,46 @@ html[data-theme="dark"] .ux-list,html[data-theme="dark"] .ux-pnl,html[data-theme
 html[data-theme="dark"] .toast button{color:var(--blue)}
 html[data-theme="dark"] mark{color:#16130A}.pane.hm .dj.jsq .card .ld{display:block;margin-top:var(--sp-8);opacity:1}.pane.hm .dj.jsq .dtabs button.on{color:var(--mute)}.pane.hm .dj.jsq .dtabs button.on:after{opacity:0}
 </style>
+<style id="hb">
+/* computer view at 90% (as Chrome zoom 90%) */
+@media(min-width:900px){
+ html{zoom:.9}
+ .app,.app>main{min-height:calc(100vh / .9)}
+ .side{height:calc(100vh / .9)}
+ .pane.hm{height:calc(100vh / .9)}
+ .sheet{max-height:calc(88vh / .9)}
+ .rp .rpw{max-height:calc(100vh / .9 - 360px)}
+ .wsg{height:calc(100vh / .9 - 208px)}
+}
+/* computer Home: orderbook on top, Pending actions and Emails to approve below it */
+.drt{display:grid;grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:var(--sp-16);min-height:0;min-width:0}
+.dbt{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:var(--sp-16);min-height:0;min-width:0}
+.drt>.dcol,.dbt>.dcol{min-height:0}
+.dpa .dsc,.dap .dsc{padding:var(--sp-4) var(--sp-16) var(--sp-12)}
+.pa,.apr{display:flex;align-items:center;gap:var(--sp-12);width:100%;padding:10px 0;border-top:1px solid var(--line);text-align:left;color:var(--ink);font:inherit;box-sizing:border-box}
+.pa:first-child,.apr:first-child{border-top:0}
+.pat{flex:1;min-width:0;display:block;text-align:left;color:inherit;font:inherit}
+.pt1{display:block;font-size:calc(14px*var(--fs,1));line-height:1.35;color:var(--ink2)}
+.pt1 b{font-weight:700;color:var(--ink);transition:color .15s}
+.pat small{display:block;font-size:calc(12px*var(--fs,1));color:var(--mute);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pat:hover .pt1 b,.apr:hover .pt1 b{color:var(--blue)}
+.pa.dn .pt1,.pa.dn .pt1 b{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--mute)}
+.pa.dn small{opacity:.6}
+.pbx{flex:none;width:20px;height:20px;border-radius:6px;box-shadow:inset 0 0 0 1.8px #C5C7D0;display:grid;place-items:center;transition:background .15s,box-shadow .15s}
+html[data-theme="dark"] .pbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
+.pbx svg{width:14px;height:14px;fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .15s}
+.pbx:not(:disabled):hover{box-shadow:inset 0 0 0 1.8px var(--blue)}.pbx:not(.on):hover svg{opacity:.45}
+.pbx.on,html[data-theme="dark"] .pbx.on{background:var(--st-completed);box-shadow:none}.pbx.on svg{opacity:1;stroke:#fff}
+.pbx:disabled{cursor:default}
+.pbx:focus-visible,.pat:focus-visible,.apr:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+.pdt{flex:none;font-size:calc(12px*var(--fs,1));font-weight:600;color:var(--mute);white-space:nowrap}
+.pdt.od{color:var(--od-ink,#A8481E)}html[data-theme="dark"] .pdt.od{color:var(--od-inkd,#F0A878)}
+.pdt.soon{color:var(--blue)}
+.plg{flex:none;font-size:calc(11px*var(--fs,1));font-weight:700;color:var(--blue);background:var(--bl);padding:2px 6px;border-radius:6px}
+.paem{padding:var(--sp-12) 0;font-size:calc(13px*var(--fs,1));line-height:1.5;color:var(--mute)}
+.paem b{display:block;font-size:calc(14px*var(--fs,1));font-weight:600;color:var(--ink);margin-bottom:2px}
+.pask{height:38px;margin:10px 0;border-radius:10px;background:linear-gradient(90deg,rgba(120,120,140,.08) 0,rgba(120,120,140,.16) 50%,rgba(120,120,140,.08) 100%) 0 0/200% 100%;animation:shim 1.2s linear infinite}
+</style>
 
 <script>
 const SB_URL='https://ethhzxagxejxfxkzgndk.supabase.co',
@@ -1631,6 +1671,7 @@ const NAME='Faraz';
 const greet=()=>{const h=new Date().getHours();return(h<5?'Good night':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Good night')+', '+NAME};
 const greetT=()=>{const h=new Date().getHours();return(h<5?'Good night':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Good night')+(NAME?', '+esc(String(NAME).split(' ')[0]):'')};
 const greetH=()=>{const h=new Date().getHours();return(h<5?'Good night':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Good night')+', <span class="gname"><i>'+esc([...String(NAME||'')][0]||'')+'</i>'+esc([...String(NAME||'')].slice(1).join(''))+'</span>'};
+const ZF=()=>parseFloat(getComputedStyle(document.documentElement).zoom)||1;
 const $=s=>document.querySelector(s),B=document.body,T='journal_entries',sb=supabase.createClient(SB_URL,SB_KEY,{global:{fetch:curFetch}});
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let E=[],uid=null,tab=0,q='',first=true,tt,tap={id:0,at:0,tm:0},dir=0,sy0=0,eDays=7,jump=null,sn=10,cm=new Date(),ctx=null,pq='',pp=1,ePage=1,sPage=1,io=null,tt2,eP=1,eTot=1,eLast=null,eBase=[],sShown=10,tL=[],tN=20,OB=[],obAt=0,obBusy=false,obType='all',obOpen=true,ns=false,pgT=1,pgE=1,pgS=1,pgO=1,pgP=1,sType='all',sOpen=false;const PS=15;let TSORT=(()=>{let v='fu';try{v=localStorage.getItem('tsort')||'fu'}catch(e){}return v=='stack'?'fu':v})(),TSTK=false,PZ=false,TDN=-1,RC={},TDX=new Set();TSTK=TSORT=='stack';let EINV='',PK={pg:0,act:''},DNN=[],DNI=[],DNC={key:'',L:[]},INVX=[],INVN=[],PAYINV='',DT=null,warm=0,DI=0,FF=null,EM=false,R={},LDEF=[],AM=null,SO=false,SV='home',cq='',pgC=1;
@@ -1750,7 +1791,7 @@ function obCardX(o,i,k){const nx=nextSt(o),bk=backSt(o),ic=obIcons(o),od=isOver(
 const SEARCH_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
 function renderOB(keep){if(innerWidth>=900){$('#view').innerHTML=`<div class="pane hm ob3 ${keep?'na':''}"><div class="dtop"><div><div class="hk" id="obn">${obCount()}</div><h1>Orderbook</h1></div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><section class="dcol dob"><div class="dfil" style="padding-top:14px"><div class="obs">${SEARCH_SVG}<input class="sbox" id="obq" type="search" placeholder="Search contracts, letters and debit notes" value="${esc(obq)}" autocomplete="off"></div><div class="chs" id="chs">${chips()}</div></div><div class="dsc" id="obl">${obList(!keep)}</div></section></div>`;return}
  $('#view').innerHTML=`<div class="pane obm ${keep?'na':''}"><div class="head hob"><h1>Orderbook</h1>${NEW.replace('data-new','data-newo')}<div class="sub" id="obn">${obCount()}</div></div><div class="oxq">${SEARCH_SVG}<input class="sbox" id="obq" type="search" placeholder="Search contracts, letters, debit notes" value="${esc(obq)}" autocomplete="off"></div><div class="opipe" id="obp">${obPipe()}</div><div class="chs" id="chs">${chips()}</div><div id="obl">${obList(!keep)}</div></div>`;obPipeMount()}
-function obRefresh(){if((tab==0||(tab==1&&innerWidth>=900))&&$('#lst'))$('#lst').innerHTML=listHTML(0);const l=$('#obl');if(!l)return;l.innerHTML=obList(0);$('#obn').textContent=obCount();const pp=$('#obp');if(pp){pp.innerHTML=obPipe();obPipeMount()}document.querySelectorAll('#chs .ch').forEach(b=>{b.classList.toggle('on',b.hasAttribute('data-obo')?obOpen:obType==b.dataset.obt);const n=b.querySelector('b');if(n)n.textContent=obN(n.dataset.k)})}
+function obRefresh(){if((tab==0||(tab==1&&innerWidth>=900))&&$('#lst'))$('#lst').innerHTML=listHTML(0);paSoon();const l=$('#obl');if(!l)return;l.innerHTML=obList(0);$('#obn').textContent=obCount();const pp=$('#obp');if(pp){pp.innerHTML=obPipe();obPipeMount()}document.querySelectorAll('#chs .ch').forEach(b=>{b.classList.toggle('on',b.hasAttribute('data-obo')?obOpen:obType==b.dataset.obt);const n=b.querySelector('b');if(n)n.textContent=obN(n.dataset.k)})}
 function obEnter(keep){if(!obBusy&&(!obAt||Date.now()-obAt>60000))loadOB();renderOB(keep)}
 async function obSet(id,st){const o=OB.find(x=>x.id==id),{data,error}=await sb.from(o.tb).update({status:st}).eq('id',id).select('id');if(error){toast(error.message);return false}if(!data.length){toast('You don’t have permission to change this one');return false}o.st=st;return true}
 async function advance(id,back){const o=OB.find(x=>x.id==id),prev=o.st,nx=back?backSt(o):nextSt(o);if(!nx||!await obSet(id,nx))return;
@@ -2628,7 +2669,7 @@ let TDB=0;
 let SMB=null;const closeSM=()=>{const m=$('#smenu');if(m)m.remove();if(SMB){SMB.removeAttribute('aria-expanded');SMB=null}};
 function stMenu(btn,id){const o=OB.find(x=>x.id==id);if(!o)return;const base=o.k=='contract'?CST:ST3,L=base.includes(o.st)||!o.st?base:[...base,o.st],m=document.createElement('div');m.className='smenu';m.id='smenu';m.setAttribute('role','menu');
  m.innerHTML='<div class="sm-h">Change status</div>'+L.map(x=>`<button role="menuitem" data-stv="${esc(x)}" data-sid="${id}" class="${x==o.st?'cur':''}" style="--sc:${SCOL[x]||'#6B7280'}"><i></i>${esc(x)}</button>`).join('');
- document.body.appendChild(m);const r=btn.getBoundingClientRect(),w=m.offsetWidth,h=m.offsetHeight;let x=Math.min(r.left,innerWidth-w-12),y=r.bottom+6;if(y+h>innerHeight-12)y=r.top-h-6;m.style.left=Math.max(8,x)+'px';m.style.top=Math.max(8,y)+'px';SMB=btn;btn.setAttribute('aria-expanded','true');const c=m.querySelector('.cur')||m.querySelector('button');c&&c.focus()}
+ document.body.appendChild(m);const z=ZF(),r0=btn.getBoundingClientRect(),r={left:r0.left/z,top:r0.top/z,bottom:r0.bottom/z},w=m.offsetWidth,h=m.offsetHeight,IW=innerWidth/z,IH=innerHeight/z;let x=Math.min(r.left,IW-w-12),y=r.bottom+6;if(y+h>IH-12)y=r.top-h-6;m.style.left=Math.max(8,x)+'px';m.style.top=Math.max(8,y)+'px';SMB=btn;btn.setAttribute('aria-expanded','true');const c=m.querySelector('.cur')||m.querySelector('button');c&&c.focus()}
 async function setSt(id,st){const o=OB.find(x=>x.id==id);if(!o||o.st==st)return;const prev=o.st;if(!await obSet(id,st))return;if(RC[id])RC[id].status=st;
  const re=()=>{obRefresh();if($('#sr'))results();if(DT&&DT.id==id)detail(id,1)};
  const row=document.querySelector(`.orow[data-id="${id}"]`);if(row&&obOpen&&!isOp(o)&&!(DT&&DT.id==id)){row.classList.add('gone');await sl(260)}
@@ -2693,9 +2734,67 @@ function render(keep){if(tab==2&&innerWidth>=900)tab=0;io&&io.disconnect();navSy
  if((tab==0||tab==1)&&innerWidth>=900){const hs=!!q.trim();obq=q.trim();
   v.innerHTML=`<div class="pane hm ${f?'':'na'}"><div class="dtop"><div><div class="hk">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>${greetH()}</h1></div><div class="sbw">${SEARCH_SVG.replace('<svg','<svg class="si"')}<input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" title="Search tips: jp or micheal · join push and leather · -cancelled · &quot;exact phrase&quot;" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div></div>
   <div class="dgrid" id="dgrid"><section class="dcol dj${hs?' jsq':''}"><div class="dch djh"><div class="dtabs" id="jtabs"><button data-jt="0" class="${tab?'':'on'}">Today</button><button data-jt="1" class="${tab?'on':''}">Earlier</button></div><div class="dacts"><button class="new gh" data-cal id="jcal" ${tab?'':'hidden'} aria-label="Jump to a date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button>${NEW}</div></div><div class="dsc" id="lst">${listHTML(f)}</div></section>
-  <section class="dcol dob"><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small><div class="chs" id="chs">${chips()}</div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><div class="dsc" id="obl">${obList(f)}</div></section></div></div>`;
-  $('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(homeSearch,130)};first=false;slide();setTimeout(refocusSearch,60);return}
+  <div class="drt"><section class="dcol dob"><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small><div class="chs" id="chs">${chips()}</div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><div class="dsc" id="obl">${obList(f)}</div></section>
+  <div class="dbt"><section class="dcol dpa"><div class="dch"><h2>Pending actions</h2><small id="pan"></small></div><div class="dsc" id="pal"></div></section><section class="dcol dap"><div class="dch"><h2>Emails to approve</h2><small id="apn"></small><div class="dacts" id="apa"></div></div><div class="dsc" id="apl"></div></section></div></div></div></div>`;
+  hbPaint();hbLoad();$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(homeSearch,130)};first=false;slide();setTimeout(refocusSearch,60);return}
  v.innerHTML=`<div class="pane ${f?'':'na'}"><div class="head"><div><h1>${tab?'Earlier':'Today'}</h1><div class="sub">${tab?'Your journal, newest first':greetT()}</div></div>${tab?CAL:NEW}</div><div id="lst">${listHTML(f)}</div></div>`;first=false;slide()}
+/* ===== computer Home: Pending actions (written from each contract's and letter's stage) and Emails to approve ===== */
+let PA={loaded:false,busy:false,at:0,ok:true,c:[],inv:[],lt:[],dn:[],done:{}},PAT=0,HOL=0;
+async function paLoad(force){if(!uid||PA.busy||(!force&&PA.loaded&&Date.now()-PA.at<60000))return;PA.busy=true;
+ try{const[c,iv,lt,dn,dd]=await Promise.all([
+  sb.from('contracts').select('id,contract_no,contract_date,supplier_name,buyer_name,payment_terms,destination,payments,inspections,status').in('status',['Issued','Inspected']).limit(1000),
+  sb.from('invoices').select('id,invoice_number,invoice_date,contract_numbers,bill_type,bill_number,shipping_date,created_at,updated_at').order('created_at',{ascending:false}).limit(5000),
+  sb.from('samples').select('id,sample_number,supplier_name,due_date,courier_reference,status,updated_at').order('created_at',{ascending:false}).limit(500),
+  sb.from('debit_notes').select('contract_no,created_at').limit(5000),
+  sb.from('pending_done').select('key,done_at').limit(5000)]);
+  if(!c.error)PA.c=c.data||[];if(!iv.error)PA.inv=iv.data||[];if(!lt.error)PA.lt=lt.data||[];if(!dn.error)PA.dn=dn.data||[];
+  if(dd.error)PA.ok=false;else{PA.ok=true;PA.done={};(dd.data||[]).forEach(r=>PA.done[r.key]=r.done_at)}
+  PA.loaded=true;PA.at=Date.now()}catch(e){PA.loaded=true}finally{PA.busy=false}hbPaint()}
+function paSoon(){clearTimeout(PAT);PAT=setTimeout(()=>{if($('#pal'))paLoad(true)},500)}
+const PDAY=x=>!x?'':String(x).length==10?String(x):ymd(new Date(x)),
+ addD=(d,n)=>{const x=new Date(d+'T00:00');x.setDate(x.getDate()+n);return ymd(x)},
+ sCap=x=>x?x.charAt(0)+x.slice(1).toLowerCase():'',
+ paSplit=x=>String(x||'').split(/\s*(?:,|;|&|\band\b)\s*/i).map(IVK).filter(Boolean),
+ WLANG={english:'EN',italian:'IT',spanish:'ES',german:'DE',french:'FR',portuguese:'PT',turkish:'TR',chinese:'ZH',vietnamese:'VI',dutch:'NL',polish:'PL',japanese:'JA',korean:'KO',arabic:'AR',russian:'RU',greek:'EL',czech:'CS',romanian:'RO',hindi:'HI',danish:'DA',swedish:'SV'},
+ WSTEP={intro:'First email',follow1:'Follow-up 1',follow2:'Follow-up 2',reply:'Reply'},
+ wLang=x=>String(x||'').split(/\s*(?:\+|,|&|\/|\band\b)\s*/i).map(y=>y.trim()).filter(Boolean).map(y=>WLANG[y.toLowerCase()]||y.slice(0,2).toUpperCase()).join('+');
+function paItems(){const T=today(),D=PA.done,R=[],ib={},dnA={};
+ PA.inv.forEach(i=>(i.contract_numbers||[]).forEach(n=>{const k=IVK(n);if(k)(ib[k]||(ib[k]=[])).push(i)}));
+ PA.dn.forEach(d=>paSplit(d.contract_no).forEach(k=>{if(!dnA[k]||String(d.created_at)<String(dnA[k]))dnA[k]=d.created_at}));
+ const add=(rule,id,o)=>{const key=rule+':'+id,m=D[key];let done=!!o.done,at=o.at||'',man=false;if(!done&&m){done=true;at=m;man=true}if(done&&PDAY(at)!=T)return;R.push({...o,key,id,man,done,at})},
+  first=L=>L.slice().sort((a,b)=>cmp(String(a.created_at||''),String(b.created_at||'')))[0];
+ PA.c.forEach(c=>{const no=c.contract_no||'',k=IVK(no);if(!k)return;
+  const I=ib[k]||[],F=I.filter(i=>!/proforma/i.test(i.invoice_number||'')),sup=supMark(c.supplier_name),N=`<b>${esc(no)}</b>`,
+   P=(Array.isArray(c.payments)?c.payments:[]).filter(Boolean),bydate=(a,b)=>cmp(a.date||'',b.date||''),paid=P.filter(x=>x.type&&!/advance/i.test(x.type)).sort(bydate),full=P.filter(x=>/balance|full/i.test(x.type||'')).sort(bydate),
+   pt=String(c.payment_terms||'').toUpperCase(),dest=(Array.isArray(c.destination)?c.destination:[c.destination||'']).join(' ').toUpperCase(),
+   bt=F.map(i=>i.bill_type||'').join(' '),air=/air/i.test(bt)||(!/lading|sea/i.test(bt)&&/AIRPORT|\bAIR\b/.test(dest)),sea=!air&&(/lading|sea/i.test(bt)||/\bPORT\b|\bSEA\b/.test(dest)),
+   shp=I.find(i=>String(i.bill_number||'').trim()),sd=(I.find(i=>i.shipping_date)||{}).shipping_date||'',sh=!!(shp||sd),
+   ins=cInsp(c).map(x=>x&&x.date).filter(Boolean).sort().pop()||'',fp=full[full.length-1];
+  if(c.status=='Inspected'||F.length)add('inv',c.id,{t:`Invoice awaiting from <b>${esc(sup)}</b> for ${N}`,s:ins?'Inspected '+fmDm(ins):'Inspected',w:ins||c.contract_date||'',done:F.length>0,at:F.length?first(F).created_at:''});
+  if(F.length)add('bill',c.id,{t:`Await ${air?'AWB':sea?'BL':'AWB or BL'} for ${N}`,s:['Invoice '+(F[0].invoice_number||''),sup].join(' · '),w:F[0].invoice_date||PDAY(F[0].created_at),done:!!shp,at:shp?shp.updated_at:''});
+  const tt=/\bT\s?\/?\s?T\b|TELEGRAPHIC|PAYMENT BEFORE SHIPMENT/.test(pt)&&!/LETTER OF CREDIT|\bL\/?C\b|\bCAD\b/.test(pt),lc=/LETTER OF CREDIT|\bL\/C\b|\bLC\b/.test(pt),cad=/\bCAD\b|CASH AGAINST DOC/.test(pt),dm=pt.match(/(\d{2,3})\s*DAYS?/);
+  if(tt&&(c.status=='Inspected'||F.length))add('tt',c.id,{t:`TT expected, follow up for ${N}`,s:[c.buyer_name,sCap(pt)].filter(Boolean).join(' · '),w:ins||c.contract_date||'',done:!!fp,at:fp?fp.date:''});
+  if(cad&&sh)add('cad',c.id,{t:`Follow documents courier reference for ${N}`,s:['Cash against documents',c.buyer_name].filter(Boolean).join(' · '),w:sd||PDAY(shp&&shp.updated_at)});
+  if(lc&&sh)add('lcd',c.id,{t:`Documents courier ref follow-up for ${N}`,s:['Letter of credit',c.buyer_name].filter(Boolean).join(' · '),w:sd||PDAY(shp&&shp.updated_at)});
+  if(dm&&sd){const due=addD(sd,+dm[1]);if(dDiff(due)<=7||fp)add('pay',c.id,{t:`Check payment received for ${N}`,s:[dm[1]+' days from shipping',c.buyer_name].filter(Boolean).join(' · '),w:due,due,done:!!fp,at:fp?fp.date:''})}
+  if(paid.length){const lp=paid[paid.length-1];add('dn',c.id,{t:`Raise debit note for ${N}`,s:['Payment received'+(lp.date?' '+fmDm(lp.date):''),sup].join(' · '),w:lp.date||'',done:!!dnA[k],at:dnA[k]||''})}
+ });
+ PA.lt.forEach(x=>{if(/complet|cancel/i.test(x.status||'')||!x.due_date)return;const has=!!String(x.courier_reference||'').trim();if(!has&&dDiff(x.due_date)>3)return;
+  add('cour',x.id,{t:`Update courier details for Letter <b>${esc(x.sample_number||'')}</b> from <b>${esc(supMark(x.supplier_name))}</b>`,s:'',w:x.due_date,due:x.due_date,done:has,at:has?x.updated_at:''})});
+ return R.sort((a,b)=>(a.done-b.done)||cmp(a.w||'9',b.w||'9'))}
+const paEmpty=(t,x)=>`<div class="paem"><b>${t}</b>${x}</div>`,paSk=n=>'<div class="pask"></div>'.repeat(n);
+function paHTML(L){if(!PA.loaded)return paSk(3);if(!L.length)return paEmpty('Nothing pending','Actions appear here as contracts move from inspection to invoice, shipment, payment and debit note, and when a letter is due.');
+ return L.map(x=>{const n=x.due&&!x.done?dDiff(x.due):null,dl=n==null?'':n<0?`<span class="pdt od">${-n} day${n==-1?'':'s'} late</span>`:n==0?'<span class="pdt soon">Today</span>':n==1?'<span class="pdt soon">Tomorrow</span>':`<span class="pdt">${fmWd(x.due)}</span>`;
+  return `<div class="pa${x.done?' dn':''}"><button class="pbx${x.done?' on':''}" data-patk="${esc(x.key)}" ${x.done&&!x.man?'disabled title="Done"':`title="${x.done?'Undo':'Mark done'}"`} aria-label="${x.done?'Done':'Mark done'}"><svg viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.8"/></svg></button><button class="pat" data-orow="${x.id}"><span class="pt1">${x.t}</span>${x.s?`<small>${esc(x.s)}</small>`:''}</button>${dl}</div>`}).join('')}
+function apHTML(L){if(!OUT.loaded)return paSk(2);if(!OUT.ok)return paEmpty('Outreach is not set up yet','Emails you write from Buyers will wait here for your OK.');
+ if(!L.length)return paEmpty('Nothing to approve','Emails you write from Buyers wait here for your OK before they are sent.');
+ return L.map(d=>`<button class="apr" data-ouq><span class="pat"><span class="pt1"><b>${esc(d.company||d.to_email||'')}</b></span><small>${esc([d.country,WSTEP[d.step]||d.step].filter(Boolean).join(' · '))}</small></span>${d.language?`<span class="plg" title="${esc(d.language)}">${esc(wLang(d.language))}</span>`:''}</button>`).join('')}
+function hbPaint(){const pl=$('#pal');if(!pl)return;const L=PA.loaded?paItems():[],open=L.filter(x=>!x.done).length,sc=pl.scrollTop;pl.innerHTML=paHTML(L);pl.scrollTop=sc;$('#pan').textContent=PA.loaded?(open?open+' to do':'All done'):'Loading…';
+ const al=$('#apl');if(!al)return;const A=OUT.loaded&&OUT.ok?outWait():[];al.innerHTML=apHTML(A);$('#apn').textContent=OUT.loaded?(A.length?A.length+' waiting':''):'Loading…';$('#apa').innerHTML=A.length?'<button class="new gh" data-ouq>Review</button>':''}
+function hbLoad(){paLoad();if(!OUT.loaded&&!HOL&&uid){HOL=1;outLoad().then(()=>{HOL=0;hbPaint()},()=>{HOL=0})}}
+async function paTick(k){if(!PA.ok){toast('Could not save the tick. Try again in a moment.');paLoad(true);return}const m=PA.done[k];
+ if(m){delete PA.done[k];hbPaint();const{error}=await sb.from('pending_done').delete().eq('key',k);if(error){PA.done[k]=m;hbPaint();toast(error.message)}}
+ else{const at=new Date().toISOString();PA.done[k]=at;hbPaint();const{error}=await sb.from('pending_done').upsert({key:k,done_at:at});if(error){delete PA.done[k];hbPaint();toast(error.message)}}}
 /* computer Home search: results show in the journal and orderbook panels themselves */
 function jSearchHTML(f){const k=q.trim(),P=qParse(k.toLowerCase()),L=E.filter(e=>P.test((e.title+' '+e.body+' '+(e.label||'')).toLowerCase())).sort((a,b)=>cmp(b.date,a.date)||b.t-a.t),tot=Math.max(1,Math.ceil(L.length/PS));pgT=Math.min(pgT,tot);const S=L.slice((pgT-1)*PS,pgT*PS);
  return `<div class="chipj"><span>${L.length?L.length+(L.length==1?' journal entry matches':' journal entries match'):'No journal entries match'} “${esc(k)}”</span><button data-sclr>Clear</button></div>`+(S.length?S.map((e,i)=>card(e,f?i:0,k,1)).join(''):'<div class="empty"><b>Nothing in the journal</b>Try another word, or look in the orderbook beside.</div>')+pgr(pgT,tot,'pt')}
@@ -2754,6 +2853,7 @@ async function onClick(t){const d=t.dataset;
  else if(d.stv){closeSM();await setSt(d.sid,d.stv)}
  else if(d.jt!==undefined)jSwitch(+d.jt)
  else if(d.orow)detail(d.orow)
+ else if(d.patk)await paTick(d.patk)
  else if(d.gt){const g=t.closest('.bd');GC[d.gt]=!GC[d.gt];g.classList.toggle('bcl',!!GC[d.gt])}
  else if(d.hth)thread(d.hth)
  else if(d.t!==undefined){if(+d.t==tab){if(wasSheet){first=true;window.scrollTo(0,0);render()}return}dir=ORD.indexOf(+d.t)>ORD.indexOf(tab)?1:-1;tab=+d.t;jump=null;pgT=pgE=pgS=pgO=1;first=true;window.scrollTo(0,0);render()}
@@ -2964,7 +3064,7 @@ document.addEventListener('scroll',fpClr,{passive:true,capture:true});
 document.addEventListener('contextmenu',e=>{if(e.target.closest&&e.target.closest(FPSEL))e.preventDefault()});
 const PF=new Set();document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('[data-ob],.card.ob[data-id],.orow[data-id]');if(!b)return;const id=b.dataset.ob||b.dataset.id,o=OB.find(x=>x.id==id);if(!o||RC[id]||PF.has(id))return;PF.add(id);sb.from(o.tb).select('*').eq('id',id).single().then(r=>{if(r.data)RC[id]=r.data;PF.delete(id)},()=>PF.delete(id))},{passive:true});
 function open(h,c){const sh=$('#sheet');sh.className='sheet '+(c||'');sh.innerHTML='<div class="grab"></div>'+h;if(!B.classList.contains('so')){sy0=window.scrollY;B.style.position='fixed';B.style.top=-sy0+'px';B.style.width='100%'}B.classList.add('so');navSync();deskNav()}
-function close(){wsLeave();if(DT&&DT.id=='draft')DRAFT=null;if(NEWID&&DT&&DT.id==NEWID)dropNew();ctx=null;DT=null;EM=false;AM=null;SO=false;if(!B.classList.contains('so'))return;B.classList.remove('so');B.style.position='';B.style.top='';B.style.width='';window.scrollTo(0,sy0);deskNav();setTimeout(refocusSearch,60);if(IFD){IFD=false;if(tab==3&&$('#obl'))obRefresh();if($('#sr'))results()}}
+function close(){wsLeave();if(DT&&DT.id=='draft')DRAFT=null;if(NEWID&&DT&&DT.id==NEWID)dropNew();ctx=null;DT=null;EM=false;AM=null;SO=false;if(!B.classList.contains('so'))return;B.classList.remove('so');B.style.position='';B.style.top='';B.style.width='';window.scrollTo(0,sy0);deskNav();setTimeout(refocusSearch,60);if(IFD){IFD=false;if(tab==3&&$('#obl'))obRefresh();if($('#sr'))results()}paSoon()}
 function thread(id){const e=E.find(x=>x.id==id);if(!e)return;ctx=e.key;const it=E.filter(x=>x.key==e.key).sort((a,b)=>a.date.localeCompare(b.date)||a.t-b.t);let last,h='';
  it.forEach((x,i)=>{h+=card(x,0,'',1).replace('class="card ','class="card '+(x.id==e.id?'cur ':''))});
  open(`<div class="th-h"><div><h2>${esc(e.label)}</h2><p>${it.length} ${it.length>1?'entries':'entry'} in this thread</p></div><button class="x" data-close aria-label="Close">✕</button></div><div class="tl2">${h}</div><div class="tc2"><button class="btn" data-addto="${e.key}">Add journal</button><button class="btn ghost" data-link="${e.id}">Link earlier</button></div>`,'tall');
@@ -3369,7 +3469,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['46','8 Nov 2026',['Computer Home: searching no longer opens a separate results page. Matching journal entries (from any date) show in the journal panel and matching contracts, letters and debit notes in the orderbook panel, with the words highlighted. Clear, or click Today or Earlier, to go back']],
+const APP_LOG=[['47','8 Nov 2026',['Computer Home: the orderbook takes the top half on the right; below it are Pending actions and Emails to approve. Pending actions is written for you from each contract and letter: invoice awaiting after inspection, await AWB or BL after the invoice, TT follow-up for TT before shipment, documents courier follow-up for CAD and letter of credit, check payment a week before the 60 or 90 days run out, raise debit note after a payment, and courier details for a letter that is due. Items strike out by themselves when you enter the data (or tick them yourself) and leave the next day. The whole computer view is a little smaller (like 90% zoom)']],
+['46','8 Nov 2026',['Computer Home: searching no longer opens a separate results page. Matching journal entries (from any date) show in the journal panel and matching contracts, letters and debit notes in the orderbook panel, with the words highlighted. Clear, or click Today or Earlier, to go back']],
 ['45','8 Nov 2026',['Today page: the Stacked order is gone; follow-ups and today\'s entries always show as separate cards']],
 ['44','8 Nov 2026',['Every page redesigned to match: text fields keep their original look; cards keep their shadows and entrance animations; on the phone, details read as label beside value; contract, letter and debit note pages have named tabs (Contract, Inspection, Invoice, Payments, Debit notes) instead of dots; Contacts is a clean list with a small Add button, and each contact has Call, Email and Edit buttons; Outreach settings split into About you, What you supply, Your voice, Signature and Mailbox; Reports dates no longer overflow; login shows your logo; dark mode messages are readable']],
 ['43','8 Nov 2026',['New layout. Phone: page names in a tab bar at the top (tap or swipe), Settings button top right, greeting moved under Today. Buyers: outreach, sources and countries as clean lists; inside a country the filters, research and companies are grouped, and on a computer they sit side by side. Settings grouped into Business, Documents, Buyers and App. Lighter, tighter lists. Dark mode filter chips fixed']],
@@ -3976,7 +4077,7 @@ const wsIn=()=>WS.ed?WS.ed.inp:(document.activeElement&&document.activeElement.i
 function wsIns(txt){const i=wsIn();if(!i)return;const a=i.selectionStart==null?i.value.length:i.selectionStart,b=i.selectionEnd==null?a:i.selectionEnd;i.setRangeText(txt,a,b,'end');WS.pr=null;i.dispatchEvent(new Event('input',{bubbles:true}));i.focus()}
 function wsEditBar(txt){wsEndEdit(true);const fx=$('#wsfx');if(!fx)return;fx.focus();fx.value=txt;try{fx.setSelectionRange(txt.length,txt.length)}catch(e){}WS.pr=null;wsIng();wsSuggest()}
 function wsIng(){const x=$('#wsx');if(!x)return;const fx=$('#wsfx');x.classList.toggle('ing',!!(WS.ed||document.activeElement===fx));wsLayout()}
-function wsLayout(){const x=$('#wsx');if(!x)return;const vv=window.visualViewport,top=x.getBoundingClientRect().top,bottom=(vv?vv.offsetTop+vv.height:innerHeight);x.style.height=Math.max(300,Math.round(bottom-top-(innerWidth<900?0:16)))+'px'}
+function wsLayout(){const x=$('#wsx');if(!x)return;const vv=window.visualViewport,top=x.getBoundingClientRect().top,bottom=(vv?vv.offsetTop+vv.height:innerHeight);x.style.height=Math.max(300,Math.round((bottom-top)/ZF()-(innerWidth<900?0:16)))+'px'}
 function wsKbLabel(){document.querySelectorAll('[data-wsa="kbd"]').forEach(b=>b.textContent=WS.num?'ABC':'123')}
 function wsKbToggle(){const i=wsIn();if(!i)return;WS.num=!WS.num;const a=i.selectionStart,b=i.selectionEnd;WS.nob=true;i.blur();i.inputMode=WS.num?'decimal':'text';i.focus();try{i.setSelectionRange(a,b)}catch(e){}WS.nob=false;wsKbLabel()}
 function wsPreferNum(r,c,init){if(init!=null)return false;const v=(rr,cc)=>rr>=0&&typeof WS.get(wsAd(rr,cc))=='number',raw=wsRaw(r,c);if(raw!=='')return raw[0]=='='||wsNum(raw)!==null||wsMathOk(raw);return v(r-1,c)||v(r+1,c)||v(r,c-1)&&false}
