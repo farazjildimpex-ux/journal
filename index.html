@@ -1622,57 +1622,6 @@ html[data-theme="dark"] .ux-list,html[data-theme="dark"] .ux-pnl,html[data-theme
 
 html[data-theme="dark"] .toast button{color:var(--blue)}
 </style>
-<style id="hw">
-/* desktop Home: journal + four widgets */
-.hw{--wsh:0 1px 2px rgba(16,24,40,.04),0 10px 24px -14px rgba(16,24,40,.2)}
-html[data-theme="dark"] .hw{--wsh:0 12px 28px -16px rgba(0,0,0,.75)}
-.hw .dtop .hk{font-size:calc(14px*var(--fs,1));font-weight:500;color:var(--mute)}
-.hw .dtop h1{font-size:calc(28px*var(--fs,1));letter-spacing:-.03em;margin-top:2px}
-.pane.hm.hw:not(.ob3) .dgrid{grid-template-columns:440px minmax(0,1fr)}
-.hw .dcol{box-shadow:var(--wsh)}
-.wg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:var(--sp-16);min-height:0;min-width:0}
-.w{display:flex;flex-direction:column;min-height:0;min-width:0;background:var(--surf);border:1px solid var(--bd);border-radius:14px;box-shadow:var(--wsh);overflow:hidden}
-.hw:not(.na) .w{animation:wIn .55s var(--ease) both;animation-delay:calc(var(--i)*70ms + 60ms)}
-@keyframes wIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.wh{display:flex;align-items:center;gap:var(--sp-8);min-height:52px;padding:var(--sp-12) var(--sp-20) var(--sp-4);flex:none;box-sizing:border-box}
-.wh h2{margin:0;font-size:calc(11.5px*var(--fs,1));font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
-.wp{font-size:calc(11.5px*var(--fs,1));font-weight:700;padding:2px 9px;border-radius:99px;background:var(--bl);color:var(--blue);white-space:nowrap}
-.wp.od{background:var(--od-bg,#FFEDE0);color:var(--od-ink,#A8481E)}
-html[data-theme="dark"] .wp.od{background:var(--od-bgd,#3D2A20);color:var(--od-inkd,#F0A878)}
-.wln{margin-left:auto;font-size:calc(13px*var(--fs,1));font-weight:600;color:var(--blue);padding:var(--sp-4) 0;white-space:nowrap}
-.wln:hover{text-decoration:underline;text-underline-offset:3px}
-.wb{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:0 var(--sp-20) var(--sp-8)}
-.wi{display:flex;align-items:center;gap:var(--sp-12);width:100%;padding:11px 0;border-top:1px solid var(--line);text-align:left;color:var(--ink);font:inherit;box-sizing:border-box;transition:opacity .25s,transform .25s,height .3s .05s,padding .3s .05s}
-.wi:first-child{border-top:0}
-button.wi:hover b,button.wi:hover .wno,.wtx:hover b{color:var(--blue)}
-.wi.wgone{opacity:0;transform:translateX(10px);height:0!important;padding-top:0;padding-bottom:0;overflow:hidden}
-.wtx{flex:1;min-width:0;text-align:left;display:block;color:inherit;font:inherit}
-.wtx b{display:block;font-size:calc(14.5px*var(--fs,1));font-weight:600;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);transition:color .15s}
-.wtx small,.wln2{display:block;font-size:calc(12.5px*var(--fs,1));color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
-.wbx{flex:none;width:20px;height:20px;border-radius:6px;box-shadow:inset 0 0 0 1.8px #C5C7D0;display:grid;place-items:center;transition:background .15s,box-shadow .15s}
-html[data-theme="dark"] .wbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
-.wbx svg{width:14px;height:14px;fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .15s}
-.wbx:hover{box-shadow:inset 0 0 0 1.8px var(--blue)}.wbx:hover svg{opacity:.45}
-.wbx.on,html[data-theme="dark"] .wbx.on{background:var(--st-completed);box-shadow:none}.wbx.on svg{opacity:1;stroke:#fff}
-.wbx:focus-visible,.wtx:focus-visible,.wi:focus-visible,.wln:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
-.wno{flex:none;min-width:78px;max-width:140px;font-size:calc(14.5px*var(--fs,1));font-weight:700;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .15s}
-.wmk{flex:none;max-width:96px;font-size:calc(11px*var(--fs,1));font-weight:700;color:var(--mute);background:rgba(120,120,140,.12);padding:2px 6px;border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.wln2{flex:1;min-width:0;margin:0}
-.wdt{flex:none;font-size:calc(12.5px*var(--fs,1));font-weight:600;color:var(--mute);white-space:nowrap}
-.wdt.od{color:var(--od-ink,#A8481E)}html[data-theme="dark"] .wdt.od{color:var(--od-inkd,#F0A878)}
-.wdt.soon{color:var(--blue)}
-.wlg{flex:none;font-size:calc(11px*var(--fs,1));font-weight:700;color:var(--blue);background:var(--bl);padding:2px 6px;border-radius:6px}
-.wav{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--bl);color:var(--blue);font-size:calc(12px*var(--fs,1));font-weight:700}
-.wi:not(.un) .wav{background:rgba(120,120,140,.12);color:var(--mute)}
-.wnew{flex:none;width:8px;height:8px;border-radius:50%;background:var(--blue)}
-.wg .w{min-height:0}@media(max-width:1180px){.wg .w{min-height:200px;max-height:440px}}
-.wf{flex:none;padding:var(--sp-8) var(--sp-20) var(--sp-16)}
-.wf .btn{width:auto;height:38px;padding:0 var(--sp-16);font-size:calc(14px*var(--fs,1));border-radius:10px}
-.wem{padding:var(--sp-16) 0;font-size:calc(13px*var(--fs,1));line-height:1.5;color:var(--mute)}
-.wem b{display:block;font-size:calc(14px*var(--fs,1));font-weight:600;color:var(--ink);margin-bottom:2px}
-.wsk{height:40px;margin:10px 0;border-radius:10px;background:linear-gradient(90deg,rgba(120,120,140,.08) 0,rgba(120,120,140,.16) 50%,rgba(120,120,140,.08) 100%) 0 0/200% 100%;animation:shim 1.2s linear infinite}
-@media(max-width:1180px){.pane.hm.hw:not(.ob3) .dgrid{grid-template-columns:minmax(320px,400px) minmax(0,1fr)}.wg{grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-auto-rows:max-content;align-content:start;overflow-y:auto;overscroll-behavior:contain;padding-bottom:2px}}
-</style>
 
 <script>
 const SB_URL='https://ethhzxagxejxfxkzgndk.supabase.co',
@@ -1800,7 +1749,7 @@ function obCardX(o,i,k){const nx=nextSt(o),bk=backSt(o),ic=obIcons(o),od=isOver(
 const SEARCH_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
 function renderOB(keep){if(innerWidth>=900){$('#view').innerHTML=`<div class="pane hm ob3 ${keep?'na':''}"><div class="dtop"><div><div class="hk" id="obn">${obCount()}</div><h1>Orderbook</h1></div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><section class="dcol dob"><div class="dfil" style="padding-top:14px"><div class="obs">${SEARCH_SVG}<input class="sbox" id="obq" type="search" placeholder="Search contracts, letters and debit notes" value="${esc(obq)}" autocomplete="off"></div><div class="chs" id="chs">${chips()}</div></div><div class="dsc" id="obl">${obList(!keep)}</div></section></div>`;return}
  $('#view').innerHTML=`<div class="pane obm ${keep?'na':''}"><div class="head hob"><h1>Orderbook</h1>${NEW.replace('data-new','data-newo')}<div class="sub" id="obn">${obCount()}</div></div><div class="oxq">${SEARCH_SVG}<input class="sbox" id="obq" type="search" placeholder="Search contracts, letters, debit notes" value="${esc(obq)}" autocomplete="off"></div><div class="opipe" id="obp">${obPipe()}</div><div class="chs" id="chs">${chips()}</div><div id="obl">${obList(!keep)}</div></div>`;obPipeMount()}
-function obRefresh(){if((tab==0||(tab==1&&innerWidth>=900))&&$('#lst'))$('#lst').innerHTML=listHTML(0);wPaint();const l=$('#obl');if(!l)return;l.innerHTML=obList(0);$('#obn').textContent=obCount();const pp=$('#obp');if(pp){pp.innerHTML=obPipe();obPipeMount()}document.querySelectorAll('#chs .ch').forEach(b=>{b.classList.toggle('on',b.hasAttribute('data-obo')?obOpen:obType==b.dataset.obt);const n=b.querySelector('b');if(n)n.textContent=obN(n.dataset.k)})}
+function obRefresh(){if((tab==0||(tab==1&&innerWidth>=900))&&$('#lst'))$('#lst').innerHTML=listHTML(0);const l=$('#obl');if(!l)return;l.innerHTML=obList(0);$('#obn').textContent=obCount();const pp=$('#obp');if(pp){pp.innerHTML=obPipe();obPipeMount()}document.querySelectorAll('#chs .ch').forEach(b=>{b.classList.toggle('on',b.hasAttribute('data-obo')?obOpen:obType==b.dataset.obt);const n=b.querySelector('b');if(n)n.textContent=obN(n.dataset.k)})}
 function obEnter(keep){if(!obBusy&&(!obAt||Date.now()-obAt>60000))loadOB();renderOB(keep)}
 async function obSet(id,st){const o=OB.find(x=>x.id==id),{data,error}=await sb.from(o.tb).update({status:st}).eq('id',id).select('id');if(error){toast(error.message);return false}if(!data.length){toast('You don’t have permission to change this one');return false}o.st=st;return true}
 async function advance(id,back){const o=OB.find(x=>x.id==id),prev=o.st,nx=back?backSt(o):nextSt(o);if(!nx||!await obSet(id,nx))return;
@@ -2658,7 +2607,7 @@ const obTable=rows=>['contract','letter','debit'].map(k=>[k,rows.filter(o=>o.k==
 function dueHTML(i){const L=tdDue();TDSIG=tdSig();if(!L.length)return'';const sh=TDW?L:L.slice(0,8);
  return `<div class="day gh">Due this week &amp; overdue</div>`+sh.map(o=>obCard(o,i++)).join('')+(L.length>8?`<button class="tdm" data-tdw>${TDW?'Show fewer':`Show all ${L.length}`}</button>`:'')}
 function listHTML(f){{const l0=document.getElementById('lst');if(l0)l0.classList.toggle('stl',!f)}const t0=today(),T=tab==0,fu=T?tdFU():[],st=T&&TSTK&&fu.length>0,
- L=T?(()=>{const a=(()=>{/* every entry made today is its own card, even when it belongs to a follow-up thread */return E.filter(e=>e.date==t0).sort((x,y)=>y.t-x.t).map(x=>({g:'t',x}))})(),d=(innerWidth>=900?[]:tdDocs()).map(x=>({g:'d',x})),b=(innerWidth>=900?[]:fu).map(x=>({g:'f',x}));TDN=d.length;return st?[...a,...d]:TSORT!='fu'?[...a,...d,...b]:[...b,...a,...d]})():(jump?E.filter(e=>e.date==jump):E.filter(e=>e.date<t0&&!openFu(e))),tot=Math.max(1,Math.ceil(L.length/PS));
+ L=T?(()=>{const a=(()=>{/* every entry made today is its own card, even when it belongs to a follow-up thread */return E.filter(e=>e.date==t0).sort((x,y)=>y.t-x.t).map(x=>({g:'t',x}))})(),d=(innerWidth>=900?[]:tdDocs()).map(x=>({g:'d',x})),b=fu.map(x=>({g:'f',x}));TDN=d.length;return st?[...a,...d]:TSORT!='fu'?[...a,...d,...b]:[...b,...a,...d]})():(jump?E.filter(e=>e.date==jump):E.filter(e=>e.date<t0&&!openFu(e))),tot=Math.max(1,Math.ceil(L.length/PS));
  const pv=Math.min(T?pgT:pgE,tot);if(T)pgT=pv;else pgE=pv;const S=L.slice((pv-1)*PS,pv*PS);let h='',last,i=0,gl='',dDone=0;
  const GL={t:'Today',d:'Issued today',f:'Follow-ups'},gs=new Set(L.map(z=>z.g));if(st)gs.add('f');const lab=T&&gs.size>1;
  if(T&&(S.length||st)&&innerWidth<900)h+=`<div class="day">${LD()}</div>`;
@@ -2741,37 +2690,11 @@ function render(keep){if(tab==2&&innerWidth>=900)tab=0;io&&io.disconnect();navSy
  if(tab==2){if(!$('#sq')){v.innerHTML=`<div class="pane"><div class="head"><div><h1>Search</h1><div class="sub">Journals, contracts, letters and debit notes</div></div>${NEW}</div><div class="sbw"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div><div class="chs" id="schs">${schips()}</div><div id="sr"></div></div>`;$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(results,130)}}
   if(!obAt&&!obBusy)loadOB();results();first=false;slide();return}
  if((tab==0||tab==1)&&innerWidth>=900){const hs=!!q.trim();obq='';
-  wLoad();v.innerHTML=`<div class="pane hm hw ${f?'':'na'}${hs?' sq':''}"><div class="dtop"><div><div class="hk">${greetH()}</div><h1>${(d=>d.toLocaleDateString('en-GB',{weekday:'long'})+', '+d.toLocaleDateString('en-GB',{day:'numeric',month:'long'}))(new Date())}</h1></div><div class="sbw">${SEARCH_SVG.replace('<svg','<svg class="si"')}<input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" title="Search tips: jp or micheal · join push and leather · -cancelled · &quot;exact phrase&quot;" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div></div><div class="chs" id="schs" ${hs?'':'hidden'}>${schips()}</div><div class="dsr" id="sr" ${hs?'':'hidden'}></div>
+  v.innerHTML=`<div class="pane hm ${f?'':'na'}${hs?' sq':''}"><div class="dtop"><div><div class="hk">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>${greetH()}</h1></div><div class="sbw">${SEARCH_SVG.replace('<svg','<svg class="si"')}<input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" title="Search tips: jp or micheal · join push and leather · -cancelled · &quot;exact phrase&quot;" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div></div><div class="chs" id="schs" ${hs?'':'hidden'}>${schips()}</div><div class="dsr" id="sr" ${hs?'':'hidden'}></div>
   <div class="dgrid" id="dgrid" ${hs?'hidden':''}><section class="dcol dj"><div class="dch djh"><div class="dtabs" id="jtabs"><button data-jt="0" class="${tab?'':'on'}">Today</button><button data-jt="1" class="${tab?'on':''}">Earlier</button></div><div class="dacts"><button class="new gh" data-cal id="jcal" ${tab?'':'hidden'} aria-label="Jump to a date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button>${NEW}</div></div><div class="dsc" id="lst">${listHTML(f)}</div></section>
-  <div class="wg" id="wg">${wHTML()}</div></div></div>`;
+  <section class="dcol dob"><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small><div class="chs" id="chs">${chips()}</div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><div class="dsc" id="obl">${obList(f)}</div></section></div></div>`;
   $('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(homeSearch,130)};if(hs)results();first=false;slide();setTimeout(refocusSearch,60);return}
  v.innerHTML=`<div class="pane ${f?'':'na'}"><div class="head"><div><h1>${tab?'Earlier':'Today'}</h1><div class="sub">${tab?'Your journal, newest first':greetT()}</div></div>${tab?CAL:NEW}</div><div id="lst">${listHTML(f)}</div></div>`;first=false;slide()}
-/* ===== desktop Home: four widgets beside the journal (Follow-ups, Due this week, Emails to approve, Buyer replies) ===== */
-let WOL=0;
-function wLoad(){if(OUT.loaded||WOL||!uid)return;WOL=1;outLoad().then(()=>{WOL=0;wPaint()},()=>{WOL=0})}
-const WLANG={english:'EN',italian:'IT',spanish:'ES',german:'DE',french:'FR',portuguese:'PT',turkish:'TR',chinese:'ZH',vietnamese:'VI',dutch:'NL',polish:'PL',japanese:'JA',korean:'KO',arabic:'AR',russian:'RU',greek:'EL',czech:'CS',romanian:'RO',hindi:'HI',danish:'DA',swedish:'SV'},
- WSTEP={intro:'First email',follow1:'Follow-up 1',follow2:'Follow-up 2',reply:'Reply'},
- wLang=s=>String(s||'').split(/\s*(?:\+|,|&|\/|\band\b)\s*/i).map(x=>x.trim()).filter(Boolean).map(x=>WLANG[x.toLowerCase()]||x.slice(0,2).toUpperCase()).join('+'),
- wIni=s=>{const w=String(s||'').replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean);return w.length?(w[0][0]+(w.length>1?w[w.length-1][0]:'')).toUpperCase():'?'},
- wAgo=x=>{const d=new Date(x),m=Math.round((Date.now()-d)/6e4);if(!(m>=0))return'';if(m<1)return'Now';if(m<60)return m+'m ago';if(m<60*12||ymd(d)==today())return Math.round(m/60)+'h ago';const n=-dDiff(ymd(d));return n==1?'Yesterday':n<7?d.toLocaleDateString('en-GB',{weekday:'short'}):fmDm(ymd(d))},
- wFirst=b=>String(b||'').split(/\n>|\nOn .{0,80}wrote:|\nIl giorno .{0,80}ha scritto:/)[0].replace(/\s+/g,' ').trim(),
- wEmpty=(t,s)=>`<div class="wem"><b>${t}</b><span>${s}</span></div>`,
- wSk=()=>'<div class="wsk"></div>'.repeat(3),
- wBox=(id,i,lab,pill,pc,link,body,foot)=>`<section class="w" id="${id}" style="--i:${i}"><div class="wh"><h2>${lab}</h2>${pill?`<span class="wp ${pc||''}">${pill}</span>`:''}${link||''}</div><div class="wb">${body}</div>${foot||''}</section>`;
-function wFU(){const L=E.filter(openFu).sort((a,b)=>(a.ord??1e9)-(b.ord??1e9)||a.date.localeCompare(b.date)),
- sub=e=>{const n=-dDiff(e.date);return n<=0?'Today':n==1?'Yesterday':fmWd(e.date)+' · '+n+' days'};
- return wBox('wfu',0,'Follow-ups',L.length?L.length+' open':'','','',L.length?L.map(e=>`<div class="wi" data-wid="${e.id}"><button class="wbx" data-wdone="${e.id}" title="Mark done" aria-label="Mark done: ${esc(e.title)}"><svg viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.8"/></svg></button><button class="wtx" data-hth="${e.id}" title="Open this entry"><b>${esc(e.title)}</b><small>${sub(e)}</small></button></div>`).join(''):wEmpty('No open follow-ups','Mark a journal entry as a follow-up and it stays here until you tick it.'))}
-function wDue(){const L=obAt?OB.filter(o=>isOver(o)||isWeek(o)).sort((a,b)=>cmp(a.dd,b.dd)):[],od=L.filter(isOver).length,
- r=o=>{const n=dDiff(o.dd);return n<0?[-n+(n==-1?' day late':' days late'),'od']:n==0?['Today','soon']:n==1?['Tomorrow','soon']:[fmWd(o.dd),'']};
- return wBox('wdue',1,'Due this week',od?od+' overdue':L.length?L.length+' due':'',od?'od':'','<button class="wln" data-t="3">Orderbook ›</button>',!obAt?wSk():L.length?L.map(o=>{const[t,c]=r(o);return `<button class="wi" data-orow="${o.id}" title="${esc((o.no||'')+' · '+(o.party||''))}"><span class="wno">${esc(o.no||'')}</span><span class="wmk">${esc(supMark(o.party))}</span><small class="wln2">${esc(o.line||TN[o.k])}</small><span class="wdt ${c}">${t}</span></button>`}).join(''):wEmpty('Nothing due this week','Contracts and letters due in the next 7 days, and any that are late, show here.'))}
-function wApr(){if(!OUT.loaded)return wBox('wapr',2,'Emails to approve','','','',wSk());
- if(!OUT.ok)return wBox('wapr',2,'Emails to approve','','','',wEmpty('Outreach is not set up yet','Emails you write from Buyers will wait here for your OK.'));
- const L=outWait();return wBox('wapr',2,'Emails to approve',L.length?L.length+' waiting':'','',L.length?'<button class="wln" data-ouq>Open ›</button>':'',L.length?L.map(d=>`<button class="wi" data-ouq><span class="wtx"><b>${esc(d.company||d.to_email||'')}</b><small>${esc([d.country,WSTEP[d.step]||d.step].filter(Boolean).join(' · '))}</small></span>${d.language?`<span class="wlg" title="${esc(d.language)}">${esc(wLang(d.language))}</span>`:''}</button>`).join(''):wEmpty('Nothing to approve','Emails you write from Buyers wait here for your OK before they are sent.'),L.length?'<div class="wf"><button class="btn" data-ouq>Review and approve</button></div>':'')}
-function wRep(){if(!OUT.loaded)return wBox('wrep',3,'Buyer replies','','','',wSk());
- const L=OUT.ok?(OUT.inbox||[]).filter(m=>m.kind=='reply'):[],un=L.filter(m=>!m.is_read).length;
- return wBox('wrep',3,'Buyer replies',un?un+' new':'','',L.length?'<button class="wln" data-ouinb>Inbox ›</button>':'',L.length?L.slice(0,30).map(m=>{const nm=m.company||m.from_name||m.from_addr||'';return `<button class="wi${m.is_read?'':' un'}" data-ouinb><span class="wav">${esc(wIni(m.from_name||nm))}</span><span class="wtx"><b>${esc(nm)}</b><small>${esc((m.from_name?m.from_name+': ':'')+wFirst(m.body))}</small></span><span class="wdt">${wAgo(m.received_at)}</span>${m.is_read?'':'<i class="wnew" aria-label="New"></i>'}</button>`}).join(''):wEmpty('No replies yet','When a buyer answers one of your emails, it shows here.'))}
-const wHTML=()=>wFU()+wDue()+wApr()+wRep();
-function wPaint(){const g=$('#wg');if(!g)return;const sc=[...g.querySelectorAll('.wb')].map(b=>b.scrollTop);g.innerHTML=wHTML();g.querySelectorAll('.wb').forEach((b,i)=>b.scrollTop=sc[i]||0)}
 /* desktop Home: typing in the search bar swaps the Today view for search results */
 const hasQ=()=>q.trim()!=='';
 function homeSearch(){const k=q.trim(),l=$('#lst'),r=$('#sr'),c=$('#schs'),g=$('#dgrid');if(!l||!r)return;l.hidden=false;if(g)g.hidden=!!k;r.hidden=!k;if(c)c.hidden=!k;const p=l.closest('.pane');if(p)p.classList.toggle('sq',!!k);if(k){if(!obAt&&!obBusy)loadOB();results()}else r.innerHTML=''}
@@ -3004,7 +2927,6 @@ else if(d.lmode){lmode=d.lmode;renderLeads(1)}
  else if(d.card)cardTap(t)
  else if(d.edit)form(d.edit)
  else if(d.fu){const e=E.find(x=>x.id==d.fu);if(await upd(e,{follow_up_required:true,follow_up_completed_at:null})){e.fu=true;e.fdone=false;fin(refresh)}}
- else if(d.wdone){const e=E.find(x=>x.id==d.wdone);if(!e)return;t.classList.add('on');t.disabled=true;if(await upd(e,{follow_up_completed_at:new Date().toISOString()})){e.fdone=true;const r=t.closest('.wi');if(r){r.style.height=r.offsetHeight+'px';void r.offsetHeight;r.classList.add('wgone');await sl(300)}refresh();toast('Follow-up done','Undo',async()=>{if(await upd(e,{follow_up_completed_at:null})){e.fdone=false;refresh()}})}else{t.classList.remove('on');t.disabled=false}}
  else if(d.done){const e=E.find(x=>x.id==d.done);if(await upd(e,{follow_up_completed_at:new Date().toISOString()})){e.fdone=true;fin(async()=>{if(tab==0&&e.date!=today()&&!B.classList.contains('so'))await out(e.id);refresh()})}}
  else if(d.del){if(t.dataset.arm!=='1'){t.dataset.arm='1';t.textContent='Confirm?';setTimeout(()=>{t.dataset.arm='';t.textContent='Delete'},2500);return}
   const e=E.find(x=>x.id==d.del),{error}=await sb.from(T).delete().eq('id',e.id);if(error)return toast(error.message);fin(async()=>{await out(e.id);E=E.filter(x=>x!=e);link();refresh()})}
@@ -3035,7 +2957,7 @@ document.addEventListener('scroll',fpClr,{passive:true,capture:true});
 document.addEventListener('contextmenu',e=>{if(e.target.closest&&e.target.closest(FPSEL))e.preventDefault()});
 const PF=new Set();document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('[data-ob],.card.ob[data-id],.orow[data-id]');if(!b)return;const id=b.dataset.ob||b.dataset.id,o=OB.find(x=>x.id==id);if(!o||RC[id]||PF.has(id))return;PF.add(id);sb.from(o.tb).select('*').eq('id',id).single().then(r=>{if(r.data)RC[id]=r.data;PF.delete(id)},()=>PF.delete(id))},{passive:true});
 function open(h,c){const sh=$('#sheet');sh.className='sheet '+(c||'');sh.innerHTML='<div class="grab"></div>'+h;if(!B.classList.contains('so')){sy0=window.scrollY;B.style.position='fixed';B.style.top=-sy0+'px';B.style.width='100%'}B.classList.add('so');navSync();deskNav()}
-function close(){wsLeave();if(DT&&DT.id=='draft')DRAFT=null;if(NEWID&&DT&&DT.id==NEWID)dropNew();ctx=null;DT=null;EM=false;AM=null;SO=false;if(!B.classList.contains('so'))return;B.classList.remove('so');B.style.position='';B.style.top='';B.style.width='';window.scrollTo(0,sy0);deskNav();setTimeout(refocusSearch,60);if(IFD){IFD=false;if(tab==3&&$('#obl'))obRefresh();if($('#sr'))results()}wPaint()}
+function close(){wsLeave();if(DT&&DT.id=='draft')DRAFT=null;if(NEWID&&DT&&DT.id==NEWID)dropNew();ctx=null;DT=null;EM=false;AM=null;SO=false;if(!B.classList.contains('so'))return;B.classList.remove('so');B.style.position='';B.style.top='';B.style.width='';window.scrollTo(0,sy0);deskNav();setTimeout(refocusSearch,60);if(IFD){IFD=false;if(tab==3&&$('#obl'))obRefresh();if($('#sr'))results()}}
 function thread(id){const e=E.find(x=>x.id==id);if(!e)return;ctx=e.key;const it=E.filter(x=>x.key==e.key).sort((a,b)=>a.date.localeCompare(b.date)||a.t-b.t);let last,h='';
  it.forEach((x,i)=>{h+=card(x,0,'',1).replace('class="card ','class="card '+(x.id==e.id?'cur ':''))});
  open(`<div class="th-h"><div><h2>${esc(e.label)}</h2><p>${it.length} ${it.length>1?'entries':'entry'} in this thread</p></div><button class="x" data-close aria-label="Close">✕</button></div><div class="tl2">${h}</div><div class="tc2"><button class="btn" data-addto="${e.key}">Add journal</button><button class="btn ghost" data-link="${e.id}">Link earlier</button></div>`,'tall');
@@ -3440,8 +3362,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['46','8 Nov 2026',['Computer Home: your journal on the left and four cards beside it: Follow-ups (tick the box to mark one done, click it to open the entry), Due this week, Emails to approve and Buyer replies. Today now shows only today\'s entries; older open follow-ups wait in the Follow-ups card. The date is the big heading with the greeting above it. The orderbook stays in the side menu. Phone unchanged']],
-['45','8 Nov 2026',['Today page: the Stacked order is gone; follow-ups and today\'s entries always show as separate cards']],
+const APP_LOG=[['45','8 Nov 2026',['Today page: the Stacked order is gone; follow-ups and today\'s entries always show as separate cards']],
 ['44','8 Nov 2026',['Every page redesigned to match: text fields keep their original look; cards keep their shadows and entrance animations; on the phone, details read as label beside value; contract, letter and debit note pages have named tabs (Contract, Inspection, Invoice, Payments, Debit notes) instead of dots; Contacts is a clean list with a small Add button, and each contact has Call, Email and Edit buttons; Outreach settings split into About you, What you supply, Your voice, Signature and Mailbox; Reports dates no longer overflow; login shows your logo; dark mode messages are readable']],
 ['43','8 Nov 2026',['New layout. Phone: page names in a tab bar at the top (tap or swipe), Settings button top right, greeting moved under Today. Buyers: outreach, sources and countries as clean lists; inside a country the filters, research and companies are grouped, and on a computer they sit side by side. Settings grouped into Business, Documents, Buyers and App. Lighter, tighter lists. Dark mode filter chips fixed']],
 ['42','8 Nov 2026',['Follow-ups: when a sent email gets no reply (4 working days, then 6 more) a short follow-up is written for you to approve; it stops when they reply, opt out or after the second. Switch in Settings > Outreach. Emails also now follow the warm structure properly. Re-run supabase-inbox.sql (it is safe to run again)']],
