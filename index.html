@@ -271,6 +271,9 @@ h1{font-weight:800;letter-spacing:-.04em}
 @media(prefers-reduced-motion:reduce){.card,.btn,.sheet,.scrim{transition:none!important}.card:active{scale:1}}
 
 /* ===== v2: borderless edit boxes, compact follow-up stack, uniform buttons ===== */
+.ei,.ei:focus{border:0!important;border-bottom:0!important;box-shadow:none}
+.ei{transition:background .2s,box-shadow .2s}
+.ei:focus{background:var(--bl)!important;box-shadow:0 0 0 6px var(--bl)!important;border-radius:4px!important}
 .lg input:focus{box-shadow:none}
 .pile{margin:var(--sp-6) 0 var(--sp-8);padding-bottom:var(--sp-16)}
 .pile .pl{border-radius:16px;box-shadow:0 0 0 1px rgba(16,24,40,.05),0 8px 16px -12px rgba(16,24,40,.28)!important}
@@ -298,16 +301,21 @@ button:not(.pile):not(:disabled):active{scale:.965}
 
 /* ===== v3: no borders on any text box; soft fill, tint on focus ===== */
 html{-webkit-tap-highlight-color:transparent}
-.comp input,.form input:not(.ei),.form textarea:not(.ei),.tc2 input,.wsfm header input,.wstp .tpn input,.sbox{border:0!important;outline:0;box-shadow:none;background:var(--kbf6f7fb,#F6F7FB);transition:background .2s}
+.comp input,.form input:not(.ei),.form textarea:not(.ei),.tc2 input,.wsfm header input,.wstp .tpn input,.lg input,.sbox{border:0!important;outline:0;box-shadow:none;background:var(--kbf6f7fb,#F6F7FB);transition:background .2s}
 .sbox{background:var(--kbffffff,#fff)!important;box-shadow:var(--sh1)!important}
-.comp input:focus,.form input:not(.ei):focus,.form textarea:not(.ei):focus,.tc2 input:focus,.wsfm header input:focus,.wstp .tpn input:focus,{border:0!important;box-shadow:none!important;background:var(--bl)!important}
+.comp input:focus,.form input:not(.ei):focus,.form textarea:not(.ei):focus,.tc2 input:focus,.wsfm header input:focus,.wstp .tpn input:focus,.lg input:focus{border:0!important;box-shadow:none!important;background:var(--bl)!important}
 .sbox:focus{border:0!important;box-shadow:var(--sh2)!important}
 .form .dr input,.form .df input,.df input{}
 .lg input{border-radius:14px;padding:var(--sp-12) var(--sp-16)}
 
 /* ===== v4: no dashed lines or grey fills in edit boxes, popup import, desktop chips match mobile ===== */
-.rtx,.rtx:focus{border:0!important;border-bottom:0!important;background:transparent!important;box-shadow:none!important}
+.form .ei,.mid .form .ei,.form input.ei,.form textarea.ei,.ei,.rtx,.rtx:focus{border:0!important;border-bottom:0!important;background:transparent!important;box-shadow:none!important}
+.ei:focus,.form .ei:focus,.mid .form .ei:focus{background:transparent!important;box-shadow:none!important;border-radius:0!important}
+select.ei{background-color:transparent!important}
 .comp input,.form input:not(.ei),.form textarea:not(.ei),.comp textarea,.comp input:focus,.form input:not(.ei):focus,.form textarea:not(.ei):focus{background:transparent!important;border:0!important;box-shadow:none!important}
+.form .dr input,.form .df input,.df input{background:transparent!important}
+.lg input,.lg input:focus{background:transparent!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;padding:var(--sp-12) 0!important}
+.lg input:focus{border-bottom-color:var(--blue)!important}
 .ln.li,.dpane .ln.li,.invf .ln{background:transparent!important;border-radius:0;padding-left:0;padding-right:0}
 .ln.li+.ln.li{border-top:1px solid var(--line);margin-top:var(--sp-6)}
 .kv:focus-within>span,.mf:focus-within>span{color:var(--blue)}
@@ -539,7 +547,8 @@ select.ei{appearance:none;-webkit-appearance:none;border-radius:0}
 .btn:not(.ghost) .mi,.acts .pri .mi,.okk .mi{--mc:#fff}.rm .mi,.dl .mi{--mc:#E5484D}.okk.rm .mi,.okk.dl .mi{--mc:#fff}
 .spn{animation:spin .75s linear infinite}.tk{stroke-dasharray:26;stroke-dashoffset:26;animation:dr .42s .06s ease-out forwards}
 @keyframes dr{to{stroke-dashoffset:0}}.okk{animation:okp .42s cubic-bezier(.3,1.6,.5,1)}@keyframes okp{0%{transform:scale(.86)}100%{transform:scale(1)}}
-.form .ds{margin-top:0}
+.form .ei,.mid .form .ei{border:0;border-bottom:1.5px dashed var(--krd3d3dc,#D3D3DC)!important;border-radius:0;background:transparent;padding:var(--sp-2) 0 var(--sp-4);min-height:0;width:100%}
+.form .ei:focus{border-bottom-color:var(--blue)!important}.form .ds{margin-top:0}
 .lg input{border:0;border-bottom:1.5px dashed var(--krd3d3dc,#D3D3DC);border-radius:0;background:transparent;padding:var(--sp-12) 0}.lg input:focus{border-bottom-color:var(--blue)}
 select.ei{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B8B93' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 0 center/18px no-repeat;padding-right:var(--sp-24);cursor:pointer}
 .lgo{display:flex;align-items:center;gap:var(--sp-16);margin-bottom:var(--sp-8)}.lgo img{width:64px;height:64px;object-fit:contain;border-radius:14px;background:var(--kbffffff,#fff);border:1.5px solid var(--line);padding:var(--sp-6)}
@@ -1475,7 +1484,8 @@ html[data-theme="dark"]{--hdr:rgba(11,13,18,.86)}
 .ux-gh{display:flex;align-items:baseline;gap:var(--sp-8);margin:var(--sp-20) var(--sp-4) var(--sp-8);font-size:calc(12px*var(--fs,1));font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
 .ux-gh small{font-size:inherit;font-weight:600;letter-spacing:0;color:var(--mute);opacity:.8}
 .fbx>.ux-gh:first-child,.fbx-a>.ux-gh:first-child,.fbx-m>.ux-gh:first-child{margin-top:var(--sp-4)}
-.ux-list,.ux-pnl{background:var(--surf);border:1px solid var(--edge);border-radius:var(--pnl-r);overflow:hidden}
+.ux-list,.ux-pnl{background:var(--surf);border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(20,20,40,.04),0 8px 20px -14px rgba(20,20,40,.26);animation:up .45s cubic-bezier(.2,.9,.2,1) backwards}
+html[data-theme="dark"] .ux-list,html[data-theme="dark"] .ux-pnl,html[data-theme="dark"] .ux-qb{box-shadow:var(--sh1)}
 .ux-pnl{padding:var(--sp-12) var(--sp-16)}
 .ux-row{display:flex;align-items:center;gap:var(--sp-12);width:100%;min-height:var(--row-h);margin:0;padding:var(--sp-12) var(--sp-16);border:0;border-top:1px solid var(--line);border-radius:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .15s}
 .ux-row:first-child{border-top:0}.ux-row:active{background:var(--panel)}.ux-row:disabled{opacity:.6;cursor:default}
@@ -1500,9 +1510,9 @@ html[data-theme="dark"]{--hdr:rgba(11,13,18,.86)}
 .fbflt{padding:var(--sp-8) 0 var(--sp-4)}
 .fbfl{padding:var(--sp-4) var(--sp-16) 0;font-size:calc(12px*var(--fs,1));font-weight:600;color:var(--mute)}
 .fbflt .chs{margin:0;padding:var(--sp-6) var(--sp-16) var(--sp-8);gap:var(--sp-6)}
-.fbx .ds.fbs{margin:0;border:1px solid var(--edge);box-shadow:none;border-radius:var(--pnl-r)}
-.fbx .chs .ch,.fbflt .ch{padding:var(--sp-6) var(--sp-12);font-size:calc(13px*var(--fs,1));font-weight:600;box-shadow:0 0 0 1px var(--edge)}
-.fbx .card.fbg{margin-bottom:var(--sp-8);padding:var(--sp-12) var(--sp-16);border-radius:14px;box-shadow:0 0 0 1px var(--edge)}
+.fbx .ds.fbs{margin:0}
+.fbx .chs .ch,.fbflt .ch{padding:var(--sp-6) var(--sp-12);font-size:calc(13px*var(--fs,1));font-weight:600}
+.fbx .card.fbg{margin-bottom:var(--sp-8);padding:var(--sp-12) var(--sp-16)}
 .fbx .card.fbg h3{font-size:calc(15.5px*var(--fs,1))}
 .fbx .fbpt{margin:var(--sp-8) var(--sp-4) 0}
 @media (min-width:900px){
@@ -1543,15 +1553,6 @@ html[data-theme="dark"]{--hdr:rgba(11,13,18,.86)}
 @media (max-width:899px){
  .gr .pd{padding:0 var(--sp-6);font-size:calc(14px*var(--fs,1))}
  .gr .pds{padding:0 var(--sp-6)}
- #view .card{border-radius:16px;box-shadow:0 0 0 1px var(--edge),0 1px 2px rgba(20,20,40,.04)}
- #view .card:not(.ob):not(.fbg):not(.fbc){padding:var(--sp-16) var(--sp-16) var(--sp-16) var(--sp-16);margin-bottom:var(--sp-8)}
- #view .card:not(.ob) .ct h3{font-size:calc(16px*var(--fs,1))}
- #view .card:not(.ob) .bd{font-size:calc(14px*var(--fs,1));line-height:1.5;margin-top:var(--sp-8)}
- #view .card.ob.ox{margin-bottom:var(--sp-8)}
- #view .card.ob.ox .oxf{grid-template-columns:38px minmax(0,1fr) auto;padding:var(--sp-12) var(--sp-12) var(--sp-12) var(--sp-12)}
- #view .card.ob.ox .oxr{width:38px;height:38px}
- #view .card.ob.ox .oxr svg{width:16px;height:16px}
- #view .card.ob.ox .oxn{font-size:calc(15.5px*var(--fs,1))}
  #view .chs .ch{padding:var(--sp-8) var(--sp-16);font-size:calc(13.5px*var(--fs,1));font-weight:600}
  #view .chs{gap:var(--sp-8)}
  #view .day{margin:var(--sp-20) var(--sp-4) var(--sp-8);font-size:calc(12px*var(--fs,1));letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--mute)}
@@ -1564,19 +1565,10 @@ html[data-theme="dark"]{--hdr:rgba(11,13,18,.86)}
 /* ===== v2 building blocks used by every page ===== */
 :root{--fld-b:var(--edge)}
 /* fields: a thin outline shows where to type (no grey fill, no dashed line) */
-.ei,.form .ei,.lg input,.form .df input,.df input{border:1px solid var(--fld-b);border-radius:10px;background-color:var(--surf);padding:var(--sp-8) var(--sp-12);margin-top:var(--sp-6);font-weight:500;color:var(--ink);transition:border-color .15s,box-shadow .15s}
-.ei:focus,.form .ei:focus,.lg input:focus,.df input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--bl);background-color:var(--surf)}
-.ei::placeholder,.lg input::placeholder{color:var(--mute);opacity:.75;font-weight:400}
-select.ei{padding-right:var(--sp-32,32px);background-position:right 10px center}
-.form .big.ei{font-weight:600}
-.nrow .ei{margin-top:0}
-.lg input{padding:var(--sp-12) var(--sp-16)}
 /* sections: same panel as the lists */
-.ds{border-radius:var(--pnl-r);box-shadow:0 0 0 1px var(--edge);animation:none}
 .ds h5,.ds>.ldk:first-child{margin-bottom:var(--sp-8)}
 /* phone: label beside value for read-only rows */
 @media (max-width:899px){
- .ds{padding:var(--sp-16)}
  .ds>.kv:not(.ed),.dpane .ds>.kv:not(.ed){display:grid;grid-template-columns:minmax(92px,36%) minmax(0,1fr);column-gap:var(--sp-12);align-items:baseline;padding:var(--sp-10,10px) 0}
  .ds>.kv:not(.ed)>span{margin:0;font-weight:500;font-size:calc(13px*var(--fs,1))}
  .ds>.kv:not(.ed)>*:not(span){grid-column:2;margin:0;min-width:0;overflow-wrap:anywhere}
@@ -1606,7 +1598,7 @@ select.ei{padding-right:var(--sp-32,32px);background-position:right 10px center}
 .ux-sr .sbox{flex:1;min-width:0;margin:0}
 .ux-sr .new{flex:none}
 .ux-qa{display:flex;gap:var(--sp-8);margin:var(--sp-8) 0 var(--sp-4)}
-.ux-qb{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);padding:var(--sp-12) var(--sp-8);border:0;border-radius:14px;background:var(--surf);box-shadow:0 0 0 1px var(--edge);color:var(--blue);font:inherit;font-size:calc(12.5px*var(--fs,1));font-weight:600;text-decoration:none;cursor:pointer}
+.ux-qb{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);padding:var(--sp-12) var(--sp-8);border:0;border-radius:16px;background:var(--surf);box-shadow:0 1px 2px rgba(20,20,40,.04),0 8px 20px -14px rgba(20,20,40,.26);color:var(--blue);font:inherit;font-size:calc(12.5px*var(--fs,1));font-weight:600;text-decoration:none;cursor:pointer}
 .ux-qb svg{width:20px;height:20px}.ux-qb:active{background:var(--bl)}
 .ux-lead{margin:0 var(--sp-4) var(--sp-4)}
 .ux-save{margin-top:var(--sp-16)}
@@ -1618,8 +1610,6 @@ select.ei{padding-right:var(--sp-32,32px);background-position:right 10px center}
 .lg .sub{color:var(--mute)}
 /* worksheets list and other legacy cards: same ring panel as the lists */
 @media (max-width:899px){
- .tl2 .sc{border-radius:var(--pnl-r);box-shadow:0 0 0 1px var(--edge);padding:var(--sp-16) 44px var(--sp-16) var(--sp-16);margin-bottom:var(--sp-8)}
- .tl2 .sc.wcard{padding-right:var(--sp-16)}
  .tl2 .sc b{font-size:calc(15.5px*var(--fs,1))}
  .wsnew{gap:var(--sp-8)}
 }
@@ -1627,7 +1617,6 @@ select.ei{padding-right:var(--sp-32,32px);background-position:right 10px center}
 /* two fields side by side never overflow their panel */
 .lg2>.mf,.prw>.mf{min-width:0}
 .lg2 .ei,.prw .ei,.mf input.ei[type="date"]{min-width:0;max-width:100%}
-input.ei[type="date"]{padding-right:var(--sp-8)}
 
 @media (min-width:900px){.ux-qa.mobonly{display:none}}
 
@@ -3373,7 +3362,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['44','8 Nov 2026',['Every page redesigned to match: fields now show a clear outline so you can see where to type; on the phone, details read as label beside value; contract, letter and debit note pages have named tabs (Contract, Inspection, Invoice, Payments, Debit notes) instead of dots; Contacts is a clean list with a small Add button, and each contact has Call, Email and Edit buttons; Outreach settings split into About you, What you supply, Your voice, Signature and Mailbox; Reports dates no longer overflow; login shows your logo; dark mode messages are readable']],
+const APP_LOG=[['44','8 Nov 2026',['Every page redesigned to match: text fields keep their original look; cards keep their shadows and entrance animations; on the phone, details read as label beside value; contract, letter and debit note pages have named tabs (Contract, Inspection, Invoice, Payments, Debit notes) instead of dots; Contacts is a clean list with a small Add button, and each contact has Call, Email and Edit buttons; Outreach settings split into About you, What you supply, Your voice, Signature and Mailbox; Reports dates no longer overflow; login shows your logo; dark mode messages are readable']],
 ['43','8 Nov 2026',['New layout. Phone: page names in a tab bar at the top (tap or swipe), Settings button top right, greeting moved under Today. Buyers: outreach, sources and countries as clean lists; inside a country the filters, research and companies are grouped, and on a computer they sit side by side. Settings grouped into Business, Documents, Buyers and App. Lighter, tighter lists. Dark mode filter chips fixed']],
 ['42','8 Nov 2026',['Follow-ups: when a sent email gets no reply (4 working days, then 6 more) a short follow-up is written for you to approve; it stops when they reply, opt out or after the second. Switch in Settings > Outreach. Emails also now follow the warm structure properly. Re-run supabase-inbox.sql (it is safe to run again)']],
 ['41','8 Nov 2026',['Buyers: Inbox. Replies from buyers (with opt-outs, bounces and automatic replies sorted out), Write a reply drafts an answer in their language for you to approve. Needs the fifth SQL (supabase-inbox.sql) and the mailbox']],
