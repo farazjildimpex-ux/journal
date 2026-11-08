@@ -1708,6 +1708,22 @@ html[data-theme="dark"] .pbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
 .dap .dch{gap:var(--sp-8)}.dap .dch h2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}.dap .dch small{white-space:nowrap;flex:none}.dap .dch .dacts{flex:none;margin-left:auto}
 .pav{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--bl);color:var(--blue);font-size:calc(11.5px*var(--fs,1));font-weight:700}
 .pnew{flex:none;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.patl{margin:0 0 var(--sp-12)}.patl .ot:after{display:none}.pt-docs{--xs:var(--st-issued)}.pt-pay{--xs:var(--st-completed)}.pt-cour{--xs:var(--st-inspected)}
+.pend .orad{display:flex;gap:var(--sp-8);margin:0 0 var(--sp-4)}
+.card.pac{padding:0!important;overflow:hidden}
+.card.pac .ct{padding:var(--sp-16)}
+.pak{display:flex;align-items:center;gap:var(--sp-8);margin:0 0 6px;font-weight:800;font-size:calc(10px*var(--fs,1));line-height:1;letter-spacing:.07em;text-transform:uppercase;color:var(--tc,var(--st-issued))}
+.pak em{font-style:normal;font-weight:700;letter-spacing:.02em;text-transform:none;font-size:calc(11px*var(--fs,1));color:var(--ink3);padding:3px 6px;border-radius:6px;background:rgba(120,120,140,.12)}
+.ppl{margin-left:auto;display:inline-flex;align-items:center;height:22px;padding:0 10px;border-radius:99px;font-size:calc(11.5px*var(--fs,1));font-weight:700;letter-spacing:0;text-transform:none;white-space:nowrap;background:rgba(120,120,140,.12);color:var(--ink3)}
+.ppl.od{background:color-mix(in srgb,var(--st-overdue) 14%,transparent);color:var(--st-overdue)}
+.ppl.soon{background:var(--bl);color:var(--blue)}
+.ppl.ok{background:color-mix(in srgb,var(--st-completed) 15%,transparent);color:var(--st-completed)}
+.card.pac h3{margin:0;font-size:calc(16px*var(--fs,1));font-weight:500;line-height:1.35;letter-spacing:-.01em;color:var(--ink2)}
+.card.pac h3 b{font-weight:800;color:var(--ink);white-space:nowrap}
+.card.pac .bd{margin:6px 0 0;font-size:calc(13.5px*var(--fs,1));line-height:1.4;color:var(--mute)}
+.pacts{display:flex;justify-content:flex-end;padding:0 var(--sp-16) var(--sp-12);margin-top:-4px}
+.card.pac.dn h3,.card.pac.dn h3 b{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--mute)}.card.pac.dn{opacity:.8}
+.pend .head .new svg{margin-right:2px}
 .ppc{background:var(--surf);border-radius:var(--r,20px);box-shadow:var(--sh1);padding:var(--sp-4) var(--sp-16) var(--sp-8)}.ppc .pa{padding:12px 0}
 .prc[hidden]{display:none}
 .pbx:focus-visible,.pat:focus-visible,.apr:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
@@ -2858,7 +2874,7 @@ function paItems(){const T=today(),D=PA.done,R=[],ib={},dnA={},o30=back(30),RL=p
  PA.dn.forEach(d=>paSplit(d.contract_no).forEach(k=>{if(!dnA[k]||String(d.created_at)<String(dnA[k]))dnA[k]=d.created_at}));
  const add=(r,id,st,dv,v,ex)=>{const key=r.id+':'+id,man=r.done=='tick',m=D[key];let done,at;if(man){done=!!m;at=m||''}else{done=!!dv;at=dv&&dv!='x'?dv:''}
   if(done&&!(PDAY(at)==T||(man&&PA.old&&PDAY(at)>=o30)))return;const t=pText(r,{...v,due:st.due});
-  R.push({key,id,man,done,at,t,s:st.s,w:st.w,due:st.due,dl:pLab(PDONE[r.to||'contract'],r.done).toLowerCase(),hay:[t.replace(/<[^>]+>/g,''),st.s,ex].join(' ').toLowerCase()})};
+  R.push({key,id,man,done,at,t,s:st.s,w:st.w,due:st.due,kind:r.to=='letter'?'letter':'contract',sup:v.sup||'',cat:PCAT[r.done]||'other',dl:pLab(PDONE[r.to||'contract'],r.done).toLowerCase(),hay:[t.replace(/<[^>]+>/g,''),st.s,ex].join(' ').toLowerCase()})};
  PA.c.forEach(c=>{const x=pFacts(c,ib,dnA);if(!x.k)return;RL.forEach(r=>{if((r.to||'contract')!='contract'||!pTermsOk(r,x.pt))return;const st=pStartC(r,c,x);if(st)add(r,c.id,st,pDoneC(r,c,x),{no:x.no,sup:x.sup,buyer:x.buyer,ab:x.ab,days:x.dm?x.dm[1]:''},[x.no,x.supF,x.buyer,c.payment_terms].join(' '))})});
  PA.lt.forEach(l=>{if(/complet|cancel/i.test(l.status||''))return;const has=!!String(l.courier_reference||'').trim();RL.forEach(r=>{if(r.to!='letter')return;let st=null;
   if(r.start=='letter')st={w:l.date||'',s:l.company_name||''};else if(r.start=='letterdue'&&l.due_date&&(dDiff(l.due_date)<=(+r.days||0)||(r.done=='courier'&&has)))st={w:l.due_date,due:l.due_date,s:l.company_name||''};
@@ -2874,7 +2890,7 @@ function paHTML(L,k){if(!PA.loaded)return paSk(3);const T=today(),o30=back(30),n
   return `<div class="pa${x.done?' dn':''}"><button class="pat" data-orow="${x.id}" title="${esc(x.done?'Done':'Strikes off by itself when: '+x.dl)}"><span class="pt1">${x.t}</span>${x.s?`<small>${esc(x.s)}</small>`:''}</button>${dl}${bx}</div>`}).join('')+more}
 function paPaint(){const k=hqk(),L0=PA.loaded?paItems():[],P=k?qParse(k.toLowerCase()):null,L=P?L0.filter(x=>P.test(x.hay)):L0,open=L.filter(x=>!x.done).length,
   t=!PA.loaded?'Loading…':k?L.length+(L.length==1?' match':' matches'):open+(open==1?' item':' items');
- ['#pal','#ppl'].forEach(sel=>{const el=$(sel);if(!el)return;const sc=el.scrollTop;el.innerHTML=paHTML(L,k);el.scrollTop=sc});['#pan','#ppn'].forEach(sel=>{const e=$(sel);if(e)e.textContent=t})}
+ {const el=$('#pal');if(el){const sc=el.scrollTop;el.innerHTML=paHTML(L,k);el.scrollTop=sc}}{const el=$('#ppl');if(el){el.innerHTML=ppHTML(L);const pn=el.closest('.pane');if(PA.loaded&&pn&&!pn.classList.contains('na'))setTimeout(()=>pn.classList.add('na'),900)}}['#pan','#ppn'].forEach(sel=>{const e=$(sel);if(e)e.textContent=t})}
 /* the box beside Pending actions: new buyer replies come first; once they are read it goes back to Emails to approve */
 function rbPaint(){const al=$('#apl');if(!al)return;const k=hqk(),P=k?qParse(k.toLowerCase()):null,set=(t,n,a)=>{$('#apt').textContent=t;$('#apn').textContent=n;$('#apa').innerHTML=a};
  if(!OUT.loaded){set('Emails to approve','Loading…','');al.innerHTML=paSk(2);return}
@@ -2892,7 +2908,23 @@ async function paTick(k){if(!PA.ok){toast('Could not save the tick. Try again in
  if(m){delete PA.done[k];hbPaint();const{error}=await sb.from('pending_done').delete().eq('key',k);if(error){PA.done[k]=m;hbPaint();toast(error.message)}}
  else{const at=new Date().toISOString();PA.done[k]=at;hbPaint();const{error}=await sb.from('pending_done').upsert({key:k,done_at:at});if(error){delete PA.done[k];hbPaint();toast(error.message)}}}
 /* phone: Pending page (left of Today) */
-function renderPending(keep){const v=$('#view');if(!v)return;v.innerHTML=`<div class="pane ${keep?'na':''}"><div class="head"><div><h1>Pending</h1><div class="sub" id="ppn">Loading…</div></div><button class="new" data-sv="rules">Rules</button></div><div class="ppc" id="ppl"></div></div>`;paPaint();paLoad()}
+function renderPending(keep){const v=$('#view');if(!v)return;v.innerHTML=`<div class="pane pend ${keep&&PA.loaded?'na':''}"><div class="head"><div><h1>Pending</h1><div class="sub" id="ppn">Loading…</div></div><button class="new" data-sv="rules"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Rules</button></div><div id="ppl"></div></div>`;paPaint();paLoad()}
+/* phone Pending: tiles to filter, grouped cards like the rest of the app */
+let PPF='';
+const PCAT={invoice:'docs',bill:'docs',paid:'pay',payment:'pay',debit:'pay',courier:'cour',tick:'cour'},
+ PCATN={docs:'Invoices and AWB / BL',pay:'Payments and debit notes',cour:'Couriers and follow-ups',other:'Other'},PTILE={docs:'Documents',pay:'Payments',cour:'Couriers'},
+ PCATI={docs:'<path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v4h4M9 13h6M9 17h4"/>',pay:'<rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18M7 15h3"/>',cour:'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/>'};
+function ppHTML(L){if(!PA.loaded)return '<div class="card sk"></div>'.repeat(3);const T=today(),o30=back(30),open=L.filter(x=>!x.done),isLate=x=>!x.done&&x.due&&dDiff(x.due)<0,late=open.filter(isLate).length,cnt=k=>open.filter(x=>x.cat==k).length;
+ if(PPF=='late'&&!late)PPF='';const nOld=Object.values(PA.done).filter(v=>{const d=PDAY(v);return d<T&&d>=o30}).length,more=nOld?`<button class="paold" data-paold>${PA.old?'Hide items ticked earlier':'Show items ticked in the last 30 days'}</button>`:'';
+ let h=`<div class="otl patl">${['docs','pay','cour'].map(k=>`<button class="ot pt-${k}${PPF==k?' on':''}" data-ppf="${k}" aria-pressed="${PPF==k}"><i><svg viewBox="0 0 24 24">${PCATI[k]}</svg></i><b>${cnt(k)}</b><span>${PTILE[k]}</span></button>`).join('')}</div>`;
+ if(late)h+=`<div class="orad"><button class="orp${PPF=='late'?' on':''}" data-ppf="late">Late<b>${late}</b></button></div>`;
+ const F=L.filter(x=>!PPF||(PPF=='late'?isLate(x):x.cat==PPF));
+ if(!F.length)return h+`<div class="empty"><b>${PPF?'Nothing here':'Nothing pending'}</b>${PPF?'Tap the tile again to see everything.':'Actions appear here as contracts move from inspection to invoice, shipment, payment and debit note, and when a letter is due.'}</div>`+more;
+ let i=0;const card=x=>{const n=x.due&&!x.done?dDiff(x.due):null,pill=x.done?'<span class="ppl ok">Done</span>':n==null?'':n<0?`<span class="ppl od">${-n} day${n==-1?'':'s'} late</span>`:n==0?'<span class="ppl soon">Today</span>':n==1?'<span class="ppl soon">Tomorrow</span>':`<span class="ppl">${fmWd(x.due)}</span>`;
+  const sup=x.sup&&!x.t.includes('<b>'+esc(x.sup)+'</b>')?x.sup:'',sub=x.sup?String(x.s||'').split(' · ').filter(p=>p!=x.sup).join(' · '):x.s;
+  return `<div class="card pac t-${x.kind}${x.done?' dn':''}" style="--i:${i++}"><div class="ct" data-orow="${x.id}"><div class="pak"><span>${x.kind=='letter'?'Letter':'Contract'}</span>${sup?`<em>${esc(sup)}</em>`:''}${pill}</div><h3>${x.t}</h3>${sub?`<p class="bd">${esc(sub)}</p>`:''}</div>${x.man?`<div class="pacts"><button class="pdo${x.done?' un':''}" data-patk="${esc(x.key)}">${x.done?'Undo':'Mark done'}</button></div>`:''}</div>`};
+ ['docs','pay','cour','other'].forEach(k=>{const G=F.filter(x=>!x.done&&x.cat==k);if(G.length)h+=`<div class="day gh">${PCATN[k]}</div>`+G.map(card).join('')});
+ const D=F.filter(x=>x.done);if(D.length)h+=`<div class="day gh">Done today</div>`+D.map(card).join('');return h+more}
 /* Settings > Pending actions: the rules */
 function prList(){const L=pRules();return `<p class="fbpt" style="margin:0 0 12px">Each rule writes one line on your Pending actions list. It shows from the step you choose and strikes off by itself when the data is entered, or when you tick it if the rule says so.</p><div class="ux-list">${L.map(r=>{const to=r.to||'contract';return uxRow(`data-sv="rule:${esc(r.id)}"`,esc(pPlain(r.text)),esc([(to=='letter'?'Letters':'Contracts')+(r.on===false?' · Off':''),'From: '+pLab(PSTART[to],r.start).replace(/ \(.*/,'')+(/due|delivery/.test(r.start||'')?' ('+(+r.days||0)+' days)':''),'Strikes off: '+pLab(PDONE[to],r.done).toLowerCase(),r.terms?'Terms: '+r.terms:''].filter(Boolean).join(' · ')),{ic:'list'})}).join('')}</div><button class="btn wide" data-sv="rule:new" style="margin-top:12px">Add a rule</button><button class="btn ghost wide" data-prreset>Put back the original rules</button>`}
 const prOpt=(L,v)=>L.map(([k,l])=>`<option value="${k}" ${k==v?'selected':''}>${esc(l)}</option>`).join('');
@@ -2976,6 +3008,7 @@ async function onClick(t){const d=t.dataset;
  else if(d.orow)detail(d.orow)
  else if(d.patk)await paTick(d.patk)
  else if('paold'in d){PA.old=!PA.old;paPaint()}
+ else if(d.ppf){PPF=PPF==d.ppf?'':d.ppf;paPaint()}
  else if('prsave'in d)await prSave()
  else if('prdel'in d)await prDel()
  else if('prreset'in d)await prReset()
@@ -3630,7 +3663,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['50','8 Nov 2026',['Contacts: on the computer the list sits on the left and the chosen contact on the right, with Call, Email and Edit; editing and adding happen in the same place. Every contact can have its company logo (click the picture or Add logo); without a logo it shows the company initials. Logos show on the phone too']],
+const APP_LOG=[['51','8 Nov 2026',['Phone Pending page redesigned like the rest of the app: three tiles (Documents, Payments, Couriers) that filter, a Late chip when something is late, grouped cards with Contract or Letter, the supplier mark and a due pill, Mark done on the two hand-ticked follow-ups, and Done today at the bottom']],
+['50','8 Nov 2026',['Contacts: on the computer the list sits on the left and the chosen contact on the right, with Call, Email and Edit; editing and adding happen in the same place. Every contact can have its company logo (click the picture or Add logo); without a logo it shows the company initials. Logos show on the phone too']],
 ['49','8 Nov 2026',['Pending actions: no tick box at the start; the two follow-ups that have nothing to fill in (documents courier for CAD and letter of credit) have a small Done button at the end, with Undo. Pending actions and the box beside it are now the same width. Home orderbook: contract number and supplier mark a little bolder. Computer Home: entries you write today sit above the follow-ups']],
 ['48','8 Nov 2026',['Pending actions: the rules are now in Settings > Pending actions, where you can edit, switch off, delete or add rules, or put back the originals. Steps with data (invoice, AWB or BL, payment, debit note, courier) strike off only when the data is entered; follow-ups with no field have a tick box, ticked items go to the bottom struck out and can be put back (also items ticked in the last 30 days). Count shows items. On the phone, Pending has its own page left of Today. On the computer, new buyer replies take the place of Emails to approve until you have read them, and searching also filters Pending actions and that box. Review no longer spills out of its box']],
 ['47','8 Nov 2026',['Computer Home: the orderbook takes the top half on the right; below it are Pending actions and Emails to approve. Pending actions is written for you from each contract and letter: invoice awaiting after inspection, await AWB or BL after the invoice, TT follow-up for TT before shipment, documents courier follow-up for CAD and letter of credit, check payment a week before the 60 or 90 days run out, raise debit note after a payment, and courier details for a letter that is due. Items strike out by themselves when you enter the data (or tick them yourself) and leave the next day. The whole computer view is a little smaller (like 90% zoom)']],
