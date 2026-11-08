@@ -53,7 +53,7 @@ function build(draft, set, imgs, to) {
   if (imgs.logo) { att.push({ filename: 'logo', cid: 'logoimg@jild', contentType: imgs.logo.contentType, content: imgs.logo.content, contentDisposition: 'inline' }); sigHtml += '<div style="margin-top:8px"><img src="cid:logoimg@jild" alt="" style="max-height:56px"></div>'; }
   const html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#222">' + paras + sigHtml + (opt ? '<div style="margin-top:16px;font-size:12px;color:#777">' + esc(opt) + '</div>' : '') + '</div>';
   const from = fromAddr();
-  return { from, to, subject: String(draft.subject || '').replace(/[\r\n]+/g, ' ').trim(), text, html, attachments: att, headers: { 'List-Unsubscribe': '<mailto:' + from.address + '?subject=unsubscribe>', 'Auto-Submitted': 'no' } };
+  return { from, to, subject: String(draft.subject || '').replace(/[\r\n]+/g, ' ').trim(), text, html, attachments: att, headers: Object.assign({ 'List-Unsubscribe': '<mailto:' + from.address + '?subject=unsubscribe>' }, draft.in_reply_to ? { 'In-Reply-To': draft.in_reply_to, References: draft.in_reply_to } : {}) };
 }
 
 async function userEmail(tok) {
@@ -68,6 +68,59 @@ async function settings() {
 async function sentToday(now) { const r = await sbf('outreach_drafts?status=eq.sent&sent_at=gte.' + istDayStart(now).toISOString() + '&select=id', { headers: { Prefer: 'count=exact', Range: '0-0' } }); const c = (r.headers.get('content-range') || '').split('/')[1]; return +c || 0; }
 async function firstSent() { const r = await (await sbf('outreach_drafts?status=eq.sent&select=sent_at&order=sent_at.asc&limit=1')).json(); return r && r[0] && r[0].sent_at ? new Date(r[0].sent_at) : null; }
 
+const OPTOUT = /unsubscribe|remove me|do not (contact|email|write)|don'?t (contact|email|write)|stop (emailing|writing|sending)|no thanks|not interested|non (scriverci|contattarci)|cancellar|desiscr|abmelden|bitte keine|ne pas (me )?contacter/i;
+function classify(m) {
+  const from = String((m.from && m.from.address) || '').toLowerCase(), subj = String(m.subject || ''), body = String(m.text || '').slice(0, 3000);
+  if (/^(mailer-daemon|postmaster)@/.test(from) || /undeliver|delivery status|returned mail|failure notice|delivery has failed|non recapitato/i.test(subj)) return 'bounce';
+  if (m.autoSubmitted && m.autoSubmitted !== 'no' || /^(out of office|automatic reply|auto(matic)?[- ]?reply|risposta automatica|abwesenheit)/i.test(subj)) return 'auto';
+  if (OPTOUT.test(subj + ' ' + body.split(/\n>|On .* wrote:|Il giorno/)[0])) return 'optout';
+  return 'reply';
+}
+function bouncedAddress(m) { const t = String(m.text || ''); const x = /(?:final-recipient|original-recipient)[^\n]*?([\w.+'-]+@[\w.-]+\.\w+)/i.exec(t) || /(?:to|address|recipient)[^\n@]{0,60}?<?([\w.+'-]+@[\w.-]+\.\w+)>?/i.exec(t); return x ? x[1].toLowerCase() : ''; }
+async function fetchMailReal(lastUid) {
+  const { ImapFlow } = require('imapflow'), { simpleParser } = require('mailparser');
+  const c = new ImapFlow({ host: envv('OUTREACH_IMAP_HOST') || 'imap.titan.email', port: +envv('OUTREACH_IMAP_PORT') || 993, secure: true, auth: { user: envv('OUTREACH_USER'), pass: envv('OUTREACH_PASS') }, logger: false });
+  const out = [];
+  await c.connect();
+  try {
+    const lock = await c.getMailboxLock('INBOX');
+    try {
+      let range = lastUid ? (lastUid + 1) + ':*' : null;
+      if (!range) { const ids = await c.search({ since: new Date(Date.now() - 14 * 86400000) }, { uid: true }); if (!ids.length) return out; range = Math.min(...ids) + ':*'; }
+      for await (const msg of c.fetch(range, { uid: true, source: true }, { uid: true })) {
+        if (lastUid && msg.uid <= lastUid) continue;
+        const p = await simpleParser(msg.source);
+        out.push({ uid: msg.uid, messageId: p.messageId || null, inReplyTo: p.inReplyTo || null, references: p.references || [], from: p.from && p.from.value && p.from.value[0] || {}, subject: p.subject || '', text: p.text || '', date: p.date || new Date(), autoSubmitted: String(p.headers.get('auto-submitted') || '') });
+        if (out.length >= 60) break;
+      }
+    } finally { lock.release(); }
+  } finally { await c.logout().catch(() => {}); }
+  return out;
+}
+async function poll() {
+  if (!(T.fetchMail || (envv('OUTREACH_USER') && envv('OUTREACH_PASS')))) return { got: 0, why: 'mailbox not connected' };
+  const pre = await sbf('outreach_inbox?select=id&limit=1'); if (!pre.ok) return { got: 0, why: 'run supabase-inbox.sql in Supabase first' };
+  const { send } = await settings();
+  const msgs = await (T.fetchMail || fetchMailReal)(send.last_uid || 0);
+  if (!msgs.length) return { got: 0 };
+  const sent = (await (await sbf('outreach_drafts?status=eq.sent&select=id,message_id,to_email,group_key,company,subject&order=sent_at.desc&limit=500')).json()) || [];
+  const mine = (envv('OUTREACH_USER') || '').toLowerCase();
+  let got = 0, maxUid = send.last_uid || 0;
+  for (const m of msgs) {
+    maxUid = Math.max(maxUid, m.uid || 0);
+    const from = String(m.from.address || '').toLowerCase(); if (!from || from === mine) continue;
+    const refs = [m.inReplyTo].concat(m.references || []).filter(Boolean);
+    let d = sent.find(x => x.message_id && refs.includes(x.message_id)) || sent.find(x => String(x.to_email).toLowerCase() === from) || sent.find(x => String(x.to_email).toLowerCase().split('@')[1] === from.split('@')[1]);
+    const kind = classify(m), when = isNaN(new Date(m.date)) ? new Date() : new Date(m.date);
+    if (kind === 'bounce') { const bad = bouncedAddress(m); if (bad) await sbf('outreach_suppress', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates' }, body: JSON.stringify({ email: bad, reason: 'bounced' }) }); }
+    if (kind === 'optout' && d) await sbf('outreach_suppress', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates' }, body: JSON.stringify({ email: from, reason: 'asked not to be contacted' }) });
+    if (kind === 'reply' && d) await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ replied_at: when.toISOString() }) });
+    const r = await sbf('outreach_inbox', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates' }, body: JSON.stringify({ uid: m.uid, message_id: m.messageId, in_reply_to: m.inReplyTo, from_addr: from, from_name: m.from.name || '', subject: String(m.subject || '').slice(0, 300), body: String(m.text || '').slice(0, 20000), received_at: when.toISOString(), draft_id: d ? d.id : null, group_key: d ? d.group_key : null, company: d ? d.company : null, kind }) });
+    if (r.ok) got++;
+  }
+  if (maxUid !== (send.last_uid || 0)) await sbf('outreach_settings', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates' }, body: JSON.stringify({ id: 'send', data: { ...send, last_uid: maxUid }, updated_at: new Date().toISOString() }) });
+  return { got };
+}
 async function tick(now) {
   const tr = mailer(); if (!tr) return { sent: 0, why: 'mailbox not connected' };
   const { main, send } = await settings();
@@ -121,7 +174,8 @@ module.exports = async (req, res) => {
       const { send } = await settings();
       const good = [send.secret, envv('OUTREACH_SECRET')].filter(Boolean);
       if (!got || !good.some(g => same(g, got))) return res.status(401).json({ error: 'Wrong secret' });
-      return res.status(200).json({ ok: true, ...(await tick(now)) });
+      let pr = {}; try { pr = await poll(); } catch (e) { pr = { got: 0, why: 'could not read mail: ' + String(e.message || e).slice(0, 100) }; }
+      return res.status(200).json({ ok: true, ...(await tick(now)), inbox: pr });
     }
     const tok = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
     if (!tok) return res.status(401).json({ error: 'Please sign in again.' });
@@ -140,6 +194,7 @@ module.exports = async (req, res) => {
       await tr.sendMail(msg);
       return res.status(200).json({ ok: true, to: me });
     }
+    if (b.action === 'poll') { let pr; try { pr = await poll(); } catch (e) { return res.status(502).json({ error: 'Could not read the mailbox: ' + String(e.message || e).slice(0, 120) }); } return res.status(200).json({ ok: true, ...pr }); }
     if (b.action === 'secret') {
       const { send } = await settings(); if (send.secret) return res.status(200).json({ ok: true, secret: send.secret });
       const secret = crypto.randomBytes(24).toString('hex');
@@ -149,4 +204,4 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Unknown action' });
   } catch (e) { return res.status(502).json({ error: String(e && e.message || e).slice(0, 200) }); }
 };
-module.exports._t = { T, inWindow, tzOf, warmCap, addWorkingDays, build, istDayStart, tick };
+module.exports._t = { T, poll, classify, inWindow, tzOf, warmCap, addWorkingDays, build, istDayStart, tick };

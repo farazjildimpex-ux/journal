@@ -23,6 +23,7 @@ const TOOL = {
 const STEPS = {
   intro: 'First email to someone who does not know the sender.',
   follow1: 'A short follow-up about 4 working days after the first email, which got no reply. Add one new useful point; do not repeat the first email. Max 70 words.',
+  reply: 'A reply to the message the buyer just sent (INCOMING MESSAGE below). Answer exactly what they asked or said, warmly and briefly (60 to 140 words). Reply in the language they wrote in, one language only, no English plus translation. If they ask for prices, specifications, samples or anything not in the CATALOGUE or SENDER FACTS, do not invent it: say you will send it shortly and ask for one detail that helps (article, quantity, thickness). Do not repeat the first email.',
   follow2: 'A last, very short note about 10 days after the first email. Easy to say no to. Max 45 words.'
 };
 module.exports = async (req, res) => {
@@ -40,7 +41,7 @@ module.exports = async (req, res) => {
   b = b || {};
   const s = b.settings || {}, co = b.company || {}, step = STEPS[b.step] ? b.step : 'intro';
   if (!clean(s.catalogue)) return res.status(400).json({ error: 'Add what you can supply in Settings > Outreach first.' });
-  if (!co.profile) return res.status(400).json({ error: 'Research this company first.' });
+  if (!co.profile && step !== 'reply') return res.status(400).json({ error: 'Research this company first.' });
   const prompt = `You write outreach emails for ${clean(s.sender_name, 80) || 'the sender'} of ${clean(s.company, 120) || 'a leather sourcing agency'}.
 
 GOAL: start a real business conversation with a leather buyer. The email must feel written by a person who looked at THIS company, not a mass mailing.
@@ -55,7 +56,7 @@ HARD RULES
 - Match offers to what the research suggests they might use. If they appear to make upper leather, offer the upper articles, not linings. If the research is thin, keep the offer general and ask what they are currently looking for.
 - Tone by company type: manufacturer = materials, specs, consistency; trader = range, margins, speed, reliable supply; agent = a partnership, not competition; brand = quality, traceability, small lots. 
 - Short: 90 to 140 words for a first email. Plain words, no hype, no "I hope this email finds you well", no "turbulent times". End with ONE easy question, not a request for a call right away unless that fits.
-- LANGUAGE: if the company is in an English-speaking country, or no local language is clear, write English only. Otherwise write the SAME email twice in one message: the English version first, then a line with three dashes (---), then the version in the company's own language (Italian for Italy, Spanish for Spain, and so on, taken from the research language or country). Keep both natural and equivalent. The subject line is English, a slash, then the local-language subject. Set language to e.g. "English + Italian".
+- LANGUAGE (does not apply to a reply, which uses only the language of the incoming message): if the company is in an English-speaking country, or no local language is clear, write English only. Otherwise write the SAME email twice in one message: the English version first, then a line with three dashes (---), then the version in the company's own language (Italian for Italy, Spanish for Spain, and so on, taken from the research language or country). Keep both natural and equivalent. The subject line is English, a slash, then the local-language subject. Set language to e.g. "English + Italian".
 - Address a named person only when RESEARCH names one for the chosen recipient; otherwise a neutral greeting.
 - ${STEPS[step]}
 - Do not include a signature, address or opt-out line.
@@ -72,8 +73,8 @@ ${clean(s.catalogue, 3000)}
 SENDER'S OWN EARLIER EMAILS (match the voice, but improve them; do not copy their weaknesses)
 ${clean(s.samples, 5000) || '(none)'}
 
-${step !== 'intro' && b.previous ? 'EMAIL ALREADY SENT\n' + clean(b.previous, 2500) + '\n' : ''}RESEARCH ON ${clean(co.name, 120)} (${clean(co.country, 60)})
-${JSON.stringify(co.profile).slice(0, 7000)}
+${step === 'reply' ? 'INCOMING MESSAGE FROM THE BUYER\n' + clean(b.incoming, 4000) + '\n' : ''}${step !== 'intro' && b.previous ? 'EMAIL ALREADY SENT\n' + clean(b.previous, 2500) + '\n' : ''}RESEARCH ON ${clean(co.name, 120)} (${clean(co.country, 60)})
+${JSON.stringify(co.profile || {}).slice(0, 7000)}
 Recipient: ${clean(b.to_name, 80) || '(unknown)'} ${clean(b.to_email, 120)}
 Other notes from the sender: ${clean(b.note, 600) || '(none)'}`;
   try {
