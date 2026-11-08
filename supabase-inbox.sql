@@ -17,7 +17,9 @@ create table if not exists outreach_inbox (
   created_at timestamptz not null default now()
 );
 alter table outreach_inbox enable row level security;
+drop policy if exists "inbox all" on outreach_inbox;
 create policy "inbox all" on outreach_inbox for all to authenticated using (true) with check (true);
 alter table outreach_drafts add column if not exists in_reply_to text;
 alter table outreach_drafts add column if not exists inbox_id uuid;
 alter table outreach_drafts add column if not exists replied_at timestamptz;
+alter table outreach_drafts add column if not exists parent_id uuid;

@@ -45,7 +45,7 @@
       "maxDuration": 60
     },
     "api/outreach.js": {
-      "maxDuration": 30
+      "maxDuration": 60
     },
     "api/draft.js": {
       "maxDuration": 60

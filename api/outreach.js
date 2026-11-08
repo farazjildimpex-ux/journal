@@ -121,6 +121,34 @@ async function poll() {
   if (maxUid !== (send.last_uid || 0)) await sbf('outreach_settings', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates' }, body: JSON.stringify({ id: 'send', data: { ...send, last_uid: maxUid }, updated_at: new Date().toISOString() }) });
   return { got };
 }
+async function followups(now, max) {
+  const { main, send } = await settings();
+  if (send.followups === false) return { made: 0, why: 'follow-ups are switched off' };
+  const key = envv('ANTHROPIC_API_KEY'); if (!key) return { made: 0, why: 'ANTHROPIC_API_KEY is not set in Vercel' };
+  const pre = await sbf('outreach_drafts?select=parent_id&limit=1'); if (!pre.ok) return { made: 0, why: 'run supabase-inbox.sql in Supabase first' };
+  const due = (await (await sbf('outreach_drafts?status=eq.sent&follow_due=lte.' + now.toISOString() + '&replied_at=is.null&select=*&order=follow_due.asc&limit=30')).json()) || [];
+  if (!due.length) return { made: 0 };
+  const sup = new Set(((await (await sbf('outreach_suppress?select=email')).json()) || []).map(x => String(x.email).toLowerCase()));
+  const heard = (await (await sbf('outreach_inbox?select=from_addr&kind=in.(reply,optout)')).json()) || [];
+  const hAddr = new Set(heard.map(x => String(x.from_addr).toLowerCase())), hDom = new Set([...hAddr].map(x => x.split('@')[1]));
+  const stop = id => sbf('outreach_drafts?id=eq.' + id, { method: 'PATCH', body: JSON.stringify({ follow_due: null }) });
+  let made = 0, why = '';
+  for (const d of due) {
+    if (made >= max) break;
+    const em = String(d.to_email || '').toLowerCase(), next = d.step === 'intro' ? 'follow1' : d.step === 'follow1' ? 'follow2' : null;
+    if (!next || sup.has(em) || sup.has('@' + em.split('@')[1]) || hAddr.has(em) || hDom.has(em.split('@')[1])) { await stop(d.id); continue; }
+    const kids = (await (await sbf('outreach_drafts?parent_id=eq.' + d.id + '&select=id&limit=1')).json()) || [];
+    if (kids.length) { await stop(d.id); continue; }
+    const rr = (await (await sbf('lwg_research?group_key=eq.' + encodeURIComponent(d.group_key) + '&select=profile')).json()) || [];
+    try {
+      const e = await (T.write || require('./draft.js')._write)({ settings: main, company: { name: d.company, country: d.country, profile: rr[0] && rr[0].profile || null }, to_email: em, to_name: d.to_name || '', step: next, previous: d.body }, key);
+      const row = { group_key: d.group_key, company: d.company, country: d.country, to_email: d.to_email, to_name: d.to_name, step: next, subject: 'Re: ' + String(d.subject || '').replace(/^(re|r|aw):\s*/ig, ''), body: e.body, language: e.language, basis: { offered: e.offered, based_on: e.based_on, confidence: e.confidence }, status: 'draft', parent_id: d.id, in_reply_to: d.message_id || null };
+      const ins = await sbf('outreach_drafts', { method: 'POST', body: JSON.stringify(row) });
+      if (ins.ok) { await stop(d.id); made++; } else why = 'could not save a follow-up';
+    } catch (e) { why = String(e.message || e).slice(0, 100); if (!(e.status === 400)) break; }
+  }
+  return { made, ...(why ? { why } : {}) };
+}
 async function tick(now) {
   const tr = mailer(); if (!tr) return { sent: 0, why: 'mailbox not connected' };
   const { main, send } = await settings();
@@ -142,6 +170,7 @@ async function tick(now) {
     if (sup.has(em) || sup.has('@' + em.split('@')[1])) { await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ status: 'skipped', last_error: 'On the do-not-contact list' }) }); continue; }
     if (d.step === 'intro' && (recent.includes(em) || rdom.has(em.split('@')[1]))) continue; // do not write twice to a company in 30 days
     if (!inWindow(now, d.country, from, to)) continue;
+    if (d.step === 'follow1' || d.step === 'follow2') { const hh = (await (await sbf('outreach_inbox?select=id&kind=in.(reply,optout)&from_addr=eq.' + encodeURIComponent(em) + '&limit=1')).json()) || []; if (hh.length) { await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ status: 'skipped', last_error: 'They have already replied' }) }); continue; } }
     // claim it first so two overlapping runs can never send the same email twice
     const claim = await sbf('outreach_drafts?id=eq.' + d.id + '&status=eq.approved', { method: 'PATCH', body: JSON.stringify({ status: 'sending' }) });
     const got = claim.ok ? await claim.json() : [];
@@ -149,7 +178,7 @@ async function tick(now) {
     const imgs = await pickImages(main), msg = build(d, main, imgs, em);
     try {
       const info = await tr.sendMail(msg);
-      const done2 = await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ status: 'sent', sent_at: now.toISOString(), message_id: info && info.messageId || null, follow_due: addWorkingDays(now, 4).toISOString(), last_error: null }) });
+      const done2 = await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ status: 'sent', sent_at: now.toISOString(), message_id: info && info.messageId || null, follow_due: d.step === 'intro' ? addWorkingDays(now, 4).toISOString() : d.step === 'follow1' ? addWorkingDays(now, 6).toISOString() : null, last_error: null }) });
       if (!done2.ok) await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ status: 'sent', sent_at: now.toISOString() }) });
       return { sent: 1, to: em, company: d.company };
     } catch (e) {
@@ -175,7 +204,8 @@ module.exports = async (req, res) => {
       const good = [send.secret, envv('OUTREACH_SECRET')].filter(Boolean);
       if (!got || !good.some(g => same(g, got))) return res.status(401).json({ error: 'Wrong secret' });
       let pr = {}; try { pr = await poll(); } catch (e) { pr = { got: 0, why: 'could not read mail: ' + String(e.message || e).slice(0, 100) }; }
-      return res.status(200).json({ ok: true, ...(await tick(now)), inbox: pr });
+      let fr = {}; try { fr = await followups(now, 2); } catch (e) { fr = { made: 0, why: String(e.message || e).slice(0, 100) }; }
+      return res.status(200).json({ ok: true, ...(await tick(now)), inbox: pr, followups: fr });
     }
     const tok = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
     if (!tok) return res.status(401).json({ error: 'Please sign in again.' });
@@ -195,6 +225,7 @@ module.exports = async (req, res) => {
       return res.status(200).json({ ok: true, to: me });
     }
     if (b.action === 'poll') { let pr; try { pr = await poll(); } catch (e) { return res.status(502).json({ error: 'Could not read the mailbox: ' + String(e.message || e).slice(0, 120) }); } return res.status(200).json({ ok: true, ...pr }); }
+    if (b.action === 'followups') { const fr = await followups(now, 3); return res.status(200).json({ ok: true, ...fr }); }
     if (b.action === 'secret') {
       const { send } = await settings(); if (send.secret) return res.status(200).json({ ok: true, secret: send.secret });
       const secret = crypto.randomBytes(24).toString('hex');
@@ -204,4 +235,4 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Unknown action' });
   } catch (e) { return res.status(502).json({ error: String(e && e.message || e).slice(0, 200) }); }
 };
-module.exports._t = { T, poll, classify, inWindow, tzOf, warmCap, addWorkingDays, build, istDayStart, tick };
+module.exports._t = { T, poll, followups, classify, inWindow, tzOf, warmCap, addWorkingDays, build, istDayStart, tick };

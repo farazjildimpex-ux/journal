@@ -22,9 +22,9 @@ const TOOL = {
 };
 const STEPS = {
   intro: 'First email to someone who does not know the sender.',
-  follow1: 'A short follow-up about 4 working days after the first email, which got no reply. Add one new useful point; do not repeat the first email. Max 70 words.',
+  follow1: 'A short, friendly follow-up about 4 working days after the first email, which got no reply. Start by gently mentioning the earlier email, add one new useful point (for example an article that fits what the research suggests), and end with an easy question. Do not repeat the first email. Use the same language format as the previous email (English plus their language if the previous email had both). Max 90 words per language.',
   reply: 'A reply to the message the buyer just sent (INCOMING MESSAGE below). Answer exactly what they asked or said, warmly and briefly (60 to 140 words). Reply in the language they wrote in, one language only, no English plus translation. If they ask for prices, specifications, samples or anything not in the CATALOGUE or SENDER FACTS, do not invent it: say you will send it shortly and ask for one detail that helps (article, quantity, thickness). Do not repeat the first email.',
-  follow2: 'A last, very short note about 10 days after the first email. Easy to say no to. Max 45 words.'
+  follow2: 'A last, very short and kind note about 10 days after the first email. Say you do not want to disturb them, leave the door open, make it easy to say no or to ask for the price list later. Use the same language format as the previous email. Max 60 words per language.'
 };
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
@@ -39,9 +39,13 @@ module.exports = async (req, res) => {
   } catch (e) { return res.status(502).json({ error: 'Could not check your sign in.' }); }
   let b = req.body; if (typeof b === 'string') { try { b = JSON.parse(b); } catch (e) { b = null; } }
   b = b || {};
+  try { return res.status(200).json({ ok: true, email: await generate(b, key) }); }
+  catch (e) { return res.status(e.status || 502).json({ error: e.message || 'Failed.' }); }
+};
+async function generate(b, key) {
   const s = b.settings || {}, co = b.company || {}, step = STEPS[b.step] ? b.step : 'intro';
-  if (!clean(s.catalogue)) return res.status(400).json({ error: 'Add what you can supply in Settings > Outreach first.' });
-  if (!co.profile && step !== 'reply') return res.status(400).json({ error: 'Research this company first.' });
+  if (!clean(s.catalogue)) throw Object.assign(new Error('Add what you can supply in Settings > Outreach first.'), { status: 400 });
+  if (!co.profile && step === 'intro') throw Object.assign(new Error('Research this company first.'), { status: 400 });
   const prompt = `You write outreach emails for ${clean(s.sender_name, 80) || 'the sender'} of ${clean(s.company, 120) || 'a leather sourcing agency'}.
 
 GOAL: start a real business conversation with a leather buyer. The email must feel written by a person who looked at THIS company, not a mass mailing.
@@ -55,7 +59,9 @@ HARD RULES
 - Do not flatter. One soft sentence showing you looked at their business, then what you can offer, framed as an offer and a question ("in case it is of interest"), never as an assumption about their needs.
 - Match offers to what the research suggests they might use. If they appear to make upper leather, offer the upper articles, not linings. If the research is thin, keep the offer general and ask what they are currently looking for.
 - Tone by company type: manufacturer = materials, specs, consistency; trader = range, margins, speed, reliable supply; agent = a partnership, not competition; brand = quality, traceability, small lots. 
-- Short: 90 to 140 words for a first email. Plain words, no hype, no "I hope this email finds you well", no "turbulent times". End with ONE easy question, not a request for a call right away unless that fits.
+- Warm, courteous and personal, like a respected agent writing to a new business contact he genuinely wants to know. Never blunt or salesy. Never open by pitching.
+- Structure of a first email: (1) a polite greeting; (2) one soft sentence showing you looked at their business; (3) who the sender is, in the sender's own words from INTRODUCTION, 2 sentences; (4) what can be supplied that might fit, 1 to 3 items in a short sentence or short list; (5) a gentle close with one easy question, such as whether they are currently looking for any of this and whether they would like samples or a price list, plus an invitation to tell us what they need.
+- Length: 120 to 170 words per language for a first email. Plain words, no hype, no "I hope this email finds you well", no "turbulent times". No pressure.
 - LANGUAGE (does not apply to a reply, which uses only the language of the incoming message): if the company is in an English-speaking country, or no local language is clear, write English only. Otherwise write the SAME email twice in one message: the English version first, then a line with three dashes (---), then the version in the company's own language (Italian for Italy, Spanish for Spain, and so on, taken from the research language or country). Keep both natural and equivalent. The subject line is English, a slash, then the local-language subject. Set language to e.g. "English + Italian".
 - Address a named person only when RESEARCH names one for the chosen recipient; otherwise a neutral greeting.
 - ${STEPS[step]}
@@ -77,7 +83,7 @@ ${step === 'reply' ? 'INCOMING MESSAGE FROM THE BUYER\n' + clean(b.incoming, 400
 ${JSON.stringify(co.profile || {}).slice(0, 7000)}
 Recipient: ${clean(b.to_name, 80) || '(unknown)'} ${clean(b.to_email, 120)}
 Other notes from the sender: ${clean(b.note, 600) || '(none)'}`;
-  try {
+  {
     let r, j;
     for (const m of [...new Set([MODEL, 'claude-haiku-5-5'])]) {   // fall back to the model the invoice reader already uses
       r = await fetch('https://api.anthropic.com/v1/messages', {
@@ -95,6 +101,8 @@ Other notes from the sender: ${clean(b.note, 600) || '(none)'}`;
     // an offered item must really be in the catalogue
     const cat = clean(s.catalogue).toLowerCase();
     e.offered = (e.offered || []).filter(x => cat.includes(String(x).toLowerCase().slice(0, 25)));
-    return res.status(200).json({ ok: true, email: e });
-  } catch (e) { return res.status(e.status || 502).json({ error: e.message || 'Failed.' }); }
-};
+    return e;
+  }
+
+}
+module.exports._write = generate;
