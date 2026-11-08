@@ -1643,7 +1643,7 @@ html[data-theme="dark"] mark{color:#16130A}.pane.hm .dj.jsq .card .ld{display:bl
 .pa:first-child,.apr:first-child{border-top:0}
 .pat{flex:1;min-width:0;display:block;text-align:left;color:inherit;font:inherit}
 .pt1{display:block;font-size:calc(14px*var(--fs,1));line-height:1.35;color:var(--ink2)}
-.pt1 b{font-weight:700;color:var(--ink);transition:color .15s}
+.pt1 b{font-weight:700;color:var(--ink);transition:color .15s;white-space:nowrap}
 .pat small{display:block;font-size:calc(12px*var(--fs,1));color:var(--mute);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pat:hover .pt1 b,.apr:hover .pt1 b{color:var(--blue)}
 .pa.dn .pt1,.pa.dn .pt1 b{text-decoration:line-through;text-decoration-thickness:1.5px;color:var(--mute)}
@@ -1653,7 +1653,16 @@ html[data-theme="dark"] .pbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
 .pbx svg{width:14px;height:14px;fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .15s}
 .pbx:not(:disabled):hover{box-shadow:inset 0 0 0 1.8px var(--blue)}.pbx:not(.on):hover svg{opacity:.45}
 .pbx.on,html[data-theme="dark"] .pbx.on{background:var(--st-completed);box-shadow:none}.pbx.on svg{opacity:1;stroke:#fff}
-.pbx:disabled{cursor:default}
+.pbx.auto{box-shadow:inset 0 0 0 1.6px #C5C7D0;border-radius:50%;cursor:help}.pbx.auto svg{stroke:var(--mute)}html[data-theme="dark"] .pbx.auto{box-shadow:inset 0 0 0 1.6px #4A4F5E}
+.pbx.auto.on,html[data-theme="dark"] .pbx.auto.on{background:var(--st-completed);box-shadow:none}.pbx.auto.on svg{stroke:#fff}
+.palg{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:var(--sp-12) 0 var(--sp-4);font-size:calc(11.5px*var(--fs,1));color:var(--mute)}.palg span{display:inline-flex;align-items:center;gap:6px}.palg i{display:inline-block;width:12px;height:12px;border-radius:4px;box-shadow:inset 0 0 0 1.5px #C5C7D0}.palg i.c{border-radius:50%}html[data-theme="dark"] .palg i{box-shadow:inset 0 0 0 1.5px #4A4F5E}.pbx.auto:hover svg{opacity:0}.pbx.auto.on:hover svg,.pbx.auto.on svg{opacity:1}
+.paold{display:block;margin:var(--sp-8) 0 var(--sp-4);font-size:calc(12.5px*var(--fs,1));font-weight:600;color:var(--blue)}.paold:hover{text-decoration:underline;text-underline-offset:3px}
+.wln{margin-left:auto;font-size:calc(13px*var(--fs,1));font-weight:600;color:var(--blue);padding:var(--sp-4) 0;white-space:nowrap;flex:none}.wln:hover{text-decoration:underline;text-underline-offset:3px}
+.dap .dch{gap:var(--sp-8)}.dap .dch h2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}.dap .dch small{white-space:nowrap;flex:none}.dap .dch .dacts{flex:none;margin-left:auto}
+.pav{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--bl);color:var(--blue);font-size:calc(11.5px*var(--fs,1));font-weight:700}
+.pnew{flex:none;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+.ppc{background:var(--surf);border-radius:var(--r,20px);box-shadow:var(--sh1);padding:var(--sp-4) var(--sp-16) var(--sp-8)}.ppc .pa{padding:12px 0}
+.prc[hidden]{display:none}
 .pbx:focus-visible,.pat:focus-visible,.apr:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
 .pdt{flex:none;font-size:calc(12px*var(--fs,1));font-weight:600;color:var(--mute);white-space:nowrap}
 .pdt.od{color:var(--od-ink,#A8481E)}html[data-theme="dark"] .pdt.od{color:var(--od-inkd,#F0A878)}
@@ -1707,7 +1716,7 @@ function qParse(raw){const key=String(raw||'').trim().toLowerCase();let P=QC.get
  P={test:h=>gs.some(g=>g.every(x=>{const f=x.vs.some(v=>h.includes(v));return x.ng?!f:f})),re:pos.length?new RegExp('('+pos.map(v=>v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')','ig'):null};
  QC.set(key,P);if(QC.size>200)QC.delete(QC.keys().next().value);return P}
 const hl=(s,k)=>{s=String(s==null?'':s);const P=k?qParse(k):null;return P&&P.re?s.split(P.re).map((p,i)=>i%2?`<mark>${esc(p)}</mark>`:esc(p)).join(''):esc(s)};
-const ORD=[4,3,0,1,2],NAMES=['Buyers','Orderbook','Today','Earlier','Search'];
+const ORD=[4,3,5,0,1,2],NAMES=['Buyers','Orderbook','Pending','Today','Earlier','Search'];
 function dots(p){deskNav();const bs=[...document.querySelectorAll('#pds .pd')],i=ORD.indexOf(tab),pl=$('#pill');bs.forEach(b=>{const on=+b.dataset.t==tab;b.classList.toggle('act',on);b.setAttribute('aria-selected',on)});
  if(!pl||!bs[i]||innerWidth>=900)return;p=p||0;const a=bs[i],n=bs[i+(p>0?1:-1)]||a,k=Math.min(1,Math.abs(p)),x=a.offsetLeft+(n.offsetLeft-a.offsetLeft)*k,w=a.offsetWidth+(n.offsetWidth-a.offsetWidth)*k;
  pl.style.width=w+'px';pl.style.transform=`translateX(${x}px)`;if(!p){const sc=$('#pds');if(sc&&(a.offsetLeft<sc.scrollLeft||a.offsetLeft+a.offsetWidth>sc.scrollLeft+sc.clientWidth))sc.scrollTo({left:a.offsetLeft-24,behavior:'smooth'})}}
@@ -2726,7 +2735,8 @@ function tdSet(stk){if(stk&&!TSTK)return;if(tab!=0||TSTK==stk||TDB||B.classList.
 const SCH=[['open','Open'],['journal','Journals'],['contract','Contracts'],['letter','Letters'],['debit','Debit Notes']];
 const schips=()=>SCH.map(([k,l])=>`<button class="ch c-${k} ${k=='open'?(sOpen?'on':''):(sType==k?'on':'')}" ${k=='open'?'data-so':`data-st="${k}"`}>${l}</button>`).join('');
 const schipSync=()=>document.querySelectorAll('#schs .ch').forEach(b=>b.classList.toggle('on',b.hasAttribute('data-so')?sOpen:sType==b.dataset.st));
-function render(keep){if(tab==2&&innerWidth>=900)tab=0;io&&io.disconnect();navSync();if(tab==0&&uid){loadTodayDocs();if(!obBusy&&(!obAt||Date.now()-obAt>60000))loadOB()}$('#gtxt').innerHTML=greetH();dots(0);const v=$('#view'),f=first;
+function render(keep){if((tab==2||tab==5)&&innerWidth>=900)tab=0;io&&io.disconnect();navSync();if(tab==0&&uid){loadTodayDocs();if(!obBusy&&(!obAt||Date.now()-obAt>60000))loadOB()}$('#gtxt').innerHTML=greetH();dots(0);const v=$('#view'),f=first;
+ if(tab==5){renderPending(!!keep||!f);first=false;slide();return}
  if(tab==4){renderLeads(!!keep||!f);first=false;slide();setTimeout(refocusSearch,60);if(!LDL||Date.now()-LDT>60000)loadLeads();return}
  if(tab==3){obEnter(keep);first=false;slide();setTimeout(refocusSearch,60);return}
  if(tab==2){if(!$('#sq')){v.innerHTML=`<div class="pane"><div class="head"><div><h1>Search</h1><div class="sub">Journals, contracts, letters and debit notes</div></div>${NEW}</div><div class="sbw"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div><div class="chs" id="schs">${schips()}</div><div id="sr"></div></div>`;$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(results,130)}}
@@ -2735,73 +2745,137 @@ function render(keep){if(tab==2&&innerWidth>=900)tab=0;io&&io.disconnect();navSy
   v.innerHTML=`<div class="pane hm ${f?'':'na'}"><div class="dtop"><div><div class="hk">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>${greetH()}</h1></div><div class="sbw">${SEARCH_SVG.replace('<svg','<svg class="si"')}<input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" title="Search tips: jp or micheal · join push and leather · -cancelled · &quot;exact phrase&quot;" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div></div>
   <div class="dgrid" id="dgrid"><section class="dcol dj${hs?' jsq':''}"><div class="dch djh"><div class="dtabs" id="jtabs"><button data-jt="0" class="${tab?'':'on'}">Today</button><button data-jt="1" class="${tab?'on':''}">Earlier</button></div><div class="dacts"><button class="new gh" data-cal id="jcal" ${tab?'':'hidden'} aria-label="Jump to a date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button>${NEW}</div></div><div class="dsc" id="lst">${listHTML(f)}</div></section>
   <div class="drt"><section class="dcol dob"><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small><div class="chs" id="chs">${chips()}</div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><div class="dsc" id="obl">${obList(f)}</div></section>
-  <div class="dbt"><section class="dcol dpa"><div class="dch"><h2>Pending actions</h2><small id="pan"></small></div><div class="dsc" id="pal"></div></section><section class="dcol dap"><div class="dch"><h2>Emails to approve</h2><small id="apn"></small><div class="dacts" id="apa"></div></div><div class="dsc" id="apl"></div></section></div></div></div></div>`;
+  <div class="dbt"><section class="dcol dpa"><div class="dch"><h2>Pending actions</h2><small id="pan"></small></div><div class="dsc" id="pal"></div></section><section class="dcol dap"><div class="dch"><h2 id="apt">Emails to approve</h2><small id="apn"></small><div class="dacts" id="apa"></div></div><div class="dsc" id="apl"></div></section></div></div></div></div>`;
   hbPaint();hbLoad();$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(homeSearch,130)};first=false;slide();setTimeout(refocusSearch,60);return}
  v.innerHTML=`<div class="pane ${f?'':'na'}"><div class="head"><div><h1>${tab?'Earlier':'Today'}</h1><div class="sub">${tab?'Your journal, newest first':greetT()}</div></div>${tab?CAL:NEW}</div><div id="lst">${listHTML(f)}</div></div>`;first=false;slide()}
-/* ===== computer Home: Pending actions (written from each contract's and letter's stage) and Emails to approve ===== */
-let PA={loaded:false,busy:false,at:0,ok:true,c:[],inv:[],lt:[],dn:[],done:{}},PAT=0,HOL=0;
+/* ===== Pending actions: written from each contract's and letter's stage by rules you can edit (Settings > Pending actions) ===== */
+let PA={loaded:false,busy:false,at:0,ok:true,c:[],inv:[],lt:[],dn:[],done:{},rules:null,rrm:[],old:false},PAT=0,HOL=0;
+const PSTART={contract:[['issued','Contract issued'],['inspected','Goods inspected'],['invoice','Supplier invoice received'],['shipped','Shipped (AWB or BL number entered)'],['payment','Payment received (not advance)'],['paydue','Days before the payment is due (shipping date + the days in the payment terms)'],['delivery','Days before the delivery date']],letter:[['letter','Letter issued'],['letterdue','Days before the letter is due']]},
+ PDONE={contract:[['invoice','Supplier invoice entered'],['bill','AWB or BL number entered'],['paid','Balance or full payment entered'],['payment','Any payment entered (not advance)'],['debit','Debit note raised'],['inspected','Contract marked Inspected'],['tick','Only when I tick it']],letter:[['courier','Courier details entered'],['tick','Only when I tick it']]},
+ PDEF=[{id:'inv',on:true,to:'contract',text:'Invoice awaiting from {supplier} for {no}',start:'inspected',done:'invoice'},
+  {id:'bill',on:true,to:'contract',text:'Await {awbbl} for {no}',start:'invoice',done:'bill'},
+  {id:'tt',on:true,to:'contract',text:'TT expected, follow up for {no}',start:'inspected',done:'paid',terms:'TT, T/T, telegraphic, payment before shipment',not:'letter of credit, L/C, LC, CAD'},
+  {id:'cad',on:true,to:'contract',text:'Follow documents courier reference for {no}',start:'shipped',done:'tick',terms:'CAD, cash against documents'},
+  {id:'lcd',on:true,to:'contract',text:'Documents courier ref follow-up for {no}',start:'shipped',done:'tick',terms:'letter of credit, L/C, LC'},
+  {id:'pay',on:true,to:'contract',text:'Check payment received for {no}',start:'paydue',days:7,done:'paid'},
+  {id:'dn',on:true,to:'contract',text:'Raise debit note for {no}',start:'payment',done:'debit'},
+  {id:'cour',on:true,to:'letter',text:'Update courier details for Letter {no} from {supplier}',start:'letterdue',days:3,done:'courier'}],
+ pLab=(L,k)=>((L||[]).find(x=>x[0]==k)||[0,''])[1],pRules=()=>PA.rules||PDEF,pPlain=x=>String(x||'').replace(/\{(\w+)\}/g,(m,k)=>({no:'[number]',supplier:'[supplier]',buyer:'[buyer]',awbbl:'[AWB/BL]',days:'[days]',due:'[due date]'})[k]||m);
 async function paLoad(force){if(!uid||PA.busy||(!force&&PA.loaded&&Date.now()-PA.at<60000))return;PA.busy=true;
- try{const[c,iv,lt,dn,dd]=await Promise.all([
-  sb.from('contracts').select('id,contract_no,contract_date,supplier_name,buyer_name,payment_terms,destination,payments,inspections,status').in('status',['Issued','Inspected']).limit(1000),
+ try{const[c,iv,lt,dn,dd,rr]=await Promise.all([
+  sb.from('contracts').select('id,contract_no,contract_date,delivery_date,supplier_name,buyer_name,payment_terms,destination,payments,inspections,status,updated_at').in('status',['Issued','Inspected']).limit(1000),
   sb.from('invoices').select('id,invoice_number,invoice_date,contract_numbers,bill_type,bill_number,shipping_date,created_at,updated_at').order('created_at',{ascending:false}).limit(5000),
-  sb.from('samples').select('id,sample_number,supplier_name,due_date,courier_reference,status,updated_at').order('created_at',{ascending:false}).limit(500),
+  sb.from('samples').select('id,sample_number,date,company_name,supplier_name,due_date,courier_reference,status,updated_at').order('created_at',{ascending:false}).limit(500),
   sb.from('debit_notes').select('contract_no,created_at').limit(5000),
-  sb.from('pending_done').select('key,done_at').limit(5000)]);
+  sb.from('pending_done').select('key,done_at').limit(5000),
+  sb.from('pending_rules').select('id,data').eq('id','main').maybeSingle()]);
   if(!c.error)PA.c=c.data||[];if(!iv.error)PA.inv=iv.data||[];if(!lt.error)PA.lt=lt.data||[];if(!dn.error)PA.dn=dn.data||[];
   if(dd.error)PA.ok=false;else{PA.ok=true;PA.done={};(dd.data||[]).forEach(r=>PA.done[r.key]=r.done_at)}
+  if(!rr.error&&rr.data&&rr.data.data){const d=rr.data.data,rm=new Set(d.removed||[]),L=(d.list||[]).filter(x=>x&&x.id);PDEF.forEach(x=>{if(!rm.has(x.id)&&!L.some(y=>y.id==x.id))L.push({...x})});PA.rules=L;PA.rrm=[...rm]}
   PA.loaded=true;PA.at=Date.now()}catch(e){PA.loaded=true}finally{PA.busy=false}hbPaint()}
-function paSoon(){clearTimeout(PAT);PAT=setTimeout(()=>{if($('#pal'))paLoad(true)},500)}
-const PDAY=x=>!x?'':String(x).length==10?String(x):ymd(new Date(x)),
+function paSoon(){clearTimeout(PAT);PAT=setTimeout(()=>{if($('#pal')||$('#ppl'))paLoad(true)},500)}
+const PDAY=x=>!x||x=='x'?'':String(x).length==10?String(x):ymd(new Date(x)),
  addD=(d,n)=>{const x=new Date(d+'T00:00');x.setDate(x.getDate()+n);return ymd(x)},
- sCap=x=>x?x.charAt(0)+x.slice(1).toLowerCase():'',
  paSplit=x=>String(x||'').split(/\s*(?:,|;|&|\band\b)\s*/i).map(IVK).filter(Boolean),
+ pRe=t=>new RegExp('(^|[^A-Z0-9])'+t.replace(/[.*+?^${}()|[\]\\\/]/g,'\\$&')+'(?=[^A-Z0-9]|$)'),
+ pWords=x=>String(x||'').split(',').map(t=>t.trim().toUpperCase()).filter(Boolean),
+ pTermsOk=(r,pt)=>{const a=pWords(r.terms),b=pWords(r.not);return(!a.length||a.some(t=>pRe(t).test(pt)))&&!b.some(t=>pRe(t).test(pt))},
+ pFirst=L=>L.slice().sort((a,b)=>cmp(String(a.created_at||''),String(b.created_at||'')))[0],
  WLANG={english:'EN',italian:'IT',spanish:'ES',german:'DE',french:'FR',portuguese:'PT',turkish:'TR',chinese:'ZH',vietnamese:'VI',dutch:'NL',polish:'PL',japanese:'JA',korean:'KO',arabic:'AR',russian:'RU',greek:'EL',czech:'CS',romanian:'RO',hindi:'HI',danish:'DA',swedish:'SV'},
  WSTEP={intro:'First email',follow1:'Follow-up 1',follow2:'Follow-up 2',reply:'Reply'},
- wLang=x=>String(x||'').split(/\s*(?:\+|,|&|\/|\band\b)\s*/i).map(y=>y.trim()).filter(Boolean).map(y=>WLANG[y.toLowerCase()]||y.slice(0,2).toUpperCase()).join('+');
-function paItems(){const T=today(),D=PA.done,R=[],ib={},dnA={};
+ wLang=x=>String(x||'').split(/\s*(?:\+|,|&|\/|\band\b)\s*/i).map(y=>y.trim()).filter(Boolean).map(y=>WLANG[y.toLowerCase()]||y.slice(0,2).toUpperCase()).join('+'),
+ wIni=x=>{const w=String(x||'').replace(/[^\p{L}\p{N} ]/gu,' ').trim().split(/\s+/).filter(Boolean);return w.length?(w[0][0]+(w.length>1?w[w.length-1][0]:'')).toUpperCase():'?'},
+ wAgo=x=>{const d=new Date(x),m=Math.round((Date.now()-d)/6e4);if(!(m>=0))return'';if(m<1)return'Now';if(m<60)return m+'m ago';if(m<720||ymd(d)==today())return Math.round(m/60)+'h ago';const n=-dDiff(ymd(d));return n==1?'Yesterday':n<7?d.toLocaleDateString('en-GB',{weekday:'short'}):fmDm(ymd(d))},
+ wFirst=b=>String(b||'').split(/\n>|\nOn .{0,80}wrote:|\nIl giorno .{0,80}ha scritto:/)[0].replace(/\s+/g,' ').trim(),
+ hqk=()=>innerWidth>=900&&(tab==0||tab==1)&&$('#dgrid')?q.trim():'';
+function pFacts(c,ib,dnA){const no=c.contract_no||'',k=IVK(no),I=ib[k]||[],F=I.filter(i=>!/proforma/i.test(i.invoice_number||'')),
+  P=(Array.isArray(c.payments)?c.payments:[]).filter(Boolean),bd=(a,b)=>cmp(a.date||'',b.date||''),paid=P.filter(x=>x.type&&!/advance/i.test(x.type)).sort(bd),full=P.filter(x=>/balance|full/i.test(x.type||'')).sort(bd),
+  pt=String(c.payment_terms||'').toUpperCase(),dest=(Array.isArray(c.destination)?c.destination:[c.destination||'']).join(' ').toUpperCase(),
+  bt=F.map(i=>i.bill_type||'').join(' '),air=/air/i.test(bt)||(!/lading|sea/i.test(bt)&&/AIRPORT|\bAIR\b/.test(dest)),sea=!air&&(/lading|sea/i.test(bt)||/\bPORT\b|\bSEA\b/.test(dest));
+ return{k,no,I,F,paid,full,pt,shp:I.find(i=>String(i.bill_number||'').trim()),sd:(I.find(i=>i.shipping_date)||{}).shipping_date||'',dm:pt.match(/(\d{2,3})\s*DAYS?/),
+  ins:cInsp(c).map(x=>x&&x.date).filter(Boolean).sort().pop()||'',dn:dnA[k]||'',sup:supMark(c.supplier_name),supF:c.supplier_name||'',buyer:c.buyer_name||'',ab:air?'AWB':sea?'BL':'AWB or BL'}}
+function pStartC(r,c,x){const T0=c.contract_date||'',dy=+r.days||0;switch(r.start){
+ case 'issued':return{w:T0,s:['Issued'+(T0?' '+fmDm(T0):''),x.buyer].filter(Boolean).join(' · ')};
+ case 'inspected':return c.status=='Inspected'||x.F.length?{w:x.ins||T0,s:x.ins?'Inspected '+fmDm(x.ins):'Inspected'}:null;
+ case 'invoice':return x.F.length?{w:x.F[0].invoice_date||PDAY(x.F[0].created_at),s:['Invoice '+(x.F[0].invoice_number||''),x.sup].join(' · ')}:null;
+ case 'shipped':return x.shp||x.sd?{w:x.sd||PDAY(x.shp&&x.shp.updated_at),s:[x.ab+(x.shp?' '+x.shp.bill_number:''),x.buyer].filter(Boolean).join(' · ')}:null;
+ case 'payment':{const lp=x.paid[x.paid.length-1];return lp?{w:lp.date||'',s:['Payment received'+(lp.date?' '+fmDm(lp.date):''),x.sup].join(' · ')}:null}
+ case 'paydue':{if(!x.dm||!x.sd)return null;const due=addD(x.sd,+x.dm[1]);return dDiff(due)<=dy||x.full.length?{w:due,due,s:[x.dm[1]+' days from shipping',x.buyer].filter(Boolean).join(' · ')}:null}
+ case 'delivery':{const dd=c.delivery_date;return dd&&dDiff(dd)<=dy?{w:dd,due:dd,s:['Delivery '+fmDm(dd),x.buyer].filter(Boolean).join(' · ')}:null}}return null}
+function pDoneC(r,c,x){switch(r.done){case 'invoice':return x.F.length?pFirst(x.F).created_at||'x':'';case 'bill':return x.shp?x.shp.updated_at||'x':'';
+ case 'paid':{const f=x.full[x.full.length-1];return f?f.date||'x':''}case 'payment':{const f=x.paid[x.paid.length-1];return f?f.date||'x':''}
+ case 'debit':return x.dn;case 'inspected':return c.status=='Inspected'?c.updated_at||'x':''}return''}
+function pText(r,v){return esc(r.text||'').replace(/\{(no|supplier|buyer|awbbl|days|due)\}/g,(m,k)=>k=='no'?`<b>${esc(v.no)}</b>`:k=='supplier'?`<b>${esc(v.sup)}</b>`:k=='buyer'?esc(v.buyer):k=='awbbl'?(v.ab||'AWB or BL'):k=='days'?esc(v.days||''):v.due?fmDm(v.due):'')}
+function paItems(){const T=today(),D=PA.done,R=[],ib={},dnA={},o30=back(30),RL=pRules().filter(r=>r&&r.on!==false&&r.text);
  PA.inv.forEach(i=>(i.contract_numbers||[]).forEach(n=>{const k=IVK(n);if(k)(ib[k]||(ib[k]=[])).push(i)}));
  PA.dn.forEach(d=>paSplit(d.contract_no).forEach(k=>{if(!dnA[k]||String(d.created_at)<String(dnA[k]))dnA[k]=d.created_at}));
- const add=(rule,id,o)=>{const key=rule+':'+id,m=D[key];let done=!!o.done,at=o.at||'',man=false;if(!done&&m){done=true;at=m;man=true}if(done&&PDAY(at)!=T)return;R.push({...o,key,id,man,done,at})},
-  first=L=>L.slice().sort((a,b)=>cmp(String(a.created_at||''),String(b.created_at||'')))[0];
- PA.c.forEach(c=>{const no=c.contract_no||'',k=IVK(no);if(!k)return;
-  const I=ib[k]||[],F=I.filter(i=>!/proforma/i.test(i.invoice_number||'')),sup=supMark(c.supplier_name),N=`<b>${esc(no)}</b>`,
-   P=(Array.isArray(c.payments)?c.payments:[]).filter(Boolean),bydate=(a,b)=>cmp(a.date||'',b.date||''),paid=P.filter(x=>x.type&&!/advance/i.test(x.type)).sort(bydate),full=P.filter(x=>/balance|full/i.test(x.type||'')).sort(bydate),
-   pt=String(c.payment_terms||'').toUpperCase(),dest=(Array.isArray(c.destination)?c.destination:[c.destination||'']).join(' ').toUpperCase(),
-   bt=F.map(i=>i.bill_type||'').join(' '),air=/air/i.test(bt)||(!/lading|sea/i.test(bt)&&/AIRPORT|\bAIR\b/.test(dest)),sea=!air&&(/lading|sea/i.test(bt)||/\bPORT\b|\bSEA\b/.test(dest)),
-   shp=I.find(i=>String(i.bill_number||'').trim()),sd=(I.find(i=>i.shipping_date)||{}).shipping_date||'',sh=!!(shp||sd),
-   ins=cInsp(c).map(x=>x&&x.date).filter(Boolean).sort().pop()||'',fp=full[full.length-1];
-  if(c.status=='Inspected'||F.length)add('inv',c.id,{t:`Invoice awaiting from <b>${esc(sup)}</b> for ${N}`,s:ins?'Inspected '+fmDm(ins):'Inspected',w:ins||c.contract_date||'',done:F.length>0,at:F.length?first(F).created_at:''});
-  if(F.length)add('bill',c.id,{t:`Await ${air?'AWB':sea?'BL':'AWB or BL'} for ${N}`,s:['Invoice '+(F[0].invoice_number||''),sup].join(' · '),w:F[0].invoice_date||PDAY(F[0].created_at),done:!!shp,at:shp?shp.updated_at:''});
-  const tt=/\bT\s?\/?\s?T\b|TELEGRAPHIC|PAYMENT BEFORE SHIPMENT/.test(pt)&&!/LETTER OF CREDIT|\bL\/?C\b|\bCAD\b/.test(pt),lc=/LETTER OF CREDIT|\bL\/C\b|\bLC\b/.test(pt),cad=/\bCAD\b|CASH AGAINST DOC/.test(pt),dm=pt.match(/(\d{2,3})\s*DAYS?/);
-  if(tt&&(c.status=='Inspected'||F.length))add('tt',c.id,{t:`TT expected, follow up for ${N}`,s:[c.buyer_name,sCap(pt)].filter(Boolean).join(' · '),w:ins||c.contract_date||'',done:!!fp,at:fp?fp.date:''});
-  if(cad&&sh)add('cad',c.id,{t:`Follow documents courier reference for ${N}`,s:['Cash against documents',c.buyer_name].filter(Boolean).join(' · '),w:sd||PDAY(shp&&shp.updated_at)});
-  if(lc&&sh)add('lcd',c.id,{t:`Documents courier ref follow-up for ${N}`,s:['Letter of credit',c.buyer_name].filter(Boolean).join(' · '),w:sd||PDAY(shp&&shp.updated_at)});
-  if(dm&&sd){const due=addD(sd,+dm[1]);if(dDiff(due)<=7||fp)add('pay',c.id,{t:`Check payment received for ${N}`,s:[dm[1]+' days from shipping',c.buyer_name].filter(Boolean).join(' · '),w:due,due,done:!!fp,at:fp?fp.date:''})}
-  if(paid.length){const lp=paid[paid.length-1];add('dn',c.id,{t:`Raise debit note for ${N}`,s:['Payment received'+(lp.date?' '+fmDm(lp.date):''),sup].join(' · '),w:lp.date||'',done:!!dnA[k],at:dnA[k]||''})}
- });
- PA.lt.forEach(x=>{if(/complet|cancel/i.test(x.status||'')||!x.due_date)return;const has=!!String(x.courier_reference||'').trim();if(!has&&dDiff(x.due_date)>3)return;
-  add('cour',x.id,{t:`Update courier details for Letter <b>${esc(x.sample_number||'')}</b> from <b>${esc(supMark(x.supplier_name))}</b>`,s:'',w:x.due_date,due:x.due_date,done:has,at:has?x.updated_at:''})});
- return R.sort((a,b)=>(a.done-b.done)||cmp(a.w||'9',b.w||'9'))}
-const paEmpty=(t,x)=>`<div class="paem"><b>${t}</b>${x}</div>`,paSk=n=>'<div class="pask"></div>'.repeat(n);
-function paHTML(L){if(!PA.loaded)return paSk(3);if(!L.length)return paEmpty('Nothing pending','Actions appear here as contracts move from inspection to invoice, shipment, payment and debit note, and when a letter is due.');
- return L.map(x=>{const n=x.due&&!x.done?dDiff(x.due):null,dl=n==null?'':n<0?`<span class="pdt od">${-n} day${n==-1?'':'s'} late</span>`:n==0?'<span class="pdt soon">Today</span>':n==1?'<span class="pdt soon">Tomorrow</span>':`<span class="pdt">${fmWd(x.due)}</span>`;
-  return `<div class="pa${x.done?' dn':''}"><button class="pbx${x.done?' on':''}" data-patk="${esc(x.key)}" ${x.done&&!x.man?'disabled title="Done"':`title="${x.done?'Undo':'Mark done'}"`} aria-label="${x.done?'Done':'Mark done'}"><svg viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.8"/></svg></button><button class="pat" data-orow="${x.id}"><span class="pt1">${x.t}</span>${x.s?`<small>${esc(x.s)}</small>`:''}</button>${dl}</div>`}).join('')}
-function apHTML(L){if(!OUT.loaded)return paSk(2);if(!OUT.ok)return paEmpty('Outreach is not set up yet','Emails you write from Buyers will wait here for your OK.');
- if(!L.length)return paEmpty('Nothing to approve','Emails you write from Buyers wait here for your OK before they are sent.');
- return L.map(d=>`<button class="apr" data-ouq><span class="pat"><span class="pt1"><b>${esc(d.company||d.to_email||'')}</b></span><small>${esc([d.country,WSTEP[d.step]||d.step].filter(Boolean).join(' · '))}</small></span>${d.language?`<span class="plg" title="${esc(d.language)}">${esc(wLang(d.language))}</span>`:''}</button>`).join('')}
-function hbPaint(){const pl=$('#pal');if(!pl)return;const L=PA.loaded?paItems():[],open=L.filter(x=>!x.done).length,sc=pl.scrollTop;pl.innerHTML=paHTML(L);pl.scrollTop=sc;$('#pan').textContent=PA.loaded?(open?open+' to do':'All done'):'Loading…';
- const al=$('#apl');if(!al)return;const A=OUT.loaded&&OUT.ok?outWait():[];al.innerHTML=apHTML(A);$('#apn').textContent=OUT.loaded?(A.length?A.length+' waiting':''):'Loading…';$('#apa').innerHTML=A.length?'<button class="new gh" data-ouq>Review</button>':''}
-function hbLoad(){paLoad();if(!OUT.loaded&&!HOL&&uid){HOL=1;outLoad().then(()=>{HOL=0;hbPaint()},()=>{HOL=0})}}
+ const add=(r,id,st,dv,v,ex)=>{const key=r.id+':'+id,man=r.done=='tick',m=D[key];let done,at;if(man){done=!!m;at=m||''}else{done=!!dv;at=dv&&dv!='x'?dv:''}
+  if(done&&!(PDAY(at)==T||(man&&PA.old&&PDAY(at)>=o30)))return;const t=pText(r,{...v,due:st.due});
+  R.push({key,id,man,done,at,t,s:st.s,w:st.w,due:st.due,dl:pLab(PDONE[r.to||'contract'],r.done).toLowerCase(),hay:[t.replace(/<[^>]+>/g,''),st.s,ex].join(' ').toLowerCase()})};
+ PA.c.forEach(c=>{const x=pFacts(c,ib,dnA);if(!x.k)return;RL.forEach(r=>{if((r.to||'contract')!='contract'||!pTermsOk(r,x.pt))return;const st=pStartC(r,c,x);if(st)add(r,c.id,st,pDoneC(r,c,x),{no:x.no,sup:x.sup,buyer:x.buyer,ab:x.ab,days:x.dm?x.dm[1]:''},[x.no,x.supF,x.buyer,c.payment_terms].join(' '))})});
+ PA.lt.forEach(l=>{if(/complet|cancel/i.test(l.status||''))return;const has=!!String(l.courier_reference||'').trim();RL.forEach(r=>{if(r.to!='letter')return;let st=null;
+  if(r.start=='letter')st={w:l.date||'',s:l.company_name||''};else if(r.start=='letterdue'&&l.due_date&&(dDiff(l.due_date)<=(+r.days||0)||(r.done=='courier'&&has)))st={w:l.due_date,due:l.due_date,s:l.company_name||''};
+  if(st)add(r,l.id,st,r.done=='courier'&&has?(l.updated_at||'x'):'',{no:l.sample_number||'',sup:supMark(l.supplier_name),buyer:l.company_name||'',days:r.days||''},[l.sample_number,l.supplier_name,l.company_name].join(' '))})});
+ return R.sort((a,b)=>(a.done-b.done)||(a.done?cmp(String(a.at||''),String(b.at||'')):cmp(a.w||'9',b.w||'9')))}
+const paEmpty=(t,x)=>`<div class="paem"><b>${t}</b>${x}</div>`,paSk=n=>'<div class="pask"></div>'.repeat(n),
+ PCHK='<svg viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.8"/></svg>';
+function paHTML(L,k){if(!PA.loaded)return paSk(3);const T=today(),o30=back(30),nOld=Object.values(PA.done).filter(v=>{const d=PDAY(v);return d<T&&d>=o30}).length,
+  more=nOld&&!k?`<button class="paold" data-paold>${PA.old?'Hide items ticked earlier':'Show items ticked in the last 30 days'}</button>`:'';
+ if(!L.length)return(k?paEmpty('No pending actions match','Try another word.'):paEmpty('Nothing pending','Actions appear here as contracts move from inspection to invoice, shipment, payment and debit note, and when a letter is due.'))+more;
+ return L.map(x=>{const n=x.due&&!x.done?dDiff(x.due):null,dl=n==null?'':n<0?`<span class="pdt od">${-n} day${n==-1?'':'s'} late</span>`:n==0?'<span class="pdt soon">Today</span>':n==1?'<span class="pdt soon">Tomorrow</span>':`<span class="pdt">${fmWd(x.due)}</span>`,
+  bx=x.man?`<button class="pbx${x.done?' on':''}" data-patk="${esc(x.key)}" title="${x.done?'Put back on the list':'Mark done'}" aria-label="${x.done?'Put back on the list':'Mark done'}">${PCHK}</button>`:`<span class="pbx auto${x.done?' on':''}" title="${esc(x.done?'Done':'Strikes off by itself when: '+x.dl)}">${PCHK}</span>`;
+  return `<div class="pa${x.done?' dn':''}">${bx}<button class="pat" data-orow="${x.id}"><span class="pt1">${x.t}</span>${x.s?`<small>${esc(x.s)}</small>`:''}</button>${dl}</div>`}).join('')+(L.some(x=>x.man)&&L.some(x=>!x.man)?'<div class="palg"><span><i class="c"></i>Strikes off by itself when the data is entered</span><span><i></i>Tick it yourself</span></div>':'')+more}
+function paPaint(){const k=hqk(),L0=PA.loaded?paItems():[],P=k?qParse(k.toLowerCase()):null,L=P?L0.filter(x=>P.test(x.hay)):L0,open=L.filter(x=>!x.done).length,
+  t=!PA.loaded?'Loading…':k?L.length+(L.length==1?' match':' matches'):open+(open==1?' item':' items');
+ ['#pal','#ppl'].forEach(sel=>{const el=$(sel);if(!el)return;const sc=el.scrollTop;el.innerHTML=paHTML(L,k);el.scrollTop=sc});['#pan','#ppn'].forEach(sel=>{const e=$(sel);if(e)e.textContent=t})}
+/* the box beside Pending actions: new buyer replies come first; once they are read it goes back to Emails to approve */
+function rbPaint(){const al=$('#apl');if(!al)return;const k=hqk(),P=k?qParse(k.toLowerCase()):null,set=(t,n,a)=>{$('#apt').textContent=t;$('#apn').textContent=n;$('#apa').innerHTML=a};
+ if(!OUT.loaded){set('Emails to approve','Loading…','');al.innerHTML=paSk(2);return}
+ const RP=OUT.ok?(OUT.inbox||[]).filter(m=>m.kind=='reply'&&!m.is_read):[];
+ if(RP.length){const L=P?RP.filter(m=>P.test([m.company,m.from_name,m.from_addr,m.subject,m.body].join(' ').toLowerCase())):RP;
+  set('Buyer replies',k?L.length+(L.length==1?' match':' matches'):RP.length+' new','<button class="wln" data-ouinb>Inbox ›</button>');
+  al.innerHTML=L.length?L.map(m=>{const nm=m.company||m.from_name||m.from_addr||'';return `<button class="apr" data-ouinb><span class="pav">${esc(wIni(m.from_name||nm))}</span><span class="pat"><span class="pt1"><b>${esc(nm)}</b></span><small>${esc((m.from_name?m.from_name+': ':'')+wFirst(m.body))}</small></span><span class="pdt">${wAgo(m.received_at)}</span><i class="pnew" aria-label="New"></i></button>`}).join(''):paEmpty('No replies match','Try another word.');return}
+ if(!OUT.ok){set('Emails to approve','','');al.innerHTML=paEmpty('Outreach is not set up yet','Emails you write from Buyers will wait here for your OK.');return}
+ const A0=outWait(),A=P?A0.filter(d=>P.test([d.company,d.country,d.to_email,d.to_name,d.subject].join(' ').toLowerCase())):A0;
+ set('Emails to approve',k?A.length+(A.length==1?' match':' matches'):A0.length?A0.length+' waiting':'',A0.length?'<button class="wln" data-ouq>Review ›</button>':'');
+ al.innerHTML=A.length?A.map(d=>`<button class="apr" data-ouq><span class="pat"><span class="pt1"><b>${esc(d.company||d.to_email||'')}</b></span><small>${esc([d.country,WSTEP[d.step]||d.step].filter(Boolean).join(' · '))}</small></span>${d.language?`<span class="plg" title="${esc(d.language)}">${esc(wLang(d.language))}</span>`:''}</button>`).join(''):k?paEmpty('No emails match','Try another word.'):paEmpty('Nothing to approve','Emails you write from Buyers wait here for your OK before they are sent.')}
+function hbPaint(){paPaint();rbPaint()}
+function hbLoad(){paLoad();if((!OUT.loaded||Date.now()-(OUT.at||0)>120000)&&!HOL&&uid){HOL=1;outLoad(OUT.loaded).then(()=>{OUT.at=Date.now();HOL=0;hbPaint()},()=>{HOL=0})}}
 async function paTick(k){if(!PA.ok){toast('Could not save the tick. Try again in a moment.');paLoad(true);return}const m=PA.done[k];
  if(m){delete PA.done[k];hbPaint();const{error}=await sb.from('pending_done').delete().eq('key',k);if(error){PA.done[k]=m;hbPaint();toast(error.message)}}
  else{const at=new Date().toISOString();PA.done[k]=at;hbPaint();const{error}=await sb.from('pending_done').upsert({key:k,done_at:at});if(error){delete PA.done[k];hbPaint();toast(error.message)}}}
+/* phone: Pending page (left of Today) */
+function renderPending(keep){const v=$('#view');if(!v)return;v.innerHTML=`<div class="pane ${keep?'na':''}"><div class="head"><div><h1>Pending</h1><div class="sub" id="ppn">Loading…</div></div><button class="new" data-sv="rules">Rules</button></div><div class="ppc" id="ppl"></div></div>`;paPaint();paLoad()}
+/* Settings > Pending actions: the rules */
+function prList(){const L=pRules();return `<p class="fbpt" style="margin:0 0 12px">Each rule writes one line on your Pending actions list. It shows from the step you choose and strikes off by itself when the data is entered, or when you tick it if the rule says so.</p><div class="ux-list">${L.map(r=>{const to=r.to||'contract';return uxRow(`data-sv="rule:${esc(r.id)}"`,esc(pPlain(r.text)),esc([(to=='letter'?'Letters':'Contracts')+(r.on===false?' · Off':''),'From: '+pLab(PSTART[to],r.start).replace(/ \(.*/,'')+(/due|delivery/.test(r.start||'')?' ('+(+r.days||0)+' days)':''),'Strikes off: '+pLab(PDONE[to],r.done).toLowerCase(),r.terms?'Terms: '+r.terms:''].filter(Boolean).join(' · ')),{ic:'list'})}).join('')}</div><button class="btn wide" data-sv="rule:new" style="margin-top:12px">Add a rule</button><button class="btn ghost wide" data-prreset>Put back the original rules</button>`}
+const prOpt=(L,v)=>L.map(([k,l])=>`<option value="${k}" ${k==v?'selected':''}>${esc(l)}</option>`).join('');
+function prForm(id){const r=id=='new'?{id:'new',on:true,to:'contract',text:'',start:'inspected',done:'tick',days:7}:pRules().find(x=>x.id==id);if(!r)return'<p class="fbp">This rule was not found.</p>';const to=r.to||'contract';
+ return `<section class="ds" id="prf" data-id="${esc(r.id)}">
+ <div class="kv ed"><span>Line on the list</span><input class="ei" data-pr="text" value="${esc(r.text||'')}" placeholder="e.g. Send swatch card to {buyer} for {no}" autocomplete="off"></div>
+ <p class="fbpt">You can use {no} (contract or letter number), {supplier} (supplier mark), {buyer}, {awbbl} (AWB or BL), {days} and {due}.</p>
+ <div class="kv ed"><span>For</span><select class="ei" data-pr="to"><option value="contract" ${to=='contract'?'selected':''}>Contracts</option><option value="letter" ${to=='letter'?'selected':''}>Letters</option></select></div>
+ <div class="kv ed"><span>Show it from</span><select class="ei" data-pr="start">${prOpt(PSTART[to],r.start)}</select></div>
+ <div class="kv ed"><span>Days (for the "days before" choices)</span><input class="ei" type="number" min="0" max="120" data-pr="days" value="${esc(r.days??7)}"></div>
+ <div class="kv ed prc" ${to=='letter'?'hidden':''}><span>Only if the payment terms mention (words with commas between; leave empty for every contract)</span><input class="ei" data-pr="terms" value="${esc(r.terms||'')}" placeholder="e.g. TT, T/T" autocomplete="off"></div>
+ <div class="kv ed prc" ${to=='letter'?'hidden':''}><span>And the payment terms do not mention</span><input class="ei" data-pr="not" value="${esc(r.not||'')}" placeholder="e.g. letter of credit, CAD" autocomplete="off"></div>
+ <div class="kv ed"><span>Strike it off when</span><select class="ei" data-pr="done">${prOpt(PDONE[to],r.done)}</select></div>
+ <div class="kv ed"><span>Rule is</span><select class="ei" data-pr="on"><option value="1">On</option><option value="" ${r.on===false?'selected':''}>Off</option></select></div></section>
+ <button class="btn wide" data-prsave>Save rule</button>${id!='new'?'<button class="btn ghost wide" data-prdel>Delete this rule</button>':''}`}
+document.addEventListener('change',e=>{const el=e.target;if(!el.dataset||el.dataset.pr!='to')return;const f=$('#prf');if(!f)return;const to=el.value,s1=f.querySelector('[data-pr="start"]'),s2=f.querySelector('[data-pr="done"]');s1.innerHTML=prOpt(PSTART[to],PSTART[to][0][0]);s2.innerHTML=prOpt(PDONE[to],to=='letter'?'courier':'tick');f.querySelectorAll('.prc').forEach(x=>x.hidden=to=='letter')});
+async function prStore(L,rm){const data={list:L,removed:rm};const{error}=await sb.from('pending_rules').upsert({id:'main',data,updated_at:new Date().toISOString()});if(error){toast(error.message);return false}PA.rules=L;PA.rrm=rm;hbPaint();return true}
+async function prSave(){const f=$('#prf');if(!f)return;const g=k=>{const el=f.querySelector(`[data-pr="${k}"]`);return el?el.value:''},id0=f.dataset.id,
+  r={id:id0=='new'?'r'+Date.now().toString(36):id0,on:!!g('on'),to:g('to'),text:g('text').trim(),start:g('start'),done:g('done'),days:Math.max(0,Math.min(120,Math.round(+g('days')||0))),terms:g('to')=='letter'?'':g('terms').trim(),not:g('to')=='letter'?'':g('not').trim()};
+ if(!r.text){toast('Write the line that should appear on the list');return}const L=pRules().map(x=>({...x})),i=L.findIndex(x=>x.id==r.id);if(i>=0)L[i]=r;else L.push(r);
+ if(await prStore(L,PA.rrm||[])){toast('Rule saved');settings('rules')}}
+async function prDel(){const f=$('#prf');if(!f)return;const id=f.dataset.id;if(await prStore(pRules().filter(x=>x.id!=id),[...new Set([...(PA.rrm||[]),id])])){toast('Rule deleted');settings('rules')}}
+async function prReset(){if(await prStore(PDEF.map(x=>({...x})),[])){toast('Original rules are back');settings('rules')}}
 /* computer Home search: results show in the journal and orderbook panels themselves */
 function jSearchHTML(f){const k=q.trim(),P=qParse(k.toLowerCase()),L=E.filter(e=>P.test((e.title+' '+e.body+' '+(e.label||'')).toLowerCase())).sort((a,b)=>cmp(b.date,a.date)||b.t-a.t),tot=Math.max(1,Math.ceil(L.length/PS));pgT=Math.min(pgT,tot);const S=L.slice((pgT-1)*PS,pgT*PS);
  return `<div class="chipj"><span>${L.length?L.length+(L.length==1?' journal entry matches':' journal entries match'):'No journal entries match'} “${esc(k)}”</span><button data-sclr>Clear</button></div>`+(S.length?S.map((e,i)=>card(e,f?i:0,k,1)).join(''):'<div class="empty"><b>Nothing in the journal</b>Try another word, or look in the orderbook beside.</div>')+pgr(pgT,tot,'pt')}
 /* desktop Home: typing in the search bar swaps the Today view for search results */
 const hasQ=()=>q.trim()!=='';
 function sClear(){q='';const s=$('#sq');if(s)s.value='';homeSearch(1)}
-function homeSearch(f){if(innerWidth>=900&&$('#dgrid')){const k=q.trim(),l=$('#lst'),j=$('.pane.hm .dj');obq=k;pgO=1;pgT=pgE=1;if(j)j.classList.toggle('jsq',!!k);if(l){l.innerHTML=listHTML(f?1:0);l.scrollTop=0;if(f)fade(l)}const c=$('#chs');if(c)c.innerHTML=chips();const ob=$('#obl');if(ob){ob.innerHTML=obList(0);ob.scrollTop=0}const nn=$('#obn');if(nn)nn.textContent=obCount();if(k&&!obAt&&!obBusy)loadOB();return}
+function homeSearch(f){if(innerWidth>=900&&$('#dgrid')){const k=q.trim(),l=$('#lst'),j=$('.pane.hm .dj');obq=k;pgO=1;pgT=pgE=1;if(j)j.classList.toggle('jsq',!!k);if(l){l.innerHTML=listHTML(f?1:0);l.scrollTop=0;if(f)fade(l)}const c=$('#chs');if(c)c.innerHTML=chips();const ob=$('#obl');if(ob){ob.innerHTML=obList(0);ob.scrollTop=0}const nn=$('#obn');if(nn)nn.textContent=obCount();hbPaint();if(k&&!obAt&&!obBusy)loadOB();return}
  const k=q.trim(),l=$('#lst'),r=$('#sr'),c=$('#schs'),g=$('#dgrid');if(!l||!r)return;l.hidden=false;if(g)g.hidden=!!k;r.hidden=!k;if(c)c.hidden=!k;const p=l.closest('.pane');if(p)p.classList.toggle('sq',!!k);if(k){if(!obAt&&!obBusy)loadOB();results()}else r.innerHTML=''}
 try{matchMedia('(min-width:900px)').addEventListener('change',()=>{if(uid&&!B.classList.contains('so')){first=true;render()}})}catch(e){}
 function pgr(cur,tot,k,x=''){if(tot<2)return'';return `<div class="pgr"><button data-${k}="${cur-1}" ${x} ${cur<2?'disabled':''} aria-label="Previous page">‹</button><span><b>${cur}</b> of ${tot}</span><button data-${k}="${cur+1}" ${x} ${cur>=tot?'disabled':''} aria-label="Next page">›</button></div>`}
@@ -2820,7 +2894,7 @@ function homeExtra(){
  jr=e=>`<button class="bd-j" data-hth="${e.id}"><span class="bj-h"><b>${esc(e.title)}</b>${openFu(e)?'<i class="bj-f">Follow-up</i>':''}<em>${e.date==t0?'Today':dl(e.date)}</em></span>${e.body?`<span class="bj-b">${esc(String(e.body))}</span>`:''}</button>`,
  L=['contract','letter','debit'].map(k=>[k,op.filter(o=>o.k==k)]).filter(x=>x[1].length).map(x=>bdGroup(x[0],x[1],6)).join('');
  return `<div class="dash"><section class="bd bd-jn${GC.td?' bcl':''}" style="--g:#FF5AC4"><button class="bd-t" data-gt="td"><i></i><b>Today &amp; follow-ups</b><small>${jn.length} entr${jn.length==1?'y':'ies'}</small></button><div class="bd-b"><div class="bd-jg">${jn.slice(0,12).map(jr).join('')||'<div class="bd-em">Nothing written today and no follow-ups due.</div>'}</div><button class="bd-m" data-new>+ Add journal entry</button></div></section>${L||'<div class="empty"><b>All clear</b>No open contracts, letters or debit notes.</div>'}</div>`}
-function deskNav(){const so=document.body.classList.contains('so');let a;if(so&&SO)a=(SV=='contacts'||String(SV).startsWith('c:')||String(SV).startsWith('ce:')||SV=='cnew')?'contacts':SV=='reports'?'reports':SV=='mail'?'mail':(SV=='sheets'||String(SV).startsWith('ws:'))?'sheets':'settings';else a={0:'home',2:'home',3:'orderbook',4:'leads',1:'home'}[tab];document.querySelectorAll('#side [data-nav]').forEach(b=>b.classList.toggle('on',b.dataset.nav==a));}
+function deskNav(){const so=document.body.classList.contains('so');let a;if(so&&SO)a=(SV=='contacts'||String(SV).startsWith('c:')||String(SV).startsWith('ce:')||SV=='cnew')?'contacts':SV=='reports'?'reports':SV=='mail'?'mail':(SV=='sheets'||String(SV).startsWith('ws:'))?'sheets':'settings';else a={0:'home',2:'home',3:'orderbook',4:'leads',1:'home',5:'home'}[tab];document.querySelectorAll('#side [data-nav]').forEach(b=>b.classList.toggle('on',b.dataset.nav==a));}
 function results(){const o=$('#sr');if(!o)return;const k=q.trim(),R=sItems();const pn=o.closest('.pane');if(pn)pn.classList.toggle('sq',!!k);
  if(!R&&(tab==0||(tab==1&&innerWidth>=900))){o.innerHTML='';return}
  if(!R){o.innerHTML='<div class="empty"><b>Find anything</b>Journals, contracts, letters and debit notes.</div>'+homeExtra();return}
@@ -2854,6 +2928,10 @@ async function onClick(t){const d=t.dataset;
  else if(d.jt!==undefined)jSwitch(+d.jt)
  else if(d.orow)detail(d.orow)
  else if(d.patk)await paTick(d.patk)
+ else if('paold'in d){PA.old=!PA.old;paPaint()}
+ else if('prsave'in d)await prSave()
+ else if('prdel'in d)await prDel()
+ else if('prreset'in d)await prReset()
  else if(d.gt){const g=t.closest('.bd');GC[d.gt]=!GC[d.gt];g.classList.toggle('bcl',!!GC[d.gt])}
  else if(d.hth)thread(d.hth)
  else if(d.t!==undefined){if(+d.t==tab){if(wasSheet){first=true;window.scrollTo(0,0);render()}return}dir=ORD.indexOf(+d.t)>ORD.indexOf(tab)?1:-1;tab=+d.t;jump=null;pgT=pgE=pgS=pgO=1;first=true;window.scrollTo(0,0);render()}
@@ -2932,7 +3010,7 @@ async function onClick(t){const d=t.dataset;
  else if(d.aledit!==undefined){const el=$('#alin'),g=SALL[+d.aledit];if(!el||!g)return;el.value=g.join(' = ');el.dataset.edit=d.aledit;grow(el);const b=document.querySelector('[data-aladd]');if(b)b.textContent='Update shortcut';el.focus();el.scrollIntoView({block:'center',behavior:'smooth'})}
  else if(d.aldel!==undefined){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Remove'},3000);return}
   const L=SALL.map(g=>g.join(' = '));L.splice(+d.aldel,1);aliasSave(L.join('\n'));const el=$('#alin');if(el){delete el.dataset.edit;const b=document.querySelector('[data-aladd]');if(b)b.textContent='Save shortcut'}const lb=$('#allist');if(lb)lb.innerHTML=aliasList();toast('Shortcut removed')}
- else if('sback'in d)settings(SV.startsWith('ws:')?'sheets':SV.startsWith('ce:')?'c:'+SV.slice(3):SV.startsWith('c:')||SV=='cnew'?'contacts':'home')
+ else if('sback'in d)settings(SV.startsWith('rule:')?'rules':SV.startsWith('ws:')?'sheets':SV.startsWith('ce:')?'c:'+SV.slice(3):SV.startsWith('c:')||SV=='cnew'?'contacts':'home')
  else if(d.pc){pgC=+d.pc;const l=$('#cl2');l.innerHTML=contactsList();fade(l);$('.tl2').scrollTo({top:0,behavior:'smooth'})}
  else if('addnote'in d){t.insertAdjacentHTML('beforebegin',noteRow(''));const q=document.querySelectorAll('.nrow textarea');q[q.length-1].focus()}
  else if('delnote'in d){const w=t.closest('.nrow');if(document.querySelectorAll('.nrow').length>1)w.remove();else w.querySelector('textarea').value=''}
@@ -3469,7 +3547,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['47','8 Nov 2026',['Computer Home: the orderbook takes the top half on the right; below it are Pending actions and Emails to approve. Pending actions is written for you from each contract and letter: invoice awaiting after inspection, await AWB or BL after the invoice, TT follow-up for TT before shipment, documents courier follow-up for CAD and letter of credit, check payment a week before the 60 or 90 days run out, raise debit note after a payment, and courier details for a letter that is due. Items strike out by themselves when you enter the data (or tick them yourself) and leave the next day. The whole computer view is a little smaller (like 90% zoom)']],
+const APP_LOG=[['48','8 Nov 2026',['Pending actions: the rules are now in Settings > Pending actions, where you can edit, switch off, delete or add rules, or put back the originals. Steps with data (invoice, AWB or BL, payment, debit note, courier) strike off only when the data is entered; follow-ups with no field have a tick box, ticked items go to the bottom struck out and can be put back (also items ticked in the last 30 days). Count shows items. On the phone, Pending has its own page left of Today. On the computer, new buyer replies take the place of Emails to approve until you have read them, and searching also filters Pending actions and that box. Review no longer spills out of its box']],
+['47','8 Nov 2026',['Computer Home: the orderbook takes the top half on the right; below it are Pending actions and Emails to approve. Pending actions is written for you from each contract and letter: invoice awaiting after inspection, await AWB or BL after the invoice, TT follow-up for TT before shipment, documents courier follow-up for CAD and letter of credit, check payment a week before the 60 or 90 days run out, raise debit note after a payment, and courier details for a letter that is due. Items strike out by themselves when you enter the data (or tick them yourself) and leave the next day. The whole computer view is a little smaller (like 90% zoom)']],
 ['46','8 Nov 2026',['Computer Home: searching no longer opens a separate results page. Matching journal entries (from any date) show in the journal panel and matching contracts, letters and debit notes in the orderbook panel, with the words highlighted. Clear, or click Today or Earlier, to go back']],
 ['45','8 Nov 2026',['Today page: the Stacked order is gone; follow-ups and today\'s entries always show as separate cards']],
 ['44','8 Nov 2026',['Every page redesigned to match: text fields keep their original look; cards keep their shadows and entrance animations; on the phone, details read as label beside value; contract, letter and debit note pages have named tabs (Contract, Inspection, Invoice, Payments, Debit notes) instead of dots; Contacts is a clean list with a small Add button, and each contact has Call, Email and Edit buttons; Outreach settings split into About you, What you supply, Your voice, Signature and Mailbox; Reports dates no longer overflow; login shows your logo; dark mode messages are readable']],
@@ -3691,15 +3770,17 @@ async function rpPdf(){const o=RP.out;if(!o||!o.rows.length)return toast('Nothin
 const curNow=()=>{const e=document.querySelector('[data-ek="currency"]'),v=e?e.value:(R&&R.currency)||'';return v&&v.trim()?normCur(v)+' ':''};
 document.addEventListener('focusin',e=>{const el=e.target;if(!el.matches||!el.matches('textarea[data-ek="price"]'))return;const c=curNow();if(c&&!el.value.trim()){el.value=c;try{el.setSelectionRange(c.length,c.length)}catch(x){}}});
 document.addEventListener('focusout',e=>{const el=e.target;if(!el.matches||!el.matches('textarea[data-ek="price"]'))return;const c=curNow(),v=el.value.trim();if(c&&v==c.trim())el.value='';else if(c&&v&&!hasCur(v))el.value=c+v;grow(el)});
-async function settings(v){SV=v||'home';SO=true;if(WS.cur&&SV!='ws:'+WS.cur.id)wsLeave();if(SV=='mail')await mailLoad();else if(SV=='outreach'){await outLoad(true);await outStatus()}else if(SV=='sheets')await wsLoadAll();else if(SV.startsWith('ws:')&&!WS.cur&&!await wsLoadCur(SV.slice(3)))return settings('sheets');if(!COMP||!CB)await Promise.all([loadCO(),loadCB(),loadSIG()]);else{loadCO();loadCB();loadSIG()}const sub=SV!='home',c=SV.startsWith('c:')?(CB||[]).find(x=>x.id==SV.slice(2)):null,ce=SV.startsWith('ce:')?(CB||[]).find(x=>x.id==SV.slice(3)):null,desk=innerWidth>=900,title=ce?'Edit contact':SV=='mail'?'Invoice mail':SV=='outreach'?'Outreach':SV=='sheets'?'Worksheets':SV.startsWith('ws:')&&WS.cur?(WS.cur.title||'Worksheet'):SV=='reports'?'Reports':SV=='order'?'Today page order':SV=='display'?'Display':SV=='pw'?'Change password':SV=='alias'?'Search shortcuts':SV=='about'?'Version & updates':SV=='usage'?'Usage & Backup':SV=='company'?'Company Data':SV=='sigs'?'Signatures':SV=='contacts'?'Contacts':SV=='cnew'?'New Contact':c?c.name:'Settings';let body='';
+async function settings(v){SV=v||'home';SO=true;if(WS.cur&&SV!='ws:'+WS.cur.id)wsLeave();if(SV=='mail')await mailLoad();else if(SV=='outreach'){await outLoad(true);await outStatus()}else if(SV=='sheets')await wsLoadAll();else if((SV=='rules'||SV.startsWith('rule:'))&&!PA.loaded)await paLoad();else if(SV.startsWith('ws:')&&!WS.cur&&!await wsLoadCur(SV.slice(3)))return settings('sheets');if(!COMP||!CB)await Promise.all([loadCO(),loadCB(),loadSIG()]);else{loadCO();loadCB();loadSIG()}const sub=SV!='home',c=SV.startsWith('c:')?(CB||[]).find(x=>x.id==SV.slice(2)):null,ce=SV.startsWith('ce:')?(CB||[]).find(x=>x.id==SV.slice(3)):null,desk=innerWidth>=900,title=ce?'Edit contact':SV=='rules'?'Pending actions':SV.startsWith('rule:')?(SV=='rule:new'?'New rule':'Edit rule'):SV=='mail'?'Invoice mail':SV=='outreach'?'Outreach':SV=='sheets'?'Worksheets':SV.startsWith('ws:')&&WS.cur?(WS.cur.title||'Worksheet'):SV=='reports'?'Reports':SV=='order'?'Today page order':SV=='display'?'Display':SV=='pw'?'Change password':SV=='alias'?'Search shortcuts':SV=='about'?'Version & updates':SV=='usage'?'Usage & Backup':SV=='company'?'Company Data':SV=='sigs'?'Signatures':SV=='contacts'?'Contacts':SV=='cnew'?'New Contact':c?c.name:'Settings';let body='';
  if(SV=='home'){const R=(sv,ic,t,sub)=>uxRow(`data-sv="${sv}"`,t,sub,{ic}),G=(h,rows)=>`<div class="ux-sg"><div class="ux-gh">${h}</div><div class="ux-list">${rows}</div></div>`;
   body=`<div class="ux-sgrid">`+G('Business',R('company','home','Company Data','Name, address, email, phone and logo')+R('contacts','people',`Contacts`,`${(CB||[]).length} contacts, one tap to call or email`)+R('sigs','pen','Signatures',`${getSigs().filter(z=>z.cloud).length?getSigs().filter(z=>z.cloud).length+' saved to cloud · ':''}For contracts, letters and debit notes`))
-  +G('Documents',R('reports','chart','Reports','Contracts, debit notes and invoices by period')+R('sheets','grid','Worksheets','Spreadsheet-style calculations')+R('mail','inbox','Invoice mail',MAIL.n?MAIL.n+' waiting for your approval':'Invoices, bills of lading and airway bills from Gmail'))
+  +G('Documents',R('rules','list','Pending actions',`${pRules().filter(r=>r.on!==false).length} rules that write your to-do list`)+R('reports','chart','Reports','Contracts, debit notes and invoices by period')+R('sheets','grid','Worksheets','Spreadsheet-style calculations')+R('mail','inbox','Invoice mail',MAIL.n?MAIL.n+' waiting for your approval':'Invoices, bills of lading and airway bills from Gmail'))
   +G('Buyers',R('outreach','send','Outreach','What you supply, signature, mailbox and sending'))
   +G('App',R('display','sun','Display',`${(FSO.find(o=>o[1]==getFS())||FSO[0])[0]} text · ${isDark()?'Dark':'Light'} · overdue colour`)+R('order','list','Today page order',(TSO.find(o=>o[1]==TSORT)||TSO[0])[0])+R('alias','search','Search shortcuts',`${SALG.length?SALG.length+' saved · ':''}Names found together`)+R('pw','lock','Change password','Update your login password')+R('usage','db','Usage & Backup',USG?(USG.ex!==null?USG.ex:USG.est)/DBMAX*100<1?'Under 1% used':Math.round((USG.ex!==null?USG.ex:USG.est)/DBMAX*100)+'% used':'Storage used, back up and restore')+R('about','info',`Version ${APP_LOG[0][0]}`,`Updated ${APP_LOG[0][1]}`))
   +`</div><button class="btn ghost wide ux-out" data-out>Log out</button>`}
  else if(SV=='reports')body=rpPage();
  else if(SV=='mail')body=mailPage();
+ else if(SV=='rules')body=prList();
+ else if(SV.startsWith('rule:'))body=prForm(SV.slice(5));
  else if(SV=='sheets')body=wsListHtml();
  else if(SV.startsWith('ws:'))body=wsEditorHtml();
  else if(SV=='order')body=tsBlock().replace('tsc"','tsc ex"');
@@ -3715,7 +3796,7 @@ async function settings(v){SV=v||'home';SO=true;if(WS.cur&&SV!='ws:'+WS.cur.id)w
  else if(SV=='cnew')body=cForm({},'New contact')+(desk?'':'<button class="btn wide" data-cnsave>Save contact</button>');
  else if(ce)body=cForm(ce,'Edit contact')+(desk?'':'<button class="btn wide" data-cnsave data-ceid="'+ce.id+'">Save changes</button>');
  else if(c)body=contactDetail(c);
- if(desk){const act=SV=='sheets'?'<button class="btn ghost" data-wsa="newt">New with table</button><button class="btn" data-wsa="new">New worksheet</button>':SV.startsWith('ws:')?wsShareHtml()+'<button class="btn ghost" data-wsa="back">‹ Worksheets</button>':SV=='contacts'?'<button class="btn" data-cadd>Add contact</button>':SV=='cnew'?'<button class="btn ghost" data-sv="contacts">Cancel</button><button class="btn" data-cnsave>Save contact</button>':ce?'<button class="btn ghost" data-sv="c:'+ce.id+'">Cancel</button><button class="btn" data-cnsave data-ceid="'+ce.id+'">Save changes</button>':c?'<button class="btn ghost" data-sv="contacts">All contacts</button><button class="btn" data-cedit="'+c.id+'">Edit contact</button>':(SV=='home'||SV=='reports')?'':'<button class="btn ghost" data-sback>‹ Settings</button>',cfam=SV=='contacts'||SV=='reports'||SV=='sheets'||SV.startsWith('ws:')||SV=='cnew'||!!c||!!ce,sb2=SV=='sheets'?(WS.list||[]).length+' worksheet'+((WS.list||[]).length==1?'':'s'):SV.startsWith('ws:')?'Worksheets':SV=='contacts'?(CB||[]).length+' contact'+((CB||[]).length==1?'':'s'):SV=='reports'?'Contracts, debit notes and invoices':SV=='home'?'Account and preferences':(SV=='cnew'||c||ce)?'Contacts':'Settings';
+ if(desk){const act=SV.startsWith('rule:')?'<button class="btn ghost" data-sv="rules">‹ All rules</button>':SV=='sheets'?'<button class="btn ghost" data-wsa="newt">New with table</button><button class="btn" data-wsa="new">New worksheet</button>':SV.startsWith('ws:')?wsShareHtml()+'<button class="btn ghost" data-wsa="back">‹ Worksheets</button>':SV=='contacts'?'<button class="btn" data-cadd>Add contact</button>':SV=='cnew'?'<button class="btn ghost" data-sv="contacts">Cancel</button><button class="btn" data-cnsave>Save contact</button>':ce?'<button class="btn ghost" data-sv="c:'+ce.id+'">Cancel</button><button class="btn" data-cnsave data-ceid="'+ce.id+'">Save changes</button>':c?'<button class="btn ghost" data-sv="contacts">All contacts</button><button class="btn" data-cedit="'+c.id+'">Edit contact</button>':(SV=='home'||SV=='reports')?'':'<button class="btn ghost" data-sback>‹ Settings</button>',cfam=SV=='contacts'||SV=='reports'||SV=='sheets'||SV.startsWith('ws:')||SV=='cnew'||!!c||!!ce,sb2=SV.startsWith('rule:')?'Pending actions':SV=='rules'?'Rules for your to-do list':SV=='sheets'?(WS.list||[]).length+' worksheet'+((WS.list||[]).length==1?'':'s'):SV.startsWith('ws:')?'Worksheets':SV=='contacts'?(CB||[]).length+' contact'+((CB||[]).length==1?'':'s'):SV=='reports'?'Contracts, debit notes and invoices':SV=='home'?'Account and preferences':(SV=='cnew'||c||ce)?'Contacts':'Settings';
   open(`<div class="th-h"><div>${sb2?`<div class="hk">${sb2}</div>`:''}<h1>${SV.startsWith('ws:')&&WS.cur?`<input class="wsh1" id="wstitle" value="${esc(WS.cur.title)}" aria-label="Worksheet title" maxlength="80" autocomplete="off">`:esc(title)}</h1></div>${act?`<div class="pga">${act}</div>`:''}</div><div class="tl2">${body}</div>`,'tall pgx'+(!cfam&&SV!='home'?' pgs':''));requestAnimationFrame(()=>document.querySelectorAll('.ei').forEach(grow));if(SV=='reports')rpAfter();if(SV.startsWith('ws:'))wsInit();return}
  open(`<div class="th-h">${sub?'<button class="x" data-sback aria-label="Back">‹</button>':''}<div style="flex:1"><h2>${esc(title)}</h2></div><button class="x" data-close aria-label="Close">✕</button></div><div class="tl2">${body}</div>`,'tall');requestAnimationFrame(()=>document.querySelectorAll('.ei').forEach(grow));if(SV=='reports')rpAfter();if(SV.startsWith('ws:'))wsInit()}
 const noteRow=v=>`<div class="kv ed nrow"><textarea rows="1" class="ei" data-ek="important_notes" data-et="N" placeholder="Add a note">${esc(v)}</textarea><button class="nx" data-delnote aria-label="Remove note">✕</button></div>`,

@@ -6,3 +6,13 @@ create table if not exists pending_done (
 alter table pending_done enable row level security;
 drop policy if exists "pd all" on pending_done;
 create policy "pd all" on pending_done for all to authenticated using (true) with check (true);
+
+-- Pending actions: your rules (Settings > Pending actions)
+create table if not exists pending_rules (
+  id text primary key,
+  data jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+alter table pending_rules enable row level security;
+drop policy if exists "pr all" on pending_rules;
+create policy "pr all" on pending_rules for all to authenticated using (true) with check (true);
