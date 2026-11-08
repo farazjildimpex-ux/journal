@@ -377,7 +377,7 @@ input,textarea,.ei{caret-color:var(--blue)}
 <button class="sb-i" data-nav="settings" data-settings><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg><span>Settings</span></button>
 </div>
 <div class="sb-foot"><button class="sb-i sb-lo" data-out><svg viewBox="0 0 24 24"><path d="M9 4H5.5A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20H9"/><path d="M16 8l4 4-4 4M20 12H9"/></svg><span>Log out</span></button></div></nav>
-<header class="gr"><button class="gt" data-settings aria-label="Settings"><span id="gtxt"></span></button><div class="pds" id="pds"></div></header><main id="view"></main></div>
+<header class="gr"><div class="pds" id="pds" role="tablist" aria-label="Pages"></div><button class="gset" data-settings aria-label="Settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button><span id="gtxt" hidden></span></header><main id="view"></main></div>
 <div class="scrim" id="scrim"></div><div class="sheet" id="sheet"></div><div class="toast" id="toast"></div>
 <style>
 .login{position:fixed;inset:0;z-index:70;background:var(--panel);display:none;place-items:center;padding:var(--sp-24)}.login.on{display:grid}
@@ -610,7 +610,7 @@ select.ei{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/200
 .ltt{display:flex;justify-content:space-between;gap:var(--sp-12);margin-bottom:var(--sp-4)}.ltt span{color:var(--mute);font-size:calc(13px*var(--fs,1));font-weight:600}.ltb p{margin:var(--sp-6) 0 0;font-size:calc(14px*var(--fs,1));line-height:1.5;color:var(--kt44444c,#44444c);white-space:pre-line}
 .ltn{margin-top:var(--sp-8);color:var(--blue);font-size:calc(12.5px*var(--fs,1));font-weight:700}.ltx{color:var(--mute);font-size:calc(12px*var(--fs,1));font-weight:600;margin-top:var(--sp-6);padding:0}
 .ldset p{margin:var(--sp-8) 0 0;font-size:calc(13.5px*var(--fs,1));line-height:1.5;color:var(--kt5d5d66,#5d5d66)}.ldset pre{background:var(--panel);border-radius:14px;padding:var(--sp-12);font-size:calc(11.5px*var(--fs,1));line-height:1.45;overflow:auto;max-height:170px;margin:var(--sp-12) 0 0;white-space:pre}
-.tl2 .ds{margin:0 0 var(--sp-12)}.ldc .ct{cursor:pointer}.ch.c-ld{--t:#0C0C0E;--b:#E9E9ED}
+.tl2 .ds{margin:0 0 var(--sp-12)}.ldc .ct{cursor:pointer}.ch.c-ld{--t:var(--ink);--b:var(--line)}.ch.c-ld.on{color:var(--panel)}
 input.ei[type=date]{min-height:26px;font-family:inherit}
 
 /* ===== Orderbook / letter status icons ===== */
@@ -1457,12 +1457,126 @@ html:not([data-theme="dark"]) body{background:var(--page)}
 .fbf{font-size:var(--fs-12);color:var(--ink2);margin:var(--sp-4) 0}
 .oup{border:1px solid var(--bd);border-radius:12px;padding:var(--sp-12);margin:var(--sp-8) 0;font-size:var(--fs-14);color:var(--ink2)}
 </style>
+<style id="v2">
+/* ===== v2 layout layer (Nov 2026). Structure only: colours come from the existing tokens. ===== */
+:root{--hdr:rgba(238,240,245,.86);--row-h:52px;--pnl-r:16px}
+html[data-theme="dark"]{--hdr:rgba(11,13,18,.86)}
+/* --- phone top bar: labelled tabs + settings --- */
+@media (max-width:899px){
+ .app>.gr{position:sticky;top:0;z-index:30;display:flex;align-items:stretch;gap:0;margin:0;padding:env(safe-area-inset-top,0px) var(--sp-4) 0 0;height:calc(50px + env(safe-area-inset-top,0px));background:var(--hdr);-webkit-backdrop-filter:saturate(1.6) blur(16px);backdrop-filter:saturate(1.6) blur(16px);border-bottom:1px solid var(--line)}
+ .gr .pds{position:relative;flex:1;min-width:0;display:flex;align-items:stretch;gap:var(--sp-2);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:0 var(--sp-8)}
+ .gr .pds::-webkit-scrollbar{display:none}
+ .gr .pd{position:relative;flex:none;width:auto;height:auto;padding:0 var(--sp-8);border-radius:0;background:none;font:inherit;font-size:calc(14.5px*var(--fs,1));font-weight:600;letter-spacing:-.01em;color:var(--mute);transition:color .2s}
+ .gr .pd:before,.gr .pd:after{display:none}
+ .gr .pd.act{color:var(--ink)}
+ .gr .pill{top:auto;bottom:0;left:0;width:0;height:2.5px;border-radius:2px 2px 0 0;background:var(--blue);transform-origin:left;transition:transform .35s cubic-bezier(.2,.9,.2,1),width .35s cubic-bezier(.2,.9,.2,1)}
+ .gr .pds.drag .pill{transition:none}
+ .gset{flex:none;align-self:center;width:42px;height:42px;display:grid;place-items:center;border-radius:12px;color:var(--ink2)}
+ .gset svg{width:22px;height:22px}.gset:active{background:var(--line)}
+ .pane{padding-top:var(--sp-20)}
+ .pane>.head{align-items:flex-start;margin-bottom:var(--sp-16)}
+ .pane>.head h1{font-size:calc(26px*var(--fs,1));letter-spacing:-.035em;line-height:1.15}
+ .pane>.head .sub{margin-top:var(--sp-4);color:var(--mute);font-size:calc(13px*var(--fs,1));font-weight:500}
+ .pane>.head .new{margin-top:var(--sp-2)}
+}
+
+/* --- grouped panels and rows (Buyers, Settings) --- */
+.ux-gh{display:flex;align-items:baseline;gap:var(--sp-8);margin:var(--sp-20) var(--sp-4) var(--sp-8);font-size:calc(12px*var(--fs,1));font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.ux-gh small{font-size:inherit;font-weight:600;letter-spacing:0;color:var(--mute);opacity:.8}
+.fbx>.ux-gh:first-child,.fbx-a>.ux-gh:first-child,.fbx-m>.ux-gh:first-child{margin-top:var(--sp-4)}
+.ux-list,.ux-pnl{background:var(--surf);border:1px solid var(--edge);border-radius:var(--pnl-r);overflow:hidden}
+.ux-pnl{padding:var(--sp-12) var(--sp-16)}
+.ux-row{display:flex;align-items:center;gap:var(--sp-12);width:100%;min-height:var(--row-h);margin:0;padding:var(--sp-12) var(--sp-16);border:0;border-top:1px solid var(--line);border-radius:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .15s}
+.ux-row:first-child{border-top:0}.ux-row:active{background:var(--panel)}.ux-row:disabled{opacity:.6;cursor:default}
+@media (hover:hover){.ux-row:hover{background:var(--panel)}}
+.ux-ic{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--bl);color:var(--blue)}
+.ux-ic svg{width:18px;height:18px}
+.ux-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.ux-tx b{font-size:calc(15px*var(--fs,1));font-weight:600;letter-spacing:-.01em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ux-tx small{font-size:calc(12.5px*var(--fs,1));color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ux-bd{flex:none;min-width:22px;padding:3px var(--sp-8);border-radius:99px;background:var(--blue);color:var(--on-st);font-size:calc(11.5px*var(--fs,1));font-weight:700;text-align:center}
+.ux-num{flex:none;font-size:calc(14px*var(--fs,1));font-weight:600;color:var(--ink2);font-variant-numeric:tabular-nums}
+.ux-chev{flex:none;width:16px;height:16px;color:var(--mute);opacity:.7}
+.ux-link{display:inline-flex;align-items:center;gap:var(--sp-6);padding:var(--sp-6) var(--sp-8);border:0;border-radius:10px;background:none;color:var(--blue);font:inherit;font-size:calc(13.5px*var(--fs,1));font-weight:600;cursor:pointer}
+.ux-link svg{width:16px;height:16px}.ux-link:active{background:var(--bl)}
+.ux-back{display:inline-flex;align-items:center;gap:var(--sp-2);margin:0 0 var(--sp-4) calc(var(--sp-6) * -1);padding:var(--sp-6) var(--sp-8) var(--sp-6) var(--sp-2);border:0;border-radius:10px;background:none;color:var(--blue);font:inherit;font-size:calc(14px*var(--fs,1));font-weight:600;cursor:pointer}
+.ux-back svg{width:18px;height:18px}
+/* Buyers */
+.fbhd{margin-bottom:var(--sp-4)}
+.fbhr{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--sp-12)}
+.fbhr h2{margin:0;font-size:calc(22px*var(--fs,1));letter-spacing:-.03em;line-height:1.2}
+.fbhr small{display:block;margin-top:var(--sp-2);color:var(--mute);font-size:calc(13px*var(--fs,1))}
+.fbflt{padding:var(--sp-8) 0 var(--sp-4)}
+.fbfl{padding:var(--sp-4) var(--sp-16) 0;font-size:calc(12px*var(--fs,1));font-weight:600;color:var(--mute)}
+.fbflt .chs{margin:0;padding:var(--sp-6) var(--sp-16) var(--sp-8);gap:var(--sp-6)}
+.fbx .ds.fbs{margin:0;border:1px solid var(--edge);box-shadow:none;border-radius:var(--pnl-r)}
+.fbx .chs .ch,.fbflt .ch{padding:var(--sp-6) var(--sp-12);font-size:calc(13px*var(--fs,1));font-weight:600;box-shadow:0 0 0 1px var(--edge)}
+.fbx .card.fbg{margin-bottom:var(--sp-8);padding:var(--sp-12) var(--sp-16);border-radius:14px;box-shadow:0 0 0 1px var(--edge)}
+.fbx .card.fbg h3{font-size:calc(15.5px*var(--fs,1))}
+.fbx .fbpt{margin:var(--sp-8) var(--sp-4) 0}
+@media (min-width:900px){
+ .fbx{display:grid;grid-template-columns:minmax(300px,360px) minmax(0,1fr);column-gap:var(--sp-24);align-items:start}
+ .fbx>.fbhd{grid-column:1/-1;margin-bottom:var(--sp-12)}
+ .fbx-a{grid-column:1;min-width:0}.fbx-m{grid-column:2;min-width:0}
+ .fbx-m .card.fbg .ct{display:block}
+}
+
+.fbmini{display:none}
+.ux-link .ux-bd{font-style:normal;margin-left:var(--sp-2);padding:1px var(--sp-6);min-width:0}
+@media (max-width:899px){
+ .fbx.cv .fbop{display:none}
+ .fbx.cv .fbmini{display:flex;gap:var(--sp-4);margin:var(--sp-12) 0 0 calc(var(--sp-8) * -1);overflow-x:auto;scrollbar-width:none}
+ .fbmini .ux-link{flex:none;padding:var(--sp-8) var(--sp-8)}
+}
+@media (min-width:900px){
+ .fbx-a .chs{flex-wrap:wrap;overflow:visible}
+ .fbx-m .card.fbg .ct{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.7fr) minmax(110px,auto);grid-template-areas:"name tags anim" "meta tags anim";column-gap:var(--sp-16);row-gap:2px;align-items:center}
+ .fbx-m .card.fbg .cr{grid-area:name;min-width:0}.fbx-m .card.fbg .cr h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .fbx-m .card.fbg .fbm{grid-area:meta;margin:0;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .fbx-m .card.fbg .lds{grid-area:tags;margin:0;align-self:center}
+ .fbx-m .card.fbg .ldar{grid-area:anim;margin:0;justify-content:flex-end}
+ .fbx-m .card.fbg{padding:var(--sp-12) var(--sp-16);margin-bottom:var(--sp-6)}
+}
+
+/* Settings home */
+.ux-sgrid>.ux-sg:first-child .ux-gh{margin-top:var(--sp-4)}
+.ux-out{margin-top:var(--sp-24)}
+@media (min-width:900px){
+ .sheet.tall>.tl2:has(>.ux-sgrid){display:block;padding-left:max(32px,calc((100% - 1040px)/2));padding-right:max(32px,calc((100% - 1040px)/2))}
+ .ux-sgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--sp-24);align-items:start}
+ .ux-out{max-width:240px}
+}
+
+@media (min-width:900px){.ux-sg .ux-gh{margin-top:var(--sp-4)}.ux-sg{margin-bottom:var(--sp-16)}.ux-out{display:none}}
+/* phone: lighter, tighter lists and chips */
+@media (max-width:899px){
+ .gr .pd{padding:0 var(--sp-6);font-size:calc(14px*var(--fs,1))}
+ .gr .pds{padding:0 var(--sp-6)}
+ #view .card{border-radius:16px;box-shadow:0 0 0 1px var(--edge),0 1px 2px rgba(20,20,40,.04)}
+ #view .card:not(.ob):not(.fbg):not(.fbc){padding:var(--sp-16) var(--sp-16) var(--sp-16) var(--sp-16);margin-bottom:var(--sp-8)}
+ #view .card:not(.ob) .ct h3{font-size:calc(16px*var(--fs,1))}
+ #view .card:not(.ob) .bd{font-size:calc(14px*var(--fs,1));line-height:1.5;margin-top:var(--sp-8)}
+ #view .card.ob.ox{margin-bottom:var(--sp-8)}
+ #view .card.ob.ox .oxf{grid-template-columns:38px minmax(0,1fr) auto;padding:var(--sp-12) var(--sp-12) var(--sp-12) var(--sp-12)}
+ #view .card.ob.ox .oxr{width:38px;height:38px}
+ #view .card.ob.ox .oxr svg{width:16px;height:16px}
+ #view .card.ob.ox .oxn{font-size:calc(15.5px*var(--fs,1))}
+ #view .chs .ch{padding:var(--sp-8) var(--sp-16);font-size:calc(13.5px*var(--fs,1));font-weight:600}
+ #view .chs{gap:var(--sp-8)}
+ #view .day{margin:var(--sp-20) var(--sp-4) var(--sp-8);font-size:calc(12px*var(--fs,1));letter-spacing:.04em;text-transform:uppercase;font-weight:700;color:var(--mute)}
+}
+
+/* approval queue and inbox: email text reads as text, not as a heading */
+.oud textarea.ei[data-ouf="body"]{font-weight:400;line-height:1.55}
+.oud .kv b[style*="pre-wrap"]{font-weight:400;line-height:1.55}
+</style>
 
 <script>
 const SB_URL='https://ethhzxagxejxfxkzgndk.supabase.co',
 SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0aGh6eGFneGVqeGZ4a3pnbmRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MDQwNjIsImV4cCI6MjA2NDI4MDA2Mn0.FMCc_AwksmDGQqGdCoazcxIJ7i3635fkrJinx5gNucA';
 const NAME='Faraz';
 const greet=()=>{const h=new Date().getHours();return(h<5?'Good night':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Good night')+', '+NAME};
+const greetT=()=>{const h=new Date().getHours();return(h<5?'Good night':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Good night')+(NAME?', '+esc(String(NAME).split(' ')[0]):'')};
 const greetH=()=>{const h=new Date().getHours();return(h<5?'Good night':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Good night')+', <span class="gname"><i>'+esc([...String(NAME||'')][0]||'')+'</i>'+esc([...String(NAME||'')].slice(1).join(''))+'</span>'};
 const $=s=>document.querySelector(s),B=document.body,T='journal_entries',sb=supabase.createClient(SB_URL,SB_KEY,{global:{fetch:curFetch}});
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1500,8 +1614,10 @@ function qParse(raw){const key=String(raw||'').trim().toLowerCase();let P=QC.get
  QC.set(key,P);if(QC.size>200)QC.delete(QC.keys().next().value);return P}
 const hl=(s,k)=>{s=String(s==null?'':s);const P=k?qParse(k):null;return P&&P.re?s.split(P.re).map((p,i)=>i%2?`<mark>${esc(p)}</mark>`:esc(p)).join(''):esc(s)};
 const ORD=[4,3,0,1,2],NAMES=['Buyers','Orderbook','Today','Earlier','Search'];
-function dots(p){deskNav();const i=ORD.indexOf(tab),pl=$('#pill');document.querySelectorAll('#pds .pd').forEach(b=>b.classList.toggle('act',+b.dataset.t==tab));if(pl)pl.style.transform=`translateX(${(i-(p||0))*18}px) scaleX(${1+.4*Math.abs(p||0)})`}
-$('#pds').innerHTML=ORD.map((t,i)=>`<button class="pd" data-t="${t}" aria-label="${NAMES[i]}"></button>`).join('')+'<i class="pill" id="pill"></i>';
+function dots(p){deskNav();const bs=[...document.querySelectorAll('#pds .pd')],i=ORD.indexOf(tab),pl=$('#pill');bs.forEach(b=>{const on=+b.dataset.t==tab;b.classList.toggle('act',on);b.setAttribute('aria-selected',on)});
+ if(!pl||!bs[i]||innerWidth>=900)return;p=p||0;const a=bs[i],n=bs[i+(p>0?1:-1)]||a,k=Math.min(1,Math.abs(p)),x=a.offsetLeft+(n.offsetLeft-a.offsetLeft)*k,w=a.offsetWidth+(n.offsetWidth-a.offsetWidth)*k;
+ pl.style.width=w+'px';pl.style.transform=`translateX(${x}px)`;if(!p){const sc=$('#pds');if(sc&&(a.offsetLeft<sc.scrollLeft||a.offsetLeft+a.offsetWidth>sc.scrollLeft+sc.clientWidth))sc.scrollTo({left:a.offsetLeft-24,behavior:'smooth'})}}
+$('#pds').innerHTML=ORD.map((t,i)=>`<button class="pd" role="tab" data-t="${t}">${NAMES[i]}</button>`).join('')+'<i class="pill" id="pill"></i>';
 function watch(fn,root){io&&io.disconnect();const s=$('#sent');if(!s)return;io=new IntersectionObserver(en=>{if(!en[0].isIntersecting)return;if(fn()){io.unobserve(s);io.observe(s)}else{io.disconnect();const x=$('#sent');x&&x.remove()}},{root:root||null,rootMargin:'600px'});io.observe(s)}
 function block(){const hi=back(7*(eP-1)+1),lo=back(7*eP);eP++;let h='';eBase.filter(e=>e.date>=lo&&e.date<=hi).forEach(e=>{if(e.date!=eLast){eLast=e.date;h+=`<div class="day">${dlf(e.date)}</div>`}h+=card(e,0)});return h}
 function earlierChunk(){let h='';while(!h&&eP<=eTot)h=block();return h}
@@ -2044,17 +2160,26 @@ function fbGroups(rows){const G=[],byDom=new Map(),byKey=new Map(),cust=fbCustom
 const fbN=n=>Number(n).toLocaleString('en-GB');
 const fbRes=g=>FR['d:'+g.dom]||FR['n:'+fbKey(g.rows[0].name)]||null;
 const fbMails=r=>r&&Array.isArray(r.emails)?r.emails:[];
+const UXI={home:'<path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/>',people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5.2a3 3 0 0 1 0 5.6M17.5 14.8c2.1.6 3.5 2.4 3.5 5.2"/>',pen:'<path d="M3 17c3-1 4.5-6 7-6s1 5 4 5 3-3 4-3 2 1 3 1"/><path d="M3 21h18"/>',chart:'<path d="M4 20h16"/><path d="M7 20v-7M12 20V5M17 20v-10"/>',grid:'<rect x="4" y="4" width="16" height="16" rx="2.5"/><path d="M4 10h16M4 15h16M10 4v16"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',list:'<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',db:'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',inbox:'<path d="M4 13.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4.5"/><path d="M4 13.5 6.6 6.3A2 2 0 0 1 8.5 5h7a2 2 0 0 1 1.9 1.3L20 13.5h-4.5l-1.5 2.5h-4L8.5 13.5z"/>',edit:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',send:'<path d="M21 3 10 14"/><path d="M21 3 14.5 21l-4.5-7-7-4.5z"/>',up:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>',sync:'<path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/>',dl:'<path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 20h16"/>'};
+const uxSvg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${UXI[k]||''}</svg>`;
+const UXCHEV='<svg class="ux-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>';
+const uxRow=(attr,title,sub,o={})=>`<button class="ux-row" ${attr}>${o.ic?`<span class="ux-ic">${uxSvg(o.ic)}</span>`:''}<span class="ux-tx"><b>${title}</b>${sub?`<small>${sub}</small>`:''}</span>${o.badge?`<span class="ux-bd">${o.badge}</span>`:''}${o.num!=null?`<span class="ux-num">${o.num}</span>`:''}${o.nochev?'':UXCHEV}</button>`;
 function fbView(){if(!FB.ok)return`<section class="ds ldset"><div class="ldk">One-time setup</div><p>The buyer directory needs one small table in Supabase. Copy this, paste it into the SQL Editor, tap Run, then come back here.</p><pre id="fbsql">${esc(FBSQL)}</pre><button class="btn ghost wide" data-fbcopy>Copy SQL</button><button class="btn wide" data-fbretry>I’ve run it</button></section>`;
  if(!FB.loaded)return'<div class="empty">Loading…</div>';
  if(!FB.rows.length)return`<section class="ds"><div class="ldk">LWG directory</div><p class="fbp">Search the Leather Working Group directory by country and type. The app reads the public list, merges companies that appear more than once, and leaves out people already in your contacts.</p><button class="btn wide" data-fbsync ${FB.busy?'disabled':''}>${FB.busy||'Get the directory'}</button><button class="btn ghost wide" data-fbimp>Or add companies from a list</button></section>`;
  const qn=outWait().length,aq=OUT.drafts.filter(d=>d.status=='approved').length;
  const done=OUT.drafts.filter(d=>['sent','failed','approved'].includes(d.status)).length;
  const unr=(OUT.inbox||[]).filter(m=>m.kind=='reply'&&!m.is_read).length;
- return (OUT.ok?`<button class="sc scu" data-ouinb style="margin-bottom:8px"><b>Inbox${unr?' · '+unr+' new':''}</b><span>Replies from buyers, with a drafted answer to approve</span></button>`:'')+(done?`<button class="sc scu" data-ousent style="margin-bottom:8px"><b>Sent mail · ${OUT.drafts.filter(d=>d.status=='sent').length}</b><span>${aq?aq+' waiting to go out · ':''}everything you have sent or approved</span></button>`:'')+(qn||aq?`<button class="sc scu" data-ouq style="margin-bottom:12px"><b>Emails to approve${qn?' · '+qn:''}</b><span>${qn?'Read, edit and approve before anything is sent':aq+' approved, waiting for the mailbox'}</span></button>`:'')+(FB.country?fbCountry():fbCountries())}
+ const sn=OUT.drafts.filter(d=>d.status=='sent').length;
+ const op=OUT.ok?`<div class="ux-gh">Outreach</div><div class="ux-list">${uxRow('data-ouinb','Inbox',unr?'New replies from buyers':'Replies from buyers, with a drafted answer',{ic:'inbox',badge:unr?unr+' new':''})}${uxRow('data-ouq','Emails to approve',qn?'Read, edit and approve before sending':aq?aq+' approved, waiting for the mailbox':'Nothing waiting',{ic:'edit',badge:qn||''})}${uxRow('data-ousent','Sent mail',aq?aq+' waiting to go out':'Everything sent or approved',{ic:'send',num:sn})}</div>`:'';
+ const body=FB.country?fbCountry():fbCountries();
+ const cv=!!FB.country,mini=cv&&OUT.ok?`<div class="fbmini"><button class="ux-link" data-ouinb>${uxSvg('inbox')}Inbox${unr?` <i class="ux-bd">${unr}</i>`:''}</button><button class="ux-link" data-ouq>${uxSvg('edit')}To approve${qn?` <i class="ux-bd">${qn}</i>`:''}</button><button class="ux-link" data-ousent>${uxSvg('send')}Sent</button></div>`:'';
+ const ph=cv&&innerWidth<900;
+ return`<div class="fbx${cv?' cv':''}">${body.replace('<!--OP-->',ph?mini:`<div class="fbop">${op}</div>`)}</div>`}
 function fbCountries(){const by={};FB.rows.forEach(r=>{(by[r.country||'Unknown']=by[r.country||'Unknown']||[]).push(r)});
  const L=Object.entries(by).map(([c,rs])=>{const g=fbGroups(rs);return{c,sites:rs.length,co:g.filter(x=>!x.cust).length,cu:g.filter(x=>x.cust).length,tr:rs.filter(r=>r.site_type=='trader').length}}).sort((a,b)=>b.sites-a.sites);
  const nw=FB.newIds.length;
- return`<div class="fbtop"><div><b>${fbN(FB.rows.length)}</b> sites in <b>${L.length}</b> countries</div><button class="ldq" data-fbsync ${FB.busy?'disabled':''}>${FB.busy||'Check for new members'}</button></div><button class="btn ghost wide" data-fbimp style="margin-bottom:10px">Add companies from a list (customs data, fair exhibitors)</button>${nw?`<div class="impg">${nw} new member${nw==1?'':'s'} found this time.</div>`:''}<div class="day">Pick a country</div>`+L.map(x=>`<button class="card fbc" data-fbc="${esc(x.c)}"><div class="cr"><h3>${esc(x.c)}</h3><div class="rt"><i class="fb ok">${fbN(x.co)} compan${x.co==1?'y':'ies'}</i></div></div><div class="lds"><span>${fbN(x.sites)} site${x.sites==1?'':'s'}</span>${x.tr?`<span>${fbN(x.tr)} traders</span>`:''}${x.cu?`<span>${x.cu} already yours</span>`:''}</div></button>`).join('')}
+ return`<aside class="fbx-a"><!--OP--><div class="ux-gh">Sources</div><div class="ux-list">${uxRow('data-fbsync '+(FB.busy?'disabled':''),FB.busy?esc(FB.busy):'Check LWG for new members',fbN(FB.rows.length)+' sites in '+L.length+' countries',{ic:'sync',nochev:1})}${uxRow('data-fbimp','Add companies from a list','Customs data, fair exhibitors, any CSV',{ic:'up'})}</div>${nw?`<div class="impg">${nw} new member${nw==1?'':'s'} found this time.</div>`:''}</aside><div class="fbx-m"><div class="ux-gh">Countries<small>${L.length}</small></div><div class="ux-list">`+L.map(x=>uxRow(`data-fbc="${esc(x.c)}"`,esc(x.c),[x.tr?fbN(x.tr)+' trader'+(x.tr==1?'':'s'):'',x.cu?x.cu+' already yours':'',x.sites!=x.co?fbN(x.sites)+' sites':''].filter(Boolean).join(' · '),{num:fbN(x.co)})).join('')+`</div></div>`}
 function fbFiltered(){const rs=FB.rows.filter(r=>(r.country||'Unknown')==FB.country);let G=fbGroups(rs);
  const tc={},ac={};G.forEach(g=>{g.types.forEach(t=>tc[t]=(tc[t]||0)+1);g.animals.forEach(a=>ac[a]=(ac[a]||0)+1)});
  const all=G.length,cust=G.filter(g=>g.cust).length;
@@ -2078,12 +2203,12 @@ function fbCountry(){const{G,tc,ac,all,cust,rs,raw}=fbFiltered(),need=fbNeed(),l
  const ach=Object.keys(ac).sort((a,b)=>ac[b]-ac[a]).map(a=>`<button class="ch c-ld ${FB.animals.includes(a)?'on':''}" data-fba="${esc(a)}">${esc(a)} · ${ac[a]}</button>`).join('');
  const prog=FB.busy?`<div class="fbbar"><i style="width:${FB.pct||0}%"></i></div><div class="fbpt">${esc(FB.busy)}</div><button class="ldq" data-fbstop>Stop</button>`:(need.length?`<button class="btn wide" data-fbdet>Read ${need.length} company page${need.length==1?'':'s'} (animals, website, phone)</button><div class="fbpt">Pick a type first to read fewer pages. About ${Math.max(1,Math.round(need.length/8*3/60))} min.</div>`:`<div class="fbpt">All details read for this selection.</div>`);
  const shown=G.slice(0,FB.more);
- return`<button class="ldq fbback" data-fbback>‹ All countries</button><div class="fbtop"><div><b>${esc(FB.country)}</b> · ${G.length} compan${G.length==1?'y':'ies'}</div><button class="ldq" data-fbcsv>Download CSV</button></div>
- <div class="chs">${tch}</div>${ach?`<div class="chs">${ach}</div>`:''}
- <section class="ds fbs">${prog}</section>
- ${fbResBox(G)}
+ return`<div class="fbhd"><button class="ux-back" data-fbback><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg>Countries</button><div class="fbhr"><div><h2>${esc(FB.country)}</h2><small>${G.length} compan${G.length==1?'y':'ies'} shown</small></div><button class="ux-link" data-fbcsv>${uxSvg('dl')}CSV</button></div></div>
+ <aside class="fbx-a"><!--OP--><div class="ux-gh">Filter</div><div class="ux-pnl fbflt"><div class="fbfl">Type</div><div class="chs">${tch}</div>${ach?`<div class="fbfl">Animal</div><div class="chs">${ach}</div>`:''}</div>
+ <div class="ux-gh">Company pages</div><section class="ds fbs">${prog}</section>
+ <div class="ux-gh">Research and emails</div>${fbResBox(G)}
  ${raw?`<div class="fbpt"><button class="ldq" data-fbraw>${FB.showRaw?'Hide':'Show'} ${raw} that deal in raw hides or wet blue (we do not supply these)</button></div>`:FB.showRaw?`<div class="fbpt"><button class="ldq" data-fbraw>Hide raw / wet blue dealers</button></div>`:''}${cust?`<div class="fbpt"><button class="ldq" data-fbcust>${FB.showCust?'Hide':'Show'} ${cust} already in your contacts</button></div>`:''}
- ${shown.length?shown.map(fbCard).join(''):'<div class="empty">No companies match</div>'}${G.length>shown.length?`<button class="btn ghost wide" data-fbmore>Show more (${G.length-shown.length})</button>`:''}`}
+ </aside><div class="fbx-m"><div class="ux-gh">Companies<small>${G.length}</small></div>${shown.length?shown.map(fbCard).join(''):'<div class="empty">No companies match</div>'}${G.length>shown.length?`<button class="btn ghost wide" data-fbmore>Show more (${G.length-shown.length})</button>`:''}</div>`}
 const RAWRE=/wet[\s-]?blue|raw (hides?|skins?|material)|salted (hides?|skins?)|green (hides?|skins?)|pickled (pelts?|skins?)/i;
 const fbRawR=r=>{if(!r||!r.profile)return false;const p=r.profile,st=p.stages||[];return st.includes('raw_hides')||st.includes('wet_blue')||RAWRE.test([p.summary,...(p.buys||[]),...(p.sells||[]),...(p.notes||[])].join(' '))};
 const fbRaw=g=>fbRawR(fbRes(g));
@@ -2094,7 +2219,7 @@ function fbResBox(G){if(!FRok)return`<section class="ds ldset"><div class="ldk">
  const chips=Object.keys(bt).map(t=>`<button class="ch c-ld ${FB.btypes.includes(t)?'on':''}" data-fbbt="${t}">${FBTY[t]||t} · ${bt[t]}</button>`).join('')+(done.length?`<button class="ch c-ld ${FB.hasMail?'on':''}" data-fbmail>Has email</button>`:'');
  const run=FRbusy?`<div class="fbbar"><i style="width:${FB.rpct||0}%"></i></div><div class="fbpt">${esc(FRbusy)}</div><button class="ldq" data-fbrstop>Stop</button>`:(todo.length?`<button class="btn wide" data-fbresall>Research ${Math.min(todo.length,40)} compan${Math.min(todo.length,40)==1?'y':'ies'}${todo.length>40?' (next 40 of '+todo.length+')':''}</button><div class="fbpt">Reads each company's website for what they do, what they buy and who to write to. Skips subcontractors and sites with no leather or footwear business, so no credit is spent on them. About ${Math.max(1,Math.round(Math.min(todo.length,40)*12/60))} min.</div>`:`<div class="fbpt">${done.length?done.length+' researched.':'Nothing to research here.'}</div>`);
  const rdy=FRbusy?[]:outReady(G),wb=rdy.length&&OUT.ok?`<button class="btn wide" data-ouall style="margin-top:10px">Write emails for ${rdy.length>40?'the best 40 of '+rdy.length:'all '+rdy.length+' ready'}</button><div class="fbpt">Highest fit first, only companies with an email. Up to 40 at a time, so press again for the next batch. They wait in Emails to approve. Nothing is sent.</div>`:'';
- return`<section class="ds fbs"><div class="ldk">Research</div>${chips?`<div class="chs">${chips}</div>`:''}${run}${wb}</section>`}
+ return`<section class="ds fbs">${chips?`<div class="chs">${chips}</div>`:''}${run}${wb}</section>`}
 function fbCard(g){const i=FB.country?FB.rows.indexOf(g.rows[0]):0;
  return`<div class="card fbg ${g.cust?'cu':''}"><div class="ct" data-fbopen="${esc(g.rows[0].id)}"><div class="cr"><h3>${esc(g.name)}</h3><div class="rt">${g.cust?'<i class="fb">Yours</i>':g.isNew?'<i class="fb ok">New</i>':''}</div></div><div class="lds">${g.types.map(t=>`<span class="lst" style="--c:${t=='trader'?'#2563EB':t=='commissioning_manufacturer'?'#7C3AED':t=='subcontractor'?'#8B8B93':'#0E9F6E'}">${FBT[t]||t}</span>`).join('')}${g.rating?`<span>${g.rating}</span>`:''}${(()=>{const r=fbRes(g);return r?`${fbRawR(r)?'<span class="lst" style="--c:#B91C1C">Raw / wet blue</span>':''}<span class="lst" style="--c:#0E9F6E">${FBTY[r.business_type]||'Researched'}</span>${fbMails(r).length?`<span>✉ ${fbMails(r).length}</span>`:'<span>no email</span>'}${fbScore(g)?`<span class="lst" style="--c:#B45309">Fit ${fbScore(g)}/10</span>`:''}`:''})()}${g.rows.length>1?`<span>${g.rows.length} sites</span>`:''}</div>${g.animals.length?`<div class="ldar">${g.animals.map(a=>`<span class="lat">${esc(a)}</span>`).join('')}</div>`:''}<div class="fbm">${g.web?esc(fbDom(g.web)):(g.dom?esc(g.dom):'<span class="fbw">no website yet</span>')}${g.phone?' · '+esc(g.phone):''}${g.cities.length?' · '+esc(g.cities.slice(0,3).join(', ')):''}</div></div></div>`}
 let FBVJ='';
@@ -2501,14 +2626,14 @@ const schipSync=()=>document.querySelectorAll('#schs .ch').forEach(b=>b.classLis
 function render(keep){if(tab==2&&innerWidth>=900)tab=0;io&&io.disconnect();navSync();if(tab==0&&uid){loadTodayDocs();if(!obBusy&&(!obAt||Date.now()-obAt>60000))loadOB()}$('#gtxt').innerHTML=greetH();dots(0);const v=$('#view'),f=first;
  if(tab==4){renderLeads(!!keep||!f);first=false;slide();setTimeout(refocusSearch,60);if(!LDL||Date.now()-LDT>60000)loadLeads();return}
  if(tab==3){obEnter(keep);first=false;slide();setTimeout(refocusSearch,60);return}
- if(tab==2){if(!$('#sq')){v.innerHTML=`<div class="pane"><div class="hero"><div><div class="hk">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>${greetH()}</h1></div><div class="hact">${NEW}</div></div><div class="sbw"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div><div class="chs" id="schs">${schips()}</div><div id="sr"></div></div>`;$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(results,130)}}
+ if(tab==2){if(!$('#sq')){v.innerHTML=`<div class="pane"><div class="head"><div><h1>Search</h1><div class="sub">Journals, contracts, letters and debit notes</div></div>${NEW}</div><div class="sbw"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div><div class="chs" id="schs">${schips()}</div><div id="sr"></div></div>`;$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(results,130)}}
   if(!obAt&&!obBusy)loadOB();results();first=false;slide();return}
  if((tab==0||tab==1)&&innerWidth>=900){const hs=!!q.trim();obq='';
   v.innerHTML=`<div class="pane hm ${f?'':'na'}${hs?' sq':''}"><div class="dtop"><div><div class="hk">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>${greetH()}</h1></div><div class="sbw">${SEARCH_SVG.replace('<svg','<svg class="si"')}<input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" title="Search tips: jp or micheal · join push and leather · -cancelled · &quot;exact phrase&quot;" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div></div><div class="chs" id="schs" ${hs?'':'hidden'}>${schips()}</div><div class="dsr" id="sr" ${hs?'':'hidden'}></div>
   <div class="dgrid" id="dgrid" ${hs?'hidden':''}><section class="dcol dj"><div class="dch djh"><div class="dtabs" id="jtabs"><button data-jt="0" class="${tab?'':'on'}">Today</button><button data-jt="1" class="${tab?'on':''}">Earlier</button></div><div class="dacts"><button class="new gh" data-cal id="jcal" ${tab?'':'hidden'} aria-label="Jump to a date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button>${NEW}</div></div><div class="dsc" id="lst">${listHTML(f)}</div></section>
   <section class="dcol dob"><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small><div class="chs" id="chs">${chips()}</div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><div class="dsc" id="obl">${obList(f)}</div></section></div></div>`;
   $('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(homeSearch,130)};if(hs)results();first=false;slide();setTimeout(refocusSearch,60);return}
- v.innerHTML=`<div class="pane ${f?'':'na'}"><div class="head"><div><h1>${tab?'Earlier':'Today'}</h1></div>${tab?CAL:NEW}</div><div id="lst">${listHTML(f)}</div></div>`;first=false;slide()}
+ v.innerHTML=`<div class="pane ${f?'':'na'}"><div class="head"><div><h1>${tab?'Earlier':'Today'}</h1><div class="sub">${tab?'Your journal, newest first':greetT()}</div></div>${tab?CAL:NEW}</div><div id="lst">${listHTML(f)}</div></div>`;first=false;slide()}
 /* desktop Home: typing in the search bar swaps the Today view for search results */
 const hasQ=()=>q.trim()!=='';
 function homeSearch(){const k=q.trim(),l=$('#lst'),r=$('#sr'),c=$('#schs'),g=$('#dgrid');if(!l||!r)return;l.hidden=false;if(g)g.hidden=!!k;r.hidden=!k;if(c)c.hidden=!k;const p=l.closest('.pane');if(p)p.classList.toggle('sq',!!k);if(k){if(!obAt&&!obBusy)loadOB();results()}else r.innerHTML=''}
@@ -3176,7 +3301,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['42','8 Nov 2026',['Follow-ups: when a sent email gets no reply (4 working days, then 6 more) a short follow-up is written for you to approve; it stops when they reply, opt out or after the second. Switch in Settings > Outreach. Emails also now follow the warm structure properly. Re-run supabase-inbox.sql (it is safe to run again)']],
+const APP_LOG=[['43','8 Nov 2026',['New layout. Phone: page names in a tab bar at the top (tap or swipe), Settings button top right, greeting moved under Today. Buyers: outreach, sources and countries as clean lists; inside a country the filters, research and companies are grouped, and on a computer they sit side by side. Settings grouped into Business, Documents, Buyers and App. Lighter, tighter lists. Dark mode filter chips fixed']],
+['42','8 Nov 2026',['Follow-ups: when a sent email gets no reply (4 working days, then 6 more) a short follow-up is written for you to approve; it stops when they reply, opt out or after the second. Switch in Settings > Outreach. Emails also now follow the warm structure properly. Re-run supabase-inbox.sql (it is safe to run again)']],
 ['41','8 Nov 2026',['Buyers: Inbox. Replies from buyers (with opt-outs, bounces and automatic replies sorted out), Write a reply drafts an answer in their language for you to approve. Needs the fifth SQL (supabase-inbox.sql) and the mailbox']],
 ['40','8 Nov 2026',['Buyers: Sent mail list (sent, waiting to go out, could not send, skipped) with the full text of each email']],
 ['39','8 Nov 2026',['Sending is built and waiting for the mailbox: Settings > Outreach > Mailbox and sending (on/off, daily limit, hours, test email, scheduler setup). Weekdays only in the buyer\'s business hours, starts at 10 a day, never twice to one company in 30 days, do-not-contact list. Run the fourth SQL (supabase-sending.sql)']],
@@ -3394,7 +3520,12 @@ const curNow=()=>{const e=document.querySelector('[data-ek="currency"]'),v=e?e.v
 document.addEventListener('focusin',e=>{const el=e.target;if(!el.matches||!el.matches('textarea[data-ek="price"]'))return;const c=curNow();if(c&&!el.value.trim()){el.value=c;try{el.setSelectionRange(c.length,c.length)}catch(x){}}});
 document.addEventListener('focusout',e=>{const el=e.target;if(!el.matches||!el.matches('textarea[data-ek="price"]'))return;const c=curNow(),v=el.value.trim();if(c&&v==c.trim())el.value='';else if(c&&v&&!hasCur(v))el.value=c+v;grow(el)});
 async function settings(v){SV=v||'home';SO=true;if(WS.cur&&SV!='ws:'+WS.cur.id)wsLeave();if(SV=='mail')await mailLoad();else if(SV=='outreach'){await outLoad(true);await outStatus()}else if(SV=='sheets')await wsLoadAll();else if(SV.startsWith('ws:')&&!WS.cur&&!await wsLoadCur(SV.slice(3)))return settings('sheets');if(!COMP||!CB)await Promise.all([loadCO(),loadCB(),loadSIG()]);else{loadCO();loadCB();loadSIG()}const sub=SV!='home',c=SV.startsWith('c:')?(CB||[]).find(x=>x.id==SV.slice(2)):null,ce=SV.startsWith('ce:')?(CB||[]).find(x=>x.id==SV.slice(3)):null,desk=innerWidth>=900,title=ce?'Edit contact':SV=='mail'?'Invoice mail':SV=='outreach'?'Outreach':SV=='sheets'?'Worksheets':SV.startsWith('ws:')&&WS.cur?(WS.cur.title||'Worksheet'):SV=='reports'?'Reports':SV=='order'?'Today page order':SV=='display'?'Display':SV=='pw'?'Change password':SV=='alias'?'Search shortcuts':SV=='about'?'Version & updates':SV=='usage'?'Usage & Backup':SV=='company'?'Company Data':SV=='sigs'?'Signatures':SV=='contacts'?'Contacts':SV=='cnew'?'New Contact':c?c.name:'Settings';let body='';
- if(SV=='home')body=`<button class="sc scu" data-sv="contacts"><b>Contacts</b><span>${(CB||[]).length} contacts, one tap to call or email</span></button><button class="sc scu" data-sv="reports"><b>Reports</b><span>Contracts, debit notes and invoices by period</span></button><button class="sc scu" data-sv="sheets"><b>Worksheets</b><span>Spreadsheet-style calculations and adjustments</span></button><button class="sc scu" data-sv="mail"><b>Invoice mail</b><span>${MAIL.n?MAIL.n+' waiting for your approval':'Read invoices, bills of lading and airway bills from Gmail'}</span></button><button class="sc scu" data-sv="outreach"><b>Outreach</b><span>What you supply, signature and email voice</span></button><button class="sc scu" data-sv="company"><b>Company Data</b><span>Name, address, email, phone and logo</span></button><button class="sc scu" data-sv="sigs"><b>Signatures</b><span>${getSigs().filter(z=>z.cloud).length?getSigs().filter(z=>z.cloud).length+' saved to cloud. ':''}Upload signatures for contracts, letters and debit notes</span></button><button class="sc scu" data-sv="order"><b>Today page order</b><span>${(TSO.find(o=>o[1]==TSORT)||TSO[0])[0]}</span></button><button class="sc scu" data-sv="display"><b>Display</b><span>${(FSO.find(o=>o[1]==getFS())||FSO[0])[0]} text · ${isDark()?'Dark':'Light'} · overdue colour</span></button><button class="sc scu" data-sv="about"><b>Version ${APP_LOG[0][0]}</b><span>Updated ${APP_LOG[0][1]} · ${esc(APP_LOG[0][2][0])}</span></button><button class="sc scu" data-sv="alias"><b>Search shortcuts</b><span>${SALG.length?SALG.length+' saved. ':''}JP, Micheal and Join Push found together</span></button><button class="sc scu" data-sv="pw"><b>Change password</b><span>Update your login password</span></button><button class="sc scu" data-sv="usage"><b>Usage &amp; Backup</b><span>${USG?(USG.ex!==null?USG.ex:USG.est)/DBMAX*100<1?'Under 1% used':Math.round((USG.ex!==null?USG.ex:USG.est)/DBMAX*100)+'% used':'Storage used, back up and restore'}</span></button><button class="btn ghost wide" data-out style="margin-top:18px">Log out</button>`;
+ if(SV=='home'){const R=(sv,ic,t,sub)=>uxRow(`data-sv="${sv}"`,t,sub,{ic}),G=(h,rows)=>`<div class="ux-sg"><div class="ux-gh">${h}</div><div class="ux-list">${rows}</div></div>`;
+  body=`<div class="ux-sgrid">`+G('Business',R('company','home','Company Data','Name, address, email, phone and logo')+R('contacts','people',`Contacts`,`${(CB||[]).length} contacts, one tap to call or email`)+R('sigs','pen','Signatures',`${getSigs().filter(z=>z.cloud).length?getSigs().filter(z=>z.cloud).length+' saved to cloud · ':''}For contracts, letters and debit notes`))
+  +G('Documents',R('reports','chart','Reports','Contracts, debit notes and invoices by period')+R('sheets','grid','Worksheets','Spreadsheet-style calculations')+R('mail','inbox','Invoice mail',MAIL.n?MAIL.n+' waiting for your approval':'Invoices, bills of lading and airway bills from Gmail'))
+  +G('Buyers',R('outreach','send','Outreach','What you supply, signature, mailbox and sending'))
+  +G('App',R('display','sun','Display',`${(FSO.find(o=>o[1]==getFS())||FSO[0])[0]} text · ${isDark()?'Dark':'Light'} · overdue colour`)+R('order','list','Today page order',(TSO.find(o=>o[1]==TSORT)||TSO[0])[0])+R('alias','search','Search shortcuts',`${SALG.length?SALG.length+' saved · ':''}Names found together`)+R('pw','lock','Change password','Update your login password')+R('usage','db','Usage & Backup',USG?(USG.ex!==null?USG.ex:USG.est)/DBMAX*100<1?'Under 1% used':Math.round((USG.ex!==null?USG.ex:USG.est)/DBMAX*100)+'% used':'Storage used, back up and restore')+R('about','info',`Version ${APP_LOG[0][0]}`,`Updated ${APP_LOG[0][1]}`))
+  +`</div><button class="btn ghost wide ux-out" data-out>Log out</button>`}
  else if(SV=='reports')body=rpPage();
  else if(SV=='mail')body=mailPage();
  else if(SV=='sheets')body=wsListHtml();

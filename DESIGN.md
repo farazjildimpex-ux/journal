@@ -36,3 +36,12 @@ Contract: Issued, Inspected, Completed. Letter and debit note: Issued, Completed
 
 ## How to ask for a change
 Send a screenshot, say which screen, say what feels wrong in one line. One screen per request gives the best result.
+
+## Layout (v2, Nov 2026)
+Structure only; colours and fonts unchanged. Rules live in `<style id="v2">` at the end of the CSS.
+- Phone shell: sticky top bar with the five page names as tabs (underline follows tap and swipe) and a Settings button on the right. No greeting header; Today shows the greeting as its subtitle.
+- Page head: title (26px) + one line of grey subtitle + at most one action on the right.
+- Grouped lists: section label (`.ux-gh`, small caps grey) above a panel (`.ux-list`) of rows (`.ux-row`, at least 52px): optional icon tile, title + one grey line, then a badge (`.ux-bd`), a number (`.ux-num`) or a chevron. Build rows with `uxRow()`; do not hand-build.
+- Filters: one labelled panel (`.ux-pnl`) with chip rows; chips scroll sideways on phone, wrap on desktop.
+- Desktop pages with tools and a list use two columns: tools on the left (about 340px), the list on the right (`.fbx`, `.fbx-a`, `.fbx-m`).
+- Only one primary (filled blue) button per panel. Secondary actions are text links (`.ux-link`).
