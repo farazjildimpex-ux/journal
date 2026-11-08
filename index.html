@@ -1621,6 +1621,69 @@ html[data-theme="dark"] .ux-list,html[data-theme="dark"] .ux-pnl,html[data-theme
 @media (min-width:900px){.ux-qa.mobonly{display:none}}
 
 html[data-theme="dark"] .toast button{color:var(--blue)}
+
+/* ===== desktop Home layouts ===== */
+.hlsw,.hnew,.qadd,.htiles,.hatt,.h14{display:none}
+@media (min-width:900px){
+ .pane.hm .dtop{gap:var(--sp-16)}
+ .pane.hm .dtop>div:first-child{margin-right:auto}
+ .hlsw{display:inline-flex;flex:none;padding:3px;border-radius:12px;background:var(--surf);box-shadow:0 0 0 1px var(--bd)}
+ .hlsw button{padding:var(--sp-6) var(--sp-12);border:0;border-radius:9px;background:none;font:inherit;font-size:var(--s13,13px);font-weight:600;color:var(--mute);cursor:pointer}
+ .hlsw button.on{background:var(--bl);color:var(--blue)}
+ .pane.hm .dtop .sbw{flex:0 1 420px}
+ .hnew{display:block;position:relative;flex:none}
+ .hnew .new{gap:var(--sp-6)}.hnew .hcv{margin-left:-2px;opacity:.8}
+ .hmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:40;width:260px;padding:var(--sp-6);border-radius:14px;background:var(--surf);box-shadow:0 0 0 1px var(--bd),0 18px 40px -12px rgba(20,20,40,.28)}
+ .hmenu:not([hidden]){display:block}
+ .hmenu button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;padding:var(--sp-8) var(--sp-12);border:0;border-radius:10px;background:none;font:inherit;text-align:left;cursor:pointer}
+ .hmenu button:hover{background:var(--panel)}
+ .hmenu b{font-size:var(--s14,14px);font-weight:600;color:var(--ink)}.hmenu small{font-size:var(--s12,12px);color:var(--mute)}
+ .qadd{display:flex;align-items:center;gap:var(--sp-8);flex:none;margin:var(--sp-12) var(--sp-16) 0;padding:0 var(--sp-12);border-radius:12px;background:var(--surf);box-shadow:0 0 0 1px var(--bd)}
+ .qadd svg{flex:none;width:16px;height:16px;color:var(--blue)}
+ .qadd input{flex:1;min-width:0;height:42px;border:0;outline:0;background:none;font:inherit;font-size:var(--s14,14px);color:var(--ink)}
+ .qadd:focus-within{box-shadow:0 0 0 1.5px var(--blue),0 0 0 4px var(--bl)}
+ .dj .qadd+.dsc{padding-top:var(--sp-12)}
+ /* grids */
+ .pane.hm.hl-a .dgrid,.pane.hm.hl-b .dgrid,.pane.hm.hl-c .dgrid{grid-auto-rows:minmax(0,1fr)}
+ .pane.hm.hl-a .dgrid{grid-template-columns:minmax(0,1.3fr) minmax(360px,1fr);grid-template-rows:auto minmax(0,1fr);grid-template-areas:"tiles tiles" "att jr"}
+ .pane.hm.hl-b .dgrid{grid-template-columns:minmax(0,1fr) 340px;grid-template-rows:minmax(0,.9fr) minmax(0,1.1fr);grid-template-areas:"att ag" "jr ag"}
+ .pane.hm.hl-c .dgrid{grid-template-columns:380px minmax(0,1fr);grid-template-areas:"jr ob"}
+ @media(min-width:1500px){.pane.hm.hl-c .dgrid{grid-template-columns:420px minmax(0,1fr)}.pane.hm.hl-b .dgrid{grid-template-columns:minmax(0,1fr) 380px}}
+ .htiles{grid-area:tiles;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-12)}
+ .hatt{grid-area:att;display:flex}.dj{grid-area:jr}.h14{grid-area:ag;display:flex}.pane.hm.hl-c .dob{grid-area:ob}
+ .htile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:var(--sp-12) var(--sp-16);border:0;border-radius:14px;background:var(--surf);box-shadow:0 0 0 1px var(--bd),0 8px 20px -16px rgba(20,20,40,.3);font:inherit;text-align:left;cursor:pointer;transition:transform .15s,box-shadow .15s}
+ .htile:hover{transform:translateY(-1px);box-shadow:0 0 0 1px var(--bd),0 14px 26px -16px rgba(20,20,40,.35)}
+ .htl{font-size:var(--s12,12px);font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+ .htile b{font-size:28px;font-weight:700;letter-spacing:-.03em;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums}
+ .htile small{font-size:var(--s12,12px);color:var(--mute)}
+ .ht-od b{color:var(--st-overdue,#C2410C)}.ht-wk b{color:var(--blue)}
+ .hatt .dch small,.dob .dch small{color:var(--mute);font-weight:600}
+ .hatt .dch .dacts{margin-left:auto}
+ /* Timeline: 14-day agenda */
+ .h14 .dsc{padding:var(--sp-12) var(--sp-12) var(--sp-16)}
+ .h14s{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:var(--sp-4);margin-bottom:var(--sp-12)}
+ .hd{display:flex;flex-direction:column;align-items:center;gap:1px;padding:var(--sp-6) 0;border-radius:10px;background:var(--panel)}
+ .hd small{font-size:11px;color:var(--mute);font-weight:600}.hd b{font-size:14px;font-weight:700;color:var(--ink2)}
+ .hd i{min-height:14px;font-style:normal;font-size:10.5px;font-weight:700;color:var(--blue)}
+ .hd.has{background:var(--bl)}.hd.hdt{box-shadow:inset 0 0 0 1.5px var(--blue)}
+ .h14s .hd{min-width:0;width:auto;height:auto}
+ .hgd{margin:var(--sp-12) var(--sp-4) var(--sp-4);font-size:var(--s12,12px);font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--mute)}
+ .hgd.od{color:var(--st-overdue,#C2410C)}
+ .hag{display:flex;align-items:center;gap:var(--sp-8);width:100%;padding:var(--sp-8);border:0;border-radius:10px;background:none;font:inherit;text-align:left;cursor:pointer}
+ .hag:hover{background:var(--panel)}
+ .hag .oic{flex:none}.hag span{display:flex;flex-direction:column;min-width:0}
+ .hag b{font-size:var(--s14,14px);font-weight:600;color:var(--ink)}.hag small{font-size:var(--s12,12px);color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .hag.od b{color:var(--st-overdue,#C2410C)}
+ /* Split: overdue / due-this-week tabs in the orderbook header */
+ .hxs{display:flex;gap:var(--sp-6)}
+ .ob3 .dfil .hxs{margin:var(--sp-8) 0 0}
+ .hxs .orp{display:inline-flex;align-items:center;gap:var(--sp-6);height:28px;margin:0;padding:0 var(--sp-6) 0 var(--sp-12);border:0;border-radius:99px;font:inherit;font-size:var(--s12,12px);font-weight:700;cursor:pointer;background:var(--panel);color:var(--ink2)}
+ .hxs .orp b{min-width:20px;padding:2px 6px;border-radius:99px;background:var(--surf);font-size:11px;text-align:center}
+ .hxs .orp.od{color:var(--st-overdue,#C2410C)}.hxs .orp.wk{color:var(--blue)}
+ .hxs .orp.on{background:var(--ink);color:var(--panel)}
+ .hxs .orp.on b{background:rgba(127,127,127,.28);color:inherit}
+ .pane.hm.hl-c .dob .dch{flex-wrap:wrap}
+}
 </style>
 
 <script>
@@ -1702,7 +1765,7 @@ async function loadTodayDocs(){if(obAt||obBusy||Date.now()-TDQ<60000)return;TDQ=
  if(obAt)return;const add=[...(a.data||[]).map(mC),...(b.data||[]).map(mL),...(c.data||[]).map(mD)].filter(o=>!OB.some(x=>x.id==o.id));
  if(add.length){OB.push(...add);if(tab==0&&$('#lst')&&tdDocs().length!=TDN)$('#lst').innerHTML=listHTML(0)}}catch(e){}}
 const fd=d=>fmDmy(d);
-let obq='',obSt='',OBPOP='',OBPV={};const OBP=10,stOk=o=>innerWidth>=900||!obSt||(obSt=='Overdue'?isOver(o):obSt=='Week'?isWeek(o):o.st==obSt),obRows=()=>OB.filter(o=>(obType=='all'||o.k==obType)&&(!obOpen||obSt=='Completed'||isOp(o))&&stOk(o)&&(!obq||qParse(obq).test(o.hay))).sort((a,b)=>cmp(b.d,a.d)||cmp(b.t,a.t)||b.n-a.n);
+let obq='',obSt='',OBPOP='',OBPV={};const OBP=10,stOk=o=>!obSt||(obSt=='Overdue'?isOver(o):obSt=='Week'?isWeek(o):innerWidth>=900||o.st==obSt),obRows=()=>OB.filter(o=>(obType=='all'||o.k==obType)&&(!obOpen||obSt=='Completed'||isOp(o))&&stOk(o)&&(!obq||qParse(obq).test(o.hay))).sort((a,b)=>cmp(b.d,a.d)||cmp(b.t,a.t)||b.n-a.n);
 const STEPS={contract:['Issued','Inspected','Completed'],letter:['Issued','Completed'],debit:['Issued','Completed']},TN={contract:'Contract',letter:'Letter',debit:'Debit note'};
 const nextSt=o=>({contract:{Issued:'Inspected',Inspected:'Completed'},letter:{Issued:'Completed'},debit:{Issued:'Completed'}})[o.k][o.st]||null;
 const backSt=o=>o.st=='Completed'&&o.k=='contract'?'Inspected':(o.st=='Completed'||o.st=='Cancelled')?'Issued':null;
@@ -1719,7 +1782,7 @@ function obCard(o,i,k){if(innerWidth<900)return obCardX(o,i,k);const nx=nextSt(o
 const ORH='<div class="orh"><span></span><span>Number</span><span>Supplier</span><span>Article · Colour</span><span></span><span>Status</span></div>';
 function supMark(n){n=String(n||'').trim();if(!n)return'—';const nk=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]+/g,''),k=nk(n),c=(typeof CB!=='undefined'&&CB||[]).find(c=>nk(c.name)==k);if(c)return String(c.mark||'').trim()||n;try{const m=JSON.parse(localStorage.getItem('cbm')||'{}');if(m[k])return m[k]}catch(e){}return n}
 function obRow(o,k){const od=isOver(o),ic=obIcons(o),dc=dchip(o),dd=o.d?(o.d.slice(0,4)==today().slice(0,4)?fmDm(o.d):fmDmy(o.d)):'';
- return `<div class="orow ct t-${o.k}${od?' od':''}" data-orow="${o.id}" data-id="${o.id}" tabindex="0"><i class="oic">${ICON[o.k]}</i><div class="ono"><b>${hl(o.no||'',k)}</b><small>${dd}</small></div><div class="opty" title="${esc(o.party||'')}">${tab==3?hl(o.party||'—',k):esc(supMark(o.party))}</div><div class="oart">${hl(o.line||'—',k)}${dc}</div><div class="oext">${ic}</div>${stBtn(o)}</div>`}
+ return `<div class="orow ct t-${o.k}${od?' od':''}" data-orow="${o.id}" data-id="${o.id}" tabindex="0"><i class="oic">${ICON[o.k]}</i><div class="ono"><b>${hl(o.no||'',k)}</b><small>${dd}</small></div><div class="opty" title="${esc(o.party||'')}"${k?'':` data-full="${esc(o.party||'—')}" data-mk="${esc(supMark(o.party))}"`}>${k?hl(o.party||'—',k):esc(o.party||'—')}</div><div class="oart">${hl(o.line||'—',k)}${dc}</div><div class="oext">${ic}</div>${stBtn(o)}</div>`}
 function obList(f){if(!obAt)return '<div class="card sk"></div>'.repeat(3);if(innerWidth>=900){const A=obRows(),n=tab==3?18:12,tot=Math.max(1,Math.ceil(A.length/n));pgO=Math.min(pgO,tot);const L=A.slice((pgO-1)*n,pgO*n);return (L.length?ORH+L.map(o=>obRow(o)).join(''):'<div class="empty"><b>Nothing here</b>No items match these filters.</div>')+pgr(pgO,tot,'po')}const L=obRows(),tot=Math.max(1,Math.ceil(L.length/PS));pgO=Math.min(pgO,tot);const R=L.slice((pgO-1)*PS,pgO*PS);
  if(f&&R.length>7){const t=++OBT;requestAnimationFrame(()=>setTimeout(()=>{const l=$('#obl'),m=l&&l.querySelector('.obmore');if(m&&OBT==t&&tab==3&&m.dataset.k==t){m.remove();l.insertAdjacentHTML('beforeend',R.slice(6).map((o,i)=>obCardX(o,0)).join('')+pgr(pgO,tot,'po'))}},40));return R.slice(0,6).map((o,i)=>obCardX(o,i)).join('')+`<span class="obmore" data-k="${t}" hidden></span>`}
  return (R.map((o,i)=>obCardX(o,f?i:0)).join('')||'<div class="empty"><b>Nothing here</b>No items match these filters.</div>')+pgr(pgO,tot,'po')}
@@ -1747,9 +1810,9 @@ function obCardX(o,i,k){const nx=nextSt(o),bk=backSt(o),ic=obIcons(o),od=isOver(
  rl=nx?`<svg viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.8"/></svg>Mark ${esc(nx.toLowerCase())}`:bk?`<svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 3-6.2M4 4v4.5h4.5"/></svg>Reopen`:'';
  return `<div class="card ob ox t-${o.k} xs-${esc(o.st||'Issued')}${can?' can':''}${fin?' fin':''}${od?' od':''}" data-id="${o.id}" style="--i:${i};--xn:${rc}"><div class="ct oxf" data-oc="1"><div class="oxr" style="--p:${p}"><i>${mid}</i></div><div class="oxb"><div class="oxk">${TN[o.k]}${o.d?`<em>${fd(o.d)}</em>`:''}</div><div class="oxn">${hl(o.no||'',k)}</div>${o.party?`<div class="oxp">${hl(o.party,k)}</div>`:''}${o.line?`<div class="oxl">${hl(o.line,k)}</div>`:''}${dchip(o)}</div><div class="oxe"><span class="oxs">${esc(o.st||'—')}</span>${ic}</div><div class="acts"><div><button class="xg" data-ob="${o.id}">Open</button>${bk&&!nx?`<button class="xg" data-xback="${o.id}">Reopen</button>`:''}${nx?`<button class="pri" data-obnext="${o.id}">Mark ${esc(nx.toLowerCase())}</button>`:''}</div></div></div></div>`}
 const SEARCH_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
-function renderOB(keep){if(innerWidth>=900){$('#view').innerHTML=`<div class="pane hm ob3 ${keep?'na':''}"><div class="dtop"><div><div class="hk" id="obn">${obCount()}</div><h1>Orderbook</h1></div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><section class="dcol dob"><div class="dfil" style="padding-top:14px"><div class="obs">${SEARCH_SVG}<input class="sbox" id="obq" type="search" placeholder="Search contracts, letters and debit notes" value="${esc(obq)}" autocomplete="off"></div><div class="chs" id="chs">${chips()}</div></div><div class="dsc" id="obl">${obList(!keep)}</div></section></div>`;return}
+function renderOB(keep){if(innerWidth>=900){$('#view').innerHTML=`<div class="pane hm ob3 ${keep?'na':''}"><div class="dtop"><div><div class="hk" id="obn">${obCount()}</div><h1>Orderbook</h1></div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><section class="dcol dob"><div class="dfil" style="padding-top:14px"><div class="obs">${SEARCH_SVG}<input class="sbox" id="obq" type="search" placeholder="Search contracts, letters and debit notes" value="${esc(obq)}" autocomplete="off"></div><div class="hxs">${hxsIn()}</div><div class="chs" id="chs">${chips()}</div></div><div class="dsc" id="obl">${obList(!keep)}</div></section></div>`;return}
  $('#view').innerHTML=`<div class="pane obm ${keep?'na':''}"><div class="head hob"><h1>Orderbook</h1>${NEW.replace('data-new','data-newo')}<div class="sub" id="obn">${obCount()}</div></div><div class="oxq">${SEARCH_SVG}<input class="sbox" id="obq" type="search" placeholder="Search contracts, letters, debit notes" value="${esc(obq)}" autocomplete="off"></div><div class="opipe" id="obp">${obPipe()}</div><div class="chs" id="chs">${chips()}</div><div id="obl">${obList(!keep)}</div></div>`;obPipeMount()}
-function obRefresh(){if((tab==0||(tab==1&&innerWidth>=900))&&$('#lst'))$('#lst').innerHTML=listHTML(0);const l=$('#obl');if(!l)return;l.innerHTML=obList(0);$('#obn').textContent=obCount();const pp=$('#obp');if(pp){pp.innerHTML=obPipe();obPipeMount()}document.querySelectorAll('#chs .ch').forEach(b=>{b.classList.toggle('on',b.hasAttribute('data-obo')?obOpen:obType==b.dataset.obt);const n=b.querySelector('b');if(n)n.textContent=obN(n.dataset.k)})}
+function obRefresh(){if((tab==0||(tab==1&&innerWidth>=900))&&$('#lst'))$('#lst').innerHTML=listHTML(0);if(innerWidth>=900&&$('#dgrid'))hRefresh();document.querySelectorAll('.hxs').forEach(x=>x.innerHTML=hxsIn());const l=$('#obl');if(!l)return;l.innerHTML=obList(0);$('#obn').textContent=obCount();requestAnimationFrame(fitMarks);const pp=$('#obp');if(pp){pp.innerHTML=obPipe();obPipeMount()}document.querySelectorAll('#chs .ch').forEach(b=>{b.classList.toggle('on',b.hasAttribute('data-obo')?obOpen:obType==b.dataset.obt);const n=b.querySelector('b');if(n)n.textContent=obN(n.dataset.k)})}
 function obEnter(keep){if(!obBusy&&(!obAt||Date.now()-obAt>60000))loadOB();renderOB(keep)}
 async function obSet(id,st){const o=OB.find(x=>x.id==id),{data,error}=await sb.from(o.tb).update({status:st}).eq('id',id).select('id');if(error){toast(error.message);return false}if(!data.length){toast('You don’t have permission to change this one');return false}o.st=st;return true}
 async function advance(id,back){const o=OB.find(x=>x.id==id),prev=o.st,nx=back?backSt(o):nextSt(o);if(!nx||!await obSet(id,nx))return;
@@ -2690,11 +2753,36 @@ function render(keep){if(tab==2&&innerWidth>=900)tab=0;io&&io.disconnect();navSy
  if(tab==2){if(!$('#sq')){v.innerHTML=`<div class="pane"><div class="head"><div><h1>Search</h1><div class="sub">Journals, contracts, letters and debit notes</div></div>${NEW}</div><div class="sbw"><svg class="si" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div><div class="chs" id="schs">${schips()}</div><div id="sr"></div></div>`;$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(results,130)}}
   if(!obAt&&!obBusy)loadOB();results();first=false;slide();return}
  if((tab==0||tab==1)&&innerWidth>=900){const hs=!!q.trim();obq='';
-  v.innerHTML=`<div class="pane hm ${f?'':'na'}${hs?' sq':''}"><div class="dtop"><div><div class="hk">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>${greetH()}</h1></div><div class="sbw">${SEARCH_SVG.replace('<svg','<svg class="si"')}<input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" title="Search tips: jp or micheal · join push and leather · -cancelled · &quot;exact phrase&quot;" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div></div><div class="chs" id="schs" ${hs?'':'hidden'}>${schips()}</div><div class="dsr" id="sr" ${hs?'':'hidden'}></div>
-  <div class="dgrid" id="dgrid" ${hs?'hidden':''}><section class="dcol dj"><div class="dch djh"><div class="dtabs" id="jtabs"><button data-jt="0" class="${tab?'':'on'}">Today</button><button data-jt="1" class="${tab?'on':''}">Earlier</button></div><div class="dacts"><button class="new gh" data-cal id="jcal" ${tab?'':'hidden'} aria-label="Jump to a date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button>${NEW}</div></div><div class="dsc" id="lst">${listHTML(f)}</div></section>
-  <section class="dcol dob"><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small><div class="chs" id="chs">${chips()}</div><div class="dacts">${NEW.replace('data-new','data-newo')}</div></div><div class="dsc" id="obl">${obList(f)}</div></section></div></div>`;
+  v.innerHTML=`<div class="pane hm hl-${HL} ${f?'':'na'}${hs?' sq':''}"><div class="dtop"><div><div class="hk">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1>${greetH()}</h1></div>${hlSwitch()}<div class="sbw">${SEARCH_SVG.replace('<svg','<svg class="si"')}<input class="sbox" id="sq" type="search" placeholder="Search journals, contracts, letters…" title="Search tips: jp or micheal · join push and leather · -cancelled · &quot;exact phrase&quot;" value="${esc(q)}" autocomplete="off"><kbd class="kb">/</kbd></div>${hNew()}</div><div class="chs" id="schs" ${hs?'':'hidden'}>${schips()}</div><div class="dsr" id="sr" ${hs?'':'hidden'}></div>
+  <div class="dgrid" id="dgrid" ${hs?'hidden':''}>${HL=='a'?`<div class="htiles" id="htl">${hTiles()}</div>`:''}${HL!='c'?`<section class="dcol hatt"><div class="dch"><h2>Needs attention</h2><small id="hattn">${obAt?hDue().length:''}</small><div class="dacts"><button class="ux-link" data-t="3">Open orderbook</button></div></div><div class="dsc" id="hatt">${hAttn()}</div></section>`:''}${HL=='b'?`<aside class="dcol h14"><div class="dch"><h2>Next 14 days</h2></div><div class="dsc" id="h14">${h14()}</div></aside>`:''}<section class="dcol dj"><div class="dch djh"><div class="dtabs" id="jtabs"><button data-jt="0" class="${tab?'':'on'}">Today</button><button data-jt="1" class="${tab?'on':''}">Earlier</button></div><div class="dacts"><button class="new gh" data-cal id="jcal" ${tab?'':'hidden'} aria-label="Jump to a date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></button></div></div>${QADD}<div class="dsc" id="lst">${listHTML(f)}</div></section>
+  <section class="dcol dob" ${HL=='c'?'':'hidden'}><div class="dch"><h2>Orderbook</h2><small id="obn">${obCount()}</small>${HL=='c'?`<div class="hxs">${hxsIn()}</div>`:''}<div class="chs" id="chs">${chips()}</div></div><div class="dsc" id="obl">${obList(f)}</div></section></div></div>`;
+  if(!OUT.loaded)outLoad().then(()=>{const t=$('#htl');if(t)t.innerHTML=hTiles()});requestAnimationFrame(fitMarks);
   $('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(homeSearch,130)};if(hs)results();first=false;slide();setTimeout(refocusSearch,60);return}
  v.innerHTML=`<div class="pane ${f?'':'na'}"><div class="head"><div><h1>${tab?'Earlier':'Today'}</h1><div class="sub">${tab?'Your journal, newest first':greetT()}</div></div>${tab?CAL:NEW}</div><div id="lst">${listHTML(f)}</div></div>`;first=false;slide()}
+/* ---- desktop Home layouts: a Dashboard, b Timeline, c Split (switch at the top of Home) ---- */
+let HL=(()=>{try{const v=localStorage.getItem('hlay');return['a','b','c'].includes(v)?v:'a'}catch(e){return'a'}})();
+const HLN={a:'Dashboard',b:'Timeline',c:'Split'};
+const hlSwitch=()=>`<div class="hlsw" role="tablist" aria-label="Home layout">${['a','b','c'].map(k=>`<button role="tab" class="${HL==k?'on':''}" aria-selected="${HL==k}" data-hl="${k}">${HLN[k]}</button>`).join('')}</div>`;
+const hNew=()=>`<div class="hnew"><button class="new" data-hnew aria-haspopup="menu"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg>New<svg class="hcv" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div class="hmenu" role="menu" hidden>${[['new','','Journal entry','A note, call or visit'],['nk','contract','Contract','Sale confirmation for a supplier'],['nk','letter','Letter','Sample or covering letter'],['nk','debit','Debit note','Commission debit to a supplier']].map(([a,v,t,d])=>`<button role="menuitem" data-${a}${v?`="${v}"`:''}><b>${t}</b><small>${d}</small></button>`).join('')}</div></div>`;
+const QADD='<div class="qadd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><input id="qadd" type="text" placeholder="What happened? Type and press Enter to save" autocomplete="off" enterkeyhint="done" aria-label="Quick journal entry"></div>';
+const hxsIn=()=>obAt?`<button class="orp od${obSt=='Overdue'?' on':''}" data-xst="Overdue">Overdue<b>${OB.filter(isOver).length}</b></button><button class="orp wk${obSt=='Week'?' on':''}" data-xst="Week">Due this week<b>${OB.filter(isWeek).length}</b></button>`:'';
+const hDue=()=>obAt?OB.filter(o=>isOver(o)||isWeek(o)).sort((a,b)=>String(a.dd).localeCompare(String(b.dd))):[];
+function hAttn(){if(!obAt)return '<div class="card sk"></div>'.repeat(2);const L=hDue();return L.length?ORH+L.slice(0,40).map(o=>obRow(o)).join(''):'<div class="empty"><b>All clear</b>Nothing overdue or due this week.</div>'}
+function hTiles(){const od=obAt?OB.filter(isOver).length:'–',wk=obAt?OB.filter(isWeek).length:'–',ml=MAIL.n||0,br=(OUT.inbox||[]).filter(m=>m.kind=='reply'&&!m.is_read).length,ap=(OUT.drafts||[]).filter(d=>d.status=='draft').length;
+ const T=(c,t,n,sub,attr)=>`<button class="htile ht-${c}" ${attr}><span class="htl">${t}</span><b>${n}</b><small>${sub}</small></button>`;
+ return T('od','Overdue',od,'past the delivery date','data-hgo="Overdue"')+T('wk','Due this week',wk,'deliveries in the next 7 days','data-hgo="Week"')+T('ml','Invoice mail',ml,ml?'waiting for your approval':'nothing waiting','data-sv="mail"')+T('by','Buyers',br+ap,br?br+' new repl'+(br==1?'y':'ies')+(ap?' · '+ap+' to approve':''):ap?ap+' email'+(ap==1?'':'s')+' to approve':'no replies yet','data-hbuy')}
+function h14(){if(!obAt)return '<div class="card sk"></div>'.repeat(2);const t0=new Date(today()+'T00:00:00'),D=[...Array(14)].map((_,i)=>ymd(new Date(t0.getTime()+i*864e5))),by={};
+ OB.filter(o=>dueSt(o)&&o.dd>=D[0]&&o.dd<=D[13]).forEach(o=>(by[o.dd]=by[o.dd]||[]).push(o));const od=OB.filter(isOver);
+ const row=o=>`<button class="hag t-${o.k}${isOver(o)?' od':''}" data-orow="${o.id}"><i class="oic">${ICON[o.k]}</i><span><b>${esc(o.no||'')}</b><small>${esc(supMark(o.party))}${o.line?' · '+esc(o.line):''}</small></span></button>`;
+ const strip=`<div class="h14s">${D.map(d=>{const x=new Date(d+'T00:00:00');return`<div class="hd${by[d]?' has':''}${d==D[0]?' hdt':''}" title="${by[d]?by[d].length+' due':''}"><small>${x.toLocaleDateString('en-GB',{weekday:'narrow'})}</small><b>${x.getDate()}</b><i>${by[d]?by[d].length:''}</i></div>`}).join('')}</div>`;
+ const list=(od.length?`<div class="hgd od">Overdue · ${od.length}</div>`+od.map(row).join(''):'')+D.filter(d=>by[d]).map(d=>`<div class="hgd">${d==D[0]?'Today':d==D[1]?'Tomorrow':new Date(d+'T00:00:00').toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'})}</div>`+by[d].map(row).join('')).join('');
+ return strip+(list||'<div class="empty"><b>Nothing due</b>No deliveries in the next 14 days.</div>')}
+function hRefresh(){const a=$('#hatt'),t=$('#htl'),g=$('#h14');if(a)a.innerHTML=hAttn();if(t)t.innerHTML=hTiles();if(g)g.innerHTML=h14();const n=$('#hattn');if(n)n.textContent=obAt?hDue().length:'';fitMarks()}
+/* supplier column: full name when it fits, otherwise the contact-book mark */
+function fitMarks(){document.querySelectorAll('.opty[data-mk]').forEach(e=>{const f=e.dataset.full,m=e.dataset.mk;if(e.querySelector('mark'))return;e.textContent=f;if(m&&m!=f&&e.scrollWidth>e.clientWidth+1)e.textContent=m})}
+/* desktop Home: quick add and the New menu */
+document.addEventListener('keydown',async e=>{const el=e.target;if(el.id!='qadd'||e.key!='Enter'||e.isComposing)return;e.preventDefault();const v=el.value.trim();if(!v)return;el.disabled=true;const n=await add({title:v,entry_date:today()});el.disabled=false;if(n){el.value='';const l=$('#lst');if(l)l.innerHTML=listHTML(0);toast('Saved to today');setTimeout(()=>{const q=$('#qadd');if(q)q.focus()},30)}});
+document.addEventListener('click',e=>{const keep=e.target.closest('[data-hnew]');document.querySelectorAll('.hmenu').forEach(m=>{if(!keep||!m.parentElement.contains(e.target))m.hidden=true})},true);
 /* desktop Home: typing in the search bar swaps the Today view for search results */
 const hasQ=()=>q.trim()!=='';
 function homeSearch(){const k=q.trim(),l=$('#lst'),r=$('#sr'),c=$('#schs'),g=$('#dgrid');if(!l||!r)return;l.hidden=false;if(g)g.hidden=!!k;r.hidden=!k;if(c)c.hidden=!k;const p=l.closest('.pane');if(p)p.classList.toggle('sq',!!k);if(k){if(!obAt&&!obBusy)loadOB();results()}else r.innerHTML=''}
@@ -2763,6 +2851,10 @@ async function onClick(t){const d=t.dataset;
  else if(d.pp){pgP=+d.pp;picker(d.pi,1)}
  else if(d.st){sType=sType==d.st?'all':d.st;pgS=1;schipSync();results()}
  else if('so'in d){sOpen=!sOpen;pgS=1;schipSync();results()}
+ else if(d.hl){HL=d.hl;try{localStorage.setItem('hlay',HL)}catch(e){}first=true;render()}
+ else if('hnew'in d){const m=t.parentElement.querySelector('.hmenu');if(m)m.hidden=!m.hidden}
+ else if(d.hgo){obSt=d.hgo;pgO=1;tab=3;first=true;render()}
+ else if('hbuy'in d){tab=4;first=true;render()}
  else if('xst'in d){obSt=obSt==d.xst?'':d.xst;pgO=1;try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}window.scrollTo(0,0);obRefresh()}
  else if(d.xback)await advance(d.xback,true)
  else if(d.obt){obType=obType==d.obt?'all':d.obt;pgO=1;window.scrollTo(0,0);obRefresh()}
@@ -3362,7 +3454,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['45','8 Nov 2026',['Today page: the Stacked order is gone; follow-ups and today\'s entries always show as separate cards']],
+const APP_LOG=[['46','8 Nov 2026',['Computer Home: three layouts to try (switch at the top): Dashboard with Overdue, Due this week, Invoice mail and Buyers tiles; Timeline with the next 14 days; Split with the orderbook. Type in "What happened?" and press Enter to save a journal entry. One New button with a menu. Supplier names that do not fit show their mark. Overdue and Due this week filters now work on the computer Orderbook too']],
+['45','8 Nov 2026',['Today page: the Stacked order is gone; follow-ups and today\'s entries always show as separate cards']],
 ['44','8 Nov 2026',['Every page redesigned to match: text fields keep their original look; cards keep their shadows and entrance animations; on the phone, details read as label beside value; contract, letter and debit note pages have named tabs (Contract, Inspection, Invoice, Payments, Debit notes) instead of dots; Contacts is a clean list with a small Add button, and each contact has Call, Email and Edit buttons; Outreach settings split into About you, What you supply, Your voice, Signature and Mailbox; Reports dates no longer overflow; login shows your logo; dark mode messages are readable']],
 ['43','8 Nov 2026',['New layout. Phone: page names in a tab bar at the top (tap or swipe), Settings button top right, greeting moved under Today. Buyers: outreach, sources and countries as clean lists; inside a country the filters, research and companies are grouped, and on a computer they sit side by side. Settings grouped into Business, Documents, Buyers and App. Lighter, tighter lists. Dark mode filter chips fixed']],
 ['42','8 Nov 2026',['Follow-ups: when a sent email gets no reply (4 working days, then 6 more) a short follow-up is written for you to approve; it stops when they reply, opt out or after the second. Switch in Settings > Outreach. Emails also now follow the warm structure properly. Re-run supabase-inbox.sql (it is safe to run again)']],

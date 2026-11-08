@@ -51,3 +51,5 @@ Structure only; colours and fonts unchanged. Rules live in `<style id="v2">` at 
 - Detail pages (contract, letter, debit note): header = back, document number, then named tabs with an underline. No page dots anywhere.
 - People lists use initials avatars (`uxRow(...,{av:uxInit(name)})`). A person's page starts with quick actions (Call, Email, Edit).
 - Long settings forms are split into named sections with a one-line explanation each, and one Save at the end.
+- Desktop Home has three trial layouts (`HL`: a Dashboard, b Timeline, c Split; stored in localStorage `hlay`). Shared pieces keep their ids (#lst, #obl, #chs, #obn); new panels: #htl tiles, #hatt Needs attention, #h14 next 14 days, refreshed by hRefresh() from obRefresh(). Remove the losing layouts once Faraz picks one.
+- Supplier column: full name when it fits, otherwise the contact-book mark (fitMarks()).
