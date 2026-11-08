@@ -8,4 +8,5 @@ create table if not exists outreach_suppress (
   created_at timestamptz not null default now()
 );
 alter table outreach_suppress enable row level security;
+drop policy if exists "sup all" on outreach_suppress;
 create policy "sup all" on outreach_suppress for all to authenticated using (true) with check (true);

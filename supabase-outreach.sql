@@ -22,5 +22,7 @@ create table if not exists outreach_drafts (
 );
 alter table outreach_settings enable row level security;
 alter table outreach_drafts enable row level security;
+drop policy if exists "os all" on outreach_settings;
 create policy "os all" on outreach_settings for all to authenticated using (true) with check (true);
+drop policy if exists "od all" on outreach_drafts;
 create policy "od all" on outreach_drafts for all to authenticated using (true) with check (true);

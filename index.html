@@ -2157,7 +2157,9 @@ create table if not exists outreach_drafts (
 );
 alter table outreach_settings enable row level security;
 alter table outreach_drafts enable row level security;
+drop policy if exists "os all" on outreach_settings;
 create policy "os all" on outreach_settings for all to authenticated using (true) with check (true);
+drop policy if exists "od all" on outreach_drafts;
 create policy "od all" on outreach_drafts for all to authenticated using (true) with check (true);`;
 let OUT={s:{},send:{},inbox:[],mail:null,drafts:[],ok:true,loaded:false,busy:''};
 async function outLoad(force){if(OUT.loaded&&!force)return;try{const a=await sb.from('outreach_settings').select('data').eq('id','main').maybeSingle();if(a.error){if(/outreach_|schema cache|does not exist/i.test(a.error.message||''))OUT.ok=false;else throw a.error}else{OUT.ok=true;OUT.s=(a.data&&a.data.data)||{};try{const ib=await sb.from('outreach_inbox').select('*').order('received_at',{ascending:false}).limit(300);if(!ib.error)OUT.inbox=ib.data||[]}catch(e){}try{const q=await sb.from('outreach_settings').select('data').eq('id','send').maybeSingle();OUT.send=(q.data&&q.data.data)||{}}catch(e){}
