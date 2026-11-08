@@ -45,3 +45,9 @@ Structure only; colours and fonts unchanged. Rules live in `<style id="v2">` at 
 - Filters: one labelled panel (`.ux-pnl`) with chip rows; chips scroll sideways on phone, wrap on desktop.
 - Desktop pages with tools and a list use two columns: tools on the left (about 340px), the list on the right (`.fbx`, `.fbx-a`, `.fbx-m`).
 - Only one primary (filled blue) button per panel. Secondary actions are text links (`.ux-link`).
+- Fields (`.ei`, login, date inputs): thin 1px outline in --edge, 10px radius, page surface behind; focus = blue outline + soft blue ring. No grey fills, no dashed underlines.
+- Read-only rows (`.kv` in a `.ds`): on phone, label left (grey, about a third) and value right; addresses wrap. Edit rows (`.kv.ed`) stay stacked: label above field.
+- Sections (`.ds`): same ring panel as the lists (1px --edge, 16px radius, no heavy shadow).
+- Detail pages (contract, letter, debit note): header = back, document number, then named tabs with an underline. No page dots anywhere.
+- People lists use initials avatars (`uxRow(...,{av:uxInit(name)})`). A person's page starts with quick actions (Call, Email, Edit).
+- Long settings forms are split into named sections with a one-line explanation each, and one Save at the end.

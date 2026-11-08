@@ -93,7 +93,7 @@ body.so .scrim{opacity:1;pointer-events:auto}body.so .sheet{transform:none}
 .btn{background:var(--blue);color:#fff;font-weight:700;border-radius:16px;padding:0 var(--sp-20);height:46px}
 .form{display:grid;gap:var(--sp-8);padding:var(--sp-6) var(--sp-20) var(--sp-20)}.form textarea{min-height:92px;resize:none}
 .shake{animation:sk .35s}@keyframes sk{30%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;padding:var(--sp-12) var(--sp-20);border-radius:99px;font-weight:600;z-index:60;transition:.4s cubic-bezier(.2,.9,.2,1);pointer-events:none;max-width:90%}.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);opacity:0;background:var(--ink);color:var(--panel);padding:var(--sp-12) var(--sp-20);border-radius:99px;font-weight:600;z-index:60;transition:.4s cubic-bezier(.2,.9,.2,1);pointer-events:none;max-width:90%}.toast.on{opacity:1;transform:translate(-50%,0)}
 /* pending approvals: the name in the greeting glows and shifts colour */
 .gname i{font-style:normal;display:inline-block;transform-origin:50% 80%}
 @keyframes gnameDing{0%,100%{transform:scale(1) rotate(0);text-shadow:0 0 0 transparent}20%{transform:scale(1.28) rotate(-7deg);text-shadow:0 0 14px rgba(229,72,77,.55)}40%{transform:scale(1.28) rotate(7deg)}60%{transform:scale(1) rotate(0);text-shadow:0 0 0 transparent}}
@@ -271,9 +271,6 @@ h1{font-weight:800;letter-spacing:-.04em}
 @media(prefers-reduced-motion:reduce){.card,.btn,.sheet,.scrim{transition:none!important}.card:active{scale:1}}
 
 /* ===== v2: borderless edit boxes, compact follow-up stack, uniform buttons ===== */
-.ei,.ei:focus{border:0!important;border-bottom:0!important;box-shadow:none}
-.ei{transition:background .2s,box-shadow .2s}
-.ei:focus{background:var(--bl)!important;box-shadow:0 0 0 6px var(--bl)!important;border-radius:4px!important}
 .lg input:focus{box-shadow:none}
 .pile{margin:var(--sp-6) 0 var(--sp-8);padding-bottom:var(--sp-16)}
 .pile .pl{border-radius:16px;box-shadow:0 0 0 1px rgba(16,24,40,.05),0 8px 16px -12px rgba(16,24,40,.28)!important}
@@ -301,21 +298,16 @@ button:not(.pile):not(:disabled):active{scale:.965}
 
 /* ===== v3: no borders on any text box; soft fill, tint on focus ===== */
 html{-webkit-tap-highlight-color:transparent}
-.comp input,.form input:not(.ei),.form textarea:not(.ei),.tc2 input,.wsfm header input,.wstp .tpn input,.lg input,.sbox{border:0!important;outline:0;box-shadow:none;background:var(--kbf6f7fb,#F6F7FB);transition:background .2s}
+.comp input,.form input:not(.ei),.form textarea:not(.ei),.tc2 input,.wsfm header input,.wstp .tpn input,.sbox{border:0!important;outline:0;box-shadow:none;background:var(--kbf6f7fb,#F6F7FB);transition:background .2s}
 .sbox{background:var(--kbffffff,#fff)!important;box-shadow:var(--sh1)!important}
-.comp input:focus,.form input:not(.ei):focus,.form textarea:not(.ei):focus,.tc2 input:focus,.wsfm header input:focus,.wstp .tpn input:focus,.lg input:focus{border:0!important;box-shadow:none!important;background:var(--bl)!important}
+.comp input:focus,.form input:not(.ei):focus,.form textarea:not(.ei):focus,.tc2 input:focus,.wsfm header input:focus,.wstp .tpn input:focus,{border:0!important;box-shadow:none!important;background:var(--bl)!important}
 .sbox:focus{border:0!important;box-shadow:var(--sh2)!important}
 .form .dr input,.form .df input,.df input{}
 .lg input{border-radius:14px;padding:var(--sp-12) var(--sp-16)}
 
 /* ===== v4: no dashed lines or grey fills in edit boxes, popup import, desktop chips match mobile ===== */
-.form .ei,.mid .form .ei,.form input.ei,.form textarea.ei,.ei,.rtx,.rtx:focus{border:0!important;border-bottom:0!important;background:transparent!important;box-shadow:none!important}
-.ei:focus,.form .ei:focus,.mid .form .ei:focus{background:transparent!important;box-shadow:none!important;border-radius:0!important}
-select.ei{background-color:transparent!important}
+.rtx,.rtx:focus{border:0!important;border-bottom:0!important;background:transparent!important;box-shadow:none!important}
 .comp input,.form input:not(.ei),.form textarea:not(.ei),.comp textarea,.comp input:focus,.form input:not(.ei):focus,.form textarea:not(.ei):focus{background:transparent!important;border:0!important;box-shadow:none!important}
-.form .dr input,.form .df input,.df input{background:transparent!important}
-.lg input,.lg input:focus{background:transparent!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;padding:var(--sp-12) 0!important}
-.lg input:focus{border-bottom-color:var(--blue)!important}
 .ln.li,.dpane .ln.li,.invf .ln{background:transparent!important;border-radius:0;padding-left:0;padding-right:0}
 .ln.li+.ln.li{border-top:1px solid var(--line);margin-top:var(--sp-6)}
 .kv:focus-within>span,.mf:focus-within>span{color:var(--blue)}
@@ -547,8 +539,7 @@ select.ei{appearance:none;-webkit-appearance:none;border-radius:0}
 .btn:not(.ghost) .mi,.acts .pri .mi,.okk .mi{--mc:#fff}.rm .mi,.dl .mi{--mc:#E5484D}.okk.rm .mi,.okk.dl .mi{--mc:#fff}
 .spn{animation:spin .75s linear infinite}.tk{stroke-dasharray:26;stroke-dashoffset:26;animation:dr .42s .06s ease-out forwards}
 @keyframes dr{to{stroke-dashoffset:0}}.okk{animation:okp .42s cubic-bezier(.3,1.6,.5,1)}@keyframes okp{0%{transform:scale(.86)}100%{transform:scale(1)}}
-.form .ei,.mid .form .ei{border:0;border-bottom:1.5px dashed var(--krd3d3dc,#D3D3DC)!important;border-radius:0;background:transparent;padding:var(--sp-2) 0 var(--sp-4);min-height:0;width:100%}
-.form .ei:focus{border-bottom-color:var(--blue)!important}.form .ds{margin-top:0}
+.form .ds{margin-top:0}
 .lg input{border:0;border-bottom:1.5px dashed var(--krd3d3dc,#D3D3DC);border-radius:0;background:transparent;padding:var(--sp-12) 0}.lg input:focus{border-bottom-color:var(--blue)}
 select.ei{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238B8B93' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 0 center/18px no-repeat;padding-right:var(--sp-24);cursor:pointer}
 .lgo{display:flex;align-items:center;gap:var(--sp-16);margin-bottom:var(--sp-8)}.lgo img{width:64px;height:64px;object-fit:contain;border-radius:14px;background:var(--kbffffff,#fff);border:1.5px solid var(--line);padding:var(--sp-6)}
@@ -1295,7 +1286,7 @@ html{overflow-x:hidden;max-width:100%}
 .mpk{display:flex;gap:var(--sp-12);align-items:flex-start;padding:var(--sp-12) var(--sp-12);border:1px solid var(--line);border-radius:12px;margin-top:var(--sp-8);cursor:pointer}
 .mpk input{margin-top:var(--sp-4);width:18px;height:18px;flex:none}.mpk small{display:block;color:var(--mute);font-size:var(--fs-13);margin-top:var(--sp-2)}
 </style>
-<div class="login" id="login"><div class="lg"><h1>Journal</h1><div class="sub" style="margin-bottom:8px">Sign in with your account</div><input id="em" type="email" placeholder="Email" autocomplete="username"><input id="pw" type="password" placeholder="Password" autocomplete="current-password"><button class="btn" id="go">Sign in</button></div></div>
+<div class="login" id="login"><div class="lg"><span class="sb-logo lglogo" aria-hidden="true"></span><h1>Jild Impex</h1><div class="sub" style="margin-bottom:8px">Sign in to your journal</div><input id="em" type="email" placeholder="Email" autocomplete="username"><input id="pw" type="password" placeholder="Password" autocomplete="current-password"><button class="btn" id="go">Sign in</button></div></div>
 <style>
 /* Reports */
 .rp{display:block}.rpf{display:block}
@@ -1569,6 +1560,78 @@ html[data-theme="dark"]{--hdr:rgba(11,13,18,.86)}
 /* approval queue and inbox: email text reads as text, not as a heading */
 .oud textarea.ei[data-ouf="body"]{font-weight:400;line-height:1.55}
 .oud .kv b[style*="pre-wrap"]{font-weight:400;line-height:1.55}
+
+/* ===== v2 building blocks used by every page ===== */
+:root{--fld-b:var(--edge)}
+/* fields: a thin outline shows where to type (no grey fill, no dashed line) */
+.ei,.form .ei,.lg input,.form .df input,.df input{border:1px solid var(--fld-b);border-radius:10px;background-color:var(--surf);padding:var(--sp-8) var(--sp-12);margin-top:var(--sp-6);font-weight:500;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+.ei:focus,.form .ei:focus,.lg input:focus,.df input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--bl);background-color:var(--surf)}
+.ei::placeholder,.lg input::placeholder{color:var(--mute);opacity:.75;font-weight:400}
+select.ei{padding-right:var(--sp-32,32px);background-position:right 10px center}
+.form .big.ei{font-weight:600}
+.nrow .ei{margin-top:0}
+.lg input{padding:var(--sp-12) var(--sp-16)}
+/* sections: same panel as the lists */
+.ds{border-radius:var(--pnl-r);box-shadow:0 0 0 1px var(--edge);animation:none}
+.ds h5,.ds>.ldk:first-child{margin-bottom:var(--sp-8)}
+/* phone: label beside value for read-only rows */
+@media (max-width:899px){
+ .ds{padding:var(--sp-16)}
+ .ds>.kv:not(.ed),.dpane .ds>.kv:not(.ed){display:grid;grid-template-columns:minmax(92px,36%) minmax(0,1fr);column-gap:var(--sp-12);align-items:baseline;padding:var(--sp-10,10px) 0}
+ .ds>.kv:not(.ed)>span{margin:0;font-weight:500;font-size:calc(13px*var(--fs,1))}
+ .ds>.kv:not(.ed)>*:not(span){grid-column:2;margin:0;min-width:0;overflow-wrap:anywhere}
+ .ds>.kv:not(.ed)>b{font-size:calc(15px*var(--fs,1));font-weight:600}
+ .oud>.kv:not(.ed){display:block}.oud>.kv:not(.ed)>*{margin-top:var(--sp-2)}
+ .ds>.kv.ed{padding:var(--sp-10,10px) 0}
+ /* detail header: back, number, then labelled page tabs */
+ .dh{flex-wrap:wrap;row-gap:0;padding:calc(10px + env(safe-area-inset-top,0px)) var(--sp-12) 0}
+ .dh>.ty{display:none}
+ .dh .dno{flex:1;min-width:0;font-weight:700;font-size:calc(15px*var(--fs,1));letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .dh .pds{position:relative;flex:0 0 100%;order:3;margin:var(--sp-6) calc(var(--sp-12) * -1) 0;padding:0 var(--sp-12);display:flex;gap:var(--sp-2);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+ .dh .pds::-webkit-scrollbar{display:none}.dh .pds.one{display:none}
+ .dh .pd{position:relative;flex:none;width:auto;height:auto;padding:var(--sp-10,10px) var(--sp-8);border-radius:0;background:none;font:inherit;font-size:calc(14px*var(--fs,1));font-weight:600;color:var(--mute)}
+ .dh .pd:before,.dh .pd:after{display:none}.dh .pd.act{color:var(--ink)}
+ .dh .pill{top:auto;bottom:-1px;left:0;width:0;height:2.5px;border-radius:2px 2px 0 0;background:var(--blue);transition:transform .35s cubic-bezier(.2,.9,.2,1),width .35s cubic-bezier(.2,.9,.2,1)}
+ .dh .pds.drag .pill{transition:none}
+ .dpane>.dtt{display:none}
+ .dpane{padding-top:var(--sp-12)}
+}
+
+.mid .form textarea.big,.mid .form textarea#ft{min-height:0}
+.mid .form textarea:not(.big){min-height:150px}
+
+/* contacts */
+.ux-av{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--bl);color:var(--blue);font-size:calc(13px*var(--fs,1));font-weight:700;letter-spacing:.02em}
+.ux-sr{display:flex;gap:var(--sp-8);align-items:center;margin-bottom:var(--sp-12)}
+.ux-sr .sbox{flex:1;min-width:0;margin:0}
+.ux-sr .new{flex:none}
+.ux-qa{display:flex;gap:var(--sp-8);margin:var(--sp-8) 0 var(--sp-4)}
+.ux-qb{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--sp-4);padding:var(--sp-12) var(--sp-8);border:0;border-radius:14px;background:var(--surf);box-shadow:0 0 0 1px var(--edge);color:var(--blue);font:inherit;font-size:calc(12.5px*var(--fs,1));font-weight:600;text-decoration:none;cursor:pointer}
+.ux-qb svg{width:20px;height:20px}.ux-qb:active{background:var(--bl)}
+.ux-lead{margin:0 var(--sp-4) var(--sp-4)}
+.ux-save{margin-top:var(--sp-16)}
+.tl2>.ux-gh:first-child{margin-top:var(--sp-4)}
+
+/* login */
+.lglogo{display:block;width:52px;height:52px;margin-bottom:var(--sp-8)}
+.lg h1{font-size:calc(28px*var(--fs,1));letter-spacing:-.035em}
+.lg .sub{color:var(--mute)}
+/* worksheets list and other legacy cards: same ring panel as the lists */
+@media (max-width:899px){
+ .tl2 .sc{border-radius:var(--pnl-r);box-shadow:0 0 0 1px var(--edge);padding:var(--sp-16) 44px var(--sp-16) var(--sp-16);margin-bottom:var(--sp-8)}
+ .tl2 .sc.wcard{padding-right:var(--sp-16)}
+ .tl2 .sc b{font-size:calc(15.5px*var(--fs,1))}
+ .wsnew{gap:var(--sp-8)}
+}
+
+/* two fields side by side never overflow their panel */
+.lg2>.mf,.prw>.mf{min-width:0}
+.lg2 .ei,.prw .ei,.mf input.ei[type="date"]{min-width:0;max-width:100%}
+input.ei[type="date"]{padding-right:var(--sp-8)}
+
+@media (min-width:900px){.ux-qa.mobonly{display:none}}
+
+html[data-theme="dark"] .toast button{color:var(--blue)}
 </style>
 
 <script>
@@ -1994,10 +2057,12 @@ const stBtn=o=>OB.some(x=>x.id==o.id)?`<button class="ost stp-${esc(o.st||'')}" 
 function dshellD(o,P){const pn=P.map((p,i)=>`<div class="dpane t-${o.k}" data-pi="${i}">${i?`<div class="dtt">${p[0]}<small>${esc(o.no||'')}</small></div>`:EM?'<div class="edb">Editing: click any value to change it</div>':''}${p[1]}</div>`).join('');
  return `<div class="dtop2 t-${o.k}"><div class="dr1"><div class="did"><h1>${esc(o.no||'')}</h1></div>${o.st?stBtn(o):''}<div class="tc2 t3" id="dfoot">${footHTML(o)}</div></div>${P.length>1?`<div class="dr2"><div class="pds" id="dpds">${P.map((p,i)=>`<button class="pd" data-dgo="${i}" aria-label="${p[0]||TN[o.k]}">${p[0]||TN[o.k]}<em class="tn" hidden></em></button>`).join('')}<i class="pill" id="dpill"></i></div></div>`:'<div id="dpds" hidden></div>'}</div><div class="dview" id="dview"><div class="dstrip" id="dstrip">${pn}</div></div>`}
 function tabN(){if(innerWidth<900||!DT||!DT.rec)return;const o=OB.find(x=>x.id==DT.id);if(!o||o.k!='contract')return;const n=[0,cInsp(DT.rec).length,DT.inv?DT.inv.length:0,cPays(DT.rec).length+(DT.xp||[]).length,DT.dn?DT.dn.length:0];document.querySelectorAll('#dpds .pd').forEach((b,i)=>{const e=b.querySelector('.tn');if(!e)return;e.hidden=!(n[i]>0);e.textContent=n[i]})}
-function dshell(o,P){if(innerWidth>=900)return dshellD(o,P);const nx=nextSt(o),bk=backSt(o);return `<div class="dh"><button class="x" data-close aria-label="Back">‹</button><span class="ty t-${o.k}">${TN[o.k]}</span><div class="pds" id="dpds">${P.map((p,i)=>`<button class="pd" data-dgo="${i}" aria-label="${p[0]||TN[o.k]}"></button>`).join('')}<i class="pill" id="dpill"></i></div><div class="dhd2 t-${o.k}"><div class="dk"><span class="ty">${TN[o.k]}</span>${o.st?`<span class="stc stp-${o.st}">${esc(o.st)}</span>`:''}</div><h1>${esc(o.no||'')}</h1><div class="dp2">${esc(o.party||'')}</div><div class="dtk">${track(o)}</div></div></div>
+function dshell(o,P){if(innerWidth>=900)return dshellD(o,P);const nx=nextSt(o),bk=backSt(o);return `<div class="dh"><button class="x" data-close aria-label="Back">‹</button><span class="ty t-${o.k}">${TN[o.k]}</span><span class="dno">${esc(o.no||'')}</span><div class="pds${P.length<2?' one':''}" id="dpds" role="tablist">${P.map((p,i)=>`<button class="pd" role="tab" data-dgo="${i}">${p[0]||TN[o.k]}</button>`).join('')}<i class="pill" id="dpill"></i></div><div class="dhd2 t-${o.k}"><div class="dk"><span class="ty">${TN[o.k]}</span>${o.st?`<span class="stc stp-${o.st}">${esc(o.st)}</span>`:''}</div><h1>${esc(o.no||'')}</h1><div class="dp2">${esc(o.party||'')}</div><div class="dtk">${track(o)}</div></div></div>
 <div class="dview" id="dview"><div class="dstrip" id="dstrip">${P.map((p,i)=>`<div class="dpane t-${o.k}" data-pi="${i}">${i?`<div class="dtt">${p[0]}<small>${esc(o.no||'')}</small></div>`:`<h1 class="dn">${esc(o.no||'')}</h1><div class="dp">${esc(o.party||'')}</div>${track(o)}${EM?'<div class="edb">Editing: tap any value to change it</div>':''}`}${p[1]}</div>`).join('')}</div></div>
 <div class="tc2 t3" id="dfoot">${footHTML(o)}</div>`}
-function dDots(p){document.querySelectorAll('.dpane').forEach((e,k)=>e.classList.toggle('on',k==DI));const pl=$('#dpill');document.querySelectorAll('#dpds .pd').forEach((b,i)=>b.classList.toggle('act',i==DI));if(pl)pl.style.transform=`translateX(${(DI-(p||0))*18}px) scaleX(${1+.4*Math.abs(p||0)})`}
+function dDots(p){document.querySelectorAll('.dpane').forEach((e,k)=>e.classList.toggle('on',k==DI));const bs=[...document.querySelectorAll('#dpds .pd')],pl=$('#dpill');bs.forEach((b,i)=>{b.classList.toggle('act',i==DI);b.setAttribute('aria-selected',i==DI)});
+ if(!pl||!bs[DI])return;if(innerWidth>=900){pl.style.transform=`translateX(${(DI-(p||0))*18}px)`;return}p=p||0;const a=bs[DI],n=bs[DI+(p>0?1:-1)]||a,k=Math.min(1,Math.abs(p));pl.style.width=(a.offsetWidth+(n.offsetWidth-a.offsetWidth)*k)+'px';pl.style.transform=`translateX(${a.offsetLeft+(n.offsetLeft-a.offsetLeft)*k}px)`;
+ if(!p){const sc=$('#dpds');if(sc&&(a.offsetLeft<sc.scrollLeft||a.offsetLeft+a.offsetWidth>sc.scrollLeft+sc.clientWidth))sc.scrollTo({left:a.offsetLeft-24,behavior:'smooth'})}}
 function goPage(i){if(DI!=i){const dv=$('#dview'),pn=document.querySelectorAll('.dpane')[i];if(dv)dv.scrollTop=0;if(pn)pn.scrollTop=0}DI=i;const st=$('#dstrip');if(st)st.style.transform=`translateX(${-i*100}%)`;dDots(0);updFoot()}
 function dSwipe(n){const v=$('#dview'),st=$('#dstrip');if(!v||n<2)return;let x0=0,y0=0,g=false,w=1;
  v.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;g=false;w=v.clientWidth},{passive:true});
@@ -2163,7 +2228,8 @@ const fbMails=r=>r&&Array.isArray(r.emails)?r.emails:[];
 const UXI={home:'<path d="M4 20V9l8-5 8 5v11"/><path d="M9 20v-6h6v6"/>',people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5.2a3 3 0 0 1 0 5.6M17.5 14.8c2.1.6 3.5 2.4 3.5 5.2"/>',pen:'<path d="M3 17c3-1 4.5-6 7-6s1 5 4 5 3-3 4-3 2 1 3 1"/><path d="M3 21h18"/>',chart:'<path d="M4 20h16"/><path d="M7 20v-7M12 20V5M17 20v-10"/>',grid:'<rect x="4" y="4" width="16" height="16" rx="2.5"/><path d="M4 10h16M4 15h16M10 4v16"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',list:'<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',db:'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',inbox:'<path d="M4 13.5V18a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4.5"/><path d="M4 13.5 6.6 6.3A2 2 0 0 1 8.5 5h7a2 2 0 0 1 1.9 1.3L20 13.5h-4.5l-1.5 2.5h-4L8.5 13.5z"/>',edit:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',send:'<path d="M21 3 10 14"/><path d="M21 3 14.5 21l-4.5-7-7-4.5z"/>',up:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>',sync:'<path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/>',dl:'<path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 20h16"/>'};
 const uxSvg=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${UXI[k]||''}</svg>`;
 const UXCHEV='<svg class="ux-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>';
-const uxRow=(attr,title,sub,o={})=>`<button class="ux-row" ${attr}>${o.ic?`<span class="ux-ic">${uxSvg(o.ic)}</span>`:''}<span class="ux-tx"><b>${title}</b>${sub?`<small>${sub}</small>`:''}</span>${o.badge?`<span class="ux-bd">${o.badge}</span>`:''}${o.num!=null?`<span class="ux-num">${o.num}</span>`:''}${o.nochev?'':UXCHEV}</button>`;
+const uxInit=t=>esc(String(t||'?').replace(/[^\p{L}\p{N} ]/gu,'').split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase()||'?');
+const uxRow=(attr,title,sub,o={})=>`<button class="ux-row" ${attr}>${o.av!=null?`<span class="ux-av">${o.av}</span>`:''}${o.ic?`<span class="ux-ic">${uxSvg(o.ic)}</span>`:''}<span class="ux-tx"><b>${title}</b>${sub?`<small>${sub}</small>`:''}</span>${o.badge?`<span class="ux-bd">${o.badge}</span>`:''}${o.num!=null?`<span class="ux-num">${o.num}</span>`:''}${o.nochev?'':UXCHEV}</button>`;
 function fbView(){if(!FB.ok)return`<section class="ds ldset"><div class="ldk">One-time setup</div><p>The buyer directory needs one small table in Supabase. Copy this, paste it into the SQL Editor, tap Run, then come back here.</p><pre id="fbsql">${esc(FBSQL)}</pre><button class="btn ghost wide" data-fbcopy>Copy SQL</button><button class="btn wide" data-fbretry>I’ve run it</button></section>`;
  if(!FB.loaded)return'<div class="empty">Loading…</div>';
  if(!FB.rows.length)return`<section class="ds"><div class="ldk">LWG directory</div><p class="fbp">Search the Leather Working Group directory by country and type. The app reads the public list, merges companies that appear more than once, and leaves out people already in your contacts.</p><button class="btn wide" data-fbsync ${FB.busy?'disabled':''}>${FB.busy||'Get the directory'}</button><button class="btn ghost wide" data-fbimp>Or add companies from a list</button></section>`;
@@ -2293,7 +2359,7 @@ const OUF=[['sender_name','Your name','Mohamed Faraz'],['company','Company','JIL
 async function outStatus(){try{OUT.mail=await fbApi({action:'status'},'/api/outreach')}catch(e){OUT.mail={err:e.message||'Could not check'}}}
 function outMailBox(){const m=OUT.mail,v=OUT.send||{};if(!m)return'';
  const st=m.err?`<div class="impw2">${esc(m.err)}</div>`:m.connected?`<div class="fbpt">Mailbox connected as <b>${esc(m.from)}</b> · sent today ${m.sent_today} of ${m.cap_today}</div>`:`<div class="impw2">Mailbox not connected yet. Nothing can be sent. After you buy the mailbox, add OUTREACH_USER and OUTREACH_PASS in Vercel, then redeploy.</div>`;
- return`<section class="ds"><div class="ldk">Mailbox and sending</div>${st}
+ return`<div class="ux-gh">Mailbox and sending</div><section class="ds">${st}
  <div class="kv ed"><span>Sending</span><select class="ei" data-ousv="enabled"><option value="">Off (nothing is sent)</option><option value="1" ${v.enabled?'selected':''}>On (sends approved emails)</option></select></div>
  <div class="kv ed"><span>Follow-ups when there is no reply (written for you to approve, after 4 and then 6 more working days)</span><select class="ei" data-ousv="followups"><option value="1">On</option><option value="" ${v.followups===false?'selected':''}>Off</option></select></div>
  <div class="kv ed"><span>Most emails per day (it starts at 10 and grows by itself)</span><input class="ei" type="number" min="1" max="30" data-ousv="daily_cap" value="${esc(v.daily_cap||15)}"></div>
@@ -2305,7 +2371,13 @@ function outMailBox(){const m=OUT.mail,v=OUT.send||{};if(!m)return'';
 async function outSendSave(){const o={...(OUT.send||{})};document.querySelectorAll('[data-ousv]').forEach(el=>{const k=el.dataset.ousv;o[k]=(k=='enabled'||k=='followups')?!!el.value:+el.value||el.value});const{error}=await sb.from('outreach_settings').upsert({id:'send',data:o,updated_at:new Date().toISOString()});if(error){toast(error.message);return}OUT.send=o;toast('Saved')}
 async function outWhen(){const b=$('#ouwhen');if(b)b.innerHTML='<div class="fbp" style="margin-top:8px">Already set up. A scheduler inside your Supabase project calls the app every 15 minutes, all day. It checks for approved emails to send, reads new replies and writes follow-ups. Nothing is sent while Sending is Off or the mailbox is not connected.</div>'}
 function outPage(){if(!OUT.ok)return`<section class="ds ldset"><div class="ldk">One-time setup</div><p>Outreach needs two small tables. Copy this, run it in the Supabase SQL Editor, then tap the button.</p><pre id="ousql">${esc(OUSQL)}</pre><button class="btn ghost wide" data-oucopy>Copy SQL</button><button class="btn wide" data-ouretry>I’ve run it</button></section>`;
- return`<section class="ds"><p class="fbp">Used only to write emails for the Buyers page. Nothing is sent without your approval.</p>${OUF.map(([k,l,ph])=>`<div class="kv ed"><span>${l}</span><textarea rows="${k=='samples'?6:k=='catalogue'||k=='signature'||k=='facts'?4:2}" class="ei" data-ou="${k}" placeholder="${esc(ph)}">${esc(OUT.s[k]||'')}</textarea></div>`).join('')}<div class="kv ed"><span>Logo under your signature</span><select class="ei" data-ou="logo_id"><option value="">None</option>${(COMP||[]).map(c=>`<option value="${esc(c.id)}" ${OUT.s.logo_id==c.id?'selected':''}>${esc(c.name)}${coProf(c).logo?'':' (no logo yet)'}</option>`).join('')}</select></div><div class="kv ed"><span>Signature image (the J mark)</span><select class="ei" data-ou="sig_id"><option value="">None</option>${getSigs().filter(z=>z.img).map(z=>`<option value="${esc(z.id)}" ${OUT.s.sig_id==z.id?'selected':''}>${esc(sigLbl(z))}</option>`).join('')}</select></div><p class="fbpt">Add the logo in Company Data and the signature image in Signatures first. They are attached to every email.</p><button class="btn wide" data-ousave style="margin-top:12px">Save</button></section>${outMailBox()}`}
+ const fld=k=>{const f=OUF.find(x=>x[0]==k);if(!f)return'';const[,l,ph]=f;return`<div class="kv ed"><span>${l}</span><textarea rows="${k=='samples'?6:k=='catalogue'||k=='signature'||k=='facts'||k=='intro'?4:1}" class="ei" data-ou="${k}" placeholder="${esc(ph)}">${esc(OUT.s[k]||'')}</textarea></div>`},sec=(h,sub,inner)=>`<div class="ux-gh">${h}</div><section class="ds">${sub?`<p class="fbpt" style="margin:0 0 4px">${sub}</p>`:''}${inner}</section>`;
+ return`<p class="fbp ux-lead">Used only to write emails for the Buyers page. Nothing is sent without your approval.</p>`
+ +sec('About you','',fld('sender_name')+fld('company')+fld('intro')+fld('facts'))
+ +sec('What you supply','Each email offers only items from this list that fit the buyer.',fld('catalogue'))
+ +sec('Your voice','The writer copies your tone from these. Paste 2 or 3 real emails.',fld('samples'))
+ +sec('Signature','Added under every email, with the logo and signature image.',fld('signature')+`<div class="kv ed"><span>Logo under your signature</span><select class="ei" data-ou="logo_id"><option value="">None</option>${(COMP||[]).map(c=>`<option value="${esc(c.id)}" ${OUT.s.logo_id==c.id?'selected':''}>${esc(c.name)}${coProf(c).logo?'':' (no logo yet)'}</option>`).join('')}</select></div><div class="kv ed"><span>Signature image (the J mark)</span><select class="ei" data-ou="sig_id"><option value="">None</option>${getSigs().filter(z=>z.img).map(z=>`<option value="${esc(z.id)}" ${OUT.s.sig_id==z.id?'selected':''}>${esc(sigLbl(z))}</option>`).join('')}</select></div>`+fld('optout')+`<p class="fbpt">Add the logo in Company Data and the signature image in Signatures first.</p>`)
+ +`<button class="btn wide ux-save" data-ousave>Save</button>${outMailBox()}`}
 async function outSave(){const o={};document.querySelectorAll('[data-ou]').forEach(el=>o[el.dataset.ou]=el.value.trim());const{error}=await sb.from('outreach_settings').upsert({id:'main',data:o,updated_at:new Date().toISOString()});if(error){toast(error.message);return}OUT.s=o;toast('Saved')}
 function outSigHtml(){const lg=coProf((COMP||[]).find(c=>c.id==OUT.s.logo_id)||{}).logo,sg=(getSigs().find(z=>z.id==OUT.s.sig_id)||{}).img,t=(OUT.s.signature||'').trim();if(!t&&!lg&&!sg)return'';
  return`<div class="oup"><div style="white-space:pre-wrap">${esc(t)}</div>${sg?`<img src="${esc(sg)}" alt="" style="max-height:48px;display:block;margin-top:8px">`:''}${lg?`<img src="${esc(lg)}" alt="" style="max-height:56px;display:block;margin-top:8px">`:''}${OUT.s.optout?`<div class="fbpt" style="margin-top:8px">${esc(OUT.s.optout)}</div>`:''}</div>`}
@@ -3236,11 +3308,11 @@ async function cdel(id){const{data,error}=await sb.from('contact_book').delete()
 const lnks=(a,p)=>(a||[]).filter(Boolean).map(x=>`<a href="${p}${esc(String(x).replace(/\s+/g,''))}">${esc(x)}</a>`).join('<br>');
 const CNF=[['name','Name'],['contact_person','Contact person'],['mark','Mark'],['address','Address (one line per row)'],['contact_no','Phone (one per line)'],['email','Email (one per line)'],['email_cc','CC email (one per line)']],
  cForm=(c,t)=>ds(t,CNF.map(([k,l])=>{const v=Array.isArray(c[k])?c[k].join('\n'):(c[k]||'');return `<div class="kv ed"><span>${l}</span><textarea rows="1" class="ei" data-cn="${k}">${esc(v)}</textarea></div>`}).join(''));
-function contactDetail(c){const r=(l,h)=>h?`<div class="kv"><span>${l}</span><b>${h}</b></div>`:'';return `<div class="dp" style="margin:2px 2px 6px">${esc([c.mark,c.contact_person].filter(Boolean).join(' · '))}</div>`+`<section class="ds mobonly"><button class="btn wide" data-cedit="${c.id}">Edit contact</button></section>`+ds('Reach',r('Phone',lnks(c.contact_no,'tel:'))+r('Email',lnks(c.email,'mailto:'))+r('CC',lnks(c.email_cc,'mailto:')))+ds('Details',r('Contact person',esc(c.contact_person||''))+r('Mark',esc(c.mark||''))+r('Address',(c.address||[]).filter(Boolean).map(esc).join('<br>')))+'<section class="ds"><button class="dl" style="width:100%" data-cdel data-txt="Delete contact">Delete contact</button></section>'}
+function contactDetail(c){const r=(l,h)=>h?`<div class="kv"><span>${l}</span><b>${h}</b></div>`:'';return `<div class="dp" style="margin:2px 2px 6px">${esc([c.mark,c.contact_person].filter(Boolean).join(' · '))}</div>`+`<div class="ux-qa mobonly">${(c.contact_no||[]).filter(Boolean)[0]?`<a class="ux-qb" href="tel:${esc(String(c.contact_no.filter(Boolean)[0]).replace(/\s+/g,''))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>Call</a>`:''}${(c.email||[]).filter(Boolean)[0]?`<a class="ux-qb" href="mailto:${esc(c.email.filter(Boolean)[0])}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="m4 7.5 8 6 8-6"/></svg>Email</a>`:''}<button class="ux-qb" data-cedit="${c.id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/></svg>Edit</button></div>`+ds('Reach',r('Phone',lnks(c.contact_no,'tel:'))+r('Email',lnks(c.email,'mailto:'))+r('CC',lnks(c.email_cc,'mailto:')))+ds('Details',r('Contact person',esc(c.contact_person||''))+r('Mark',esc(c.mark||''))+r('Address',(c.address||[]).filter(Boolean).map(esc).join('<br>')))+'<section class="ds"><button class="dl" style="width:100%" data-cdel data-txt="Delete contact">Delete contact</button></section>'}
 function contactsList(){const q=cq.trim().toLowerCase(),L=(CB||[]).filter(c=>!q||qParse(q).test([c.name,c.mark,c.contact_person,...(c.email||[]),...(c.contact_no||[])].join(' ').toLowerCase())),tot=Math.max(1,Math.ceil(L.length/PS));pgC=Math.min(pgC,tot);
  const pg=L.slice((pgC-1)*PS,pgC*PS),em='<div class="empty"><b>No contacts found</b>Try a different name or number.</div>',ml=a=>(a||[]).filter(Boolean).map(esc).join('<br>');
  if(innerWidth>=900)return (pg.length?pg.map(c=>{const sub=[c.contact_person,c.mark].filter(Boolean).join(' · '),ph=(c.contact_no||[])[0];return `<button class="card ccard" data-cc="${c.id}"><h3>${esc(c.name)}</h3>${sub?`<p class="bd">${esc(sub)}</p>`:''}${ph?`<div class="ld">${esc(ph)}</div>`:''}</button>`}).join(''):em)+pgr(pgC,tot,'pc');
- return (pg.map(c=>`<button class="sc" data-cc="${c.id}"><b>${esc(c.name)}</b><span>${esc([c.contact_person,c.mark].filter(Boolean).join(' · ')||(c.address||[])[0]||'')}</span><small>${esc([(c.contact_no||[])[0],(c.email||[])[0]].filter(Boolean).join('   '))}</small></button>`).join('')||em)+pgr(pgC,tot,'pc')}
+ return (pg.length?`<div class="ux-list">${pg.map(c=>uxRow(`data-cc="${c.id}"`,esc(c.name),esc([c.contact_person,c.mark,(c.contact_no||[])[0]||(c.email||[])[0]].filter(Boolean).join(' · ')||(c.address||[])[0]||''),{av:uxInit(c.name)})).join('')}</div>`:em)+pgr(pgC,tot,'pc')}
 const FSO=[['Smaller','.84'],['Small','.92'],['Default','1'],['Large','1.08']];
 function isDark(){return document.documentElement.getAttribute('data-theme')==='dark'}
 function setTheme(d){const h=document.documentElement;d?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme');try{localStorage.setItem('theme',d?'dark':'light')}catch(e){}document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.setAttribute('content',d?'#12141B':'#F8F8F9'))}
@@ -3301,7 +3373,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['43','8 Nov 2026',['New layout. Phone: page names in a tab bar at the top (tap or swipe), Settings button top right, greeting moved under Today. Buyers: outreach, sources and countries as clean lists; inside a country the filters, research and companies are grouped, and on a computer they sit side by side. Settings grouped into Business, Documents, Buyers and App. Lighter, tighter lists. Dark mode filter chips fixed']],
+const APP_LOG=[['44','8 Nov 2026',['Every page redesigned to match: fields now show a clear outline so you can see where to type; on the phone, details read as label beside value; contract, letter and debit note pages have named tabs (Contract, Inspection, Invoice, Payments, Debit notes) instead of dots; Contacts is a clean list with a small Add button, and each contact has Call, Email and Edit buttons; Outreach settings split into About you, What you supply, Your voice, Signature and Mailbox; Reports dates no longer overflow; login shows your logo; dark mode messages are readable']],
+['43','8 Nov 2026',['New layout. Phone: page names in a tab bar at the top (tap or swipe), Settings button top right, greeting moved under Today. Buyers: outreach, sources and countries as clean lists; inside a country the filters, research and companies are grouped, and on a computer they sit side by side. Settings grouped into Business, Documents, Buyers and App. Lighter, tighter lists. Dark mode filter chips fixed']],
 ['42','8 Nov 2026',['Follow-ups: when a sent email gets no reply (4 working days, then 6 more) a short follow-up is written for you to approve; it stops when they reply, opt out or after the second. Switch in Settings > Outreach. Emails also now follow the warm structure properly. Re-run supabase-inbox.sql (it is safe to run again)']],
 ['41','8 Nov 2026',['Buyers: Inbox. Replies from buyers (with opt-outs, bounces and automatic replies sorted out), Write a reply drafts an answer in their language for you to approve. Needs the fifth SQL (supabase-inbox.sql) and the mailbox']],
 ['40','8 Nov 2026',['Buyers: Sent mail list (sent, waiting to go out, could not send, skipped) with the full text of each email']],
@@ -3539,7 +3612,7 @@ async function settings(v){SV=v||'home';SO=true;if(WS.cur&&SV!='ws:'+WS.cur.id)w
  else if(SV=='company')body=(COMP||[]).map(coCard).join('');
  else if(SV=='sigs')body=sigsPage();
  else if(SV=='outreach')body=outPage();
- else if(SV=='contacts')body=`<input class="sbox" id="cq" placeholder="Search contacts" value="${esc(cq)}" autocomplete="off">${desk?'':'<button class="btn wide" data-cadd style="margin:0 0 14px">Add contact</button>'}<div id="cl2">${contactsList()}</div>`;
+ else if(SV=='contacts')body=desk?`<input class="sbox" id="cq" placeholder="Search contacts" value="${esc(cq)}" autocomplete="off"><div id="cl2">${contactsList()}</div>`:`<div class="ux-sr"><input class="sbox" id="cq" type="search" placeholder="Search contacts" value="${esc(cq)}" autocomplete="off"><button class="new" data-cadd><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg>Add</button></div><div id="cl2">${contactsList()}</div>`;
  else if(SV=='cnew')body=cForm({},'New contact')+(desk?'':'<button class="btn wide" data-cnsave>Save contact</button>');
  else if(ce)body=cForm(ce,'Edit contact')+(desk?'':'<button class="btn wide" data-cnsave data-ceid="'+ce.id+'">Save changes</button>');
  else if(c)body=contactDetail(c);
