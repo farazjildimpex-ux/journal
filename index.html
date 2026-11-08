@@ -2048,7 +2048,8 @@ function fbView(){if(!FB.ok)return`<section class="ds ldset"><div class="ldk">On
  if(!FB.loaded)return'<div class="empty">Loading…</div>';
  if(!FB.rows.length)return`<section class="ds"><div class="ldk">LWG directory</div><p class="fbp">Search the Leather Working Group directory by country and type. The app reads the public list, merges companies that appear more than once, and leaves out people already in your contacts.</p><button class="btn wide" data-fbsync ${FB.busy?'disabled':''}>${FB.busy||'Get the directory'}</button><button class="btn ghost wide" data-fbimp>Or add companies from a list</button></section>`;
  const qn=outWait().length,aq=OUT.drafts.filter(d=>d.status=='approved').length;
- return (qn||aq?`<button class="sc scu" data-ouq style="margin-bottom:12px"><b>Emails to approve${qn?' · '+qn:''}</b><span>${qn?'Read, edit and approve before anything is sent':aq+' approved, waiting for the mailbox'}</span></button>`:'')+(FB.country?fbCountry():fbCountries())}
+ const done=OUT.drafts.filter(d=>['sent','failed','approved'].includes(d.status)).length;
+ return (done?`<button class="sc scu" data-ousent style="margin-bottom:8px"><b>Sent mail · ${OUT.drafts.filter(d=>d.status=='sent').length}</b><span>${aq?aq+' waiting to go out · ':''}everything you have sent or approved</span></button>`:'')+(qn||aq?`<button class="sc scu" data-ouq style="margin-bottom:12px"><b>Emails to approve${qn?' · '+qn:''}</b><span>${qn?'Read, edit and approve before anything is sent':aq+' approved, waiting for the mailbox'}</span></button>`:'')+(FB.country?fbCountry():fbCountries())}
 function fbCountries(){const by={};FB.rows.forEach(r=>{(by[r.country||'Unknown']=by[r.country||'Unknown']||[]).push(r)});
  const L=Object.entries(by).map(([c,rs])=>{const g=fbGroups(rs);return{c,sites:rs.length,co:g.filter(x=>!x.cust).length,cu:g.filter(x=>x.cust).length,tr:rs.filter(r=>r.site_type=='trader').length}}).sort((a,b)=>b.sites-a.sites);
  const nw=FB.newIds.length;
@@ -2212,11 +2213,16 @@ function outCard(d){const b=d.basis||{},ed=d.status=='draft';
  <div class="fbpt">Added automatically under your email:</div>${outSigHtml()}
  ${b.confidence=='thin'?'<div class="impw2">Little to personalise with. Read it carefully.</div>':''}
  ${(b.offered||[]).length?`<div class="fbf">Offers: ${esc(b.offered.join('; '))}</div>`:''}${(b.based_on||[]).length?`<div class="fbf">Based on: ${esc(b.based_on.join('; '))}</div>`:''}
+ ${d.last_error&&d.status!='sent'?`<div class="impw2">${esc(d.last_error)}</div>`:''}${d.sent_at?`<div class="fbpt">Sent ${esc(new Date(d.sent_at).toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}))}</div>`:''}
  ${ed?`<button class="btn wide" data-ouok="${d.id}" style="margin-top:10px">Approve</button><button class="btn ghost wide" data-ouredo="${d.id}">Write it again</button><button class="ldq" data-ouskip="${d.id}">Skip this company</button>`:d.status=='approved'?`<p class="fbpt">Approved. It will go out on the next weekday after the mailbox is connected.</p><button class="ldq" data-ouun="${d.id}">Take back</button>`:''}</section>`}
 function outBlock(g){const k=outKey(g),L=outFor(k),r=fbRes(g);if(!r||!r.profile)return'';
  if(!OUT.ok)return`<section class="ds"><p class="fbp">Set up Outreach in Settings first.</p></section>`;
  const cur=L[0];return`<div id="oub">${cur?outCard(cur):`<section class="ds"><div class="ldk">Email</div><p class="fbp">${(OUT.s.catalogue||'').trim()?'Writes a first email from what this company buys and what you supply.':'Add what you can supply in Settings > Outreach first.'}</p><button class="btn wide" data-ouwrite="${esc(g.rows[0].id)}">Write email</button></section>`}</div>`}
 async function outUpd(id,patch){const{error}=await sb.from('outreach_drafts').update(patch).eq('id',id);if(error){toast(error.message);return false}const d=OUT.drafts.find(x=>x.id==id);if(d)Object.assign(d,patch);return true}
+function outSent(f){f=f||'sent';const A=OUT.drafts,C={sent:A.filter(d=>d.status=='sent'||d.status=='sending'),queued:A.filter(d=>d.status=='approved'),failed:A.filter(d=>d.status=='failed'),skipped:A.filter(d=>d.status=='skipped')},L=C[f]||[];
+ const chips=[['sent','Sent'],['queued','Waiting to go out'],['failed','Could not send'],['skipped','Skipped']].map(([k,l])=>`<button class="ch c-ld ${f==k?'on':''}" data-ousf="${k}">${l} · ${C[k].length}</button>`).join('');
+ const sorted=L.slice().sort((a,b)=>String(b.sent_at||b.approved_at||b.created_at).localeCompare(String(a.sent_at||a.approved_at||a.created_at)));
+ ldSheet('Sent mail',A.filter(d=>d.status=='sent').length+' sent',`<div class="chs">${chips}</div>`+(sorted.length?sorted.map(outCard).join(''):'<p class="fbp">Nothing here yet.</p>')+(f=='sent'?'<p class="fbpt">Replies from buyers will appear here once the mailbox is connected and reply reading is switched on.</p>':''),false)}
 function outQueue(){const L=outWait();ldSheet('Emails to approve',L.length?L.length+' waiting':'',L.length?((!(OUT.s.samples||'').trim()||!(OUT.s.intro||'').trim()?'<div class="impw2">Add your introduction and 2 or 3 past emails in Settings > Outreach, then tap Rewrite all. The emails will sound much more like you.</div>':'')+(L.length>1?`<section class="ds"><p class="fbp">Read each one, edit what you like, then approve. Or approve them all once you have read them.</p><button class="btn ghost wide" data-ouredoall>Rewrite all ${L.length} with my current settings</button><button class="btn ghost wide" data-ouokall>Approve all ${L.length}</button></section>`:'')+L.map(outCard).join('')):'<p class="fbp">Nothing waiting. Open a researched company and tap Write email.</p>',false)}
 function outRead(card){const o={};card.querySelectorAll('[data-ouf]').forEach(el=>o[el.dataset.ouf]=el.value.trim());return o}
 /* ---- Import lists: customs data, fair exhibitors, any CSV ---- */
@@ -2686,6 +2692,8 @@ else if(d.lmode){lmode=d.lmode;renderLeads(1)}
  else if('ouwhen'in d)await outWhen()
  else if(d.oucopysec){try{await navigator.clipboard.writeText(d.oucopysec);toast('Copied')}catch(e){toast('Select and copy it')}}
  else if('outest'in d){t.disabled=true;t.textContent='Sending…';try{const j=await fbApi({action:'test'},'/api/outreach');toast('Test sent to '+j.to)}catch(e){toast(e.message||'Could not send')}t.disabled=false;t.textContent='Send me a test email'}
+ else if('ousent'in d)outSent('sent')
+ else if(d.ousf)outSent(d.ousf)
  else if('ouq'in d)outQueue()
  else if('ouall'in d)await outBatch()
  else if('ouredoall'in d)await outRedoAll()
@@ -3149,7 +3157,8 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['39','8 Nov 2026',['Sending is built and waiting for the mailbox: Settings > Outreach > Mailbox and sending (on/off, daily limit, hours, test email, scheduler setup). Weekdays only in the buyer\'s business hours, starts at 10 a day, never twice to one company in 30 days, do-not-contact list. Run the fourth SQL (supabase-sending.sql)']],
+const APP_LOG=[['40','8 Nov 2026',['Buyers: Sent mail list (sent, waiting to go out, could not send, skipped) with the full text of each email']],
+['39','8 Nov 2026',['Sending is built and waiting for the mailbox: Settings > Outreach > Mailbox and sending (on/off, daily limit, hours, test email, scheduler setup). Weekdays only in the buyer\'s business hours, starts at 10 a day, never twice to one company in 30 days, do-not-contact list. Run the fourth SQL (supabase-sending.sql)']],
 ['38','8 Nov 2026',['Companies that deal in raw hides or wet blue are hidden from Buyers, email writing and the approval queue (we do not supply these). A button shows them again. Emails now speak to "you" instead of naming the company, and greet with just Hello when no person is known']],
 ['37','8 Nov 2026',['Emails are warmer: greeting, a line about them, your introduction, matching items, a gentle question. Companies outside English-speaking countries get English and their own language in the same email. New field: How you introduce yourself. Rewrite all waiting emails with your current settings in one tap. Write emails now does up to 40 at a time, all researched companies with an email']],
 ['36','8 Nov 2026',['Buyers remembers your country and filters in the cloud, so the phone and the Mac open on the same screen']],
