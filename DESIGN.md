@@ -65,9 +65,14 @@ Structure only; colours and fonts unchanged. Rules live in `<style id="v2">` at 
 Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom bar, tick boxes) and chose look B: calm white, the computer's blue, grouped lists.
 - Root class `html.phx` is set under 900px (boot script and resize). Do not use `.ph`, `.sc`, `.cl`, `.bk` for phone classes: they are taken (PDF header, settings cards, etc.).
 - Light only on the phone: the saved dark theme is ignored under 900px and Display has no dark mode switch there.
-- Font Figtree (same as the computer), weights 400/500/600, 700 only for page titles and the weekday. Page background white. Cards: white, 1px #ECEEF2 edge, soft shadow, radius 14. Blue #2F6BFF for actions, the current page, links and counts. Colour otherwise only for status, document type and small flat icons.
+- Font Figtree (same as the computer). Crisp pass (v60, Faraz found the white-on-white look dull): page #EFF2F7 (light cool grey, also the status bar colour), white cards with a #E1E6ED edge and a tight shadow, radius 16, ink #0E1320. Titles 600, section and page titles 700, group labels small capitals (12px, 700, grey). The app colour (--acc, --acct tint, --acci ink; Blue #2F6BFF by default, Display > App colour offers Indigo, Violet, Teal, Graphite) is for actions, the current page, links and today's date. Colour otherwise only for status, document type, section badges and small icons.
+- Home section titles: 20px bold with a small solid badge in front (Today blue journal icon, Follow-ups amber flag, Actions violet bolt). No numbers beside the titles (Faraz found the date and count confusing); Follow-ups keeps "N open" on the right. Follow-up dates sit in a small amber tag; the follow-up flag is amber everywhere (follow-up = amber, done = green).
+- Home tiles: the line under the title takes the colour of what it says (amber to do, green all clear or new replies, red overdue, violet to approve, app colour for invoice mail).
+- Bottom bar: white, a soft app-colour pill behind the current page, red count badges.
+- Lists use inset dividers (they start after the icon or logo).
+- Do not use .msc as a class name on the phone: it is the Invoice mail secret row.
 - Grouped lists are the main block (`.mlist2`, `.mgrp`, `.ux-list`): rows split by hairlines, meta line small grey above a 15.5px title.
-- Bottom bar: plain white, four icons with small names (Home, Orders, Pending, More), blue for the current page, blue count badges. No + button in the bar.
+- Bottom bar: plain white, four icons with small names (Home, Orders, Pending, More), the app colour for the current page, red count badges (v60). No + button in the bar.
 - Home (larger type than other pages): starts with the greeting; "Weekday, d Month" (tap opens the calendar) with the search icon on the right of that line; no avatar. Today list with a blue + (new entry) and an "Earlier entries" row; Follow-ups list; Actions tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail).
 - No tick boxes or hold-to-complete anywhere on the phone. Tapping a journal entry or follow-up slides its icon buttons open underneath (Conversation, Follow up or Done, Edit, Delete); Done has Undo.
 - Home entries: no meta line; a flag (follow-up) and a chat icon with the entry count sit on the right of the title line.

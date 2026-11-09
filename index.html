@@ -35,6 +35,7 @@ W.__bfx={busy(){return FX&&FX.b&&FX.b.isConnected&&FX.b.closest('#sheet')&&(FX.s
 </script>
 
 <script>try{if(innerWidth<900)document.documentElement.classList.add('phx');var __t=localStorage.getItem('theme');if(__t==='dark'&&innerWidth>=900){document.documentElement.setAttribute('data-theme','dark');var __m=document.querySelector('meta[name=theme-color]');if(__m)__m.setAttribute('content','#0D0F14')}}catch(e){}</script>
+<script>try{if(innerWidth<900){var __v=localStorage.getItem('accv');if(__v){var __p=__v.split(','),__s=document.documentElement.style;if(__p.length==3){__s.setProperty('--acc',__p[0]);__s.setProperty('--acct',__p[1]);__s.setProperty('--acci',__p[2])}}var __tc=document.querySelector('meta[name=theme-color]');if(__tc)__tc.setAttribute('content','#EFF2F7')}}catch(e){}</script>
 <script>try{var __f=localStorage.getItem('fs');if(__f)document.documentElement.style.setProperty('--fs',__f)}catch(e){}</script>
 <style>:root{--sp-2:2px;--sp-4:4px;--sp-6:6px;--sp-8:8px;--sp-12:12px;--sp-16:16px;--sp-20:20px;--sp-24:24px;--fs-11:11px;--fs-12:12px;--fs-13:13px;--fs-14:14px;--fs-16:16px;--fs-18:18px;--fs-22:22px;}
 
@@ -1841,14 +1842,16 @@ html[data-theme="dark"] .pbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
  :root[data-theme="dark"] .pfn{background:var(--surf);border-color:var(--bd);color:var(--ink)}}
 </style>
 <style id="m3">
-/* ================= phone app (html.phx = under 900px), look B: calm white, desktop blue, light only =================
-   White page, white cards with a hairline edge and a soft shadow, grouped lists, Figtree (same as the computer),
-   regular and medium weights, blue for actions and the current page. Colour only for status, type and small icons. */
+/* ================= phone app (html.phx = under 900px), look B: calm and crisp, light only =================
+   Light cool page (#EFF2F7), white cards with a firm edge and a tight shadow, grouped lists, Figtree (same as the computer),
+   near-black titles at 600-700, the app colour (blue by default, Display can change it) for actions and the current page.
+   Colour otherwise only for status, type, section badges and counts. The "crisp" pass (v60) is the m4 block below. */
 .mbar{display:none}
 html.phx{--f:'Figtree','Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
- --pb:#FFFFFF;--pg:#F6F7F9;--ps:#FFFFFF;--pk:#1F2228;--pk2:#3B3E45;--pm:#6E727C;--pm2:#A3A7B0;--pl:#EDEFF2;--pl2:#DDE1E7;--pe:#E3E6EB;
- --acc:#2F6BFF;--acct:#EEF3FF;--psh:0 1px 2px rgba(16,24,40,.05),0 8px 20px -12px rgba(16,24,40,.18);--psh2:0 18px 40px -16px rgba(30,40,60,.3);--pr:14px;
- --t-bl:#EEF3FF;--k-bl:#2F6BFF;--t-or:#FFF4E0;--k-or:#C47A00;--t-gr:#E7F7F0;--k-gr:#0B8F62;--t-rd:#FDECEC;--k-rd:#D93A40;--t-vi:#F1ECFF;--k-vi:#6E4FF0;--t-sl:#F0F1F4;--k-sl:#3A3F4B;
+ --pb:#EFF2F7;--pg:#EEF1F6;--ps:#FFFFFF;--pk:#0E1320;--pk2:#2A313D;--pm:#5D6575;--pm2:#959DAA;--pl:#ECEFF4;--pl2:#D6DCE5;--pe:#E1E6ED;
+ --acc:#2F6BFF;--acct:#E9EFFF;--acci:#1F4FD8;--psh:0 1px 2px rgba(15,23,42,.05),0 3px 10px -4px rgba(15,23,42,.08);--psh2:0 18px 40px -16px rgba(15,23,42,.3);--pr:16px;
+ --t-bl:#E9EFFF;--k-bl:#2F6BFF;--t-or:#FFF3DA;--k-or:#B26A00;--t-gr:#E3F6EE;--k-gr:#087A54;--t-rd:#FDECEC;--k-rd:#D93A40;--t-vi:#F0EBFF;--k-vi:#6A48E8;--t-sl:#EEF0F4;--k-sl:#344054;
+ --c-am:#F59E0B;--c-gr:#12B76A;--c-vi:#7A5AF8;--c-rd:#F04438;--gh:#6A7282;
  --ease2:cubic-bezier(.2,.9,.25,1);
  --ink:var(--pk);--ink2:var(--pk2);--ink3:var(--pm);--mute:var(--pm);--line:var(--pl);--panel:var(--pb);--blue:var(--acc);--bl:var(--acct);--page:var(--pb);--edge:var(--pl);--red:var(--k-rd);
  --st-issued:#2F6BFF;--st-inspected:#C98200;--st-completed:#0E9F6E;--st-cancelled:#E5484D;color-scheme:light}
@@ -2334,6 +2337,112 @@ button.armd.dl,button.armd.lnk,button.armd.ltx,button.armd.alb,.acts button.armd
 @media(max-width:389px){html.phx .mchs button{font-size:12.5px;padding:0 2px}}
 @media(max-width:359px){html.phx .mgr h1,html.phx .mhd1 h1,html.phx .mtl h1,html.phx .pane{padding-left:16px;padding-right:16px}html.phx .chs{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}html.phx .mat,html.phx .mmt{min-height:104px;padding:14px}}
 </style>
+<style id="m4">
+/* ================= v60 crisp: bolder titles, solid section badges, coloured counts, inset dividers, white bars ================= */
+html.phx body{text-rendering:optimizeLegibility}
+html.phx svg[stroke-width="1.8"]{stroke-width:2}
+html.phx .mtl1 b,html.phx .mptt b,html.phx .kv b,html.phx .mo1,html.phx .mbb,html.phx .mjd{font-variant-numeric:tabular-nums}
+/* Home: greeting, date in the app colour, round search button */
+html.phx .mh .mgr .mk{font-size:15.5px;font-weight:500;color:var(--pm)}
+html.phx .mh .mgr h1{font-weight:500;color:var(--pk)}html.phx .mh .mgr h1 b{font-weight:700}html.phx .mh .mgr h1 span{color:var(--acc);font-weight:600}
+html.phx .mdr .msb{width:44px;height:44px;margin:0 -2px 0 0;border-radius:50%;background:var(--ps);border:1px solid var(--pe);box-shadow:var(--psh);color:var(--pk)}html.phx .mdr .msb svg{width:20px;height:20px}
+/* section titles: bold, with a small solid colour badge in front (no numbers next to the title) */
+html.phx .msec>span,html.phx .mh .msec>span{font-size:20px;font-weight:700;letter-spacing:-.015em;color:var(--pk)}html.phx .mh .msec small{font-size:14px;font-weight:600;color:var(--pm)}
+html.phx .msh{display:inline-flex;align-items:center;gap:10px;min-width:0}
+html.phx .msi{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;flex:none;font-style:normal;color:#fff;background:var(--acc);box-shadow:0 3px 8px -3px color-mix(in srgb,var(--acc) 70%,transparent)}
+html.phx .msi svg{width:16px;height:16px;stroke-width:2.3}
+html.phx .msi.am{background:var(--c-am);box-shadow:0 3px 8px -3px rgba(245,158,11,.7)}html.phx .msi.vi{background:var(--c-vi);box-shadow:0 3px 8px -3px rgba(122,90,248,.7)}
+html.phx .msi.am svg{fill:#fff}
+html.phx .mh .msec{margin:28px 0 12px}html.phx .mh .mgr+.msec{margin-top:18px}
+html.phx .mplus,html.phx .mh .mplus{box-shadow:0 4px 10px -5px color-mix(in srgb,var(--acc) 80%,transparent)}
+/* lists: white cards, inset dividers, near-black titles */
+html.phx .mli,html.phx .mob,html.phx .mob.ct,html.phx .mpa,html.phx .mrow,html.phx .ux-row{position:relative;border-top:0}
+html.phx .mli+.mli:before,html.phx .mob+.mob:before,html.phx .mpa+.mpa:before,html.phx .mrow+.mrow:before,html.phx .ux-row+.ux-row:before{content:"";position:absolute;top:0;left:16px;right:0;height:1px;background:var(--pl);pointer-events:none}
+html.phx .mh .mli+.mli:before{left:18px}html.phx .mob+.mob:before{left:70px}html.phx .mpa+.mpa:before{left:60px}html.phx .mrow+.mrow:before,html.phx .ux-row+.ux-row:before{left:60px}
+html.phx .mli h3,html.phx .mh .mli h3,html.phx .mjw h3,html.phx .pk b,html.phx .cvc h3{font-weight:600;letter-spacing:-.01em;color:var(--pk)}
+html.phx .mli p,html.phx .mjw p,html.phx .pk span{color:var(--pm)}
+html.phx .mfl{color:var(--c-am)}html.phx .mfl svg{fill:var(--c-am)}html.phx .mok{color:var(--c-gr)}
+html.phx .mcn{font-weight:600;color:var(--pm)}
+html.phx .mjd{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:7px;background:var(--t-or);color:var(--k-or);font-size:12.5px;font-weight:600}
+html.phx .mx.ex{background:color-mix(in srgb,var(--acc) 4%,#fff)}
+html.phx .mli.mlx,html.phx .mh .mli.mlx{font-weight:600;color:var(--acc)}html.phx .mli.mlx svg{color:var(--acc);opacity:1}
+html.phx .mjmo{color:var(--acc)}html.phx .mxi.pri{background:var(--acc);border-color:var(--acc)}
+html.phx .mxi{border-color:var(--pl2);color:var(--pk)}
+html.phx .mjw .mtg{color:var(--k-or)}html.phx .mjw .mtg.ok{color:var(--k-gr)}
+/* group labels: small capitals, grey */
+html.phx .mgh,html.phx .ux-gh,html.phx .day,html.phx #view .day,html.phx .day.gh{margin:22px 4px 10px;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gh)}
+html.phx .ds h5{margin:0 0 8px;font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gh)}
+/* Home tiles: titles firmer, the line below takes the colour of what it says */
+html.phx .mat b,html.phx .mmt b,html.phx .mh .mat b{font-weight:600;letter-spacing:-.01em;color:var(--pk)}
+html.phx .mat small,html.phx .mmt small{font-weight:500;color:var(--pm)}
+html.phx .mat small[class^="tn-"]{font-weight:600}
+html.phx .mat small.tn-am{color:var(--k-or)}html.phx .mat small.tn-rd{color:var(--od-ink,#B42318)}html.phx .mat small.tn-gr{color:var(--k-gr)}html.phx .mat small.tn-vi{color:var(--k-vi)}html.phx .mat small.tn-bl{color:var(--acci)}
+html.phx .mat .nd{background:var(--acc);box-shadow:0 0 0 3px var(--acct)}
+/* bottom bar: white, darker icons, a soft pill behind the current page, red counts */
+html.phx .mbar{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 -1px 0 var(--pe),0 -10px 24px -20px rgba(15,23,42,.25)}
+html.phx .mbi{color:#667085}html.phx .mbi svg{position:relative;z-index:1}
+html.phx .mbi:before{content:"";position:absolute;top:-3px;left:50%;width:56px;height:28px;margin-left:-28px;border-radius:14px;background:var(--acct);opacity:0;transform:scaleX(.5);transition:opacity .2s,transform .3s var(--ease2)}
+html.phx .mbi.on:before{opacity:1;transform:none}
+html.phx .mbi span{font-weight:600}html.phx .mbi.on{color:var(--acc)}html.phx .mbi.on span{font-weight:700;color:var(--acci)}
+html.phx .mbb{z-index:2;background:var(--c-rd);box-shadow:0 0 0 2px #fff}
+html.phx .mmt .mbb{box-shadow:none}
+/* page titles */
+html.phx .mhd1 h1,html.phx .mtl h1,html.phx .head.hob h1{color:var(--pk);letter-spacing:-.025em}
+html.phx .mhd1 .mk,html.phx .mk{font-weight:500}
+html.phx .phm h1,html.phx .phm h2{font-weight:700;color:var(--pk)}
+html.phx .phb.phsc{box-shadow:0 1px 0 var(--pe)}
+/* status strip and pending tiles */
+html.phx .mtl1 b,html.phx .mptt b{font-size:23px;font-weight:700;letter-spacing:-.02em}html.phx .mtl1 span,html.phx .mptt span{font-weight:600;color:var(--pm)}
+html.phx .mtl1.on,html.phx .mptt.on{background:var(--acct);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--acc) 38%,transparent)}html.phx .mtl1.on span,html.phx .mptt.on span{color:var(--acci)}
+/* Orderbook rows */
+html.phx .mobt .mo1{font-weight:700;letter-spacing:-.01em;color:var(--pk)}
+html.phx .mobt .mo2{font-weight:600;color:var(--pk2)}
+html.phx .mobt .ddl.mo4,html.phx .mobt .ddl{font-weight:600}
+html.phx .ost,html.phx .mob .ost{font-weight:700}
+html.phx .ost.stp-Issued{background:#E8EFFF;color:#1F4FD8}html.phx .ost.stp-Inspected{background:var(--t-or);color:var(--k-or)}html.phx .ost.stp-Completed{background:var(--t-gr);color:var(--k-gr)}
+html.phx .mlg em{box-shadow:0 0 0 1px var(--pe),0 2px 4px rgba(15,23,42,.1)}
+/* segmented controls and chips */
+html.phx .mchs,html.phx .dh3 .pds,html.phx .fsr,html.phx .pfr{background:#E7EBF1;border-color:transparent}
+html.phx .mchs button,html.phx .dh3 .pd,html.phx .fsr button,html.phx .pfr button{color:var(--pm);font-weight:600}
+html.phx .mchs button.on,html.phx .dh3 .pd.act,html.phx .fsr button.on,html.phx .pfr button.on{color:var(--pk);font-weight:700;box-shadow:0 1px 2px rgba(15,23,42,.1),0 2px 6px -2px rgba(15,23,42,.12)}
+html.phx .chs .ch{background:#fff;border-color:var(--pl2);font-weight:600;color:var(--pk2)}html.phx .chs .ch.on{background:var(--acc);border-color:var(--acc);color:#fff}
+html.phx .sbox{background:#fff;border-color:var(--pl2)}html.phx .sbox:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acct)}
+/* Pending rows */
+html.phx .mpat .mpkk{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gh)}
+html.phx .mpat .pt1{font-size:15px;font-weight:500;color:var(--pk)}html.phx .mpat .pt1 b{font-weight:700}
+html.phx .mpa .ppl{font-weight:600}html.phx .mpa .pdo{background:var(--acct);color:var(--acci);font-weight:700}
+/* More, settings rows */
+html.phx .mrow,html.phx .ux-tx b{font-weight:600;color:var(--pk)}html.phx .mrow.red{color:var(--k-rd)}
+html.phx .mver{color:var(--pm2)}
+/* content sections, values */
+html.phx .kv span{font-weight:500;color:var(--pm)}html.phx .kv b{font-weight:600;color:var(--pk)}
+html.phx .kv.ed>span{font-weight:600}html.phx .kv.ed .ei,html.phx .form .ei{color:var(--pk)}
+html.phx .edb{background:var(--acct);color:var(--acci);font-weight:600}
+html.phx .dring .t{stroke:#E3E7EE}
+html.phx .dhr .phm small{color:var(--pm);font-weight:500}
+/* buttons: firm primary, white secondary, white footer bars */
+html.phx .btn{font-weight:600;box-shadow:0 1px 2px rgba(15,23,42,.08),0 6px 14px -8px color-mix(in srgb,var(--acc) 85%,transparent)}
+html.phx .btn.ghost,html.phx .btn.gh,html.phx .btn.sec{background:#fff;border-color:var(--pl2);color:var(--pk);box-shadow:0 1px 2px rgba(15,23,42,.05)}
+html.phx .tc2{background:#fff;box-shadow:0 -1px 0 var(--pe)}
+html.phx .pbk,html.phx .sheet:not(.tall)>.th-h .x{border-color:var(--pl2);box-shadow:0 1px 2px rgba(15,23,42,.07)}
+html.phx .lnk,html.phx .ux-link,html.phx .mwide,html.phx .paold{color:var(--acc);font-weight:600}
+html.phx .chipj{background:var(--acct);color:var(--acci);font-weight:600}html.phx .chipj button{color:var(--acci)}
+html.phx .ux-bd{background:var(--acc)}html.phx .mem .ill,html.phx .mio i{background:var(--acct);color:var(--acc)}
+/* conversation */
+html.phx .cvd span{background:#fff;border-color:var(--pe);font-weight:600;color:var(--pk2)}
+html.phx .cv .card.cvc.cur{border-color:color-mix(in srgb,var(--acc) 45%,#fff);box-shadow:0 0 0 3px var(--acct)}
+html.phx .cvc p{color:var(--pk2)}
+html.phx .cv .mtg.fu{background:var(--t-or);color:var(--k-or)}html.phx .cv .mtg.ok{background:var(--t-gr);color:var(--k-gr)}
+html.phx .cvadd{background:#fff;border-color:var(--pl2)}html.phx .cvadd i{background:var(--acc)}
+/* toast */
+html.phx .toast{background:#101828;border-radius:14px}html.phx .toast button{color:color-mix(in srgb,var(--acc) 55%,#fff)}
+/* Display: app colour swatches */
+html.phx .acw{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:2px 0 4px}
+html.phx .acw button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0 6px;border-radius:12px;background:transparent;border:0;color:var(--pm);font-size:12px;font-weight:600}
+html.phx .acw i{width:34px;height:34px;border-radius:50%;background:var(--sw);box-shadow:0 2px 6px -2px rgba(15,23,42,.35);transition:box-shadow .2s,transform .2s}
+html.phx .acw button.on{color:var(--pk)}html.phx .acw button.on i{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--sw);transform:scale(.92)}
+</style>
+
 
 <script>
 const SB_URL='https://ethhzxagxejxfxkzgndk.supabase.co',
@@ -3421,7 +3530,7 @@ function render(keep){if((tab==2||tab==5||tab==6)&&innerWidth>=900)tab=0;io&&io.
 const PH=()=>innerWidth<900;
 const MIC={home:'<path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/>',srch:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="m15 5-7 7 7 7"/>',chev:'<path d="m9 5 7 7-7 7"/>',cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',set:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
  pend:'<rect x="4" y="4" width="16" height="16" rx="5"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/>',reply:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v4"/>',send:'<path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/>',out:'<path d="M9 4H5.5A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20H9"/><path d="M16 8l4 4-4 4M20 12H9"/>',dl:'<path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/>',
- flag:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',journal:'<path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h11"/><path d="M10 8h5"/>',check:'<circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.3 2.3 4.7-5"/>',share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 12v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',tick:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',trash:'<path d="M4.5 7h15"/><path d="M9.5 7V4.8h5V7"/><path d="m6.5 7 .9 12.2a1 1 0 0 0 1 .8h7.2a1 1 0 0 0 1-.8L17.5 7"/><path d="M10.2 11v5.5M13.8 11v5.5"/>'},
+ flag:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',journal:'<path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h11"/><path d="M10 8h5"/>',check:'<circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.3 2.3 4.7-5"/>',share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 12v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',tick:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',bolt:'<path d="M13.2 2.8 5 13.6h6.3l-1 7.6 8.2-10.8h-6.3z"/>',trash:'<path d="M4.5 7h15"/><path d="M9.5 7V4.8h5V7"/><path d="m6.5 7 .9 12.2a1 1 0 0 0 1 .8h7.2a1 1 0 0 0 1-.8L17.5 7"/><path d="M10.2 11v5.5M13.8 11v5.5"/>'},
  mI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${MIC[k]||''}</svg>`,
  /* small flat colour icons (Home actions, More) */
  FIC={pend:'<svg class="fi" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#F5A524"/><path d="m8.5 14.3 3.6 3.6 7.4-7.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -3481,17 +3590,17 @@ function mExSet(r,on){const p=r.querySelector('.mjb');if(!p){r.classList.toggle(
  if(h0!=h1&&p.animate){const a=p.animate([{maxHeight:h0+'px'},{maxHeight:h1+'px'}],{duration:300,easing:'cubic-bezier(.2,.9,.25,1)'});a.onfinish=a.oncancel=()=>{if(!on)p.style.removeProperty('-webkit-line-clamp')}}else if(!on)p.style.removeProperty('-webkit-line-clamp')}
 function mEx(t){const on=!t.classList.contains('ex');document.querySelectorAll('.mx.ex').forEach(r=>{if(r!==t)mExSet(r,false)});mExSet(t,on);try{navigator.vibrate&&navigator.vibrate(5)}catch(e){}}
 function mActs(){const pn=mPendN(),rp=mReplies(),ap=mApprove(),ml=MAIL.n||0,od=obAt?OB.filter(isOver).length:0,wk=obAt?OB.filter(isWeek).length:0,op=OB.filter(isOp).length,
-  T=(a,ic,t,x,dot)=>`<button class="mat" ${a}>${FIC[ic]}${dot?'<i class="nd"></i>':''}<b>${t}</b><small>${x}</small></button>`;
- return T('data-mt="5"','pend','Pending actions',pn==null?'Loading…':pn?pn+' to do':'All clear',pn>0)
-  +T('data-mt="3"','ob','Orderbook',!obAt?'Loading…':od||wk?[od&&od+' overdue',wk&&wk+' due this week'].filter(Boolean).join(' · '):op+' open',od>0)
-  +(rp||!ap?T('data-ouinb','rp','Buyer replies',rp?rp+' new':'None new',rp>0):T('data-ouq','ap','Emails to approve',ap+' waiting',true))
-  +T('data-sv="mail"','ml','Invoice mail',ml?ml+' to approve':'Nothing waiting',ml>0)}
+  T=(a,ic,t,x,dot,tn)=>`<button class="mat" ${a}>${FIC[ic]}${dot?'<i class="nd"></i>':''}<b>${t}</b><small${tn?` class="tn-${tn}"`:''}>${x}</small></button>`;
+ return T('data-mt="5"','pend','Pending actions',pn==null?'Loading…':pn?pn+' to do':'All clear',pn>0,pn==null?'':pn?'am':'gr')
+  +T('data-mt="3"','ob','Orderbook',!obAt?'Loading…':od||wk?[od&&od+' overdue',wk&&wk+' due this week'].filter(Boolean).join(' · '):op+' open',od>0,!obAt?'':od?'rd':wk?'am':'')
+  +(rp||!ap?T('data-ouinb','rp','Buyer replies',rp?rp+' new':'None new',rp>0,rp?'gr':''):T('data-ouq','ap','Emails to approve',ap+' waiting',true,'vi'))
+  +T('data-sv="mail"','ml','Invoice mail',ml?ml+' to approve':'Nothing waiting',ml>0,ml?'bl':'')}
 function mHome(f){const v=$('#view'),t0=today(),L=E.filter(e=>e.date==t0).sort((a,b)=>b.t-a.t),FU=tdFU(),wd=new Date().toLocaleDateString('en-GB',{weekday:'long'});
  v.innerHTML=`<div class="pane mh ${f?'':'na'}"><div class="mgr"><div class="mk">${mGreet()}, ${esc(String(NAME||'').split(' ')[0])}</div><div class="mdr"><h1><button class="mdb" data-cal aria-label="Open the calendar"><b>${wd},</b> <span>${new Date().getDate()} ${new Date().toLocaleDateString('en-GB',{month:'long'})}</span></button></h1><button class="mib msb" data-mt="2" aria-label="Search">${mI('srch')}</button></div></div>
- <div class="msec"><span>Today</span><button class="mplus" data-new aria-label="New journal entry">${mI('plus')}</button></div>
+ <div class="msec"><span class="msh"><i class="msi" aria-hidden="true">${mI('journal')}</i>Today</span><button class="mplus" data-new aria-label="New journal entry">${mI('plus')}</button></div>
  <div class="mlist2" id="mtd">${L.length?L.map(mLi).join(''):'<div class="mli me0"><b>Nothing written yet today</b><span>Tap + to add what happened.</span></div>'}<button class="mli mlx" data-mt="1"><span>Earlier entries</span>${mI('chev')}</button></div>
- ${FU.length?`<div class="msec" id="mfuh"><span>Follow-ups</span><small>${FU.length} open</small></div><div class="mlist2">${FU.map(mFuLi).join('')}</div>`:''}
- <div class="msec"><span>Actions</span></div><div class="mact" id="mact">${mActs()}</div></div>`}
+ ${FU.length?`<div class="msec" id="mfuh"><span class="msh"><i class="msi am" aria-hidden="true">${mI('flag')}</i>Follow-ups</span><small>${FU.length} open</small></div><div class="mlist2">${FU.map(mFuLi).join('')}</div>`:''}
+ <div class="msec"><span class="msh"><i class="msi vi" aria-hidden="true">${mI('bolt')}</i>Actions</span></div><div class="mact" id="mact">${mActs()}</div></div>`}
 function mChipsPaint(){const a=$('#mact');if(a)a.innerHTML=mActs()}
 const mChips=()=>'';
 /* Orderbook */
@@ -3840,6 +3949,7 @@ async function onClick(t){const d=t.dataset;
  else if('pile'in d)tdSet(false)
   else if(d.perf){perfSet(d.perf);t.parentElement.querySelectorAll('[data-perf]').forEach(b=>b.classList.toggle('on',b===t))}
  else if('pwsave'in d)pwSave()
+ else if(d.acc){acSet(d.acc);document.querySelectorAll('[data-acc]').forEach(b=>{const o=b.dataset.acc==d.acc;b.classList.toggle('on',o);b.setAttribute('aria-pressed',String(o))})}
  else if(d.od){odSet(d.od);t.parentElement.querySelectorAll('[data-od]').forEach(b=>b.classList.toggle('on',b===t));const k=document.querySelector('[data-odc]');if(k)k.value=d.od}
  else if('usql'in d){try{navigator.clipboard.writeText(USQL);toast('SQL copied')}catch(e){toast('Select the SQL and copy it')}}
  else if('bkup'in d)doBackup()
@@ -4369,7 +4479,7 @@ function contactsList(){if(innerWidth>=900&&$('.cxs'))return cRows();const q=cq.
  return (pg.length?`<div class="ux-list">${pg.map(c=>uxRow(`data-cc="${c.id}"`,esc(c.name),esc([c.contact_person,c.mark,(c.contact_no||[])[0]||(c.email||[])[0]].filter(Boolean).join(' · ')||(c.address||[])[0]||''),{av:c.logo?`<img src="${esc(c.logo)}" alt="">`:uxInit(c.name)})).join('')}</div>`:em)+pgr(pgC,tot,'pc')}
 const FSO=[['Smaller','.84'],['Small','.92'],['Default','1'],['Large','1.08']];
 function isDark(){return document.documentElement.getAttribute('data-theme')==='dark'}
-function setTheme(d){const h=document.documentElement;d?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme');try{localStorage.setItem('theme',d?'dark':'light')}catch(e){}document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.setAttribute('content',d?'#0D0F14':'#F4F5F8'))}
+function setTheme(d){const h=document.documentElement;d?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme');try{localStorage.setItem('theme',d?'dark':'light')}catch(e){}document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.setAttribute('content',d?'#0D0F14':PH()?'#EFF2F7':'#F4F5F8'))}
 document.addEventListener('change',e=>{const t=e.target;if(t&&t.matches&&t.matches('[data-dark]'))setTheme(t.checked);if(t&&t.matches&&t.matches('[data-odc]')){odSet(t.value);document.querySelectorAll('[data-od]').forEach(b=>b.classList.toggle('on',b.dataset.od.toLowerCase()==t.value.toLowerCase()))}if(t&&t.id=='bkf'&&t.files[0])doRestore(t.files[0])});
 document.addEventListener('input',e=>{const t=e.target;if(t&&t.matches&&t.matches('[data-odc]'))odApply(t.value)});
 function themeBlock(){if(PH())return'';return `<label class="sw" style="margin-bottom:14px"><span><b>Dark mode</b><small>Easier on the eyes at night</small></span><input type="checkbox" data-dark${isDark()?' checked':''}><i></i></label>`}
@@ -4390,6 +4500,12 @@ setTimeout(perfCheck,2500);setInterval(perfCheck,30000);document.addEventListene
 function perfBlock(){const o=[['auto','Auto'],['lite','Reduced'],['full','Full']];return `<section class="ds fsz"><h5>Animations</h5><div class="pfr">${o.map(x=>`<button class="${x[0]==PERF?'on':''}" data-perf="${x[0]}">${x[1]}</button>`).join('')}</div><p class="fsh">Auto uses reduced animations when your phone is in battery saver or running slowly. Reduced makes scrolling and switching tabs smoother on slower phones.</p></section>`}
 function setFS(v){document.documentElement.style.setProperty('--fs',v);try{localStorage.setItem('fs',v)}catch(e){}}
 function tsBlock(){const c=TSORT,cur=(TSO.find(o=>o[1]==c)||TSO[0])[0];return `<section class="ds fsz tsc"><button class="tsh" data-tsx aria-label="About Today page order"><span><span class="tsl">Today page order</span><em>${cur}</em></span><i class="chv"></i></button><div class="fsr">${TSO.map(o=>`<button class="fso${o[1]==c?' on':''}" data-ts="${o[1]}">${o[0]}</button>`).join('')}</div><div class="tsx"><div><p class="fsh"><b>Follow-ups</b> shows follow-ups above today’s entries. <b>Today</b> shows today first.</p></div></div></section>`}
+/* app colour on the phone: buttons, links, the current page and today's date; status colours never change */
+const ACP=[['Blue','#2F6BFF','#E9EFFF','#1F4FD8'],['Indigo','#4F46E5','#ECEBFD','#3A32C4'],['Violet','#7C3AED','#F2EBFE','#5F25C9'],['Teal','#0E9384','#E1F5F2','#0A6E63'],['Graphite','#1F2937','#E9ECF1','#111827']];
+function acGet(){try{return localStorage.getItem('acc')||'Blue'}catch(e){return'Blue'}}
+function acSet(n){const a=ACP.find(x=>x[0]==n)||ACP[0],st=document.documentElement.style;if(a[0]=='Blue')['--acc','--acct','--acci'].forEach(k=>st.removeProperty(k));else{st.setProperty('--acc',a[1]);st.setProperty('--acct',a[2]);st.setProperty('--acci',a[3])}
+ try{localStorage.setItem('acc',a[0]);if(a[0]=='Blue')localStorage.removeItem('accv');else localStorage.setItem('accv',a.slice(1).join(','))}catch(e){}}
+function acBlock(){if(!PH())return'';const c=acGet();return `<section class="ds fsz"><h5>App colour</h5><div class="acw">${ACP.map(a=>`<button data-acc="${a[0]}" class="${a[0]==c?'on':''}" style="--sw:${a[1]}" aria-pressed="${a[0]==c}"><i></i><span>${a[0]}</span></button>`).join('')}</div><p class="fsh">Buttons, links, the current page and today’s date use this colour. Status colours (issued, inspected, completed, overdue) stay the same.</p></section>`}
 function fsBlock(){const c=getFS();return `<section class="ds fsz"><h5>Text size</h5><div class="fsr">${FSO.map(o=>`<button class="fso${o[1]==c?' on':''}" data-fs="${o[1]}">${o[0]}</button>`).join('')}</div><p class="fsh">Applies to the whole app and is remembered on this device.</p></section>`}
 
 /* overdue colour: any base colour is turned into a soft card background, ring and text colour for light and dark */
@@ -4427,7 +4543,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
+const APP_LOG=[['60','9 Nov 2026',['Phone: a crisper look. The page is a light cool grey so the white cards stand out, titles are darker and bolder, and group labels are small capitals.','Home: Today, Follow-ups and Actions have bold titles with a small colour badge (blue journal, amber flag, violet bolt). The date is in the app colour, follow-up dates sit in a small amber tag, and the line under each Home tile takes the colour of what it says (amber to do, green all clear, red overdue).','Bottom bar: a soft pill behind the current page and red counts. Status tags, segmented switches and buttons are firmer.','Display: choose the app colour (Blue, Indigo, Violet, Teal or Graphite). Status colours stay the same.']],['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
 ['53','9 Nov 2026',['New phone app: a bottom bar with Home, Orders, a big + button, Pending and More. Home has a week strip (tap a day to read it), quick chips for what needs you, today\'s entries and follow-ups you tick off. Orders has a type switch, status tiles, supplier logos and a status button on every row. Pending has tiles and grouped lists. More holds Buyers, Contacts, Reports, Worksheets, Invoice mail, Settings, dark mode and Install. Pages open full screen, the phone back button works everywhere, and the keyboard never hides what you type. Installable as an app on iPhone and Android, with shortcuts for New entry, Orders and Pending. Settings no longer repeats pages that are in the menu']],
 ['52','9 Nov 2026',['Orderbook on the computer redesigned: five tiles (Issued, Inspected, Completed, Overdue, Due this week) that filter, rows grouped by month with the supplier logo or initials and the buyer under it, and new icons across the app: a contract is a page with a signature, a letter is a page with a stamp, a debit note is a receipt with a % sign. Settings on the computer no longer repeats Contacts, Reports, Worksheets and Invoice mail (they are in the side menu). Invoice mail now shows only what waits for approval; the Gmail address and allowed senders moved to Settings > Invoice mail setup']],
 ['51','8 Nov 2026',['Phone Pending page redesigned like the rest of the app: three tiles (Documents, Payments, Couriers) that filter, a Late chip when something is late, grouped cards with Contract or Letter, the supplier mark and a due pill, Mark done on the two hand-ticked follow-ups, and Done today at the bottom']],
@@ -4661,7 +4777,7 @@ async function settings(v){SV=v||'home';SO=true;if(WS.cur&&SV!='ws:'+WS.cur.id)w
   const inNav=true;body=`<div class="ux-sgrid">`+G('Business',R('company','home','Company Data','Name, address, email, phone and logo')+(inNav?'':R('contacts','people',`Contacts`,`${(CB||[]).length} contacts, one tap to call or email`))+R('sigs','pen','Signatures',`${getSigs().filter(z=>z.cloud).length?getSigs().filter(z=>z.cloud).length+' saved to cloud · ':''}For contracts, letters and debit notes`))
   +G('Documents',R('rules','list','Pending actions',`${pRules().filter(r=>r.on!==false).length} rules that write your to-do list`)+(inNav?'':R('reports','chart','Reports','Contracts, debit notes and invoices by period')+R('sheets','grid','Worksheets','Spreadsheet-style calculations')+R('mail','inbox','Invoice mail',MAIL.n?MAIL.n+' waiting for your approval':'Invoices, bills of lading and airway bills from Gmail'))+R('mailset','inbox','Invoice mail setup','Gmail address and who can send invoices'))
   +G('Buyers',R('outreach','send','Outreach','What you supply, signature, mailbox and sending'))
-  +G('App',R('display','sun','Display',`${(FSO.find(o=>o[1]==getFS())||FSO[0])[0]} text · ${isDark()?'Dark':'Light'} · overdue colour`)+R('alias','search','Search shortcuts',`${SALG.length?SALG.length+' saved · ':''}Names found together`)+R('pw','lock','Change password','Update your login password')+R('usage','db','Usage & Backup',USG?(USG.ex!==null?USG.ex:USG.est)/DBMAX*100<1?'Under 1% used':Math.round((USG.ex!==null?USG.ex:USG.est)/DBMAX*100)+'% used':'Storage used, back up and restore')+R('about','info',`Version ${APP_LOG[0][0]}`,`Updated ${APP_LOG[0][1]}`))
+  +G('App',R('display','sun','Display',`${(FSO.find(o=>o[1]==getFS())||FSO[0])[0]} text · ${PH()?acGet():isDark()?'Dark':'Light'} · overdue colour`)+R('alias','search','Search shortcuts',`${SALG.length?SALG.length+' saved · ':''}Names found together`)+R('pw','lock','Change password','Update your login password')+R('usage','db','Usage & Backup',USG?(USG.ex!==null?USG.ex:USG.est)/DBMAX*100<1?'Under 1% used':Math.round((USG.ex!==null?USG.ex:USG.est)/DBMAX*100)+'% used':'Storage used, back up and restore')+R('about','info',`Version ${APP_LOG[0][0]}`,`Updated ${APP_LOG[0][1]}`))
   +`</div><button class="btn ghost wide ux-out" data-out>Log out</button>`}
  else if(SV=='reports')body=rpPage();
  else if(SV=='mail')body=mailPage();
@@ -4671,7 +4787,7 @@ async function settings(v){SV=v||'home';SO=true;if(WS.cur&&SV!='ws:'+WS.cur.id)w
  else if(SV=='sheets')body=wsListHtml();
  else if(SV.startsWith('ws:'))body=wsEditorHtml();
  else if(SV=='order')body=tsBlock().replace('tsc"','tsc ex"');
- else if(SV=='display')body=themeBlock()+fsBlock()+perfBlock()+odBlock();
+ else if(SV=='display')body=themeBlock()+acBlock()+fsBlock()+perfBlock()+odBlock();
  else if(SV=='pw')body=pwPage();
  else if(SV=='alias')body=aliasPage();
  else if(SV=='about')body=APP_LOG.map(v=>`<section class="ds"><h5>Version ${v[0]} · ${v[1]}</h5>${v[2].map(x=>`<p class="alp" style="margin:0 0 6px">• ${esc(x)}</p>`).join('')}</section>`).join('');

@@ -1,13 +1,13 @@
 {
-  "name": "Journal \u00b7 Jild Impex",
+  "name": "Journal · Jild Impex",
   "short_name": "Journal",
   "description": "Journal, orderbook, pending actions and buyers for Jild Impex",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FFFFFF",
-  "theme_color": "#FFFFFF",
+  "background_color": "#EFF2F7",
+  "theme_color": "#EFF2F7",
   "icons": [
     {
       "src": "icons/icon-192.png",
