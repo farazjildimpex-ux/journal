@@ -62,8 +62,10 @@ For an invoice:
 - lines: one entry per article + colour + selection from the invoice breakdown (use packing list subtotals if the invoice has none). Never return individual box rows.
   - article: the printed article name or number for that line (for example LP or SNUFFED), else null. description: the printed goods description.
   - colour and selection: split labels such as "VERDE -GH" into colour VERDE and selection GH, and "BLACK ABC" into colour BLACK and selection ABC.
+  - COL, COLOR, COLOUR, CLR and SHADE in front of a name only mean "colour": "COL - NUT" is colour NUT with selection null. Never return COL as a colour.
+  - Keep every selection on its own line exactly as the invoice lists it. "CORZO -GH", "CORZO -IJ" and "CORZO -KL" are three lines (colour CORZO, selections GH, IJ and KL), each with its own pieces, quantity, rate and amount, even when they share the same article, colour and price. Never merge or add up lines that the invoice prints separately.
   - quantity: main invoiced quantity (SQ.FT or similar) as a plain number, with unit.
-  - pieces: number of pieces; if sides and hides are shown separately add them. Boxes are not pieces (put them in boxes).
+  - pieces: number of pieces; if SIDE and HIDE columns are shown, add them for that line (for example 299 sides + 988 hides = 1287). Boxes are not pieces (put them in boxes).
   - rate and amount when printed. contract_no only when the document makes it explicit for that line.
 - total_quantity and total_amount: the document totals.
 

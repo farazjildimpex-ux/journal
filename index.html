@@ -2280,6 +2280,36 @@ html.phx .mbi{height:44px;gap:2px;padding-top:1px}html.phx .mbi svg{width:22px;h
 html.phx .pane{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 90px)}
 html.phx .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 66px)}
 html.phx .tc2{padding:8px 16px calc(env(safe-area-inset-bottom,0px) + 8px)}html.phx .tc2 .btn{height:46px;min-height:46px;font-size:15px}
+/* ---------- round buttons: real SVG icons, centred ---------- */
+html.phx .pbk{display:flex;align-items:center;justify-content:center;line-height:0;text-indent:0}
+html.phx .pbk:before{content:none;display:none}
+html.phx .pbk svg{width:20px;height:20px;display:block;color:var(--pk);flex:none}html.phx .pbk.xcl svg{width:18px;height:18px}
+html.phx .sheet:not(.tall)>.th-h .x.pbk{width:38px;height:38px}
+/* ---------- invoice mail: Review and Dismiss the same size ---------- */
+html.phx .wca{display:flex;align-items:center;gap:8px;margin-top:12px}
+html.phx .wca .btn,html.phx .wca .alb{flex:none;height:40px;min-height:40px;padding:0 18px;border-radius:10px;font-size:14.5px;font-weight:600;box-shadow:none;margin:0;display:inline-flex;align-items:center;justify-content:center}
+html.phx .wca .alb{background:#fff;border:1px solid var(--pl2);color:var(--pk)}
+/* ---------- due dates: the overdue colour from Display, not bright red ---------- */
+html.phx .mobt .ddl{color:var(--od-ink,#A8481E);font-weight:500}html.phx .mobt .ddl.far{color:var(--pm)}
+html.phx .mtl1[data-xst="Week"]{--sc:var(--od-ink,#A8481E)}
+html.phx .mch,html.phx .orp{background:#FBEFEA;color:var(--od-ink,#A8481E)}html.phx .mch.on,html.phx .orp.on{background:var(--od-ink,#A8481E);color:#fff}
+/* ---------- slide-out buttons: sized to the text ---------- */
+html.phx .mxb,html.phx .mh .mxb{height:32px;padding:0 11px;gap:5px;border-radius:9px;font-size:13.5px}html.phx .mxb svg{width:15px;height:15px}
+html.phx .mx.ex .mxa{max-height:48px;margin-top:10px}
+/* ---------- follow-ups: one line (title, date); tap shows the note and buttons ---------- */
+html.phx .frh{display:flex;align-items:baseline;gap:10px}html.phx .frh h3{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.phx .frd{flex:none;font-size:13px;color:var(--pm)}
+html.phx .mli.fr .frb{max-height:0;opacity:0;overflow:hidden;margin:0;transition:max-height .32s var(--ease2),opacity .22s,margin .32s var(--ease2)}
+html.phx .mli.fr.ex .frb{max-height:240px;opacity:1;margin-top:6px}html.phx .mli.fr.ex .frh h3{white-space:normal}
+/* ---------- headers slightly larger, more room before the tabs and pages ---------- */
+html.phx .phb{min-height:64px;padding:10px 16px}html.phx .phm h1,html.phx .phm h2{font-size:18px}html.phx .phm small,html.phx .phm p,html.phx .phm .hk,html.phx .phm .nps,html.phx .phm .sub{font-size:13px}
+html.phx .pbk{width:42px;height:42px}
+html.phx .sheet.tall .tl2{padding-top:8px}
+html.phx .det .dh.dh3{padding-top:calc(env(safe-area-inset-top,0px) + 12px)}
+html.phx .dhr{gap:14px;min-height:52px}html.phx .dhr .pbk{width:44px;height:44px}
+html.phx .dhr .phm h1{font-size:21px;font-weight:700;letter-spacing:-.015em}html.phx .dhr .phm small{font-size:13.5px;margin-top:2px}
+html.phx .dring .rg,html.phx .dring svg{width:50px;height:50px}html.phx .dring b{font-size:12.5px}html.phx .dring em{font-size:13.5px}
+html.phx .dh3 .pds{margin-top:16px}html.phx .dpane{padding-top:18px}
 @media(prefers-reduced-motion:reduce){html.phx .pane,html.phx .card.mjw,html.phx .cv .card.cvc{animation:none}}
 @media(max-width:389px){html.phx .mchs button{font-size:12.5px;padding:0 2px}html.phx .mhd1 h1,}
 @media(max-width:359px){html.phx .mgr h1,html.phx .mhd1 h1,html.phx .mtl h1,html.phx .pane{padding-left:16px;padding-right:16px}html.phx .chs{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}html.phx .mat,html.phx .mmt{min-height:104px;padding:14px}}
@@ -2583,8 +2613,8 @@ function invForm(iv){const cur=String(DT.rec.contract_no||'');INVX=[];INVN=iv?[c
  const adjOn=!!(iv&&Array.isArray(iv.line_items)&&iv.line_items.some(it=>it.new_price!==undefined&&it.new_price!==null));let h='<div class="invf'+(adjOn?' padj':'')+'">';
  h+=impSec();h+=ds(iv?'Edit invoice':'New invoice',akRow(['invoice_number','Invoice no','t',iv?iv.invoice_number:''])+akRow(['invoice_date','Invoice date','d',iv?iD(iv.invoice_date):today()])+cnField());
  h+='<section class="ds"><h5>Articles &amp; colors</h5>'+cards+'<button class="btn ghost wide" data-additem>Add article / color</button></section>';
- h+=ds('Price',`<div class="kv ed"><span>Price adjusted</span><label class="sw2"><input type="checkbox" data-padj ${adjOn?'checked':''}><i></i></label></div><div class="kv ed pnote"><span>Reason for adjustment</span><textarea rows="1" class="ei" data-ak="price_note" data-et="t" placeholder="Why is the price being adjusted?">${esc(iv?iv.price_note||'':'')}</textarea></div><small class="ivh">Each color row shows its contract price. Switch this on to enter a new price for the rows that changed.</small>`);
- h+=ds('Total',`<div class="kv"><span>Total quantity</span><b id="itq">0</b></div><div class="kv"><span>Total pieces</span><b id="itp">0</b></div><div class="kv"><span>Contract value ${cu?'('+cu.trim()+')':''}</span><b id="icv">—</b></div><div class="kv"><span>Price adjustment</span><b id="iadj" data-v="">—</b></div><div class="kv ed"><span>Final invoice value ${cu?'('+cu.trim()+')':''}</span><input class="ei ivv" data-ak="invoice_value" data-et="num" inputmode="decimal" placeholder="Auto-calculated" value="${has?esc(iv.invoice_value):''}" ${has?'data-man="1"':''}><small class="ivh" id="ivh"></small></div>`);
+ h+=ds('Price',`<div class="kv ed"><span>Price changed</span><label class="sw2"><input type="checkbox" data-padj ${adjOn?'checked':''}><i></i></label></div><div class="kv ed pnote"><span>Why the price changed</span><textarea rows="1" class="ei" data-ak="price_note" data-et="t" placeholder="Why did the price change?">${esc(iv?iv.price_note||'':'')}</textarea></div><small class="ivh">Prices come from the contract. Turn this on if the supplier charged a different price, then type the new price on that line.</small>`);
+ h+=ds('Total',`<div class="kv"><span>Total quantity</span><b id="itq">0</b></div><div class="kv"><span>Total pieces</span><b id="itp">0</b></div><div class="kv"><span>Contract value ${cu?'('+cu.trim()+')':''}</span><b id="icv">—</b></div><div class="kv"><span>Price change</span><b id="iadj" data-v="">—</b></div><div class="kv ed"><span>Final invoice value ${cu?'('+cu.trim()+')':''}</span><input class="ei ivv" data-ak="invoice_value" data-et="num" inputmode="decimal" placeholder="Auto-calculated" value="${has?esc(iv.invoice_value):''}" ${has?'data-man="1"':''}><small class="ivh" id="ivh"></small></div>`);
  h+=ds('Shipment &amp; notes',[['bill_type','Bill type','s',iv?iv.bill_type:''],['bill_number','Bill number','t',iv?iv.bill_number:''],['shipping_date','Shipping date','d',iv?iD(iv.shipping_date):''],['delivery_date','Delivery date','d',iv?iD(iv.delivery_date):''],['notes','Notes','x',iv?PLAIN(iv.notes):'']].map(akRow).join(''));
  if(iv&&INVN.length>1)setTimeout(loadInvX,0);
  return h+'</div>'}
@@ -2597,14 +2627,14 @@ function calcInv(){const f=document.querySelector('.invf');if(!f||!DT||!DT.rec)r
   ch.textContent=p==null?'':pcTxt(p);ch.hidden=p==null;x.qi.placeholder=ct?'of '+f0(ct):'—';const cp=x.w.querySelector('.cpv');if(cp)cp.textContent=pr?cu+f2(pr):'—';if(ni)ni.placeholder=pr?f2(pr):'—'});
  f.querySelectorAll('.li').forEach(c=>{const n=c.querySelectorAll('.sr').length,col=c.querySelector('[data-li="color"]').value,t=tot.get(gk(c.querySelector('[data-li="article"]').value,col))||0,b=c.querySelector('.ctot');b.hidden=!(n>1&&t>0);b.querySelector('b').textContent=f0(t)});
  $('#itq').textContent=f0(tq);$('#itp').textContent=f0(tp);const vi=f.querySelector('[data-ak="invoice_value"]'),h=$('#ivh');
- if(!vi.dataset.man){vi.value=priced?String(Math.round(sum*100)/100):'';h.textContent=priced?'Auto: quantity × '+(adjOn&&Math.abs(sum-base)>.004?'adjusted price':'contract price')+'. Type to override.':''}
- else h.textContent='Entered manually. Clear it to auto-calculate.';
+ if(!vi.dataset.man){vi.value=priced?String(Math.round(sum*100)/100):'';h.textContent=priced?'Worked out as quantity × '+(adjOn&&Math.abs(sum-base)>.004?'the new price':'the contract price')+'. You can type a different amount.':''}
+ else h.textContent='Typed by you. Clear it to work it out again.';
  const fv=vi.dataset.man?nm(vi.value):sum,df=priced||vi.dataset.man?Math.round((fv-base)*100)/100:0,cv=$('#icv'),ad=$('#iadj');
  if(cv)cv.textContent=priced?cu+f0(base):'—';if(ad){ad.textContent=df?(df<0?'− ':'+ ')+cu+f0(Math.abs(df)):'—';ad.dataset.v=priced||vi.dataset.man?String(df):''}}
 function pgInv(o,x){const r=DT.rec||R,cu=cuTx(r),list=x.map(v=>{const li=Array.isArray(v.line_items)?v.line_items:[],tq=IVQ(v),tp=li.reduce((t,it)=>t+nm(it.pieces),0),adj=v.price_adjustment,cn=uq(v.contract_numbers);
   return ds(v.invoice_number?'Invoice '+v.invoice_number:'Invoice',kv('Date',fdd(v.invoice_date))+(cn.length>1?kv('Contracts',cn.join(', ')):'')
   +grpCols(li).map(gp=>{const t=gp.rows.reduce((a,it)=>a+nm(it.quantity),0);return `<div class="ln"><div class="lh"><h6>${esc([gp.article,gp.color||(gp.article?'':'Color')].filter(Boolean).join(' \u00b7 '))}</h6></div>${gp.rows.map(it=>{const q=nm(it.quantity),p=q>0&&t>0?Math.round(q/t*1000)/10:null;return `<div class="lg2 sr2"><div class="mf"><span>Selection</span><b>${esc(it.selection||'—')}</b></div><div class="mf"><span>Pieces</span><b>${it.pieces===undefined||it.pieces===null||it.pieces===''?'—':esc(f0(it.pieces))}</b></div><div class="mf"><span>Quantity</span><div class="qv"><b>${it.quantity===undefined||it.quantity===null||it.quantity===''?'—':f0(it.quantity)}</b>${p==null?'':`<i class="pcp">${pcTxt(p)}</i>`}</div></div></div>`}).join('')}${gp.rows.length>1?`<div class="ctot"><span>Total</span><b>${f0(t)}</b></div>`:''}</div>`}).join('')
-  +(tq?kv('Total quantity',f0(tq)):'')+(tp?kv('Total pieces',f0(tp)):'')+(adj!==null&&adj!==undefined&&adj!==''&&nm(adj)!==0?kv('Price adjustment',(nm(adj)<0?'− ':'+ ')+cu+f0(Math.abs(nm(adj)))):'')+li.filter(it=>it.new_price!==undefined&&it.new_price!==null).map(it=>{const cp=cPrice(r,it.color,it.selection,it.article);return kv((it.article?it.article+' \u00b7 ':'')+(it.color||'Color')+(it.selection?' · '+it.selection:''),(cp?cu+f2(cp)+' → ':'')+cu+f2(it.new_price))}).join('')+kv('Reason for adjustment',v.price_note)
+  +(tq?kv('Total quantity',f0(tq)):'')+(tp?kv('Total pieces',f0(tp)):'')+(adj!==null&&adj!==undefined&&adj!==''&&nm(adj)!==0?kv('Price change',(nm(adj)<0?'− ':'+ ')+cu+f0(Math.abs(nm(adj)))):'')+li.filter(it=>it.new_price!==undefined&&it.new_price!==null).map(it=>{const cp=cPrice(r,it.color,it.selection,it.article);return kv((it.article?it.article+' \u00b7 ':'')+(it.color||'Color')+(it.selection?' · '+it.selection:''),(cp?cu+f2(cp)+' → ':'')+cu+f2(it.new_price))}).join('')+kv('Why the price changed',v.price_note)
   +(v.invoice_value!==null&&v.invoice_value!==undefined&&v.invoice_value!==''?`<div class="kv"><span>Invoice value</span><b class="big2">${esc(cu+f0(nm(v.invoice_value)))}</b></div>`:'')
   +kv(v.bill_type||'Bill',v.bill_number)+kv('Shipped',fdd(v.shipping_date))+kv('Delivery',fdd(v.delivery_date))+kv('Notes',PLAIN(v.notes)))}).join('');
  if(AM=='invedit'){const iv=x.find(v=>String(v.id)==String(EINV));if(iv)return invForm(iv)+'<button class="dl wide" data-invdel data-txt="Delete invoice">Delete invoice</button>'}
@@ -2718,7 +2748,7 @@ function dshellD(o,P){const pn=P.map((p,i)=>`<div class="dpane t-${o.k}" data-pi
 function tabN(){if(innerWidth<900||!DT||!DT.rec)return;const o=OB.find(x=>x.id==DT.id);if(!o||o.k!='contract')return;const n=[0,cInsp(DT.rec).length,DT.inv?DT.inv.length:0,cPays(DT.rec).length+(DT.xp||[]).length,DT.dn?DT.dn.length:0];document.querySelectorAll('#dpds .pd').forEach((b,i)=>{const e=b.querySelector('.tn');if(!e)return;e.hidden=!(n[i]>0);e.textContent=n[i]})}
 const stRing=o=>{const S=STEPS[o.k]||[],i=S.indexOf(o.st),can=o.st=='Cancelled',n=S.length||3,f=can?1:Math.max(0,i+1)/n,C=+(2*Math.PI*17).toFixed(2),live=OB.some(x=>x.id==o.id);
  return `<${live?'button':'span'} class="dring stp-${esc(o.st||'')}" ${live?`data-stm="${o.id}" aria-haspopup="menu" title="Change status"`:''} aria-label="Status ${esc(o.st||'')}"><em>${esc(o.st||'—')}</em><span class="rg"><svg viewBox="0 0 40 40"><circle class="t" cx="20" cy="20" r="17"/><circle class="a" cx="20" cy="20" r="17" style="stroke-dasharray:${C};stroke-dashoffset:${(C*(1-f)).toFixed(2)}"/></svg><b>${can?'✕':i>=0?(i+1)+'/'+n:'–'}</b></span></${live?'button':'span'}>`};
-function dshell(o,P){if(innerWidth>=900)return dshellD(o,P);return `<div class="dh dh3"><div class="dhr"><button class="x pbk" data-close aria-label="Back"></button><div class="phm"><h1>${esc(o.no||'')}</h1><small>${[TN[o.k],o.party].filter(Boolean).map(esc).join(' · ')}</small></div>${o.st?stRing(o):''}</div><div class="pds${P.length<2?' one':''}" id="dpds" role="tablist">${P.map((p,i)=>`<button class="pd" role="tab" data-dgo="${i}">${p[0]||TN[o.k]}</button>`).join('')}<i class="pill" id="dpill"></i></div></div>
+function dshell(o,P){if(innerWidth>=900)return dshellD(o,P);return `<div class="dh dh3"><div class="dhr"><button class="x pbk" data-close aria-label="Back">${PBK}</button><div class="phm"><h1>${esc(o.no||'')}</h1><small>${[TN[o.k],o.party].filter(Boolean).map(esc).join(' · ')}</small></div>${o.st?stRing(o):''}</div><div class="pds${P.length<2?' one':''}" id="dpds" role="tablist">${P.map((p,i)=>`<button class="pd" role="tab" data-dgo="${i}">${p[0]||TN[o.k]}</button>`).join('')}<i class="pill" id="dpill"></i></div></div>
 <div class="dview" id="dview"><div class="dstrip" id="dstrip">${P.map((p,i)=>`<div class="dpane t-${o.k}" data-pi="${i}">${EM&&!i?'<div class="edb">Editing: tap any value to change it</div>':''}${p[1]}</div>`).join('')}</div></div>
 <div class="tc2 t3" id="dfoot">${footHTML(o)}</div>`}
 function dDots(p){document.querySelectorAll('.dpane').forEach((e,k)=>e.classList.toggle('on',k==DI));const bs=[...document.querySelectorAll('#dpds .pd')],pl=$('#dpill');bs.forEach((b,i)=>{b.classList.toggle('act',i==DI);b.setAttribute('aria-selected',i==DI)});
@@ -3387,7 +3417,7 @@ const MIC={home:'<path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><pa
  mEmpty=(t,ic,x,btn)=>`<div class="mem"><div class="ill">${mI(ic)}</div><b>${t}</b><span>${x}</span>${btn||''}</div>`,
  mGreet=()=>{const h=new Date().getHours();return h<5?'Hello':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Hello'},
  mHead=(title,kick,right)=>`<div class="mhd1"><div>${kick!=null?`<div class="mk">${kick}</div>`:''}<h1>${title}</h1></div><div class="mrb">${right||''}</div></div>`,
- mBackBar=(to,right,title,sub)=>`<div class="mhd phb"><button class="pbk" data-mt="${to}" aria-label="Back"></button><div class="phm"><h1>${title||''}</h1>${sub?`<small>${sub}</small>`:''}</div><div class="phr">${right||''}</div></div>`,
+ mBackBar=(to,right,title,sub)=>`<div class="mhd phb"><button class="pbk" data-mt="${to}" aria-label="Back">${PBK}</button><div class="phm"><h1>${title||''}</h1>${sub?`<small>${sub}</small>`:''}</div><div class="phr">${right||''}</div></div>`,
  mTitle=(title,kick,sub)=>`<div class="mtl">${kick?`<div class="mk">${kick}</div>`:''}<h1>${title}</h1>${sub?`<p>${sub}</p>`:''}</div>`,
  mReplies=()=>OUT.loaded&&OUT.ok?(OUT.inbox||[]).filter(x=>x.kind=='reply'&&!x.is_read).length:0,
  mApprove=()=>OUT.loaded&&OUT.ok?outWait().length:0,
@@ -3413,10 +3443,10 @@ function mRender(keep,f){const v=$('#view');
  first=false;slide();mbarSync();if(uid)hbLoad()}
 /* Home: today's journal, follow-ups, then what is waiting */
 /* tap a journal entry: its options slide open underneath (conversation, follow up or done) */
-const mXa=(e,fuRow)=>{const o=openFu(e);return `<div class="mxa">${fuRow?`<button class="mxb" data-hth="${e.id}">${mI('chat')}Open</button>`:`<button class="mxb" data-hth="${e.id}">${mI('chat')}Conversation</button>`}${o?`<button class="mxb pri" data-done="${e.id}">${mI('check')}Done</button>`:`<button class="mxb" data-fu="${e.id}">${mI('flag')}Follow up</button>`}</div>`};
+const mXa=e=>{const o=openFu(e);return `<div class="mxa"><button class="mxb" data-hth="${e.id}">${mI('chat')}Conversation</button>${o?`<button class="mxb pri" data-done="${e.id}">${mI('check')}Done</button>`:`<button class="mxb" data-fu="${e.id}">${mI('flag')}Follow up</button>`}</div>`};
 function mLi(e){const n=cnt(e.key),o=openFu(e);
  return `<div class="mli ct mx" data-mx="${e.id}" data-id="${e.id}" role="button" tabindex="0" aria-expanded="false"><div class="mlt"><h3>${esc(e.title)}</h3>${o||e.fdone||n>1?`<span class="mlr">${o?`<i class="mfl" title="Follow-up">${mI('flag')}</i>`:e.fdone?`<i class="mok" title="Follow-up done">${mI('check')}</i>`:''}${n>1?`<span class="mcn" title="${n} entries in this conversation">${mI('chat')}${n}</span>`:''}</span>`:''}</div>${e.body?`<p>${esc(e.body)}</p>`:''}${mXa(e)}</div>`}
-function mFuLi(e){const n=-dDiff(e.date);return `<div class="mli fr ct mx" data-mx="${e.id}" data-id="${e.id}" role="button" tabindex="0" aria-expanded="false"><div class="t"><div class="m"><span class="fu">${n<=0?'Today':n==1?'Yesterday':n+' days'}</span>· ${fmWd(e.date)}</div><h3>${esc(e.title)}</h3>${mXa(e,1)}</div>${mI('chev')}</div>`}
+function mFuLi(e){return `<div class="mli fr ct mx" data-mx="${e.id}" data-id="${e.id}" role="button" tabindex="0" aria-expanded="false"><div class="t"><div class="frh"><h3>${esc(e.title)}</h3><span class="frd">${fmWd(e.date)}</span></div>${e.body?`<p class="frb">${esc(e.body)}</p>`:''}${mXa(e)}</div></div>`}
 function mEx(t){const on=!t.classList.contains('ex');document.querySelectorAll('.mx.ex').forEach(r=>{if(r!==t){r.classList.remove('ex');r.setAttribute('aria-expanded','false')}});t.classList.toggle('ex',on);t.setAttribute('aria-expanded',String(on));try{navigator.vibrate&&navigator.vibrate(5)}catch(e){}}
 function mActs(){const pn=mPendN(),rp=mReplies(),ap=mApprove(),ml=MAIL.n||0,od=obAt?OB.filter(isOver).length:0,wk=obAt?OB.filter(isWeek).length:0,op=OB.filter(isOp).length,
   T=(a,ic,t,x,dot)=>`<button class="mat" ${a}>${FIC[ic]}${dot?'<i class="nd"></i>':''}<b>${t}</b><small>${x}</small></button>`;
@@ -3436,7 +3466,7 @@ const mChips=()=>'';
 function mSeg(){return [['all','All'],['contract','Contracts'],['letter','Letters'],['debit','Debit notes']].map(([k,l])=>`<button class="${obType==k?'on':''}" data-obt="${k}" aria-pressed="${obType==k}">${l}</button>`).join('')}
 function mObTiles(){const L=OB.filter(o=>(obType=='all'||o.k==obType)&&(!obq||qParse(obq).test(o.hay))),n={Issued:0,Inspected:0,Completed:0};L.forEach(o=>{if(n[o.st]!=null)n[o.st]++});const od=L.filter(isOver).length,wk=L.filter(isWeek).length;
  const T=(k,l)=>`<button class="mtl1${obSt==k?' on':''}" data-xst="${k}" aria-pressed="${obSt==k}"><b>${obAt?n[k]:'–'}</b><span>${l}</span></button>`;
- return `<div class="mtls">${T('Issued','Issued')}${T('Inspected','Inspected')}${T('Completed','Completed')}</div>${od||wk||obSt=='Overdue'||obSt=='Week'?`<div class="mchr">${od||obSt=='Overdue'?`<button class="mch od${obSt=='Overdue'?' on':''}" data-xst="Overdue">Overdue <b>${od}</b></button>`:''}${wk||obSt=='Week'?`<button class="mch wk${obSt=='Week'?' on':''}" data-xst="Week">Due this week <b>${wk}</b></button>`:''}</div>`:''}`}
+ return `<div class="mtls">${T('Issued','Issued')}${T('Inspected','Inspected')}${T('Completed','Completed')}<button class="mtl1${obSt=='Week'?' on':''}" data-xst="Week" aria-pressed="${obSt=='Week'}"><b>${obAt?wk:'–'}</b><span>This week</span></button></div>${od||obSt=='Overdue'?`<div class="mchr"><button class="mch od${obSt=='Overdue'?' on':''}" data-xst="Overdue">Overdue <b>${od}</b></button></div>`:''}`}
 function mObRow(o,k){const sup=cbOf(o.party),pm=o.party?supMark(o.party):'',bm=o.buyer?supMark(o.buyer):'',who=[pm,bm].filter(Boolean).join(' to '),dd=o.d?(o.d.slice(0,4)==today().slice(0,4)?fmDm(o.d):fmDmy(o.d)):'',due=dchip(o);
  return `<div class="mob ct t-${o.k}${o.st=='Cancelled'?' can':''}" data-orow="${o.id}" data-id="${o.id}" role="button" tabindex="0"><span class="mlg">${cAv(sup||{name:o.party||'?'})}<em>${ICON[o.k]}</em></span><span class="mobt"><b class="mo1">${hl(o.no||'',k)}</b><small class="mo2">${hl(who||'—',k)}</small>${o.ac?`<small class="mo3">${hl(o.ac,k)}</small>`:''}${due?due.replace('class="ddl','class="ddl mo4'):`<small class="mo5">${TN[o.k]}${dd?' · '+dd:''}</small>`}</span>${stBtn(o)}</div>`}
 function mObList(f){const A=obRows();if(!A.length)return mEmpty(obq?'No documents match':'Nothing here',obq?'srch':'check',obq?'Try another word, or a contract, letter or debit note number.':'No documents match these filters.');
@@ -3489,14 +3519,15 @@ function prFlow(r){const to=r.to||'contract',ex={no:to=='letter'?'S-113':'25/25-
   terms=String(r.terms||'').trim(),not=String(r.not||'').trim();
  return `<div class="pflow" id="pflowx" aria-label="How this rule works">${N('tr','doc','When','Every '+(to=='letter'?'letter':'contract'),'','to')}${to=='contract'?N('fi','fil','Only if',terms?'Payment terms mention '+terms:'Any payment terms',not?'and not '+not:'',terms?'terms':'terms'):''}${N('st','clk','Starts',st,'','start')}${N('ac','lst','Adds to Pending',txt||'Write the line below',to=='letter'?'Example with letter S-113':'Example with contract 25/25-26','text')}${N('dn','done','Strikes off when',dn,'','done')}</div>`}
 addEventListener('resize',()=>{const p=innerWidth<900,h=document.documentElement;if(p===h.classList.contains('phx'))return;h.classList.toggle('phx',p);if(p)h.removeAttribute('data-theme');else{try{if(localStorage.getItem('theme')==='dark')h.setAttribute('data-theme','dark')}catch(e){}}});
+const PBK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"/></svg>',PCL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>';
 /* full-screen pages on the phone: one header row: round back (or close) button, title and subtitle, actions on the right */
 function phLarge(sh){const h=sh.querySelector(':scope>.th-h'),b=sh.querySelector(':scope>.tl2');if(!h)return;
  const bk=h.querySelector('[data-sback],[data-back],[data-dback],[data-ldback],[data-sgback]'),cl=h.querySelector('.x[data-close]'),left=bk||cl,
   tw=[...h.children].find(c=>c.tagName=='DIV'&&c.querySelector('h1,h2'))||null,tt=(tw||h).querySelector('h1,h2'),
   bar=document.createElement('div'),mid=document.createElement('div'),r=document.createElement('div');bar.className='phb';mid.className='phm';r.className='phr';
- if(left){left.classList.add('pbk');if(!bk&&/\bmfrm\b/.test(sh.className))left.classList.add('xcl');bar.appendChild(left)}
+ if(left){left.classList.add('pbk');const xc=!bk&&/\bmfrm\b/.test(sh.className);if(xc)left.classList.add('xcl');left.innerHTML=xc?PCL:PBK;if(!left.getAttribute('aria-label'))left.setAttribute('aria-label',xc?'Close':'Back');bar.appendChild(left)}
  if(tt)mid.appendChild(tt);if(tw){const sub=tw.querySelector('p,.nps,.sub'),k=tw.querySelector('.hk');if(sub&&sub.textContent.trim())mid.appendChild(sub);else if(k&&k.textContent.trim())mid.appendChild(k);[...tw.children].forEach(c=>{if(c.matches('.pga,.cn,button'))r.appendChild(c)})}
- bar.appendChild(mid);[...h.children].forEach(c=>{if(c!==tw&&c!==tt&&c!==left)r.appendChild(c)});if(bk&&cl){cl.classList.add('pbk','xcl');r.appendChild(cl)}bar.appendChild(r);
+ bar.appendChild(mid);[...h.children].forEach(c=>{if(c!==tw&&c!==tt&&c!==left)r.appendChild(c)});if(bk&&cl){cl.classList.add('pbk','xcl');cl.innerHTML=PCL;if(!cl.getAttribute('aria-label'))cl.setAttribute('aria-label','Close');r.appendChild(cl)}bar.appendChild(r);
  h.replaceWith(bar);if(b)b.addEventListener('scroll',()=>bar.classList.toggle('phsc',b.scrollTop>4),{passive:true})}
 /* ===== Pending actions: written from each contract's and letter's stage by rules you can edit (Settings > Pending actions) ===== */
 let PA={loaded:false,busy:false,at:0,ok:true,c:[],inv:[],lt:[],dn:[],done:{},rules:null,rrm:[],old:false},PAT=0,HOL=0;
@@ -3909,7 +3940,7 @@ $('#scrim').onclick=close;
 /* phone: keyboard open hides the bottom bar */
 document.addEventListener('focusin',e=>{if(innerWidth<900&&e.target.matches&&e.target.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea,select'))B.classList.add('kb')});document.addEventListener('focusout',()=>setTimeout(()=>{const a=document.activeElement;if(!(a&&a.matches&&a.matches('input,textarea,select')))B.classList.remove('kb')},120));
 const PF=new Set();document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('[data-ob],.card.ob[data-id],.orow[data-id]');if(!b)return;const id=b.dataset.ob||b.dataset.id,o=OB.find(x=>x.id==id);if(!o||RC[id]||PF.has(id))return;PF.add(id);sb.from(o.tb).select('*').eq('id',id).single().then(r=>{if(r.data)RC[id]=r.data;PF.delete(id)},()=>PF.delete(id))},{passive:true});
-function open(h,c){const sh=$('#sheet');sh.className='sheet '+(c||'');sh.innerHTML='<div class="grab"></div>'+h;if(PH()&&/\btall\b/.test(c||'')&&!/\bdet\b/.test(c||''))phLarge(sh);if(!B.classList.contains('so')){sy0=window.scrollY;B.style.position='fixed';B.style.top=-sy0+'px';B.style.width='100%'}B.classList.add('so');navSync();deskNav()}
+function open(h,c){const sh=$('#sheet');sh.className='sheet '+(c||'');sh.innerHTML='<div class="grab"></div>'+h;if(PH()){if(/\btall\b/.test(c||'')&&!/\bdet\b/.test(c||''))phLarge(sh);else sh.querySelectorAll(':scope>.th-h .x').forEach(x=>{const t=x.textContent.trim();if(/^[✕×‹›]$/.test(t)){x.classList.add('pbk');if(t=='✕'||t=='×')x.classList.add('xcl');x.innerHTML=t=='‹'?PBK:t=='›'?PBK.replace('m14.5 5.5-6.5 6.5 6.5 6.5','m9.5 5.5 6.5 6.5-6.5 6.5'):PCL}})}if(!B.classList.contains('so')){sy0=window.scrollY;B.style.position='fixed';B.style.top=-sy0+'px';B.style.width='100%'}B.classList.add('so');navSync();deskNav()}
 function close(){wsLeave();B.classList.remove('kb');if(DT&&DT.id=='draft')DRAFT=null;if(NEWID&&DT&&DT.id==NEWID)dropNew();ctx=null;DT=null;EM=false;AM=null;SO=false;if(!B.classList.contains('so'))return;B.classList.remove('so');B.style.position='';B.style.top='';B.style.width='';window.scrollTo(0,sy0);deskNav();setTimeout(refocusSearch,60);if(IFD){IFD=false;if(tab==3&&$('#obl'))obRefresh();if($('#sr'))results()}paSoon()}
 /* conversation view: every entry of a thread, oldest first, grouped by day (no clock times) */
 const CVI={cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',plus:'<path d="M12 5v14M5 12h14"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/>'},
@@ -5228,6 +5259,10 @@ function impContracts(res){const cur=String(((DT&&DT.rec)||{}).contract_no||''),
   if(!f)for(const c of cands){const k=impNk(c);if(k.length>=3){f=(OB||[]).find(x=>x.k=='contract'&&impNk(x.hay).includes(k));if(f)break}}
   out.push({ref,no:f?f.no:null,cur:!!f&&ck(f.no)==ck(cur)})});
  return out}
+function impNorm(r,l){l={...l};const C=(r.color||[]).map(ck),lab=/^(col|colo(?:u)?r|clr|shade)[.:]?$/i;let c=String(l.colour||'').trim(),se=String(l.selection||'').trim();
+ if(lab.test(c)){c=se;se=''}else{const m=c.match(/^(?:col|colo(?:u)?r|clr|shade)[.:\s-]+(.+)$/i);if(m)c=m[1].trim()}
+ if(c&&!C.includes(ck(c))&&se&&C.includes(ck(se))){const t=c;c=se;se=lab.test(t)?'':t}
+ l.colour=c;l.selection=se;return l}
 function impLine(r,l){const col=String(l.colour||'').trim(),sel=String(l.selection||'').trim(),art=String(l.article||'').trim(),C=r.color||[];let cand=[];
  C.forEach((c,j)=>{if(ck(c)==ck(col))cand.push(j)});
  if(!cand.length&&col)C.forEach((c,j)=>{if(impNk(c)==impNk(col+sel)||impNk(c+(r.selection||[])[j])==impNk(col+sel))cand.push(j)});
@@ -5250,19 +5285,22 @@ async function impFill(){const res=IMP,f=document.querySelector('.invf');if(!res
  if(INVN.length>1)await loadInvX();
  const ni=f.querySelector('[data-ak="invoice_number"]'),di=f.querySelector('[data-ak="invoice_date"]');if(ni&&res.invoice_number){ni.value=res.invoice_number;grow(ni)}if(di&&res.invoice_date)di.value=res.invoice_date;
  const r=mrec(),G=new Map(),bad=[];
- (res.lines||[]).forEach(l=>{const j=impLine(r,l),col=j>=0?r.color[j]:String(l.colour||'').trim(),art=j>=0?String(r.article[j]||''):String(l.article||'').trim(),sel=j>=0&&(r.selection||[])[j]?r.selection[j]:String(l.selection||'').trim(),k=gk(art,col);
-  if(j<0)bad.push([l.article,l.colour,l.selection].filter(Boolean).join(' · '));
+ const pdiff=[];
+ (res.lines||[]).forEach(l0=>{const l=impNorm(r,l0),j=impLine(r,l),col=j>=0?r.color[j]:String(l.colour||'').trim(),art=j>=0?String(r.article[j]||''):String(l.article||'').trim(),sel=String(l.selection||'').trim()||(j>=0&&(r.selection||[])[j]?r.selection[j]:''),k=gk(art,col);
+  if(j<0)bad.push([l.article,l.colour&&'colour '+l.colour,l.selection&&'selection '+l.selection].filter(Boolean).join(', '));
+  else if(l.rate!=null){const cp=nm((r.price||[])[j]);if(cp&&Math.abs(cp-l.rate)>.0049)pdiff.push(`${[art,col,sel].filter(Boolean).join(' ')}: ${impN(l.rate)} on the invoice, ${impN(cp)} in the contract`)}
   if(!G.has(k))G.set(k,{art,col,rows:[]});const g=G.get(k),ex=g.rows.find(x=>ck(x.s)==ck(sel)&&sel);
   if(ex){ex.q=(+ex.q||0)+(+l.quantity||0);ex.p=(+ex.p||0)+(+l.pieces||0)}else g.rows.push({s:sel,q:l.quantity==null?'':l.quantity,p:l.pieces==null?'':l.pieces})});
  f.querySelectorAll('.li').forEach(x=>x.remove());const btn=f.querySelector('[data-additem]');
  [...G.values()].forEach(g=>btn.insertAdjacentHTML('beforebegin',liSec(mrec(),g.col,g.rows,g.art)));
  f.querySelectorAll('textarea.ei').forEach(grow);calcInv();
  const vi=f.querySelector('[data-ak="invoice_value"]'),mine=vi&&vi.value!==''?+vi.value:null,tq=nm(($('#itq')||{}).textContent),notes=[];
- if(res.total_quantity!=null)notes.push(Math.abs(tq-res.total_quantity)<.5?`<div class="impg">Total quantity ${impN(tq)} matches the document.</div>`:`<div class="impe">Total quantity is ${impN(tq)} here but ${impN(res.total_quantity)} on the document.</div>`);
- if(res.total_amount!=null&&mine!=null)notes.push(Math.abs(mine-res.total_amount)<=Math.max(.5,res.total_amount*.002)?`<div class="impg">Invoice value ${impN(mine)} matches the document total.</div>`:`<div class="impe">Invoice value here is ${impN(mine)} but the document total is ${impN(res.total_amount)}. Check the contract prices.</div>`);
- if(bad.length)notes.push(`<div class="impe">Not found in the contract, please check: ${esc(bad.join(', '))}</div>`);
+ if(res.total_quantity!=null)notes.push(Math.abs(tq-res.total_quantity)<.5?`<div class="impg">Quantity ${impN(tq)} is the same as on the invoice.</div>`:`<div class="impe">Quantity here is ${impN(tq)}, the invoice says ${impN(res.total_quantity)}.</div>`);
+ if(res.total_amount!=null&&mine!=null)notes.push(Math.abs(mine-res.total_amount)<=Math.max(.5,res.total_amount*.002)?`<div class="impg">Value ${impN(mine)} is the same as the invoice total.</div>`:`<div class="impe">Value here is ${impN(mine)} (quantity × contract price), the invoice total is ${impN(res.total_amount)}. ${bad.length?'Some lines have no contract price, see below.':'The prices are different, see below.'}</div>`);
+ if(bad.length)notes.push(`<div class="impe">These invoice lines are not in the contract: ${esc(bad.join('; '))}. Choose the right article and colour for them below.</div>`);
+ if(pdiff.length)notes.push(`<div class="impe">Price on the invoice is different from the contract for ${esc(pdiff.join('; '))}. If the new price is right, turn on Price changed and type it on that line.</div>`);
  const wn=(res.warnings||[]).filter(w=>w&&String(w).trim()).slice(0,4).map(w=>`<div class="impw2">${esc(w)}</div>`).join(''),rv=res._rev?'<div class="impw2">This is a <b>revised invoice</b>: the saved details were replaced. Nothing changes until you tap Save.</div>':'';
- if(st)st.innerHTML=`<div class="impr"><div class="impg"><b>Invoice filled.</b> Please check the details below, then save.</div>${rv}${wn}${notes.join('')}</div>`;
+ if(st)st.innerHTML=`<div class="impr"><div class="impg"><b>Filled from the invoice.</b> Check the lines below, then tap Save.</div>${rv}${wn}${notes.join('')}</div>`;
  IMP=null;const sec=f.querySelector('.li');if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'})}
 function impModal(){if($('#impm'))return;const d=document.createElement('div');d.id='impm';d.innerHTML='<div class="impb" data-impclose></div><div class="impc" role="dialog" aria-modal="true" aria-label="Fill from invoice"><div class="imph"><h3>Fill from invoice</h3><button class="x" type="button" data-impclose aria-label="Close">\u2715</button></div><div class="impz" data-invimp tabindex="0" role="button"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 15v4h14v-4"/></svg></i><b>Drop the invoice and packing list here</b><span>PDF or photo. Scanned papers work too.</span></div><div class="impa"><button class="btn" type="button" data-invimp>Attach files</button></div></div>';document.body.appendChild(d);requestAnimationFrame(()=>d.classList.add('on'))}
 function impClose(){const d=$('#impm');if(!d)return;d.classList.remove('on');setTimeout(()=>d.remove(),240)}
