@@ -1827,8 +1827,8 @@ html[data-theme="dark"] .pbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
    regular and medium weights, blue for actions and the current page. Colour only for status, type and small icons. */
 .mbar{display:none}
 html.phx{--f:'Figtree','Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
- --pb:#FFFFFF;--pg:#F6F7F9;--ps:#FFFFFF;--pk:#1F2228;--pk2:#3B3E45;--pm:#71757F;--pm2:#A3A7B0;--pl:#ECEEF2;--pl2:#E2E5EA;
- --acc:#2F6BFF;--acct:#EEF3FF;--psh:0 10px 24px -18px rgba(30,40,60,.32),0 1px 2px rgba(30,40,60,.03);--psh2:0 18px 40px -16px rgba(30,40,60,.3);--pr:14px;
+ --pb:#FFFFFF;--pg:#F6F7F9;--ps:#FFFFFF;--pk:#1F2228;--pk2:#3B3E45;--pm:#6E727C;--pm2:#A3A7B0;--pl:#EDEFF2;--pl2:#DDE1E7;--pe:#E3E6EB;
+ --acc:#2F6BFF;--acct:#EEF3FF;--psh:0 1px 2px rgba(16,24,40,.05),0 8px 20px -12px rgba(16,24,40,.18);--psh2:0 18px 40px -16px rgba(30,40,60,.3);--pr:14px;
  --t-bl:#EEF3FF;--k-bl:#2F6BFF;--t-or:#FFF4E0;--k-or:#C47A00;--t-gr:#E7F7F0;--k-gr:#0B8F62;--t-rd:#FDECEC;--k-rd:#D93A40;--t-vi:#F1ECFF;--k-vi:#6E4FF0;--t-sl:#F0F1F4;--k-sl:#3A3F4B;
  --ease2:cubic-bezier(.2,.9,.25,1);
  --ink:var(--pk);--ink2:var(--pk2);--ink3:var(--pm);--mute:var(--pm);--line:var(--pl);--panel:var(--pb);--blue:var(--acc);--bl:var(--acct);--page:var(--pb);--edge:var(--pl);--red:var(--k-rd);
@@ -1849,15 +1849,14 @@ html.phx mark{background:#FFE58A;color:inherit;border-radius:4px;padding:0 2px}
 html.phx b,html.phx strong{font-weight:600}
 
 /* ---------- bottom bar: plain white, four icons, blue for the current page ---------- */
-html.phx .mbar{position:fixed;z-index:30;left:0;right:0;bottom:0;display:flex;justify-content:space-around;align-items:flex-start;height:calc(env(safe-area-inset-bottom,0px) + 62px);padding:10px 8px 0;background:rgba(255,255,255,.96);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);box-shadow:0 -1px 0 var(--pl),0 -12px 30px -22px rgba(30,40,60,.25);transition:transform .3s var(--ease2)}
+html.phx .mbar{position:fixed;z-index:30;left:0;right:0;bottom:0;display:flex;justify-content:space-around;align-items:flex-start;height:calc(env(safe-area-inset-bottom,0px) + 64px);padding:8px 8px 0;background:rgba(255,255,255,.96);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);box-shadow:0 -1px 0 var(--pl),0 -12px 30px -22px rgba(30,40,60,.25);transition:transform .3s var(--ease2)}
 html.phx body:has(.login.on) .mbar{display:none}
 html.phx body.so .mbar,html.phx body.kb .mbar{transform:translateY(110%)}
-html.phx .mbi{position:relative;flex:1;max-width:92px;height:42px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:4px;color:var(--pm2);transition:color .2s,transform .15s}
-html.phx .mbi svg{width:25px;height:25px}html.phx .mbi span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+html.phx .mbi{position:relative;flex:1;max-width:92px;height:48px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;padding-top:2px;color:#8C919B;transition:color .2s,transform .15s}
+html.phx .mbi svg{width:24px;height:24px}html.phx .mbi span{font-size:11px;font-weight:500;line-height:1.2}html.phx .mbi.on span{font-weight:600}
 html.phx .mbi.on{color:var(--acc)}html.phx .mbi.on svg{stroke-width:2.1}
-html.phx .mbi.on:after{content:"";position:absolute;bottom:2px;width:5px;height:5px;border-radius:50%;background:var(--acc)}
 html.phx .mbi:active{transform:scale(.9)}
-html.phx .mbb{position:absolute;top:-1px;left:calc(50% + 5px);min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--acc);color:#fff;font-style:normal;font-size:10.5px;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 2px #fff}
+html.phx .mbb{position:absolute;top:-3px;left:calc(50% + 5px);min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--acc);color:#fff;font-style:normal;font-size:10.5px;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 2px #fff}
 html.phx .mfab{display:none}
 
 /* ---------- page heads ---------- */
@@ -1880,7 +1879,7 @@ html.phx .msec>span{font-size:15.5px;font-weight:500;color:var(--pk2)}html.phx .
 html.phx .mplus{width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;display:grid;place-items:center;flex:none;box-shadow:0 6px 14px -8px rgba(47,107,255,.8)}html.phx .mplus svg{width:17px;height:17px;stroke-width:2.6}html.phx .mplus:active{transform:scale(.9)}
 
 /* ---------- grouped lists (the main building block) ---------- */
-html.phx .mlist2,html.phx .mgrp,html.phx .mlist,html.phx .ux-list{background:var(--ps);border:1px solid var(--pl);border-radius:var(--pr);box-shadow:var(--psh);overflow:hidden;margin:0 0 12px;padding:0}
+html.phx .mlist2,html.phx .mgrp,html.phx .mlist,html.phx .ux-list{background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);box-shadow:var(--psh);overflow:hidden;margin:0 0 12px;padding:0}
 html.phx .mli{display:block;width:100%;text-align:left;padding:14px 16px;border-top:1px solid var(--pl);color:var(--pk);background:var(--ps);cursor:pointer;transition:background .15s}
 html.phx .mli:first-child{border-top:0}html.phx .mli:active{background:var(--pg)}
 html.phx .mli .m{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--pm);margin-bottom:5px}html.phx .mli .m svg{width:13px;height:13px;flex:none}
@@ -1893,7 +1892,7 @@ html.phx .mli>svg,html.phx .mli .chv{width:17px;height:17px;color:var(--pm2);fle
 html.phx .mli.mlx{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:14px;font-weight:500;color:var(--acc)}html.phx .mli.mlx svg{color:var(--acc);opacity:.7}
 html.phx .mli.me0{cursor:default;padding:22px 16px;text-align:center}html.phx .mli.me0 b{display:block;font-size:15px;font-weight:500}html.phx .mli.me0 span{display:block;margin-top:3px;font-size:13.5px;color:var(--pm)}
 /* white journal card (Earlier, Search) */
-html.phx .card.mjw{position:relative;display:block;width:100%;text-align:left;background:var(--ps);border:1px solid var(--pl);border-radius:var(--pr);padding:14px 16px;margin:0 0 10px;box-shadow:var(--psh);color:var(--pk);user-select:none;-webkit-user-select:none;animation:p3in .35s var(--ease2) both;animation-delay:calc(min(var(--i,0),8)*30ms)}
+html.phx .card.mjw{position:relative;display:block;width:100%;text-align:left;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);padding:14px 16px;margin:0 0 10px;box-shadow:var(--psh);color:var(--pk);user-select:none;-webkit-user-select:none;animation:p3in .35s var(--ease2) both;animation-delay:calc(min(var(--i,0),8)*30ms)}
 html.phx .card.mjw:active{background:var(--pg)}
 html.phx .mjw .mjh{display:flex;align-items:flex-start;gap:10px}html.phx .mjw h3{flex:1;margin:0;font-size:15.5px;font-weight:500;line-height:1.35}
 html.phx .mjw .mtg{flex:none;font-size:12px;font-weight:600;color:var(--acc);margin-top:2px}html.phx .mjw .mtg.ok{color:var(--k-gr)}
@@ -1902,7 +1901,7 @@ html.phx .mjm{display:flex;align-items:center;gap:12px;margin-top:8px;font-size:
 html.phx .card.mjw.gone{opacity:0;transition:opacity .25s}
 /* action tiles */
 html.phx .mact,html.phx .mmg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
-html.phx .mat,html.phx .mmt{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-height:116px;padding:16px;background:var(--ps);border:1px solid var(--pl);border-radius:var(--pr);box-shadow:var(--psh);color:var(--pk);transition:background .15s,transform .15s}
+html.phx .mat,html.phx .mmt{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-height:116px;padding:16px;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);box-shadow:var(--psh);color:var(--pk);transition:background .15s,transform .15s}
 html.phx .mat:active,html.phx .mmt:active{background:var(--pg);transform:scale(.98)}
 html.phx .mat .fi,html.phx .mmt .fi{width:28px;height:28px;flex:none}
 html.phx .mat b,html.phx .mmt b{margin-top:auto;padding-top:14px;font-size:15.5px;font-weight:500;line-height:1.25}
@@ -1910,7 +1909,7 @@ html.phx .mat small,html.phx .mmt small{margin-top:2px;font-size:12.5px;color:va
 html.phx .mat .nd{position:absolute;right:14px;top:14px;width:8px;height:8px;border-radius:50%;background:var(--acc)}
 html.phx .mmt .mbb{position:absolute;top:13px;right:13px;left:auto;box-shadow:none}
 /* empty state */
-html.phx .mem{display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 22px 26px;border:1px solid var(--pl);border-radius:var(--pr);background:var(--ps);box-shadow:var(--psh);margin-bottom:12px}
+html.phx .mem{display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 22px 26px;border:1px solid var(--pe);border-radius:var(--pr);background:var(--ps);box-shadow:var(--psh);margin-bottom:12px}
 html.phx .mem .ill{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:12px;background:var(--acct);color:var(--acc)}html.phx .mem .ill svg{width:26px;height:26px}
 html.phx .mem b{font-size:16px;font-weight:600}html.phx .mem span{margin-top:4px;font-size:14px;color:var(--pm);line-height:1.5;max-width:290px}
 html.phx .mem .btn{margin-top:16px;width:auto;padding:0 22px}
@@ -1936,12 +1935,12 @@ html.phx .chs .ch{flex:none;height:34px;padding:0 14px;border-radius:99px;backgr
 html.phx .chs .ch.on{background:var(--acc);border-color:var(--acc);color:#fff}
 
 /* ---------- Orderbook ---------- */
-html.phx .mtls,html.phx .mpt{display:flex;background:var(--ps);border:1px solid var(--pl);border-radius:var(--pr);box-shadow:var(--psh);padding:6px;margin-bottom:12px;gap:4px}
+html.phx .mtls,html.phx .mpt{display:flex;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);box-shadow:var(--psh);padding:6px;margin-bottom:12px;gap:4px}
 html.phx .mtl1,html.phx .mptt{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;padding:10px 4px 9px;border-radius:10px;color:var(--pk);transition:background .2s}
 html.phx .mtl1+.mtl1:before,html.phx .mptt+.mptt:before{content:"";position:absolute;left:-2px;top:14px;bottom:14px;width:1px;background:var(--pl)}
 html.phx .mtl1 b,html.phx .mptt b{font-size:21px;font-weight:600;line-height:1.1;color:var(--sc,var(--pk))}html.phx .mtl1 span,html.phx .mptt span{margin-top:2px;font-size:12.5px;color:var(--pm);white-space:nowrap}
 html.phx .mtl1[data-xst="Issued"]{--sc:var(--st-issued)}html.phx .mtl1[data-xst="Inspected"]{--sc:var(--st-inspected)}html.phx .mtl1[data-xst="Completed"]{--sc:var(--st-completed)}
-html.phx .mtl1.on,html.phx .mptt.on{background:var(--acct)}html.phx .mtl1.on:before,html.phx .mtl1.on+.mtl1:before,html.phx .mptt.on:before,html.phx .mptt.on+.mptt:before{opacity:0}
+html.phx .mtl1.on,html.phx .mptt.on{background:var(--acct);box-shadow:inset 0 0 0 1.5px #BCD0FF}html.phx .mtl1.on span,html.phx .mptt.on span{color:var(--acc);font-weight:600}html.phx .mtl1.on:before,html.phx .mtl1.on+.mtl1:before,html.phx .mptt.on:before,html.phx .mptt.on+.mptt:before{opacity:0}
 html.phx .mtl1 i,html.phx .mptt i{display:none}
 html.phx .mchr{display:flex;gap:8px;margin:0 0 4px;flex-wrap:wrap}
 html.phx .mch,html.phx .orp{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:99px;font-size:13px;font-weight:500;background:var(--t-rd);color:var(--k-rd);margin:0 0 6px}
@@ -1983,7 +1982,7 @@ html.phx .paold{display:block;width:100%;margin:10px 0 0;padding:12px;font-size:
 html.phx .orad{margin:0 0 4px}
 
 /* ---------- More ---------- */
-html.phx .mpro{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border:1px solid var(--pl);border-radius:var(--pr);background:var(--ps);box-shadow:var(--psh);text-align:left;color:var(--pk);margin-bottom:12px}
+html.phx .mpro{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;border:1px solid var(--pe);border-radius:var(--pr);background:var(--ps);box-shadow:var(--psh);text-align:left;color:var(--pk);margin-bottom:12px}
 html.phx .mpro .mav{width:48px;height:48px;font-size:19px;margin:0}
 html.phx .mpro>span:not(.mav){flex:1;min-width:0}html.phx .mpro b{display:block;font-size:17px;font-weight:600}html.phx .mpro small{display:block;margin-top:1px;font-size:13px;color:var(--pm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 html.phx .mpro>svg{width:17px;height:17px;color:var(--pm2)}
@@ -2027,7 +2026,7 @@ html.phx .tc2{display:flex;gap:10px;padding:10px 20px calc(env(safe-area-inset-b
 html.phx .tc2 .btn{flex:1;min-width:0;height:50px;margin:0}
 
 /* ---------- content blocks inside pages ---------- */
-html.phx .tl2 .ds,html.phx .ds{background:var(--ps);border:1px solid var(--pl);border-radius:var(--pr);padding:14px 16px;margin:0 0 12px;box-shadow:var(--psh);animation:none}
+html.phx .tl2 .ds,html.phx .ds{background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);padding:14px 16px;margin:0 0 12px;box-shadow:var(--psh);animation:none}
 html.phx .ds h5{margin:0 0 6px;font-size:13px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--pm)}
 html.phx .kv{padding:11px 0;border-top:1px solid var(--pl)}html.phx .ds h5+.kv,html.phx .ds>.kv:first-child{border-top:0;padding-top:4px}
 html.phx .kv span{font-size:12.5px;font-weight:400;color:var(--pm)}html.phx .kv b{font-size:15px;font-weight:500;color:var(--pk)}
@@ -2090,7 +2089,7 @@ html.phx .ei.shake{animation:p3nudge .45s}
 html.phx .cvtg{display:flex;gap:6px;margin:-8px 0 12px}
 html.phx .cv .mtg{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--pg);color:var(--pk2)}
 html.phx .cv .mtg.fu{background:var(--acct);color:var(--acc)}html.phx .cv .mtg.ok{background:var(--t-gr);color:var(--k-gr)}
-html.phx .cvm{display:flex;background:var(--ps);border:1px solid var(--pl);border-radius:var(--pr);box-shadow:var(--psh);margin:0 0 8px}
+html.phx .cvm{display:flex;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);box-shadow:var(--psh);margin:0 0 8px}
 html.phx .cvmi{flex:1;display:flex;align-items:center;gap:10px;padding:12px 14px}html.phx .cvmi+.cvmi{border-left:1px solid var(--pl)}
 html.phx .cvmi i{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-style:normal;flex:none}html.phx .cvmi i svg{width:17px;height:17px}
 html.phx .cvmi i.f-lav{background:var(--t-vi);color:var(--k-vi)}html.phx .cvmi i.f-sky{background:var(--t-bl);color:var(--k-bl)}
@@ -2100,7 +2099,7 @@ html.phx .cvl:before{content:"";position:absolute;left:6px;top:22px;bottom:26px;
 html.phx .cvd{position:relative;margin:18px 0 10px -22px;padding-left:22px}
 html.phx .cvd:before{content:"";position:absolute;left:1px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--pb);box-shadow:inset 0 0 0 2px var(--acc)}
 html.phx .cvd span{font-size:13.5px;font-weight:500;color:var(--pm)}
-html.phx .cv .card.cvc{position:relative;display:block;background:var(--ps);border:1px solid var(--pl);border-radius:var(--pr);padding:14px 16px 10px;margin:0 0 10px;box-shadow:var(--psh);animation:p3in .35s var(--ease2) both;animation-delay:calc(min(var(--i,0),8)*35ms);user-select:text;-webkit-user-select:text}
+html.phx .cv .card.cvc{position:relative;display:block;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);padding:14px 16px 10px;margin:0 0 10px;box-shadow:var(--psh);animation:p3in .35s var(--ease2) both;animation-delay:calc(min(var(--i,0),8)*35ms);user-select:text;-webkit-user-select:text}
 html.phx .cv .card.cvc.cur{border-color:#BFD1FF;box-shadow:0 0 0 3px var(--acct)}
 html.phx .cvc h3{margin:0;font-size:15.5px;font-weight:600;line-height:1.35}
 html.phx .cvc p{margin:5px 0 0;font-size:14.5px;line-height:1.55;color:var(--pk2);white-space:pre-line;word-break:break-word}
@@ -2121,7 +2120,7 @@ html.phx .cd{height:42px;border-radius:50%;font-size:15px;font-weight:500;color:
 html.phx .cd.has{color:var(--pk);font-weight:600}html.phx .cd.has:after{content:"";position:absolute;left:50%;bottom:4px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--acc)}
 html.phx .cd.tod{background:var(--acc);color:#fff}html.phx .cd.tod:after{background:#fff}
 html.phx .cn{display:flex;gap:6px}
-html.phx .pk{display:block;width:100%;text-align:left;background:var(--ps);border:1px solid var(--pl);border-radius:var(--pr);padding:13px 15px;margin:0 0 10px;box-shadow:var(--psh);color:var(--pk)}
+html.phx .pk{display:block;width:100%;text-align:left;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);padding:13px 15px;margin:0 0 10px;box-shadow:var(--psh);color:var(--pk)}
 html.phx .pk b{display:block;font-size:15.5px;font-weight:500}html.phx .pk small{display:block;font-size:12.5px;color:var(--pm);margin-top:2px}html.phx .pk span{display:block;margin-top:5px;font-size:13.5px;color:var(--pm);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
 /* ---------- login ---------- */
@@ -2132,6 +2131,27 @@ html.phx .login .sub{font-size:15px;color:var(--pm);margin:4px 0 22px!important}
 html.phx .login input{display:block;width:100%;height:52px;margin:0 0 10px;padding:0 14px;border:1px solid var(--pl2);border-radius:12px;background:var(--ps);font-size:16px;color:var(--pk);outline:0}
 html.phx .login input:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acct)}
 html.phx .login .btn{width:100%;margin-top:8px}
+/* ---------- Home is larger than the other pages ---------- */
+html.phx .mh .mgr{margin:16px 0 4px}html.phx .mh .mgr .mk{font-size:16px;margin-bottom:4px}
+html.phx .mdr{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+html.phx .mh .mgr h1{font-size:clamp(25px,7.2vw,32px);line-height:1.15;flex:1;min-width:0;white-space:normal}html.phx .mh .mgr h1 span{white-space:nowrap}
+html.phx .mdr .msb{margin:-2px -10px 0 0;width:46px;height:46px}html.phx .mdr .msb svg{width:25px;height:25px}
+html.phx .mh .msec{margin:30px 0 12px}html.phx .mh .msec>span{font-size:18px;font-weight:600;color:var(--pk)}html.phx .mh .msec small{font-size:14.5px}
+html.phx .mh .mplus{width:36px;height:36px}html.phx .mh .mplus svg{width:20px;height:20px}
+html.phx .mh .mli{padding:16px 18px}html.phx .mh .mli h3{font-size:17px;line-height:1.35}html.phx .mh .mli p{font-size:15px;margin-top:5px}
+html.phx .mh .mli .m{font-size:13px;margin-bottom:6px}html.phx .mh .mli .m svg{width:14px;height:14px}
+html.phx .mh .mli.mlx{padding:15px 18px;font-size:15.5px}html.phx .mh .mli.me0 b{font-size:16.5px}html.phx .mh .mli.me0 span{font-size:14.5px}
+html.phx .mh .mli>svg{width:19px;height:19px}
+html.phx .mh .mact{gap:14px}html.phx .mh .mat{min-height:138px;padding:18px}html.phx .mh .mat .fi{width:34px;height:34px}
+html.phx .mh .mat b{font-size:17px}html.phx .mh .mat small{font-size:13.5px}html.phx .mh .mat .nd{width:9px;height:9px;right:16px;top:16px}
+/* ---------- Orderbook rows: number + status, supplier → buyer, article · colour, due ---------- */
+html.phx .mob,html.phx .mob.ct{align-items:flex-start;padding:14px 14px 13px}
+html.phx .mob .mlg{margin-top:2px}
+html.phx .mo1{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:26px}html.phx .mo1 b{font-size:16px;font-weight:600}
+html.phx .mobt .mo2{font-size:13.5px;font-weight:500;color:var(--pk2);margin-top:2px}
+html.phx .mobt .mo3{font-size:13px;color:var(--pm);margin-top:1px}
+html.phx .mobt .ddl.mo4,html.phx .mobt .mo5{display:block;margin-top:4px;font-size:12.5px}
+html.phx .mobt .mo5{color:var(--pm)}
 /* ---------- detail pages (contract, letter, debit note) ---------- */
 html.phx .det .dh{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:calc(env(safe-area-inset-top,0px) + 5px) 12px 0;background:var(--pb)}
 html.phx .dh .x{width:44px;height:44px;border-radius:12px;background:transparent;box-shadow:none;color:transparent;font-size:0;display:grid;place-items:center;flex:none;border:0;padding:0}
@@ -2148,7 +2168,7 @@ html.phx .dtt{font-size:22px;font-weight:700;margin:4px 0 12px}
 html.phx .edb{border-radius:12px;background:var(--acct);color:var(--acc);font-size:13.5px;font-weight:500;padding:10px 12px;margin:0 0 12px}
 /* ---------- create new (contract, letter, debit note) ---------- */
 html.phx .np{padding:0 20px calc(env(safe-area-inset-bottom,0px) + 18px)}
-html.phx .npo{gap:14px;border:1px solid var(--pl);border-radius:var(--pr);padding:14px 16px;margin-bottom:10px;box-shadow:var(--psh)}
+html.phx .npo{gap:14px;border:1px solid var(--pe);border-radius:var(--pr);padding:14px 16px;margin-bottom:10px;box-shadow:var(--psh)}
 html.phx .npo i{width:40px;height:40px;border-radius:11px;background:color-mix(in srgb,var(--tc) 12%,#fff);color:var(--tc);box-shadow:none}html.phx .npo i svg{width:21px;height:21px;stroke-width:1.9}
 html.phx .npo b{font-size:16px;font-weight:600;letter-spacing:0}html.phx .npo small{font-size:13px;margin-top:2px}
 html.phx .npo:after{font-size:22px;color:var(--pm2)}
@@ -2161,7 +2181,7 @@ html.phx .cxh{display:flex;align-items:center;gap:14px;margin:0 0 14px}
 html.phx .cxav .cav.xl{width:64px;height:64px;border-radius:16px;font-size:21px}
 html.phx .cxn p{margin:0;font-size:14px;color:var(--pm)}html.phx .cxll{display:flex;gap:14px;margin-top:4px}html.phx .cxll .lnk{margin:0;font-size:14px}
 html.phx .ux-qa{display:flex;gap:10px;margin:0 0 12px}
-html.phx .ux-qb{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 0 10px;border:1px solid var(--pl);border-radius:var(--pr);background:var(--ps);box-shadow:var(--psh);font-size:13px;font-weight:500;color:var(--acc)}html.phx .ux-qb svg{width:21px;height:21px}
+html.phx .ux-qb{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 0 10px;border:1px solid var(--pe);border-radius:var(--pr);background:var(--ps);box-shadow:var(--psh);font-size:13px;font-weight:500;color:var(--acc)}html.phx .ux-qb svg{width:21px;height:21px}
 @media(prefers-reduced-motion:reduce){html.phx .pane,html.phx .card.mjw,html.phx .cv .card.cvc{animation:none}}
 @media(max-width:389px){html.phx .mchs button{font-size:12.5px;padding:0 2px}html.phx .mhd1 h1,html.phx .phl h1,html.phx .phl h2{font-size:26px}}
 @media(max-width:359px){html.phx .mgr h1,html.phx .mhd1 h1,html.phx .mtl h1,html.phx .phl h1,html.phx .phl h2{font-size:24px}html.phx .pane{padding-left:16px;padding-right:16px}html.phx .chs{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}html.phx .mat,html.phx .mmt{min-height:104px;padding:14px}}
@@ -2227,9 +2247,9 @@ const j=v=>Array.isArray(v)?v.filter(Boolean).join(', '):v||'',hayF=r=>Object.va
  nd=(x,t)=>{x=String(x||'');let m=x.match(/^(\d{4})-(\d{2})-(\d{2})/);if(m)return m[0];m=x.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})/);if(m)return m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');return String(t||'').slice(0,10)},
  nn=x=>+((String(x||'').match(/(\d+)\D*$/)||[0,0])[1]);
 const earliestDel=r=>[nd(r.delivery_date,''),parseDelivDate(Array.isArray(r.delivery_schedule)?r.delivery_schedule.join('\n'):String(r.delivery_schedule||''))].filter(Boolean).sort()[0]||'';
-const mC=r=>({k:'contract',tb:'contracts',id:r.id,no:r.contract_no,party:r.supplier_name,buyer:r.buyer_name||'',line:[r.article,j(r.color)].filter(Boolean).join(' · ')||r.description||'',st:r.status,t:r.created_at,d:nd(r.contract_date,r.created_at),dd:earliestDel(r),n:nn(r.contract_no),hay:hayF(r)}),
- mL=r=>({k:'letter',tb:'samples',trk:!!String(r.courier_reference||'').trim(),id:r.id,no:r.sample_number,party:r.supplier_name,line:[r.description,r.company_name].filter(Boolean).join(' · '),st:r.status,t:r.created_at,d:nd(r.date,r.created_at),dd:nd(r.due_date,''),n:nn(r.sample_number),hay:hayF(r)}),
- mD=r=>({k:'debit',tb:'debit_notes',id:r.id,no:r.debit_note_no,party:r.supplier_name,buyer:r.buyer_name||'',line:[r.contract_no&&'Contract '+r.contract_no,r.buyer_name].filter(Boolean).join(' · '),st:r.status,t:r.created_at,d:nd(r.debit_note_date,r.created_at),dd:'',n:nn(r.debit_note_no),hay:hayF(r)}),MAP={contract:mC,letter:mL,debit:mD};
+const mC=r=>({k:'contract',tb:'contracts',id:r.id,no:r.contract_no,party:r.supplier_name,buyer:r.buyer_name||'',line:[r.article,j(r.color)].filter(Boolean).join(' · ')||r.description||'',ac:[r.article||r.description,j(r.color)].filter(Boolean).join(' · '),st:r.status,t:r.created_at,d:nd(r.contract_date,r.created_at),dd:earliestDel(r),n:nn(r.contract_no),hay:hayF(r)}),
+ mL=r=>({k:'letter',tb:'samples',trk:!!String(r.courier_reference||'').trim(),id:r.id,no:r.sample_number,party:r.supplier_name,line:[r.description,r.company_name].filter(Boolean).join(' · '),ac:[r.article||r.description,j(r.color)].filter(Boolean).join(' · '),st:r.status,t:r.created_at,d:nd(r.date,r.created_at),dd:nd(r.due_date,''),n:nn(r.sample_number),hay:hayF(r)}),
+ mD=r=>({k:'debit',tb:'debit_notes',id:r.id,no:r.debit_note_no,party:r.supplier_name,buyer:r.buyer_name||'',line:[r.contract_no&&'Contract '+r.contract_no,r.buyer_name].filter(Boolean).join(' · '),ac:r.contract_no?'For contract '+r.contract_no:'',st:r.status,t:r.created_at,d:nd(r.debit_note_date,r.created_at),dd:'',n:nn(r.debit_note_no),hay:hayF(r)}),MAP={contract:mC,letter:mL,debit:mD};
 const idle=f=>('requestIdleCallback'in window)?requestIdleCallback(f,{timeout:2000}):setTimeout(f,80);
 let _soc=0;const saveOC=()=>{clearTimeout(_soc);_soc=setTimeout(()=>idle(()=>{try{localStorage.setItem('oc',JSON.stringify(OB))}catch(e){}}),900)};
 async function loadOB(){obBusy=true;const q=(t,c)=>sb.from(t).select(c).order('created_at',{ascending:false}).limit(1000);
@@ -3302,8 +3322,7 @@ function mActs(){const pn=mPendN(),rp=mReplies(),ap=mApprove(),ml=MAIL.n||0,od=o
   +(rp||!ap?T('data-ouinb','rp','Buyer replies',rp?rp+' new':'None new',rp>0):T('data-ouq','ap','Emails to approve',ap+' waiting',true))
   +T('data-sv="mail"','ml','Invoice mail',ml?ml+' to approve':'Nothing waiting',ml>0)}
 function mHome(f){const v=$('#view'),t0=today(),L=E.filter(e=>e.date==t0).sort((a,b)=>b.t-a.t),FU=tdFU(),wd=new Date().toLocaleDateString('en-GB',{weekday:'long'});
- v.innerHTML=`<div class="pane mh ${f?'':'na'}"><div class="mtop2"><button class="mib" data-mt="2" aria-label="Search">${mI('srch')}</button><button class="mav" data-mt="6" aria-label="More">${esc(String(NAME||'?')[0])}</button></div>
- <div class="mgr"><div class="mk">${mGreet()}, ${esc(String(NAME||'').split(' ')[0])}</div><h1><button class="mdb" data-cal aria-label="Open the calendar"><b>${wd},</b> ${new Date().getDate()} ${new Date().toLocaleDateString('en-GB',{month:'long'})}</button></h1></div>
+ v.innerHTML=`<div class="pane mh ${f?'':'na'}"><div class="mgr"><div class="mk">${mGreet()}, ${esc(String(NAME||'').split(' ')[0])}</div><div class="mdr"><h1><button class="mdb" data-cal aria-label="Open the calendar"><b>${wd},</b> <span>${new Date().getDate()} ${new Date().toLocaleDateString('en-GB',{month:'long'})}</span></button></h1><button class="mib msb" data-mt="2" aria-label="Search">${mI('srch')}</button></div></div>
  <div class="msec"><span>Today</span><button class="mplus" data-new aria-label="New journal entry">${mI('plus')}</button></div>
  <div class="mlist2" id="mtd">${L.length?L.map(mLi).join(''):'<div class="mli me0"><b>Nothing written yet today</b><span>Tap + to add what happened.</span></div>'}<button class="mli mlx" data-mt="1"><span>Earlier entries</span>${mI('chev')}</button></div>
  ${FU.length?`<div class="msec" id="mfuh"><span>Follow-ups</span><small>${FU.length} open</small></div><div class="mlist2">${FU.map(mFuLi).join('')}</div>`:''}
@@ -3315,8 +3334,8 @@ function mSeg(){return [['all','All'],['contract','Contracts'],['letter','Letter
 function mObTiles(){const L=OB.filter(o=>(obType=='all'||o.k==obType)&&(!obq||qParse(obq).test(o.hay))),n={Issued:0,Inspected:0,Completed:0};L.forEach(o=>{if(n[o.st]!=null)n[o.st]++});const od=L.filter(isOver).length,wk=L.filter(isWeek).length;
  const T=(k,l)=>`<button class="mtl1${obSt==k?' on':''}" data-xst="${k}" aria-pressed="${obSt==k}"><b>${obAt?n[k]:'–'}</b><span>${l}</span></button>`;
  return `<div class="mtls">${T('Issued','Issued')}${T('Inspected','Inspected')}${T('Completed','Completed')}</div>${od||wk||obSt=='Overdue'||obSt=='Week'?`<div class="mchr">${od||obSt=='Overdue'?`<button class="mch od${obSt=='Overdue'?' on':''}" data-xst="Overdue">Overdue <b>${od}</b></button>`:''}${wk||obSt=='Week'?`<button class="mch wk${obSt=='Week'?' on':''}" data-xst="Week">Due this week <b>${wk}</b></button>`:''}</div>`:''}`}
-function mObRow(o,k){const sup=cbOf(o.party),sub=o.buyer?(o.party||'—')+' → '+o.buyer:[o.party,o.line].filter(Boolean).join(' · '),dd=o.d?(o.d.slice(0,4)==today().slice(0,4)?fmDm(o.d):fmDmy(o.d)):'';
- return `<div class="mob ct t-${o.k}${o.st=='Cancelled'?' can':''}" data-orow="${o.id}" data-id="${o.id}" role="button" tabindex="0"><span class="mlg">${cAv(sup||{name:o.party||'?'})}<em>${ICON[o.k]}</em></span><span class="mobt"><b>${hl(o.no||'',k)}</b><small>${hl(sub||'—',k)}</small>${dchip(o)||`<small>${TN[o.k]}${dd?' · '+dd:''}</small>`}</span>${stBtn(o)}</div>`}
+function mObRow(o,k){const sup=cbOf(o.party),pm=o.party?supMark(o.party):'',bm=o.buyer?supMark(o.buyer):'',who=[pm,bm].filter(Boolean).join(' → '),dd=o.d?(o.d.slice(0,4)==today().slice(0,4)?fmDm(o.d):fmDmy(o.d)):'',due=dchip(o);
+ return `<div class="mob ct t-${o.k}${o.st=='Cancelled'?' can':''}" data-orow="${o.id}" data-id="${o.id}" role="button" tabindex="0"><span class="mlg">${cAv(sup||{name:o.party||'?'})}<em>${ICON[o.k]}</em></span><span class="mobt"><span class="mo1"><b>${hl(o.no||'',k)}</b>${stBtn(o)}</span><small class="mo2">${hl(who||'—',k)}</small>${o.ac?`<small class="mo3">${hl(o.ac,k)}</small>`:''}${due?due.replace('class="ddl','class="ddl mo4'):`<small class="mo5">${TN[o.k]}${dd?' · '+dd:''}</small>`}</span></div>`}
 function mObList(f){const A=obRows();if(!A.length)return mEmpty(obq?'No documents match':'Nothing here',obq?'srch':'check',obq?'Try another word, or a contract, letter or debit note number.':'No documents match these filters.');
  const L=A.slice(0,MOBN),k=obq||undefined;let h='',last='',open=false;L.forEach(o=>{const m=(o.d||'').slice(0,7);if(m!=last){if(open)h+='</div>';last=m;h+=`<div class="mgh">${m?new Date(m+'-01T00:00').toLocaleDateString('en-GB',{month:'long',year:'numeric'}):'No date'}</div><div class="mgrp">`;open=true}h+=mObRow(o,k)});if(open)h+='</div>';
  return h+(A.length>MOBN?`<button class="mwide" data-mobm>Show more · ${A.length-MOBN} left</button>`:'')}
@@ -4219,7 +4238,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
+const APP_LOG=[['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
 ['53','9 Nov 2026',['New phone app: a bottom bar with Home, Orders, a big + button, Pending and More. Home has a week strip (tap a day to read it), quick chips for what needs you, today\'s entries and follow-ups you tick off. Orders has a type switch, status tiles, supplier logos and a status button on every row. Pending has tiles and grouped lists. More holds Buyers, Contacts, Reports, Worksheets, Invoice mail, Settings, dark mode and Install. Pages open full screen, the phone back button works everywhere, and the keyboard never hides what you type. Installable as an app on iPhone and Android, with shortcuts for New entry, Orders and Pending. Settings no longer repeats pages that are in the menu']],
 ['52','9 Nov 2026',['Orderbook on the computer redesigned: five tiles (Issued, Inspected, Completed, Overdue, Due this week) that filter, rows grouped by month with the supplier logo or initials and the buyer under it, and new icons across the app: a contract is a page with a signature, a letter is a page with a stamp, a debit note is a receipt with a % sign. Settings on the computer no longer repeats Contacts, Reports, Worksheets and Invoice mail (they are in the side menu). Invoice mail now shows only what waits for approval; the Gmail address and allowed senders moved to Settings > Invoice mail setup']],
 ['51','8 Nov 2026',['Phone Pending page redesigned like the rest of the app: three tiles (Documents, Payments, Couriers) that filter, a Late chip when something is late, grouped cards with Contract or Letter, the supplier mark and a due pill, Mark done on the two hand-ticked follow-ups, and Done today at the bottom']],
