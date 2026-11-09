@@ -1798,14 +1798,16 @@ html[data-theme="dark"] .pbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
  .cv .cvmi i{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-style:normal}.cv .cvmi i svg{width:18px;height:18px}
  .cv .cvmi i.f-lav{background:#EEE9FF;color:#5F45DB}.cv .cvmi i.f-sky{background:#E3F0FF;color:#1C63CF}
  .cv .cvmi small{display:block;font-size:var(--s12);color:var(--mute);font-weight:600}.cv .cvmi b{display:block;font-size:var(--s15);font-weight:700;color:var(--ink)}
- .cv .cvl{position:relative;padding-left:28px;margin-top:var(--sp-8)}
- .cv .cvl:before{content:"";position:absolute;left:9px;top:18px;bottom:24px;width:2px;border-radius:2px;background:linear-gradient(var(--bd),var(--bd))}
- .cv .cvd{position:relative;margin:var(--sp-20) 0 var(--sp-12) -28px;padding-left:28px}
- .cv .cvd:before{content:"";position:absolute;left:4px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--surf);box-shadow:inset 0 0 0 2px var(--blue)}
+
+
+
+
+ .cv .cvl{margin-top:var(--sp-8)}
+ .cv .cvd{display:flex;justify-content:center;margin:var(--sp-20) 0 var(--sp-12)}
  .cv .cvd span{display:inline-flex;align-items:center;height:28px;padding:0 12px;border-radius:99px;background:var(--surf);box-shadow:inset 0 0 0 1px var(--bd);font-size:var(--s13);font-weight:700;color:var(--ink2)}
  .cv .card.cvc{position:relative;display:block;margin:0 0 var(--sp-12);padding:var(--sp-16) var(--sp-20) var(--sp-12);border-radius:16px;background:var(--surf);border:1px solid var(--bd);box-shadow:0 1px 2px rgba(16,24,40,.04);animation:up .4s cubic-bezier(.2,.9,.2,1) both;animation-delay:calc(min(var(--i,0),8)*40ms);user-select:text;-webkit-user-select:text;cursor:default}
  .cv .card.cvc.cur{border-color:color-mix(in srgb,var(--blue) 45%,var(--bd));box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 12%,transparent)}
- .cv .card.cvc.fu:after{content:"";position:absolute;left:-23px;top:22px;width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px var(--bg2)}
+
  .cv .cvc h3{margin:0;font-size:var(--s16);font-weight:700;letter-spacing:-.015em;line-height:1.35;color:var(--ink)}
  .cv .cvc p{margin:var(--sp-6) 0 0;font-size:var(--s14);line-height:1.6;color:var(--ink2);white-space:pre-line;word-break:break-word}
  .cv .cvc .cvtags{display:flex;gap:var(--sp-6);margin-top:var(--sp-12)}.cv .cvc .cvtags:empty{display:none}.cv .cvc .mtg{height:22px;padding:0 10px;font-size:var(--s11)}
@@ -1820,6 +1822,23 @@ html[data-theme="dark"] .pbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
  .cvb .cvadd span{flex:1}.cvb .cvadd i{width:36px;height:36px;border-radius:9px;background:var(--blue);color:#fff;display:grid;place-items:center;font-style:normal}.cvb .cvadd i svg{width:18px;height:18px}
  .cvb .cvlk{flex:none;width:48px;height:48px;border-radius:12px;border:1px solid var(--bd);background:var(--surf);color:var(--ink2);display:grid;place-items:center}.cvb .cvlk:hover{background:var(--hov)}.cvb .cvlk svg{width:20px;height:20px}
 }
+
+/* ================= Pending rule as a flow (phone: top to bottom, computer: left to right) ================= */
+.pflow{display:flex;flex-direction:column;margin:0 0 16px}
+.pfn{position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;background:#fff;border:1px solid #E3E6EB;border-radius:14px;box-shadow:0 1px 2px rgba(16,24,40,.05),0 6px 16px -10px rgba(16,24,40,.18);color:#1F2228;font-family:inherit;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.pfn:active{transform:scale(.98)}.pfn:hover{box-shadow:0 0 0 3px #EEF3FF,0 6px 16px -10px rgba(16,24,40,.18)}
+.pfn+.pfn{margin-top:26px}
+.pfn+.pfn:before{content:"";position:absolute;left:31px;top:-27px;width:2px;height:26px;background:#BCD0FF}
+.pfn+.pfn:after{content:"";position:absolute;left:27px;top:-6px;width:8px;height:8px;border-radius:50%;background:#fff;border:2px solid #2F6BFF}
+.pfn i{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex:none;font-style:normal}.pfn i svg{width:20px;height:20px}
+.pf-tr i{background:#EEF3FF;color:#2F6BFF}.pf-fi i{background:#F1ECFF;color:#6E4FF0}.pf-st i{background:#FFF4E0;color:#C47A00}.pf-ac i{background:#E7F7F0;color:#0B8F62}.pf-dn i{background:#F0F1F4;color:#3A3F4B}
+.pfn span{min-width:0}.pfn small{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#8A8F99}
+.pfn b{display:block;font-size:15px;font-weight:600;line-height:1.35;margin-top:1px}.pfn em{display:block;font-style:normal;font-size:12.5px;color:#71757F;margin-top:2px}
+.pf-ac b{color:#0B6E4C}
+@media(min-width:900px){.pflow{flex-direction:row;align-items:stretch;overflow-x:auto;padding:4px 4px 12px;gap:34px}
+ .pfn{flex:1 1 0;min-width:128px;flex-direction:column;align-items:flex-start;gap:10px;padding:12px}.pflow{gap:26px}.pfn+.pfn:before{left:-27px!important;width:26px!important}.pfn+.pfn{margin-top:0}
+ .pfn+.pfn:before{left:-35px;top:50%;width:34px;height:2px}.pfn+.pfn:after{left:-6px;top:calc(50% - 5px)}
+ :root[data-theme="dark"] .pfn{background:var(--surf);border-color:var(--bd);color:var(--ink)}}
 </style>
 <style id="m3">
 /* ================= phone app (html.phx = under 900px), look B: calm white, desktop blue, light only =================
@@ -1857,7 +1876,7 @@ html.phx .mbi svg{width:24px;height:24px}html.phx .mbi span{font-size:11px;font-
 html.phx .mbi.on{color:var(--acc)}html.phx .mbi.on svg{stroke-width:2.1}
 html.phx .mbi:active{transform:scale(.9)}
 html.phx .mbb{position:absolute;top:-3px;left:calc(50% + 5px);min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--acc);color:#fff;font-style:normal;font-size:10.5px;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 2px #fff}
-html.phx .mfab{display:none}
+
 
 /* ---------- page heads ---------- */
 html.phx .mtop2{display:flex;align-items:center;justify-content:space-between;min-height:52px;margin:0 -8px}
@@ -2005,22 +2024,22 @@ html.phx .sheet>.th-h p,html.phx .sheet>.th-h .nps{margin:3px 0 0;font-size:13.5
 html.phx .sheet .th-h .x{width:32px;height:32px;border-radius:50%;background:var(--pg);box-shadow:none;color:var(--pm);font-size:13px;font-weight:700;flex:none;display:grid;place-items:center;padding:0;border:0}
 html.phx .sheet .tl2{padding:2px 20px calc(env(safe-area-inset-bottom,0px) + 28px)}
 /* full-screen pages: compact bar with back, large title that scrolls away */
-html.phx .phb{position:relative;z-index:5;display:flex;align-items:center;gap:6px;min-height:54px;padding:5px 12px 5px;transition:box-shadow .2s,background .2s}
-html.phx .phb .phbt{position:absolute;left:64px;right:64px;text-align:center;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .2s;pointer-events:none}
-html.phx .phb.phsc{background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--pl)}html.phx .phb.phsc .phbt{opacity:1}
-html.phx .phb .phr{margin-left:auto;display:flex;gap:4px;align-items:center}
-html.phx .phb .x{width:44px;height:44px;border-radius:12px;background:transparent;box-shadow:none;color:transparent;font-size:0;display:grid;place-items:center;flex:none;border:0;padding:0}
-html.phx .phb .x:before{content:"";width:24px;height:24px;background:var(--pk);-webkit-mask:var(--mi) center/contain no-repeat;mask:var(--mi) center/contain no-repeat}
-html.phx .phb .x:active{background:var(--pg)}
-html.phx .phb .x.xbk{--mi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 5-7 7 7 7'/%3E%3C/svg%3E")}
-html.phx .phb .x.xcl{--mi:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E")}
-html.phx .phb .pga{display:flex;gap:6px}html.phx .phb .pga .btn{height:38px;min-height:38px;padding:0 14px;font-size:14px;border-radius:10px}
-html.phx .phb .cn{display:flex;gap:6px}
-html.phx .phl{margin:2px 0 16px}
-html.phx .phl .mk,html.phx .phl .hk{margin-bottom:2px;font-size:13.5px;color:var(--pm)}
-html.phx .phl h1,html.phx .phl h2{margin:0;font-size:27px;font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--pk)}
-html.phx .phl p,html.phx .phl .nps,html.phx .phl .sub{margin:5px 0 0;font-size:14px;color:var(--pm);line-height:1.45}
-html.phx .sheet.tall .tl2{padding-top:0}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 html.phx .sheet:not(.tall)>.th-h{padding:6px 20px 12px}
 html.phx .tc2{display:flex;gap:10px;padding:10px 20px calc(env(safe-area-inset-bottom,0px) + 12px);background:var(--pb);border:0;box-shadow:0 -1px 0 var(--pl)}
 html.phx .tc2 .btn{flex:1;min-width:0;height:50px;margin:0}
@@ -2062,26 +2081,26 @@ html.phx .mios{padding:0 20px calc(env(safe-area-inset-bottom,0px) + 20px)}html.
 html.phx .mio i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--acct);color:var(--acc);font-style:normal;font-weight:600;flex:none}html.phx .mio svg{width:18px;height:18px;vertical-align:-3px;color:var(--acc)}
 
 /* ---------- entry form (full screen) ---------- */
-html.phx .mfrm>.th-h.mfh{display:flex;align-items:center;justify-content:space-between;min-height:54px;padding:5px 12px}
-html.phx .mfh .x{width:44px;height:44px;border-radius:12px;background:transparent;color:var(--pk);font-size:17px}
-html.phx .mfh .mfk{font-size:16px;font-weight:600}html.phx .mfh .x0{width:44px}
-html.phx .mfa{display:flex;align-items:center;gap:8px;padding:10px 12px;margin:0 0 16px;border-radius:12px;background:var(--acct);color:var(--acc);font-size:13.5px;font-weight:500}html.phx .mfa svg{width:16px;height:16px;flex:none}html.phx .mfa span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+
+
+
 html.phx .mfm{padding-top:4px}
-html.phx .mff{margin:0 0 20px}
-html.phx .mff>label,html.phx .mff>.ml{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;color:var(--pm);margin:0 0 6px}
-html.phx .mff .mic{position:static;width:30px;height:30px;border-radius:50%;background:var(--acct);color:var(--acc);display:grid;place-items:center;margin-left:auto}html.phx .mff .mic svg{width:15px;height:15px}
-html.phx .mff textarea{display:block;width:100%;border:0;background:transparent;padding:0;outline:0;resize:none;color:var(--pk);line-height:1.45}
-html.phx .mff textarea.mft{font-size:23px;font-weight:600;letter-spacing:-.01em;line-height:1.25;min-height:32px}
-html.phx .mfbx{padding:12px 14px;border-radius:12px;border:1px solid var(--pl2);background:var(--ps)}html.phx .mfbx:focus-within{border-color:var(--acc);box-shadow:0 0 0 3px var(--acct)}
-html.phx .mff textarea.mfb{font-size:16px;font-weight:400;color:var(--pk2);min-height:96px}
-html.phx .mdate{position:relative;display:flex;align-items:center;height:50px;padding:0 14px;border-radius:12px;border:1px solid var(--pl2);background:var(--ps)}
-html.phx .mdate span{flex:1;margin-left:10px;font-size:15.5px;font-weight:500;color:var(--pk)}
-html.phx .mdate input{position:absolute;inset:0;width:100%;height:100%;opacity:0;border:0;margin:0;padding:0;-webkit-appearance:none;appearance:none;cursor:pointer}
-html.phx .mdate svg{width:19px;height:19px;color:var(--acc);flex:none;pointer-events:none}
-html.phx .mdate input::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:auto;height:auto;opacity:0;cursor:pointer}
-html.phx .mopt{display:flex;gap:2px;padding:3px;border-radius:11px;background:var(--pg);border:1px solid var(--pl)}
-html.phx .mopt button{flex:1;height:38px;border-radius:9px;font-size:14.5px;font-weight:500;color:var(--pm);transition:background .2s,color .2s}
-html.phx .mopt button.on{background:var(--ps);color:var(--pk);font-weight:600;box-shadow:0 1px 3px rgba(30,40,60,.12)}html.phx .mopt button.on.fu{color:var(--acc)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 html.phx .ei.shake{animation:p3nudge .45s}
 @keyframes p3nudge{20%{transform:translateX(-4px)}40%{transform:translateX(4px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
 
@@ -2089,15 +2108,15 @@ html.phx .ei.shake{animation:p3nudge .45s}
 html.phx .cvtg{display:flex;gap:6px;margin:-8px 0 12px}
 html.phx .cv .mtg{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--pg);color:var(--pk2)}
 html.phx .cv .mtg.fu{background:var(--acct);color:var(--acc)}html.phx .cv .mtg.ok{background:var(--t-gr);color:var(--k-gr)}
-html.phx .cvm{display:flex;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);box-shadow:var(--psh);margin:0 0 8px}
-html.phx .cvmi{flex:1;display:flex;align-items:center;gap:10px;padding:12px 14px}html.phx .cvmi+.cvmi{border-left:1px solid var(--pl)}
-html.phx .cvmi i{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-style:normal;flex:none}html.phx .cvmi i svg{width:17px;height:17px}
-html.phx .cvmi i.f-lav{background:var(--t-vi);color:var(--k-vi)}html.phx .cvmi i.f-sky{background:var(--t-bl);color:var(--k-bl)}
-html.phx .cvmi small{display:block;font-size:12px;color:var(--pm)}html.phx .cvmi b{display:block;font-size:15px;font-weight:600}
+
+
+
+
+
 html.phx .cvl{position:relative;padding-left:22px;margin-top:6px}
-html.phx .cvl:before{content:"";position:absolute;left:6px;top:22px;bottom:26px;width:2px;border-radius:2px;background:var(--pl)}
+
 html.phx .cvd{position:relative;margin:18px 0 10px -22px;padding-left:22px}
-html.phx .cvd:before{content:"";position:absolute;left:1px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--pb);box-shadow:inset 0 0 0 2px var(--acc)}
+
 html.phx .cvd span{font-size:13.5px;font-weight:500;color:var(--pm)}
 html.phx .cv .card.cvc{position:relative;display:block;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);padding:14px 16px 10px;margin:0 0 10px;box-shadow:var(--psh);animation:p3in .35s var(--ease2) both;animation-delay:calc(min(var(--i,0),8)*35ms);user-select:text;-webkit-user-select:text}
 html.phx .cv .card.cvc.cur{border-color:#BFD1FF;box-shadow:0 0 0 3px var(--acct)}
@@ -2128,8 +2147,8 @@ html.phx .login{background:var(--pb);padding:24px}
 html.phx .login .lg{width:100%;max-width:380px}
 html.phx .login h1{font-size:28px;font-weight:700;letter-spacing:-.02em;margin:18px 0 0}
 html.phx .login .sub{font-size:15px;color:var(--pm);margin:4px 0 22px!important}
-html.phx .login input{display:block;width:100%;height:52px;margin:0 0 10px;padding:0 14px;border:1px solid var(--pl2);border-radius:12px;background:var(--ps);font-size:16px;color:var(--pk);outline:0}
-html.phx .login input:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acct)}
+
+
 html.phx .login .btn{width:100%;margin-top:8px}
 /* ---------- Home is larger than the other pages ---------- */
 html.phx .mh .mgr{margin:16px 0 4px}html.phx .mh .mgr .mk{font-size:16px;margin-bottom:4px}
@@ -2153,17 +2172,17 @@ html.phx .mobt .mo3{font-size:13px;color:var(--pm);margin-top:1px}
 html.phx .mobt .ddl.mo4,html.phx .mobt .mo5{display:block;margin-top:4px;font-size:12.5px}
 html.phx .mobt .mo5{color:var(--pm)}
 /* ---------- detail pages (contract, letter, debit note) ---------- */
-html.phx .det .dh{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:calc(env(safe-area-inset-top,0px) + 5px) 12px 0;background:var(--pb)}
-html.phx .dh .x{width:44px;height:44px;border-radius:12px;background:transparent;box-shadow:none;color:transparent;font-size:0;display:grid;place-items:center;flex:none;border:0;padding:0}
-html.phx .dh .x:before{content:"";width:24px;height:24px;background:var(--pk);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 5-7 7 7 7'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m15 5-7 7 7 7'/%3E%3C/svg%3E") center/contain no-repeat}
-html.phx .dh .dno{flex:1;min-width:0;font-size:16px;font-weight:600;text-align:center;margin-right:48px}
-html.phx .dh .ty{display:none}
-html.phx .dh .pds{flex:0 0 100%;order:3;margin:2px -12px 0;padding:0 18px;gap:18px;border-bottom:1px solid var(--pl)}
-html.phx .dh .pd{padding:10px 0 11px;font-size:14.5px;font-weight:500;color:var(--pm)}html.phx .dh .pd.act{color:var(--pk);font-weight:600}
-html.phx .dh .pill{background:var(--acc);height:2px}
+
+
+
+
+
+
+
+
 html.phx .dpane{padding:14px 20px 24px}
-html.phx .dpane .dn{font-size:27px;font-weight:700;letter-spacing:-.02em;margin:4px 0 2px}html.phx .dpane>.dp{font-size:15px;color:var(--pm)}
-html.phx .dpane .trk{margin:16px 0 16px}html.phx .trk .sg i{height:4px;border-radius:2px}html.phx .trk .sg span{font-size:12px;color:var(--pm)}html.phx .trk .sg.c span{color:var(--pk);font-weight:600}
+
+
 html.phx .dtt{font-size:22px;font-weight:700;margin:4px 0 12px}
 html.phx .edb{border-radius:12px;background:var(--acct);color:var(--acc);font-size:13.5px;font-weight:500;padding:10px 12px;margin:0 0 12px}
 /* ---------- create new (contract, letter, debit note) ---------- */
@@ -2173,8 +2192,8 @@ html.phx .npo i{width:40px;height:40px;border-radius:11px;background:color-mix(i
 html.phx .npo b{font-size:16px;font-weight:600;letter-spacing:0}html.phx .npo small{font-size:13px;margin-top:2px}
 html.phx .npo:after{font-size:22px;color:var(--pm2)}
 /* ---------- login ---------- */
-html.phx .login .lg input,html.phx .login .lg input:focus{display:block;width:100%;height:52px;margin:0 0 10px;padding:0 14px!important;border:1px solid var(--pl2)!important;border-radius:12px!important;background:var(--ps)!important;font-size:16px}
-html.phx .login .lg input:focus{border-color:var(--acc)!important;box-shadow:0 0 0 3px var(--acct)!important}
+
+
 /* ---------- Buyers page head, contact page head ---------- */
 html.phx .head.hob{margin:14px 0 16px}html.phx .head.hob h1{font-size:28px;font-weight:700;letter-spacing:-.02em}html.phx .head .sub{font-size:13.5px;color:var(--pm);margin-top:2px}
 html.phx .cxh{display:flex;align-items:center;gap:14px;margin:0 0 14px}
@@ -2182,9 +2201,88 @@ html.phx .cxav .cav.xl{width:64px;height:64px;border-radius:16px;font-size:21px}
 html.phx .cxn p{margin:0;font-size:14px;color:var(--pm)}html.phx .cxll{display:flex;gap:14px;margin-top:4px}html.phx .cxll .lnk{margin:0;font-size:14px}
 html.phx .ux-qa{display:flex;gap:10px;margin:0 0 12px}
 html.phx .ux-qb{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 0 10px;border:1px solid var(--pe);border-radius:var(--pr);background:var(--ps);box-shadow:var(--psh);font-size:13px;font-weight:500;color:var(--acc)}html.phx .ux-qb svg{width:21px;height:21px}
+/* ---------- page header (all full-screen pages): round back button, title and subtitle on one row ---------- */
+html.phx .phb{position:relative;z-index:5;display:flex;align-items:center;gap:12px;min-height:60px;padding:8px 16px;background:var(--pb);transition:box-shadow .2s}
+html.phx .phb.phsc{box-shadow:0 1px 0 var(--pl)}
+html.phx .pbk{width:40px;height:40px;border-radius:50%;border:1px solid var(--pe);background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.06);display:grid;place-items:center;flex:none;padding:0;color:transparent;font-size:0;transition:background .15s,transform .15s}
+html.phx .pbk:before{content:"";width:20px;height:20px;background:var(--pk);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14.5 5.5-6.5 6.5 6.5 6.5'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m14.5 5.5-6.5 6.5 6.5 6.5'/%3E%3C/svg%3E") center/contain no-repeat}
+html.phx .pbk.xcl:before{width:18px;height:18px;-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E");mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E")}
+html.phx .pbk:active{background:var(--pg);transform:scale(.94)}
+html.phx .phm{flex:1;min-width:0}
+html.phx .phm h1,html.phx .phm h2{margin:0;font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--pk)}
+html.phx .phm small,html.phx .phm p,html.phx .phm .hk,html.phx .phm .nps,html.phx .phm .sub{display:block;margin:1px 0 0;font-size:12.5px;font-weight:400;color:var(--pm);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0}
+html.phx .phr{display:flex;gap:6px;align-items:center;flex:none}html.phx .phr:empty{display:none}
+html.phx .phr .pga,html.phx .phr .cn{display:flex;gap:6px}html.phx .phr .btn{height:36px;min-height:36px;padding:0 14px;font-size:14px;border-radius:10px}
+html.phx .pane>.mhd.phb{margin:0 0 8px;padding:4px 0;min-height:56px;background:transparent}
+/* ---------- detail pages: back, number, status ring; segmented tabs ---------- */
+html.phx .det .dh.dh3{display:block;padding:calc(env(safe-area-inset-top,0px) + 8px) 16px 8px;background:var(--pb);border:0}
+html.phx .dhr{display:flex;align-items:center;gap:12px;min-height:48px}
+html.phx .dring{display:flex;align-items:center;gap:8px;flex:none;padding:0;background:transparent;border:0;--sc:var(--pm)}
+html.phx .dring em{font-style:normal;font-size:13px;font-weight:600;color:var(--sc)}
+html.phx .dring .rg{position:relative;width:44px;height:44px;flex:none}
+html.phx .dring svg{width:44px;height:44px;transform:rotate(-90deg)}
+html.phx .dring circle{fill:none;stroke-width:3.5}html.phx .dring .t{stroke:#ECEEF2}html.phx .dring .a{stroke:var(--sc);stroke-linecap:round;transition:stroke-dashoffset .6s var(--ease2)}
+html.phx .dring b{position:absolute;inset:0;display:grid;place-items:center;font-size:11.5px;font-weight:700;color:var(--sc)}
+html.phx .dring.stp-Issued{--sc:var(--st-issued)}html.phx .dring.stp-Inspected{--sc:var(--k-or)}html.phx .dring.stp-Completed{--sc:var(--k-gr)}html.phx .dring.stp-Cancelled{--sc:var(--k-rd)}
+html.phx button.dring:active .rg{transform:scale(.94)}
+html.phx .dh3 .pds{position:relative;display:flex;gap:0;margin:10px 0 0;padding:3px;border-radius:11px;background:var(--pg);border:1px solid var(--pe);overflow-x:auto;scrollbar-width:none}
+html.phx .dh3 .pds::-webkit-scrollbar{display:none}html.phx .dh3 .pds.one{display:none}
+html.phx .dh3 .pd{position:relative;z-index:1;flex:1 0 auto;height:34px;padding:0 14px;margin:0;border:0;border-radius:9px;font-size:13.5px;font-weight:500;color:var(--pm);white-space:nowrap;background:transparent}
+html.phx .dh3 .pd.act{color:var(--pk);font-weight:600}html.phx .dh3 .pd:after{display:none}
+html.phx .dh3 .pill{position:absolute;left:0;top:3px;bottom:3px;height:auto;border-radius:9px;background:#fff;box-shadow:0 1px 3px rgba(16,24,40,.14);z-index:0;transition:transform .3s var(--ease2),width .3s var(--ease2)}
+html.phx .dpane{padding:12px 16px 24px}
+html.phx .det .tc2 .btn,html.phx .tc2.t3 .btn{height:42px;min-height:42px;font-size:13.5px;padding:0 8px;border-radius:11px;letter-spacing:-.005em;white-space:nowrap}
+/* ---------- forms: the contract-form look everywhere (white section, small label, value, light line) ---------- */
+html.phx .kv.ed>span{display:flex;align-items:center;gap:6px}
+html.phx .kv.ed .mic{position:static;width:28px;height:28px;border-radius:50%;background:var(--acct);color:var(--acc);display:grid;place-items:center;margin-left:auto;flex:none}html.phx .kv.ed .mic svg{width:15px;height:15px}html.phx .kv.ed .mic.on{background:var(--k-rd);color:#fff}
+html.phx .mfm .ds{padding:4px 16px}html.phx .mfm #ft{font-size:18px;font-weight:600}
+html.phx .kv.flash{animation:pflash 1.3s}@keyframes pflash{0%,55%{background:var(--acct);box-shadow:0 0 0 8px var(--acct)}100%{background:transparent;box-shadow:0 0 0 8px transparent}}
+html.phx .login .lgf{padding:4px 16px;margin:4px 0 14px;text-align:left}
+html.phx .login .lgf .kv{display:block;padding:12px 0;margin:0}
+html.phx .login .lgf input.ei{display:block;width:100%;height:auto;margin:3px 0 0!important;padding:2px 0 4px!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;font-size:17px;font-weight:500;color:var(--pk);outline:0}
+/* ---------- popups and pull-downs: same card as the contract form's pull-down ---------- */
+html.phx .smenu{border:0;border-radius:16px;box-shadow:0 14px 40px -10px rgba(20,20,40,.35),0 0 0 1px var(--pe);padding:6px}
+html.phx .smenu button{height:48px;font-size:15.5px;font-weight:500;border-radius:10px}html.phx .smenu button.cur{background:var(--pg);font-weight:600}html.phx .smenu button.cur:after{content:"Selected";margin-left:auto;font-size:12.5px;font-weight:400;color:var(--pm)}
+html.phx .cl .ci b{font-size:15.5px;font-weight:500}
+html.phx .sheet:not(.tall)>.th-h .x{width:36px;height:36px;border-radius:50%;border:1px solid var(--pe);background:#fff;color:var(--pk);font-size:13px;box-shadow:0 1px 2px rgba(16,24,40,.06)}
+/* ---------- conversation ---------- */
+html.phx .cvtg{margin:0 0 4px}
+html.phx .cvl{padding:0;margin-top:0}
+html.phx .cvd{display:flex;justify-content:center;margin:14px 0 10px;padding:0}
+html.phx .cvd span{display:inline-flex;align-items:center;height:26px;padding:0 12px;border-radius:99px;background:var(--pg);border:1px solid var(--pe);font-size:12.5px;font-weight:500;color:var(--pk2)}
+html.phx .cva{gap:6px;margin:12px 0 0;padding-top:10px}
+html.phx .cva button{height:32px;padding:0 12px;border-radius:9px;background:var(--pg);color:var(--pk2);font-size:13px;font-weight:600}
+html.phx .cva button[data-done]{background:var(--acc);color:#fff}html.phx .cva button[data-fu]{background:var(--acct);color:var(--acc)}
+html.phx .cva button.rm{background:transparent;color:var(--k-rd);margin-left:auto}
+/* ---------- Home and lists: tap a journal entry to slide its options open ---------- */
+html.phx .mdr{align-items:center}html.phx .mdr .msb{margin:0 -10px 0 0}
+html.phx .mh .mgr+.msec{margin-top:14px}
+html.phx .mlt{display:flex;align-items:flex-start;gap:10px}html.phx .mlt h3{flex:1;min-width:0}
+html.phx .mlr{display:inline-flex;align-items:center;gap:8px;flex:none;margin-top:3px}
+html.phx .mcn{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:500;color:var(--pm)}html.phx .mcn svg{width:15px;height:15px}
+html.phx .mfl,html.phx .mok{font-style:normal;display:grid;color:var(--acc)}html.phx .mok{color:var(--k-gr)}html.phx .mfl svg,html.phx .mok svg{width:16px;height:16px}
+html.phx .mxa{display:flex;gap:8px;max-height:0;opacity:0;overflow:hidden;transform:translateY(-4px);margin-top:0;transition:max-height .32s var(--ease2),opacity .22s,transform .32s var(--ease2),margin .32s var(--ease2)}
+html.phx .mx.ex .mxa{max-height:64px;opacity:1;transform:none;margin-top:12px}
+html.phx .mxb{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border-radius:10px;background:#fff;border:1px solid var(--pe);font-size:14px;font-weight:600;color:var(--pk);box-shadow:0 1px 2px rgba(16,24,40,.05)}
+html.phx .mxb svg{width:17px;height:17px}html.phx .mxb.pri{background:var(--acc);border-color:var(--acc);color:#fff}html.phx .mxb:active{transform:scale(.96)}
+html.phx .mx.ex{background:#F7F9FF}
+html.phx .mli.fr>svg{transition:transform .3s var(--ease2)}html.phx .mli.fr.ex>svg{transform:rotate(90deg)}
+html.phx .mh .mxb{height:40px;font-size:14.5px}
+/* ---------- Orderbook rows: logo and status centred ---------- */
+html.phx .mob,html.phx .mob.ct{align-items:center}html.phx .mob .mlg{margin-top:0}
+html.phx .mobt .mo1{display:block;font-size:16px;font-weight:600}html.phx .mob>.ost{align-self:center}
+html.phx .fsr,html.phx .pfr{display:flex;gap:2px;padding:3px;margin-top:6px;border-radius:11px;background:var(--pg);border:1px solid var(--pe)}
+html.phx .fsr button,html.phx .pfr button{flex:1;min-width:0;height:36px;border-radius:9px;background:transparent;border:0;font-size:14px;font-weight:500;color:var(--pm);box-shadow:none}
+html.phx .fsr button.on,html.phx .pfr button.on{background:#fff;color:var(--pk);font-weight:600;box-shadow:0 1px 3px rgba(16,24,40,.14)}
+/* ---------- smaller bottom bar and footers ---------- */
+html.phx .mbar{height:calc(env(safe-area-inset-bottom,0px) + 54px);padding-top:5px}
+html.phx .mbi{height:44px;gap:2px;padding-top:1px}html.phx .mbi svg{width:22px;height:22px}html.phx .mbi span{font-size:10.5px}
+html.phx .pane{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 90px)}
+html.phx .toast{bottom:calc(env(safe-area-inset-bottom,0px) + 66px)}
+html.phx .tc2{padding:8px 16px calc(env(safe-area-inset-bottom,0px) + 8px)}html.phx .tc2 .btn{height:46px;min-height:46px;font-size:15px}
 @media(prefers-reduced-motion:reduce){html.phx .pane,html.phx .card.mjw,html.phx .cv .card.cvc{animation:none}}
-@media(max-width:389px){html.phx .mchs button{font-size:12.5px;padding:0 2px}html.phx .mhd1 h1,html.phx .phl h1,html.phx .phl h2{font-size:26px}}
-@media(max-width:359px){html.phx .mgr h1,html.phx .mhd1 h1,html.phx .mtl h1,html.phx .phl h1,html.phx .phl h2{font-size:24px}html.phx .pane{padding-left:16px;padding-right:16px}html.phx .chs{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}html.phx .mat,html.phx .mmt{min-height:104px;padding:14px}}
+@media(max-width:389px){html.phx .mchs button{font-size:12.5px;padding:0 2px}html.phx .mhd1 h1,}
+@media(max-width:359px){html.phx .mgr h1,html.phx .mhd1 h1,html.phx .mtl h1,html.phx .pane{padding-left:16px;padding-right:16px}html.phx .chs{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}html.phx .mat,html.phx .mmt{min-height:104px;padding:14px}}
 </style>
 
 <script>
@@ -2618,8 +2716,10 @@ const stBtn=o=>OB.some(x=>x.id==o.id)?`<button class="ost stp-${esc(o.st||'')}" 
 function dshellD(o,P){const pn=P.map((p,i)=>`<div class="dpane t-${o.k}" data-pi="${i}">${i?`<div class="dtt">${p[0]}<small>${esc(o.no||'')}</small></div>`:EM?'<div class="edb">Editing: click any value to change it</div>':''}${p[1]}</div>`).join('');
  return `<div class="dtop2 t-${o.k}"><div class="dr1"><div class="did"><h1>${esc(o.no||'')}</h1></div>${o.st?stBtn(o):''}<div class="tc2 t3" id="dfoot">${footHTML(o)}</div></div>${P.length>1?`<div class="dr2"><div class="pds" id="dpds">${P.map((p,i)=>`<button class="pd" data-dgo="${i}" aria-label="${p[0]||TN[o.k]}">${p[0]||TN[o.k]}<em class="tn" hidden></em></button>`).join('')}<i class="pill" id="dpill"></i></div></div>`:'<div id="dpds" hidden></div>'}</div><div class="dview" id="dview"><div class="dstrip" id="dstrip">${pn}</div></div>`}
 function tabN(){if(innerWidth<900||!DT||!DT.rec)return;const o=OB.find(x=>x.id==DT.id);if(!o||o.k!='contract')return;const n=[0,cInsp(DT.rec).length,DT.inv?DT.inv.length:0,cPays(DT.rec).length+(DT.xp||[]).length,DT.dn?DT.dn.length:0];document.querySelectorAll('#dpds .pd').forEach((b,i)=>{const e=b.querySelector('.tn');if(!e)return;e.hidden=!(n[i]>0);e.textContent=n[i]})}
-function dshell(o,P){if(innerWidth>=900)return dshellD(o,P);const nx=nextSt(o),bk=backSt(o);return `<div class="dh"><button class="x" data-close aria-label="Back">‹</button><span class="ty t-${o.k}">${TN[o.k]}</span><span class="dno">${esc(o.no||'')}</span><div class="pds${P.length<2?' one':''}" id="dpds" role="tablist">${P.map((p,i)=>`<button class="pd" role="tab" data-dgo="${i}">${p[0]||TN[o.k]}</button>`).join('')}<i class="pill" id="dpill"></i></div><div class="dhd2 t-${o.k}"><div class="dk"><span class="ty">${TN[o.k]}</span>${o.st?`<span class="stc stp-${o.st}">${esc(o.st)}</span>`:''}</div><h1>${esc(o.no||'')}</h1><div class="dp2">${esc(o.party||'')}</div><div class="dtk">${track(o)}</div></div></div>
-<div class="dview" id="dview"><div class="dstrip" id="dstrip">${P.map((p,i)=>`<div class="dpane t-${o.k}" data-pi="${i}">${i?`<div class="dtt">${p[0]}<small>${esc(o.no||'')}</small></div>`:`<h1 class="dn">${esc(o.no||'')}</h1><div class="dp">${esc(o.party||'')}</div>${track(o)}${EM?'<div class="edb">Editing: tap any value to change it</div>':''}`}${p[1]}</div>`).join('')}</div></div>
+const stRing=o=>{const S=STEPS[o.k]||[],i=S.indexOf(o.st),can=o.st=='Cancelled',n=S.length||3,f=can?1:Math.max(0,i+1)/n,C=+(2*Math.PI*17).toFixed(2),live=OB.some(x=>x.id==o.id);
+ return `<${live?'button':'span'} class="dring stp-${esc(o.st||'')}" ${live?`data-stm="${o.id}" aria-haspopup="menu" title="Change status"`:''} aria-label="Status ${esc(o.st||'')}"><em>${esc(o.st||'—')}</em><span class="rg"><svg viewBox="0 0 40 40"><circle class="t" cx="20" cy="20" r="17"/><circle class="a" cx="20" cy="20" r="17" style="stroke-dasharray:${C};stroke-dashoffset:${(C*(1-f)).toFixed(2)}"/></svg><b>${can?'✕':i>=0?(i+1)+'/'+n:'–'}</b></span></${live?'button':'span'}>`};
+function dshell(o,P){if(innerWidth>=900)return dshellD(o,P);return `<div class="dh dh3"><div class="dhr"><button class="x pbk" data-close aria-label="Back"></button><div class="phm"><h1>${esc(o.no||'')}</h1><small>${[TN[o.k],o.party].filter(Boolean).map(esc).join(' · ')}</small></div>${o.st?stRing(o):''}</div><div class="pds${P.length<2?' one':''}" id="dpds" role="tablist">${P.map((p,i)=>`<button class="pd" role="tab" data-dgo="${i}">${p[0]||TN[o.k]}</button>`).join('')}<i class="pill" id="dpill"></i></div></div>
+<div class="dview" id="dview"><div class="dstrip" id="dstrip">${P.map((p,i)=>`<div class="dpane t-${o.k}" data-pi="${i}">${EM&&!i?'<div class="edb">Editing: tap any value to change it</div>':''}${p[1]}</div>`).join('')}</div></div>
 <div class="tc2 t3" id="dfoot">${footHTML(o)}</div>`}
 function dDots(p){document.querySelectorAll('.dpane').forEach((e,k)=>e.classList.toggle('on',k==DI));const bs=[...document.querySelectorAll('#dpds .pd')],pl=$('#dpill');bs.forEach((b,i)=>{b.classList.toggle('act',i==DI);b.setAttribute('aria-selected',i==DI)});
  if(!pl||!bs[DI])return;if(innerWidth>=900){pl.style.transform=`translateX(${(DI-(p||0))*18}px)`;return}p=p||0;const a=bs[DI],n=bs[DI+(p>0?1:-1)]||a,k=Math.min(1,Math.abs(p));pl.style.width=(a.offsetWidth+(n.offsetWidth-a.offsetWidth)*k)+'px';pl.style.transform=`translateX(${a.offsetLeft+(n.offsetLeft-a.offsetLeft)*k}px)`;
@@ -2630,7 +2730,7 @@ function dSwipe(n){const v=$('#dview'),st=$('#dstrip');if(!v||n<2)return;let x0=
  v.addEventListener('touchmove',e=>{const dx=e.touches[0].clientX-x0,dy=e.touches[0].clientY-y0;if(!g){if(Math.abs(dx)>10&&Math.abs(dx)>Math.abs(dy)*1.4){g=true;st.style.transition='none';$('#dpds').classList.add('drag')}else return}
   const edge=(DI==0&&dx>0)||(DI==n-1&&dx<0);st.style.transform=`translateX(${-DI*w+dx*(edge?.25:1)}px)`;dDots(edge?0:Math.max(-1,Math.min(1,dx/-140)))},{passive:true});
  v.addEventListener('touchend',e=>{if(!g)return;g=false;const dx=e.changedTouches[0].clientX-x0;$('#dpds').classList.remove('drag');st.style.transition='';goPage(dx<-60&&DI<n-1?DI+1:dx>60&&DI>0?DI-1:DI)},{passive:true})}
-const paneSet=(i,h)=>{const p=document.querySelectorAll('.dpane')[i];if(p&&DT)p.innerHTML=`<div class="dtt">${PN[i]}<small>${esc((OB.find(x=>x.id==DT.id)||{}).no||'')}</small></div>`+h};
+const paneSet=(i,h)=>{const p=document.querySelectorAll('.dpane')[i];if(p&&DT)p.innerHTML=(innerWidth<900?'':`<div class="dtt">${PN[i]}<small>${esc((OB.find(x=>x.id==DT.id)||{}).no||'')}</small></div>`)+h};
 function preQ(o){const nq=String(o.no||'').replace(/["\\]/g,''),dq=`contract_no.eq."${nq}",contract_no.ilike."${nq},%",contract_no.ilike."%, ${nq}",contract_no.ilike."%, ${nq},%"`;return Promise.all([sb.from('invoices').select('*').contains('contract_numbers',[o.no]).order('invoice_date',{ascending:false}),sb.from('debit_notes').select('*').or(dq).order('created_at',{ascending:false})]).then(async([a,b])=>{if(b.error)b=await sb.from('debit_notes').select('*').eq('contract_no',o.no).order('created_at',{ascending:false});return[a,b]})}
 async function xLoad(o){const inv=DT.inv||[],ids=new Set(inv.map(v=>String(v.id))),nos=uq(inv.flatMap(v=>v.contract_numbers||[])).filter(n=>ck(n)!=ck(o.no)),ivn=uq(inv.map(v=>v.invoice_number));DT.xp=[];
  try{if(nos.length){const{data}=await sb.from('contracts').select('contract_no,payments').in('contract_no',nos);(data||[]).forEach(c=>cPays(c).forEach(p=>{if(p.invoice&&ids.has(String(p.invoice)))DT.xp.push({...p,_from:c.contract_no})}))}}catch(e){}
@@ -3271,7 +3371,7 @@ function render(keep){if((tab==2||tab==5||tab==6)&&innerWidth>=900)tab=0;io&&io.
 const PH=()=>innerWidth<900;
 const MIC={home:'<path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/>',srch:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="m15 5-7 7 7 7"/>',chev:'<path d="m9 5 7 7-7 7"/>',cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',set:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
  pend:'<rect x="4" y="4" width="16" height="16" rx="5"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/>',reply:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v4"/>',send:'<path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/>',out:'<path d="M9 4H5.5A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20H9"/><path d="M16 8l4 4-4 4M20 12H9"/>',dl:'<path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/>',
- journal:'<path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h11"/><path d="M10 8h5"/>',check:'<circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.3 2.3 4.7-5"/>',share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 12v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/>'},
+ flag:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',journal:'<path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h11"/><path d="M10 8h5"/>',check:'<circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.3 2.3 4.7-5"/>',share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 12v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/>'},
  mI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${MIC[k]||''}</svg>`,
  /* small flat colour icons (Home actions, More) */
  FIC={pend:'<svg class="fi" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#F5A524"/><path d="m8.5 14.3 3.6 3.6 7.4-7.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -3287,7 +3387,7 @@ const MIC={home:'<path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><pa
  mEmpty=(t,ic,x,btn)=>`<div class="mem"><div class="ill">${mI(ic)}</div><b>${t}</b><span>${x}</span>${btn||''}</div>`,
  mGreet=()=>{const h=new Date().getHours();return h<5?'Hello':h<12?'Good morning':h<17?'Good afternoon':h<21?'Good evening':'Hello'},
  mHead=(title,kick,right)=>`<div class="mhd1"><div>${kick!=null?`<div class="mk">${kick}</div>`:''}<h1>${title}</h1></div><div class="mrb">${right||''}</div></div>`,
- mBackBar=(to,right)=>`<div class="mhd"><button class="mcb" data-mt="${to}" aria-label="Back">${mI('back')}</button><span class="sp"></span><div class="mrb">${right||''}</div></div>`,
+ mBackBar=(to,right,title,sub)=>`<div class="mhd phb"><button class="pbk" data-mt="${to}" aria-label="Back"></button><div class="phm"><h1>${title||''}</h1>${sub?`<small>${sub}</small>`:''}</div><div class="phr">${right||''}</div></div>`,
  mTitle=(title,kick,sub)=>`<div class="mtl">${kick?`<div class="mk">${kick}</div>`:''}<h1>${title}</h1>${sub?`<p>${sub}</p>`:''}</div>`,
  mReplies=()=>OUT.loaded&&OUT.ok?(OUT.inbox||[]).filter(x=>x.kind=='reply'&&!x.is_read).length:0,
  mApprove=()=>OUT.loaded&&OUT.ok?outWait().length:0,
@@ -3304,17 +3404,20 @@ function mGo(t,sw){if(B.classList.contains('so'))close();if(t==tab&&t!=1&&t!=2){
  const p=$('#view').firstElementChild;if(p&&sw){p.classList.remove('na');p.classList.add(sw>0?'inl':'inr')}try{navigator.vibrate&&navigator.vibrate(5)}catch(e){}}
 function mRender(keep,f){const v=$('#view');
  if(tab==0)mHome(f);
- else if(tab==1){v.innerHTML=`<div class="pane me ${f?'':'na'}">${mBackBar(0,`<button class="mcb" data-cal aria-label="Jump to a date">${mI('cal')}</button>`)}${mTitle(jump?dlf(jump):'Earlier entries','Your journal')}<div id="lst">${listHTML(f)}</div></div>`}
- else if(tab==2){v.innerHTML=`<div class="pane ms ${f?'':'na'}">${mBackBar(0,'')}${mTitle('Search','Journals and documents')}<div class="msrch">${mI('srch')}<input class="sbox" id="sq" type="search" placeholder="Names, numbers, words…" value="${esc(q)}" autocomplete="off" enterkeyhint="search"></div><div class="chs" id="schs">${schips()}</div><div id="sr"></div></div>`;$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(results,130)};if(!obAt&&!obBusy)loadOB();results();if(f)setTimeout(()=>{const i=$('#sq');i&&!i.value&&i.focus()},350)}
+ else if(tab==1){v.innerHTML=`<div class="pane me ${f?'':'na'}">${mBackBar(0,`<button class="mcb" data-cal aria-label="Jump to a date">${mI('cal')}</button>`,jump?dlf(jump):'Earlier entries','Your journal')}<div id="lst">${listHTML(f)}</div></div>`}
+ else if(tab==2){v.innerHTML=`<div class="pane ms ${f?'':'na'}">${mBackBar(0,'','Search','Journals and documents')}<div class="msrch">${mI('srch')}<input class="sbox" id="sq" type="search" placeholder="Names, numbers, words…" value="${esc(q)}" autocomplete="off" enterkeyhint="search"></div><div class="chs" id="schs">${schips()}</div><div id="sr"></div></div>`;$('#sq').oninput=e=>{q=e.target.value;pgS=1;clearTimeout(tt2);tt2=setTimeout(results,130)};if(!obAt&&!obBusy)loadOB();results();if(f)setTimeout(()=>{const i=$('#sq');i&&!i.value&&i.focus()},350)}
  else if(tab==3){if(!obBusy&&(!obAt||Date.now()-obAt>60000))loadOB();if(!CB)loadCB().then(()=>{if(tab==3&&innerWidth<900)obRefresh()});v.innerHTML=`<div class="pane mo ${f?'':'na'}">${mHead('Orderbook',`<span id="obn">${obCount()}</span>`,`<button class="mcb pri" data-newo aria-label="New contract, letter or debit note">${mI('plus')}</button>`)}<div class="msrch">${mI('srch')}<input class="sbox" id="obq" type="search" placeholder="Search contracts, letters, debit notes" value="${esc(obq)}" autocomplete="off" enterkeyhint="search"></div><div class="mchs" id="mseg">${mSeg()}</div><div id="mobt">${mObTiles()}</div><div id="obl">${obList(f)}</div></div>`}
  else if(tab==4){renderLeads(!!keep||!f);if(!LDL||Date.now()-LDT>60000)loadLeads()}
  else if(tab==5)renderPending(!!keep||!f);
  else if(tab==6)mMore(f);
  first=false;slide();mbarSync();if(uid)hbLoad()}
 /* Home: today's journal, follow-ups, then what is waiting */
-function mLi(e){const n=cnt(e.key),o=openFu(e),tg=o?'<span class="fu">Follow-up</span>':e.fdone?'<span class="ok">Done</span>':'';
- return `<div class="mli ct" data-hth="${e.id}" data-id="${e.id}" role="button" tabindex="0">${n>1||tg?`<div class="m">${n>1?`${mI('chat')}Conversation · ${n} entries`:''}${tg?`<span class="${n>1?'r':''}">${tg}</span>`:''}</div>`:''}<h3>${esc(e.title)}</h3>${e.body?`<p>${esc(e.body)}</p>`:''}</div>`}
-function mFuLi(e){const n=-dDiff(e.date);return `<div class="mli fr ct" data-hth="${e.id}" data-id="${e.id}" role="button" tabindex="0"><div class="t"><div class="m"><span class="fu">${n<=0?'Today':n==1?'Yesterday':n+' days'}</span>· ${fmWd(e.date)}</div><h3>${esc(e.title)}</h3></div>${mI('chev')}</div>`}
+/* tap a journal entry: its options slide open underneath (conversation, follow up or done) */
+const mXa=(e,fuRow)=>{const o=openFu(e);return `<div class="mxa">${fuRow?`<button class="mxb" data-hth="${e.id}">${mI('chat')}Open</button>`:`<button class="mxb" data-hth="${e.id}">${mI('chat')}Conversation</button>`}${o?`<button class="mxb pri" data-done="${e.id}">${mI('check')}Done</button>`:`<button class="mxb" data-fu="${e.id}">${mI('flag')}Follow up</button>`}</div>`};
+function mLi(e){const n=cnt(e.key),o=openFu(e);
+ return `<div class="mli ct mx" data-mx="${e.id}" data-id="${e.id}" role="button" tabindex="0" aria-expanded="false"><div class="mlt"><h3>${esc(e.title)}</h3>${o||e.fdone||n>1?`<span class="mlr">${o?`<i class="mfl" title="Follow-up">${mI('flag')}</i>`:e.fdone?`<i class="mok" title="Follow-up done">${mI('check')}</i>`:''}${n>1?`<span class="mcn" title="${n} entries in this conversation">${mI('chat')}${n}</span>`:''}</span>`:''}</div>${e.body?`<p>${esc(e.body)}</p>`:''}${mXa(e)}</div>`}
+function mFuLi(e){const n=-dDiff(e.date);return `<div class="mli fr ct mx" data-mx="${e.id}" data-id="${e.id}" role="button" tabindex="0" aria-expanded="false"><div class="t"><div class="m"><span class="fu">${n<=0?'Today':n==1?'Yesterday':n+' days'}</span>· ${fmWd(e.date)}</div><h3>${esc(e.title)}</h3>${mXa(e,1)}</div>${mI('chev')}</div>`}
+function mEx(t){const on=!t.classList.contains('ex');document.querySelectorAll('.mx.ex').forEach(r=>{if(r!==t){r.classList.remove('ex');r.setAttribute('aria-expanded','false')}});t.classList.toggle('ex',on);t.setAttribute('aria-expanded',String(on));try{navigator.vibrate&&navigator.vibrate(5)}catch(e){}}
 function mActs(){const pn=mPendN(),rp=mReplies(),ap=mApprove(),ml=MAIL.n||0,od=obAt?OB.filter(isOver).length:0,wk=obAt?OB.filter(isWeek).length:0,op=OB.filter(isOp).length,
   T=(a,ic,t,x,dot)=>`<button class="mat" ${a}>${FIC[ic]}${dot?'<i class="nd"></i>':''}<b>${t}</b><small>${x}</small></button>`;
  return T('data-mt="5"','pend','Pending actions',pn==null?'Loading…':pn?pn+' to do':'All clear',pn>0)
@@ -3334,8 +3437,8 @@ function mSeg(){return [['all','All'],['contract','Contracts'],['letter','Letter
 function mObTiles(){const L=OB.filter(o=>(obType=='all'||o.k==obType)&&(!obq||qParse(obq).test(o.hay))),n={Issued:0,Inspected:0,Completed:0};L.forEach(o=>{if(n[o.st]!=null)n[o.st]++});const od=L.filter(isOver).length,wk=L.filter(isWeek).length;
  const T=(k,l)=>`<button class="mtl1${obSt==k?' on':''}" data-xst="${k}" aria-pressed="${obSt==k}"><b>${obAt?n[k]:'–'}</b><span>${l}</span></button>`;
  return `<div class="mtls">${T('Issued','Issued')}${T('Inspected','Inspected')}${T('Completed','Completed')}</div>${od||wk||obSt=='Overdue'||obSt=='Week'?`<div class="mchr">${od||obSt=='Overdue'?`<button class="mch od${obSt=='Overdue'?' on':''}" data-xst="Overdue">Overdue <b>${od}</b></button>`:''}${wk||obSt=='Week'?`<button class="mch wk${obSt=='Week'?' on':''}" data-xst="Week">Due this week <b>${wk}</b></button>`:''}</div>`:''}`}
-function mObRow(o,k){const sup=cbOf(o.party),pm=o.party?supMark(o.party):'',bm=o.buyer?supMark(o.buyer):'',who=[pm,bm].filter(Boolean).join(' → '),dd=o.d?(o.d.slice(0,4)==today().slice(0,4)?fmDm(o.d):fmDmy(o.d)):'',due=dchip(o);
- return `<div class="mob ct t-${o.k}${o.st=='Cancelled'?' can':''}" data-orow="${o.id}" data-id="${o.id}" role="button" tabindex="0"><span class="mlg">${cAv(sup||{name:o.party||'?'})}<em>${ICON[o.k]}</em></span><span class="mobt"><span class="mo1"><b>${hl(o.no||'',k)}</b>${stBtn(o)}</span><small class="mo2">${hl(who||'—',k)}</small>${o.ac?`<small class="mo3">${hl(o.ac,k)}</small>`:''}${due?due.replace('class="ddl','class="ddl mo4'):`<small class="mo5">${TN[o.k]}${dd?' · '+dd:''}</small>`}</span></div>`}
+function mObRow(o,k){const sup=cbOf(o.party),pm=o.party?supMark(o.party):'',bm=o.buyer?supMark(o.buyer):'',who=[pm,bm].filter(Boolean).join(' to '),dd=o.d?(o.d.slice(0,4)==today().slice(0,4)?fmDm(o.d):fmDmy(o.d)):'',due=dchip(o);
+ return `<div class="mob ct t-${o.k}${o.st=='Cancelled'?' can':''}" data-orow="${o.id}" data-id="${o.id}" role="button" tabindex="0"><span class="mlg">${cAv(sup||{name:o.party||'?'})}<em>${ICON[o.k]}</em></span><span class="mobt"><b class="mo1">${hl(o.no||'',k)}</b><small class="mo2">${hl(who||'—',k)}</small>${o.ac?`<small class="mo3">${hl(o.ac,k)}</small>`:''}${due?due.replace('class="ddl','class="ddl mo4'):`<small class="mo5">${TN[o.k]}${dd?' · '+dd:''}</small>`}</span>${stBtn(o)}</div>`}
 function mObList(f){const A=obRows();if(!A.length)return mEmpty(obq?'No documents match':'Nothing here',obq?'srch':'check',obq?'Try another word, or a contract, letter or debit note number.':'No documents match these filters.');
  const L=A.slice(0,MOBN),k=obq||undefined;let h='',last='',open=false;L.forEach(o=>{const m=(o.d||'').slice(0,7);if(m!=last){if(open)h+='</div>';last=m;h+=`<div class="mgh">${m?new Date(m+'-01T00:00').toLocaleDateString('en-GB',{month:'long',year:'numeric'}):'No date'}</div><div class="mgrp">`;open=true}h+=mObRow(o,k)});if(open)h+='</div>';
  return h+(A.length>MOBN?`<button class="mwide" data-mobm>Show more · ${A.length-MOBN} left</button>`:'')}
@@ -3345,7 +3448,6 @@ function mMore(f){const v=$('#view'),n=(CB||[]).length,ml=MAIL.n||0,rp=mReplies(
   inst=isStandalone()?'':BIP?`<button class="mrow" data-minst><i>${mI('dl')}</i><span>Install the app<small>Opens full screen from your home screen</small></span>${mI('chev')}</button>`:isIOS()?`<button class="mrow" data-mios><i>${mI('share')}</i><span>Add to Home Screen<small>Use it like an app on your iPhone</small></span>${mI('chev')}</button>`:'';
  if(!CB||!COMP)Promise.all([CB?0:loadCB(),COMP?0:loadCO()]).then(()=>{if(tab==6&&innerWidth<900&&$('#view .mm'))render(1)});
  v.innerHTML=`<div class="pane mm ${f?'':'na'}">${mHead('More','','')}
- <button class="mpro" data-sv="company"><span class="mav">${esc(String(NAME||'?')[0])}</span><span><b>${esc(NAME||'')}</b><small>${esc([co&&co.name||'JILD IMPEX',em].filter(Boolean).join(' · '))}</small></span>${mI('chev')}</button>
  <div class="mmg">${T('data-t="4"','buy','Buyers','LWG and outreach',rp)}${T('data-sv="contacts"','con','Contacts',n?n+' companies':'Phone, email, logo')}${T('data-sv="reports"','rep','Reports','By period')}${T('data-sv="sheets"','ws','Worksheets','Calculations')}${T('data-sv="mail"','ml','Invoice mail',ml?ml+' to approve':'From Gmail',ml)}${T('data-settings','set','Settings','Company, rules')}</div>
  <div class="mlist">${inst}<button class="mrow red" data-out><i>${mI('out')}</i><span>Log out</span></button></div>
  <p class="mver">Journal · version ${APP_LOG[0][0]}</p></div>`}
@@ -3366,19 +3468,36 @@ document.addEventListener('touchend',()=>{const s=SWP;SWP=null;if(!s||!s.go)retu
  const n=dx<0?i+1:i-1;if(n<0||n>=MPG.length)return back();mGo(MPG[n],dx<0?1:-1)},{passive:true});
 document.addEventListener('touchcancel',()=>{if(SWP&&SWP.go){SWP.p.style.transform='';SWP.p.style.opacity=''}SWP=null},{passive:true});
 /* journal card on phone lists (Earlier, Search): tap opens the conversation */
-function mCard(e,i,k,th){const n=cnt(e.key),o=openFu(e);return `<div class="card mjw ct" data-id="${e.id}" data-hth="${e.id}" style="--i:${i}" role="button" tabindex="0"><div class="mjh"><h3>${hl(e.title,k)}</h3>${o?'<span class="mtg">Follow-up</span>':e.fdone?'<span class="mtg ok">Done</span>':''}</div>${e.body?`<p>${hl(e.body,k)}</p>`:''}${th||n>1?`<div class="mjm">${th?`<span>${mI('cal')}${dl(e.date)}</span>`:''}${n>1?`<span>${mI('chat')}${n} in conversation</span>`:''}</div>`:''}</div>`}
+function mCard(e,i,k,th){const n=cnt(e.key),o=openFu(e);return `<div class="card mjw ct mx" data-id="${e.id}" data-mx="${e.id}" style="--i:${i}" role="button" tabindex="0" aria-expanded="false"><div class="mjh"><h3>${hl(e.title,k)}</h3>${o?'<span class="mtg">Follow-up</span>':e.fdone?'<span class="mtg ok">Done</span>':''}</div>${e.body?`<p>${hl(e.body,k)}</p>`:''}${th||n>1?`<div class="mjm">${th?`<span>${mI('cal')}${dl(e.date)}</span>`:''}${n>1?`<span>${mI('chat')}${n} in conversation</span>`:''}</div>`:''}${mXa(e)}</div>`}
+/* phone: every <select> becomes the same pull-down as the contract form (the select stays underneath and keeps its value) */
+function pxsFill(sl,t){t.dataset.ch=JSON.stringify([...sl.options].map(o=>o.text));t.value=(sl.options[sl.selectedIndex]||{}).text||'';try{grow(t)}catch(e){}}
+function phSel(root){if(!PH()||!root)return;root.querySelectorAll('select.ei:not([data-pxd])').forEach(sl=>{const w=sl.closest('.kv');if(!w)return;sl.dataset.pxd='1';w.classList.add('pkw');const t=document.createElement('textarea');t.rows=1;t.className='ei pxs';t.readOnly=true;t.dataset.pxs='1';t.setAttribute('aria-label',(w.querySelector('span')||{}).textContent||'Choose');sl.after(t);const c=document.createElement('div');c.className='cl';t.after(c);sl.style.display='none';pxsFill(sl,t)})}
+{const sh=document.getElementById('sheet');if(sh)new MutationObserver(()=>{if(PH())phSel(sh)}).observe(sh,{childList:true,subtree:true})}
+/* phone login: the two fields sit in a white section like the contract form */
+function phLogin(){const em=$('#em'),pw=$('#pw');if(!PH()||!em||!pw||em.closest('.lgf'))return;const f=document.createElement('section');f.className='ds lgf';em.parentNode.insertBefore(f,em);
+ [[em,'Email','you@company.com'],[pw,'Password','Your password']].forEach(([el,l,ph])=>{const r=document.createElement('label');r.className='kv ed';r.innerHTML=`<span>${l}</span>`;r.appendChild(el);el.classList.add('ei');el.placeholder=ph;f.appendChild(r)})}
+phLogin();
+document.addEventListener('change',e=>{if(e.target&&e.target.closest&&e.target.closest('#prf')&&$('#pflowx'))$('#pflowx').outerHTML=prFlow(prCur())});
+/* Pending rules drawn as a flow (like n8n or Make): trigger, filter, start, the line it adds, when it strikes off; tap a step to edit it */
+const PFI={doc:'<rect x="5" y="3.5" width="14" height="17" rx="3"/><path d="M9 8.5h6M9 12h6M9 15.5h3.5"/>',fil:'<path d="M4 5h16l-6 7.5V19l-4-2v-4.5z"/>',clk:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',lst:'<rect x="4" y="4" width="16" height="16" rx="5"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/>',done:'<path d="M5 12.5l4.2 4.2L19 7"/>'},
+ pfI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${PFI[k]}</svg>`;
+function prCur(){const f=$('#prf');if(!f)return{};const g=k=>{const el=f.querySelector(`[data-pr="${k}"]`);return el?el.value:''};return{id:f.dataset.id,on:g('on')!=='',to:g('to')||'contract',text:g('text'),start:g('start'),done:g('done'),days:+g('days')||0,terms:g('terms'),not:g('not')}}
+function prFlow(r){const to=r.to||'contract',ex={no:to=='letter'?'S-113':'25/25-26',n:'S-113',supplier:'FARIDA',buyer:'MARTI',awbbl:'AWB',days:r.days??7,due:'18 Nov'},
+  txt=String(r.text||'').replace(/\{(\w+)\}/g,(m,k)=>ex[k]!=null?ex[k]:m).trim(),
+  st=(pLab(PSTART[to],r.start)||'').replace(/ \(.*/,'')+(/due|delivery/.test(r.start||'')?` · ${+r.days||0} days before`:''),dn=pLab(PDONE[to],r.done)||'',
+  N=(c,ic,k,t,x,f)=>`<button class="pfn pf-${c}" data-pff="${f}" type="button"><i>${pfI(ic)}</i><span><small>${k}</small><b>${esc(t)}</b>${x?`<em>${esc(x)}</em>`:''}</span></button>`,
+  terms=String(r.terms||'').trim(),not=String(r.not||'').trim();
+ return `<div class="pflow" id="pflowx" aria-label="How this rule works">${N('tr','doc','When','Every '+(to=='letter'?'letter':'contract'),'','to')}${to=='contract'?N('fi','fil','Only if',terms?'Payment terms mention '+terms:'Any payment terms',not?'and not '+not:'',terms?'terms':'terms'):''}${N('st','clk','Starts',st,'','start')}${N('ac','lst','Adds to Pending',txt||'Write the line below',to=='letter'?'Example with letter S-113':'Example with contract 25/25-26','text')}${N('dn','done','Strikes off when',dn,'','done')}</div>`}
 addEventListener('resize',()=>{const p=innerWidth<900,h=document.documentElement;if(p===h.classList.contains('phx'))return;h.classList.toggle('phx',p);if(p)h.removeAttribute('data-theme');else{try{if(localStorage.getItem('theme')==='dark')h.setAttribute('data-theme','dark')}catch(e){}}});
-/* full-screen pages on the phone: a compact top bar (back, actions) and a large title that scrolls with the page */
-function phLarge(sh){const h=sh.querySelector(':scope>.th-h'),b=sh.querySelector(':scope>.tl2');if(!h||!b)return;
+/* full-screen pages on the phone: one header row: round back (or close) button, title and subtitle, actions on the right */
+function phLarge(sh){const h=sh.querySelector(':scope>.th-h'),b=sh.querySelector(':scope>.tl2');if(!h)return;
  const bk=h.querySelector('[data-sback],[data-back],[data-dback],[data-ldback],[data-sgback]'),cl=h.querySelector('.x[data-close]'),left=bk||cl,
   tw=[...h.children].find(c=>c.tagName=='DIV'&&c.querySelector('h1,h2'))||null,tt=(tw||h).querySelector('h1,h2'),
-  bar=document.createElement('div'),phl=document.createElement('div');bar.className='phb';phl.className='phl';
- if(left){left.classList.add('xbk');bar.appendChild(left)}
- const st=document.createElement('div');st.className='phbt';const wi=tt&&tt.querySelector('input');st.textContent=wi?wi.value:(tt?tt.textContent:'');bar.appendChild(st);
- const r=document.createElement('div');r.className='phr';[...h.children].forEach(c=>{if(c!==tw&&c!==tt&&c!==left)r.appendChild(c)});if(bk&&cl&&cl!==left){cl.classList.add('xcl');r.appendChild(cl)}bar.appendChild(r);
- const ws=!!b.querySelector('.wsx,#wstitle,.wsfm');if(ws){bar.classList.add('phsc');if(tt&&!tt.querySelector('input'))st.textContent=tt.textContent}else if(tw)[...tw.childNodes].forEach(n=>phl.appendChild(n));else if(tt)phl.appendChild(tt);
- h.replaceWith(bar);if(!ws)b.prepend(phl);
- b.addEventListener('scroll',()=>bar.classList.toggle('phsc',b.scrollTop>(phl.offsetHeight-12)),{passive:true})}
+  bar=document.createElement('div'),mid=document.createElement('div'),r=document.createElement('div');bar.className='phb';mid.className='phm';r.className='phr';
+ if(left){left.classList.add('pbk');if(!bk&&/\bmfrm\b/.test(sh.className))left.classList.add('xcl');bar.appendChild(left)}
+ if(tt)mid.appendChild(tt);if(tw){const sub=tw.querySelector('p,.nps,.sub'),k=tw.querySelector('.hk');if(sub&&sub.textContent.trim())mid.appendChild(sub);else if(k&&k.textContent.trim())mid.appendChild(k);[...tw.children].forEach(c=>{if(c.matches('.pga,.cn,button'))r.appendChild(c)})}
+ bar.appendChild(mid);[...h.children].forEach(c=>{if(c!==tw&&c!==tt&&c!==left)r.appendChild(c)});if(bk&&cl){cl.classList.add('pbk','xcl');r.appendChild(cl)}bar.appendChild(r);
+ h.replaceWith(bar);if(b)b.addEventListener('scroll',()=>bar.classList.toggle('phsc',b.scrollTop>4),{passive:true})}
 /* ===== Pending actions: written from each contract's and letter's stage by rules you can edit (Settings > Pending actions) ===== */
 let PA={loaded:false,busy:false,at:0,ok:true,c:[],inv:[],lt:[],dn:[],done:{},rules:null,rrm:[],old:false},PAT=0,HOL=0;
 const PSTART={contract:[['issued','Contract issued'],['inspected','Goods inspected'],['invoice','Supplier invoice received'],['shipped','Shipped (AWB or BL number entered)'],['payment','Payment received (not advance)'],['paydue','Days before the payment is due (shipping date + the days in the payment terms)'],['delivery','Days before the delivery date']],letter:[['letter','Letter issued'],['letterdue','Days before the letter is due']]},
@@ -3498,7 +3617,7 @@ const PCATS={docs:'<svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v13a1 1 0 0 1-1 1
 function prList(){const L=pRules();return `<p class="fbpt" style="margin:0 0 12px">Each rule writes one line on your Pending actions list. It shows from the step you choose and strikes off by itself when the data is entered, or when you tick it if the rule says so.</p><div class="ux-list">${L.map(r=>{const to=r.to||'contract';return uxRow(`data-sv="rule:${esc(r.id)}"`,esc(pPlain(r.text)),esc([(to=='letter'?'Letters':'Contracts')+(r.on===false?' · Off':''),'From: '+pLab(PSTART[to],r.start).replace(/ \(.*/,'')+(/due|delivery/.test(r.start||'')?' ('+(+r.days||0)+' days)':''),'Strikes off: '+pLab(PDONE[to],r.done).toLowerCase(),r.terms?'Terms: '+r.terms:''].filter(Boolean).join(' · ')),{ic:'list'})}).join('')}</div><button class="btn wide" data-sv="rule:new" style="margin-top:12px">Add a rule</button><button class="btn ghost wide" data-prreset>Put back the original rules</button>`}
 const prOpt=(L,v)=>L.map(([k,l])=>`<option value="${k}" ${k==v?'selected':''}>${esc(l)}</option>`).join('');
 function prForm(id){const r=id=='new'?{id:'new',on:true,to:'contract',text:'',start:'inspected',done:'tick',days:7}:pRules().find(x=>x.id==id);if(!r)return'<p class="fbp">This rule was not found.</p>';const to=r.to||'contract';
- return `<section class="ds" id="prf" data-id="${esc(r.id)}">
+ return `${prFlow(r)}<section class="ds" id="prf" data-id="${esc(r.id)}">
  <div class="kv ed"><span>Line on the list</span><input class="ei" data-pr="text" value="${esc(r.text||'')}" placeholder="e.g. Send swatch card to {buyer} for {no}" autocomplete="off"></div>
  <p class="fbpt">You can use {no} (contract or letter number), {supplier} (supplier mark), {buyer}, {awbbl} (AWB or BL), {days} and {due}.</p>
  <div class="kv ed"><span>For</span><select class="ei" data-pr="to"><option value="contract" ${to=='contract'?'selected':''}>Contracts</option><option value="letter" ${to=='letter'?'selected':''}>Letters</option></select></div>
@@ -3579,6 +3698,8 @@ async function onClick(t){const d=t.dataset;
  else if('mnew'in d)mNew()
  else if(d.mday){jump=d.mday==today()?null:d.mday;if(!jump)return mGo(0);tab=1;pgE=1;first=true;window.scrollTo(0,0);render()}
  else if(d.mfu)await mFuDone(t,d.mfu)
+ else if(d.mx)mEx(t)
+ else if(d.pff!==undefined){const f=document.querySelector(`#prf [data-pr="${d.pff}"]`);if(f){const w=f.closest('.kv');w.scrollIntoView({behavior:'smooth',block:'center'});w.classList.remove('flash');void w.offsetWidth;w.classList.add('flash');setTimeout(()=>{const x=f.style.display=='none'?w.querySelector('.pxs'):f;x&&x.focus({preventScroll:true})},350)}}
  else if(d.fopt!==undefined){const on=d.fopt=='1',c=$('#ff');if(c)c.checked=on;t.parentElement.querySelectorAll('[data-fopt]').forEach(b=>b.classList.toggle('on',b===t))}
  else if('mobm'in d){MOBN+=30;const l=$('#obl');if(l)l.innerHTML=obList(0)}
  else if('minst'in d)await mInstall()
@@ -3788,7 +3909,7 @@ $('#scrim').onclick=close;
 /* phone: keyboard open hides the bottom bar */
 document.addEventListener('focusin',e=>{if(innerWidth<900&&e.target.matches&&e.target.matches('input:not([type=checkbox]):not([type=radio]):not([type=file]),textarea,select'))B.classList.add('kb')});document.addEventListener('focusout',()=>setTimeout(()=>{const a=document.activeElement;if(!(a&&a.matches&&a.matches('input,textarea,select')))B.classList.remove('kb')},120));
 const PF=new Set();document.addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('[data-ob],.card.ob[data-id],.orow[data-id]');if(!b)return;const id=b.dataset.ob||b.dataset.id,o=OB.find(x=>x.id==id);if(!o||RC[id]||PF.has(id))return;PF.add(id);sb.from(o.tb).select('*').eq('id',id).single().then(r=>{if(r.data)RC[id]=r.data;PF.delete(id)},()=>PF.delete(id))},{passive:true});
-function open(h,c){const sh=$('#sheet');sh.className='sheet '+(c||'');sh.innerHTML='<div class="grab"></div>'+h;if(PH()&&/\btall\b/.test(c||'')&&!/\b(det|mfrm)\b/.test(c||''))phLarge(sh);if(!B.classList.contains('so')){sy0=window.scrollY;B.style.position='fixed';B.style.top=-sy0+'px';B.style.width='100%'}B.classList.add('so');navSync();deskNav()}
+function open(h,c){const sh=$('#sheet');sh.className='sheet '+(c||'');sh.innerHTML='<div class="grab"></div>'+h;if(PH()&&/\btall\b/.test(c||'')&&!/\bdet\b/.test(c||''))phLarge(sh);if(!B.classList.contains('so')){sy0=window.scrollY;B.style.position='fixed';B.style.top=-sy0+'px';B.style.width='100%'}B.classList.add('so');navSync();deskNav()}
 function close(){wsLeave();B.classList.remove('kb');if(DT&&DT.id=='draft')DRAFT=null;if(NEWID&&DT&&DT.id==NEWID)dropNew();ctx=null;DT=null;EM=false;AM=null;SO=false;if(!B.classList.contains('so'))return;B.classList.remove('so');B.style.position='';B.style.top='';B.style.width='';window.scrollTo(0,sy0);deskNav();setTimeout(refocusSearch,60);if(IFD){IFD=false;if(tab==3&&$('#obl'))obRefresh();if($('#sr'))results()}paSoon()}
 /* conversation view: every entry of a thread, oldest first, grouped by day (no clock times) */
 const CVI={cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',plus:'<path d="M12 5v14M5 12h14"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/>'},
@@ -3796,8 +3917,8 @@ const CVI={cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3
 function cvCard(x,i,cur){const o=openFu(x);return `<div class="card cvc${cur?' cur':''}${o?' fu':''}" data-id="${x.id}" style="--i:${i}"><h3>${esc(x.title)}</h3>${x.body?`<p>${esc(x.body)}</p>`:''}<div class="cvtags">${o?'<span class="mtg fu">Follow-up</span>':x.fdone?'<span class="mtg ok">Follow-up done</span>':''}</div><div class="cva"><button data-edit="${x.id}">Edit</button>${o?`<button data-done="${x.id}">Mark done</button>`:`<button data-fu="${x.id}">Follow up</button>`}<button class="rm" data-del="${x.id}">Delete</button></div></div>`}
 function thread(id){const e=E.find(x=>x.id==id);if(!e)return;ctx=e.key;const it=E.filter(x=>x.key==e.key).sort((a,b)=>a.date.localeCompare(b.date)||a.t-b.t),root=it[0],lst=it[it.length-1],fo=it.filter(openFu).length,fd=!fo&&it.some(x=>x.fdone);let h='',ld='';
  it.forEach((x,i)=>{if(x.date!=ld){ld=x.date;h+=`<div class="cvd"><span>${dlf(x.date)}</span></div>`}h+=cvCard(x,i,x.id==e.id&&it.length>1)});
- const tags=(fo?`<span class="mtg fu">${fo>1?fo+' follow-ups open':'Follow-up open'}</span>`:fd?'<span class="mtg ok">Follow-up done</span>':'')+`<span class="mtg g">${it.length} ${it.length>1?'entries':'entry'}</span>`;
- open(`<div class="th-h"><div><div class="hk">Conversation</div><h2>${esc(e.label)}</h2></div><button class="x" data-close aria-label="Close">✕</button></div><div class="tl2 cv"><div class="cvtg">${tags}</div><div class="cvm"><div class="cvmi"><i class="f-lav">${cvI('cal')}</i><span><small>Started</small><b>${dl(root.date)}</b></span></div><div class="cvmi"><i class="f-sky">${cvI('chat')}</i><span><small>Latest</small><b>${dl(lst.date)}</b></span></div></div><div class="cvl">${h}</div></div><div class="tc2 cvb"><button class="cvadd" data-addto="${e.key}"><span>Add to this conversation</span><i>${cvI('plus')}</i></button><button class="cvlk" data-link="${e.id}" aria-label="Link an earlier entry" title="Link an earlier entry">${cvI('link')}</button></div>`,'tall cvs');
+ const tags=fo?`<span class="mtg fu">${fo>1?fo+' follow-ups open':'Follow-up open'}</span>`:fd?'<span class="mtg ok">Follow-up done</span>':'';
+ open(`<div class="th-h"><div><div class="hk">Conversation</div><h2>${esc(e.label)}</h2><p>${it.length} ${it.length>1?'entries':'entry'} · since ${dl(root.date)}</p></div><button class="x" data-close aria-label="Close">✕</button></div><div class="tl2 cv">${fo||fd?`<div class="cvtg">${tags}</div>`:''}<div class="cvl">${h}</div></div><div class="tc2 cvb"><button class="cvadd" data-addto="${e.key}"><span>Add to this conversation</span><i>${cvI('plus')}</i></button><button class="cvlk" data-link="${e.id}" aria-label="Link an earlier entry" title="Link an earlier entry">${cvI('link')}</button></div>`,'tall cvs');
  setTimeout(()=>{const c=$('.cvc.cur');c&&c.scrollIntoView({block:'center',behavior:'smooth'})},350)}
 function picker(id,keep){const e=E.find(x=>x.id==id);if(!keep){pq='';pgP=1}
  const R=E.filter(x=>x.key!=e.key&&(!pq||(x.title+' '+x.body).toLowerCase().includes(pq.toLowerCase()))),tot=Math.max(1,Math.ceil(R.length/PS)),pk=x=>`<button class="pk" data-pick="${x.id}" data-to="${e.key}"><b>${esc(x.title)}</b><small>${dl(x.date)}</small>${x.body?`<span>${esc(x.body)}</span>`:''}</button>`;pgP=Math.min(pgP,tot);
@@ -3809,13 +3930,12 @@ function cal(){const y=cm.getFullYear(),m=cm.getMonth(),off=(new Date(y,m,1).get
  open(`<div class="th-h"><h2>${cm.toLocaleDateString('en-GB',{month:'long',year:'numeric'})}</h2><div class="cn"><button class="x" data-cm="-1" aria-label="Previous month">‹</button><button class="x" data-cm="1" aria-label="Next month">›</button><button class="x" data-close aria-label="Close">✕</button></div></div><div class="cg">${g}</div>`,'mid')}
 function form(id,anchor){const e=id?E.find(x=>x.id==id):{title:'',body:'',date:today()},on=id?openFu(e):false,a=anchor?E.find(x=>x.key==anchor):null;
  if(PH()){const MICB=f=>`<button type="button" class="mic" data-mic="${f}" aria-label="Speak instead of typing" title="Speak"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>`;
-  open(`<div class="th-h mfh"><button class="x" data-close aria-label="Close">✕</button><div class="mfk">${a?'Add to conversation':id?'Edit entry':'New entry'}</div><span class="x0"></span></div><div class="tl2 mfm">${a?`<div class="mfa">${cvI('chat')}<span>${esc(a.label)}</span></div>`:''}
-  <div class="mff"><label for="ft">Title${MICB('ft')}</label><textarea rows="1" class="ei mft" id="ft" placeholder="What happened?">${esc(e.title)}</textarea></div>
-  <div class="mff"><label for="fb">Notes${MICB('fb')}</label><div class="mfbx"><textarea rows="4" class="ei mfb" id="fb" placeholder="Write the details">${esc(e.body)}</textarea></div></div>
-  <div class="mff"><span class="ml">Date</span><label class="mdate">${cvI('cal')}<span id="fdl">${fmWdly(e.date)}</span><input type="date" id="fd" value="${e.date}" aria-label="Date"></label></div>
-  <div class="mff"><span class="ml">Follow-up</span><div class="mopt"><button type="button" data-fopt="0" class="${on?'':'on'}">No follow-up</button><button type="button" data-fopt="1" class="fu${on?' on':''}">Follow up later</button></div><input type="checkbox" id="ff" ${on?'checked':''} hidden></div>
-  </div><div class="tc2"><button class="btn" data-save="${id||0}" data-anchor="${a?a.key:''}">Save entry</button></div>`,'tall mfrm');
-  $('#fd').onchange=ev=>{const v=ev.target.value;$('#fdl').textContent=v?fmWdly(v):'Pick a date'};
+  open(`<div class="th-h"><div><h2>${a?'Add to conversation':id?'Edit entry':'New entry'}</h2>${a?`<p>${esc(a.label)}</p>`:''}</div><button class="x" data-close aria-label="Close">✕</button></div><div class="tl2 mfm"><section class="ds">
+  <div class="kv ed"><span>Title${MICB('ft')}</span><textarea rows="1" class="ei" id="ft" placeholder="What happened?">${esc(e.title)}</textarea></div>
+  <div class="kv ed"><span>Notes${MICB('fb')}</span><textarea rows="3" class="ei" id="fb" placeholder="Write the details">${esc(e.body)}</textarea></div>
+  <div class="kv ed"><span>Date</span><input type="date" class="ei" id="fd" value="${e.date}"></div>
+  <div class="kv ed pkw"><span>Follow-up</span><textarea rows="1" class="ei" id="ffs" readonly data-ch='["No follow-up","Follow up later"]'>${on?'Follow up later':'No follow-up'}</textarea><div class="cl"></div></div>
+  </section><input type="checkbox" id="ff" ${on?'checked':''} hidden></div><div class="tc2"><button class="btn" data-save="${id||0}" data-anchor="${a?a.key:''}">Save entry</button></div>`,'tall mfrm');
   if(a)ctx=a.key;requestAnimationFrame(()=>document.querySelectorAll('.ei').forEach(grow));if(!id)setTimeout(()=>$('#ft').focus(),450);return}
  open(`<div class="th-h"><div><h2>${id?'Edit entry':a?'Add to thread':'New entry'}</h2>${a?`<p>${esc(a.label)}</p>`:''}</div><button class="x" data-close aria-label="Close">✕</button></div><div class="form"><section class="ds"><div class="kv ed"><span>Title</span><button type="button" class="mic" data-mic="ft" aria-label="Speak instead of typing" title="Speak"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button><textarea rows="1" class="ei" id="ft" placeholder="What happened?">${esc(e.title)}</textarea></div><div class="kv ed"><span>Notes</span><button type="button" class="mic" data-mic="fb" aria-label="Speak instead of typing" title="Speak"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button><textarea rows="3" class="ei" id="fb" placeholder="Write the details">${esc(e.body)}</textarea></div><div class="kv ed"><span>Date</span><input type="date" class="ei" id="fd" value="${e.date}"></div><div class="kv ed"><span>Follow-up</span><label class="sw2"><input type="checkbox" id="ff" ${on?'checked':''}><i></i></label></div></section><button class="btn" data-save="${id||0}" data-anchor="${a?a.key:''}">Save entry</button></div>`,'mid');
  if(a)ctx=a.key;requestAnimationFrame(()=>document.querySelectorAll('.ei').forEach(grow));if(!id)setTimeout(()=>$('#ft').focus(),450)}
@@ -4238,7 +4358,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
+const APP_LOG=[['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
 ['53','9 Nov 2026',['New phone app: a bottom bar with Home, Orders, a big + button, Pending and More. Home has a week strip (tap a day to read it), quick chips for what needs you, today\'s entries and follow-ups you tick off. Orders has a type switch, status tiles, supplier logos and a status button on every row. Pending has tiles and grouped lists. More holds Buyers, Contacts, Reports, Worksheets, Invoice mail, Settings, dark mode and Install. Pages open full screen, the phone back button works everywhere, and the keyboard never hides what you type. Installable as an app on iPhone and Android, with shortcuts for New entry, Orders and Pending. Settings no longer repeats pages that are in the menu']],
 ['52','9 Nov 2026',['Orderbook on the computer redesigned: five tiles (Issued, Inspected, Completed, Overdue, Due this week) that filter, rows grouped by month with the supplier logo or initials and the buyer under it, and new icons across the app: a contract is a page with a signature, a letter is a page with a stamp, a debit note is a receipt with a % sign. Settings on the computer no longer repeats Contacts, Reports, Worksheets and Invoice mail (they are in the side menu). Invoice mail now shows only what waits for approval; the Gmail address and allowed senders moved to Settings > Invoice mail setup']],
 ['51','8 Nov 2026',['Phone Pending page redesigned like the rest of the app: three tiles (Documents, Payments, Couriers) that filter, a Late chip when something is late, grouped cards with Contract or Letter, the supplier mark and a due pill, Mark done on the two hand-ticked follow-ups, and Done today at the bottom']],
@@ -4504,6 +4624,9 @@ const grow=el=>{if(el.tagName=='TEXTAREA'){el.style.height='auto';el.style.heigh
 const dbn=(f,ms)=>{let t;return()=>{clearTimeout(t);t=setTimeout(f,ms)}},_lqr=dbn(()=>{const l=$('#ll');if(l)l.innerHTML=ldList()},110),_cqr=dbn(()=>{const l=$('#cl2');if(l)l.innerHTML=contactsList()},110),_obr=dbn(()=>obRefresh(),110);
 document.addEventListener('input',e=>{if(e.target.id=='lq'){lq=e.target.value;_lqr()}if(e.target.id=='cq'){cq=e.target.value;pgC=1;_cqr()}if(e.target.classList&&e.target.classList.contains('ei')){grow(e.target);if(e.target.dataset.pk)cl(e.target)}});
 document.addEventListener('focusin',e=>{const el=e.target;if(el.dataset&&el.dataset.ch)chList(el)});
+document.addEventListener('input',e=>{const el=e.target;if(!el||!el.dataset)return;if(el.id=='ffs'){const c=$('#ff');if(c)c.checked=el.value=='Follow up later'}
+ if(el.dataset.pxs){const sl=el.parentElement.querySelector('select[data-pxd]');if(!sl)return;const o=[...sl.options].find(x=>x.text==el.value);if(o&&sl.value!=o.value){sl.value=o.value;sl.dispatchEvent(new Event('change',{bubbles:true}))}setTimeout(()=>{const f=el.closest('section,.tl2,#sheet');f&&f.querySelectorAll('textarea.pxs').forEach(t=>{const ss=t.parentElement.querySelector('select[data-pxd]');ss&&pxsFill(ss,t)})},0)}
+ if(el.closest&&el.closest('#prf')&&$('#pflowx'))$('#pflowx').outerHTML=prFlow(prCur())});
 document.addEventListener('click',e=>{const el=e.target;if(el.dataset&&el.dataset.ch)chList(el)});
 document.addEventListener('focusout',e=>{if(e.target.dataset&&e.target.dataset.ch)setTimeout(()=>document.querySelectorAll('.cl.on').forEach(b=>b.classList.remove('on')),160)});
 document.addEventListener('input',e=>{const el=e.target;if(el.dataset&&el.dataset.ek=='courier_reference'){const v=el.value,c=cleanTrk(v);if(v!==c){const b=cleanTrk(v.slice(0,el.selectionStart||0)).length;el.value=c;try{el.setSelectionRange(b,b)}catch(x){}}}if(el.dataset&&el.dataset.ek=='delivery_schedule'){const d=parseDelivDate(el.value),t=document.querySelector('[data-ek="delivery_date"]');if(d&&t)t.value=d}});
