@@ -1917,7 +1917,7 @@ html.phx .mjw .mjh{display:flex;align-items:flex-start;gap:10px}html.phx .mjw h3
 html.phx .mjw .mtg{flex:none;font-size:12px;font-weight:600;color:var(--acc);margin-top:2px}html.phx .mjw .mtg.ok{color:var(--k-gr)}
 html.phx .mjw p{margin:4px 0 0;font-size:13.5px;line-height:1.45;color:var(--pm);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
 html.phx .mjm{display:flex;align-items:center;gap:12px;margin-top:8px;font-size:12px;color:var(--pm)}html.phx .mjm span{display:inline-flex;align-items:center;gap:5px}html.phx .mjm svg{width:13px;height:13px}
-html.phx .card.mjw.gone{opacity:0;transition:opacity .25s}
+html.phx .mli.gone,html.phx .card.mjw.gone,html.phx .cv .card.cvc.gone{opacity:0;padding-top:0;padding-bottom:0;margin-top:0;margin-bottom:0;border-top-width:0;overflow:hidden;transform:translateX(-16px);transition:max-height .34s var(--ease2),opacity .24s,padding .34s var(--ease2),margin .34s var(--ease2),transform .3s var(--ease2)}
 /* action tiles */
 html.phx .mact,html.phx .mmg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:12px}
 html.phx .mat,html.phx .mmt{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;min-height:116px;padding:16px;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);box-shadow:var(--psh);color:var(--pk);transition:background .15s,transform .15s}
@@ -2156,7 +2156,7 @@ html.phx .mdr{display:flex;align-items:flex-start;justify-content:space-between;
 html.phx .mh .mgr h1{font-size:clamp(25px,7.2vw,32px);line-height:1.15;flex:1;min-width:0;white-space:normal}html.phx .mh .mgr h1 span{white-space:nowrap}
 html.phx .mdr .msb{margin:-2px -10px 0 0;width:46px;height:46px}html.phx .mdr .msb svg{width:25px;height:25px}
 html.phx .mh .msec{margin:30px 0 12px}html.phx .mh .msec>span{font-size:18px;font-weight:600;color:var(--pk)}html.phx .mh .msec small{font-size:14.5px}
-html.phx .mh .mplus{width:36px;height:36px}html.phx .mh .mplus svg{width:20px;height:20px}
+html.phx .mh .mplus{position:relative;width:28px;height:28px;box-shadow:0 4px 10px -6px rgba(47,107,255,.7)}html.phx .mh .mplus:after{content:"";position:absolute;inset:-8px}html.phx .mh .mplus svg{width:15px;height:15px;stroke-width:2.5}
 html.phx .mh .mli{padding:16px 18px}html.phx .mh .mli h3{font-size:17px;line-height:1.35}html.phx .mh .mli p{font-size:15px;margin-top:5px}
 html.phx .mh .mli .m{font-size:13px;margin-bottom:6px}html.phx .mh .mli .m svg{width:14px;height:14px}
 html.phx .mh .mli.mlx{padding:15px 18px;font-size:15.5px}html.phx .mh .mli.me0 b{font-size:16.5px}html.phx .mh .mli.me0 span{font-size:14.5px}
@@ -2296,11 +2296,6 @@ html.phx .mch,html.phx .orp{background:#FBEFEA;color:var(--od-ink,#A8481E)}html.
 /* ---------- slide-out buttons: sized to the text ---------- */
 html.phx .mxb,html.phx .mh .mxb{height:32px;padding:0 11px;gap:5px;border-radius:9px;font-size:13.5px}html.phx .mxb svg{width:15px;height:15px}
 html.phx .mx.ex .mxa{max-height:48px;margin-top:10px}
-/* ---------- follow-ups: one line (title, date); tap shows the note and buttons ---------- */
-html.phx .frh{display:flex;align-items:baseline;gap:10px}html.phx .frh h3{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-html.phx .frd{flex:none;font-size:13px;color:var(--pm)}
-html.phx .mli.fr .frb{max-height:0;opacity:0;overflow:hidden;margin:0;transition:max-height .32s var(--ease2),opacity .22s,margin .32s var(--ease2)}
-html.phx .mli.fr.ex .frb{max-height:240px;opacity:1;margin-top:6px}html.phx .mli.fr.ex .frh h3{white-space:normal}
 /* ---------- headers slightly larger, more room before the tabs and pages ---------- */
 html.phx .phb{min-height:64px;padding:10px 16px}html.phx .phm h1,html.phx .phm h2{font-size:18px}html.phx .phm small,html.phx .phm p,html.phx .phm .hk,html.phx .phm .nps,html.phx .phm .sub{font-size:13px}
 html.phx .pbk{width:42px;height:42px}
@@ -2310,8 +2305,33 @@ html.phx .dhr{gap:14px;min-height:52px}html.phx .dhr .pbk{width:44px;height:44px
 html.phx .dhr .phm h1{font-size:21px;font-weight:700;letter-spacing:-.015em}html.phx .dhr .phm small{font-size:13.5px;margin-top:2px}
 html.phx .dring .rg,html.phx .dring svg{width:50px;height:50px}html.phx .dring b{font-size:12.5px}html.phx .dring em{font-size:13.5px}
 html.phx .dh3 .pds{margin-top:16px}html.phx .dpane{padding-top:18px}
+/* ---------- v59: one journal row everywhere (Today, Follow-ups, Earlier, Search, Conversation) ---------- */
+html.phx .mli.mjr{display:block}
+html.phx .mjr .mlt h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:normal}
+html.phx .mjr.ex .mlt h3{display:block}
+html.phx .mjd{font-size:13px;color:var(--pm);white-space:nowrap}
+html.phx .mli p.mjb,html.phx .mjw p.mjb{margin:4px 0 0;white-space:pre-line;word-break:break-word;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+html.phx .mx.ex p.mjb{-webkit-line-clamp:14;color:var(--pk2)}
+html.phx .mjmo{display:none;margin-top:6px;padding:2px 0;font-size:13px;font-weight:600;color:var(--acc);text-align:left}
+html.phx .mx.ex.cut .mjmo{display:block}
+html.phx .mxa{align-items:center;gap:8px}
+html.phx .mx.ex .mxa{max-height:56px;margin-top:12px}
+html.phx .mxi{flex:none;position:relative;display:inline-flex;align-items:center;justify-content:center;gap:6px;width:46px;height:36px;padding:0;border-radius:11px;background:#fff;border:1px solid var(--pe);color:var(--pk2);box-shadow:0 1px 2px rgba(16,24,40,.06);font-size:13.5px;font-weight:600;white-space:nowrap;transition:background .2s,color .2s,border-color .2s,transform .15s,width .3s var(--ease2),padding .3s var(--ease2)}
+html.phx .mxi svg{width:19px;height:19px;flex:none}
+html.phx .mxi.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+html.phx .mxi.rm{margin-left:auto;color:var(--k-rd)}
+html.phx .mxi:active{transform:scale(.94)}
+html.phx .mxi.armd{width:auto;padding:0 13px 0 11px;background:var(--k-rd);border-color:var(--k-rd);color:#fff}
+html.phx .mxi.pri .mi,html.phx .mxi.armd .mi{--mc:#fff}
+html.phx .mxi.mph{transition:width .3s var(--ease2),background .2s;border-color:transparent}
+html.phx .cv .card.cvc.mx{cursor:pointer}html.phx .cvc .mxa{margin-left:0;margin-right:0}
+/* asking twice: the button pulses once and turns red */
+button.armd{animation:armp .34s cubic-bezier(.3,1.4,.5,1)}
+button.armd.dl,button.armd.lnk,button.armd.ltx,button.armd.alb,.acts button.armd,.cva button.armd,.btn.ghost.armd{color:var(--red)}
+.btn.ghost.armd{border-color:var(--red);background:color-mix(in srgb,var(--red) 9%,transparent)}
+@keyframes armp{0%{transform:scale(.92)}60%{transform:scale(1.04)}100%{transform:none}}
 @media(prefers-reduced-motion:reduce){html.phx .pane,html.phx .card.mjw,html.phx .cv .card.cvc{animation:none}}
-@media(max-width:389px){html.phx .mchs button{font-size:12.5px;padding:0 2px}html.phx .mhd1 h1,}
+@media(max-width:389px){html.phx .mchs button{font-size:12.5px;padding:0 2px}}
 @media(max-width:359px){html.phx .mgr h1,html.phx .mhd1 h1,html.phx .mtl h1,html.phx .pane{padding-left:16px;padding-right:16px}html.phx .chs{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}html.phx .mat,html.phx .mmt{min-height:104px;padding:14px}}
 </style>
 
@@ -2363,7 +2383,7 @@ function dots(){deskNav();mbarSync()}
 function watch(fn,root){io&&io.disconnect();const s=$('#sent');if(!s)return;io=new IntersectionObserver(en=>{if(!en[0].isIntersecting)return;if(fn()){io.unobserve(s);io.observe(s)}else{io.disconnect();const x=$('#sent');x&&x.remove()}},{root:root||null,rootMargin:'600px'});io.observe(s)}
 function block(){const hi=back(7*(eP-1)+1),lo=back(7*eP);eP++;let h='';eBase.filter(e=>e.date>=lo&&e.date<=hi).forEach(e=>{if(e.date!=eLast){eLast=e.date;h+=`<div class="day">${dlf(e.date)}</div>`}h+=card(e,0)});return h}
 function earlierChunk(){let h='';while(!h&&eP<=eTot)h=block();return h}
-function out(id){const el=(B.classList.contains('so')?$('#sheet'):document).querySelector(`.card[data-id="${id}"]`);if(!el)return Promise.resolve();el.style.maxHeight=el.offsetHeight+'px';void el.offsetHeight;el.classList.add('gone');return new Promise(r=>setTimeout(r,330))}
+function out(id){const L=[...(B.classList.contains('so')?$('#sheet'):document).querySelectorAll(`.card[data-id="${id}"],.mli[data-id="${id}"]`)];if(!L.length)return Promise.resolve();L.forEach(el=>{el.style.maxHeight=el.offsetHeight+'px';void el.offsetHeight;el.classList.add('gone');el.style.maxHeight='0px'});return new Promise(r=>setTimeout(r,360))}
 function refocusSearch(force){if(innerWidth<900||B.classList.contains('so'))return;const el=({0:$('#sq'),1:$('#sq'),3:$('#obq'),4:$('#lq')})[tab];if(!el||document.activeElement===el||(!force&&!el.value))return;const a=document.activeElement;if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))return;try{el.focus({preventScroll:true});const n=el.value.length;el.setSelectionRange(n,n)}catch(x){}}
 function slide(){const p=$('#view').firstElementChild;if(dir&&p&&innerWidth<900)p.style.animation=`${dir>0?'sl':'sr2'} .35s cubic-bezier(.2,.9,.2,1) both`;dir=0}
 function card(e,i,k,th){if(PH())return mCard(e,i,k,th);const n=cnt(e.key),o=openFu(e);return `<div class="card ${o?'fu':''}" data-id="${e.id}" style="--i:${i}"><div class="ct" data-card="${e.id}"><div class="cr"><h3>${hl(e.title,k)}</h3><div class="rt">${o?'<i class="fb">Follow-up</i>':e.fdone?'<i class="fb ok">Done</i>':''}${n>1?'<svg class="thi" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-label="Has a thread"><title>Has a thread</title><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>':''}</div></div>${e.body?`<p class="bd">${hl(e.body,k)}</p>`:''}${th?`<div class="ld">${dl(e.date)}</div>`:''}</div>
@@ -3059,7 +3079,7 @@ function outMailBox(){const m=OUT.mail,v=OUT.send||{};if(!m)return'';
  <button class="btn wide" data-ousendsave>Save sending settings</button>
  <button class="btn ghost wide" data-outest ${m.connected?'':'disabled'}>Send me a test email</button>
  <button class="btn ghost wide" data-ouwhen>How the sending job runs</button><div id="ouwhen"></div></section>`}
-async function outSendSave(){const o={...(OUT.send||{})};document.querySelectorAll('[data-ousv]').forEach(el=>{const k=el.dataset.ousv;o[k]=(k=='enabled'||k=='followups')?!!el.value:+el.value||el.value});const{error}=await sb.from('outreach_settings').upsert({id:'send',data:o,updated_at:new Date().toISOString()});if(error){toast(error.message);return}OUT.send=o;toast('Saved')}
+async function outSendSave(){const o={...(OUT.send||{})};document.querySelectorAll('[data-ousv]').forEach(el=>{const k=el.dataset.ousv;o[k]=(k=='enabled'||k=='followups')?!!el.value:+el.value||el.value});const{error}=await sb.from('outreach_settings').upsert({id:'send',data:o,updated_at:new Date().toISOString()});if(error){toast(error.message);return}OUT.send=o;fin(()=>toast('Sending settings saved'))}
 async function outWhen(){const b=$('#ouwhen');if(b)b.innerHTML='<div class="fbp" style="margin-top:8px">Already set up. A scheduler inside your Supabase project calls the app every 15 minutes, all day. It checks for approved emails to send, reads new replies and writes follow-ups. Nothing is sent while Sending is Off or the mailbox is not connected.</div>'}
 function outPage(){if(!OUT.ok)return`<section class="ds ldset"><div class="ldk">One-time setup</div><p>Outreach needs two small tables. Copy this, run it in the Supabase SQL Editor, then tap the button.</p><pre id="ousql">${esc(OUSQL)}</pre><button class="btn ghost wide" data-oucopy>Copy SQL</button><button class="btn wide" data-ouretry>I’ve run it</button></section>`;
  const fld=k=>{const f=OUF.find(x=>x[0]==k);if(!f)return'';const[,l,ph]=f;return`<div class="kv ed"><span>${l}</span><textarea rows="${k=='samples'?6:k=='catalogue'||k=='signature'||k=='facts'||k=='intro'?4:1}" class="ei" data-ou="${k}" placeholder="${esc(ph)}">${esc(OUT.s[k]||'')}</textarea></div>`},sec=(h,sub,inner)=>`<div class="ux-gh">${h}</div><section class="ds">${sub?`<p class="fbpt" style="margin:0 0 4px">${sub}</p>`:''}${inner}</section>`;
@@ -3069,7 +3089,7 @@ function outPage(){if(!OUT.ok)return`<section class="ds ldset"><div class="ldk">
  +sec('Your voice','The writer copies your tone from these. Paste 2 or 3 real emails.',fld('samples'))
  +sec('Signature','Added under every email, with the logo and signature image.',fld('signature')+`<div class="kv ed"><span>Logo under your signature</span><select class="ei" data-ou="logo_id"><option value="">None</option>${(COMP||[]).map(c=>`<option value="${esc(c.id)}" ${OUT.s.logo_id==c.id?'selected':''}>${esc(c.name)}${coProf(c).logo?'':' (no logo yet)'}</option>`).join('')}</select></div><div class="kv ed"><span>Signature image (the J mark)</span><select class="ei" data-ou="sig_id"><option value="">None</option>${getSigs().filter(z=>z.img).map(z=>`<option value="${esc(z.id)}" ${OUT.s.sig_id==z.id?'selected':''}>${esc(sigLbl(z))}</option>`).join('')}</select></div>`+fld('optout')+`<p class="fbpt">Add the logo in Company Data and the signature image in Signatures first.</p>`)
  +`<button class="btn wide ux-save" data-ousave>Save</button>${outMailBox()}`}
-async function outSave(){const o={};document.querySelectorAll('[data-ou]').forEach(el=>o[el.dataset.ou]=el.value.trim());const{error}=await sb.from('outreach_settings').upsert({id:'main',data:o,updated_at:new Date().toISOString()});if(error){toast(error.message);return}OUT.s=o;toast('Saved')}
+async function outSave(){const o={};document.querySelectorAll('[data-ou]').forEach(el=>o[el.dataset.ou]=el.value.trim());const{error}=await sb.from('outreach_settings').upsert({id:'main',data:o,updated_at:new Date().toISOString()});if(error){toast(error.message);return}OUT.s=o;fin(()=>toast('Saved'))}
 function outSigHtml(){const lg=coProf((COMP||[]).find(c=>c.id==OUT.s.logo_id)||{}).logo,sg=(getSigs().find(z=>z.id==OUT.s.sig_id)||{}).img,t=(OUT.s.signature||'').trim();if(!t&&!lg&&!sg)return'';
  return`<div class="oup"><div style="white-space:pre-wrap">${esc(t)}</div>${sg?`<img src="${esc(sg)}" alt="" style="max-height:48px;display:block;margin-top:8px">`:''}${lg?`<img src="${esc(lg)}" alt="" style="max-height:56px;display:block;margin-top:8px">`:''}${OUT.s.optout?`<div class="fbpt" style="margin-top:8px">${esc(OUT.s.optout)}</div>`:''}</div>`}
 const outKey=g=>g.dom?'d:'+g.dom:'n:'+fbKey(g.rows[0].name);
@@ -3209,7 +3229,7 @@ async function ldSave(){const id=LS.id,p={};document.querySelectorAll('[data-lf2
 async function ldDel(){const id=LS.id,{data,error}=await sb.from('leads').delete().eq('id',id).select('id');if(error)return toast(error.message);if(!data.length)return toast('You don’t have permission to delete this one');
  LDX=LDX.filter(x=>x.id!=id);FU=FU.filter(x=>x.lead_id!=id);fin(()=>{close();renderLeads(1)})}
 async function ldFDel(fid){const{data,error}=await sb.from('lead_followups').delete().eq('id',fid).select('id');if(error)return toast(error.message);if(!data.length)return toast('You don’t have permission to delete this one');
- FU=FU.filter(x=>x.id!=fid);ldDetail(LS.id);renderLeads(1)}
+ FU=FU.filter(x=>x.id!=fid);fin(()=>{ldDetail(LS.id);renderLeads(1)})}
 
 let NEWID=null,NEWTB='',NBB=false,DRAFT=null;
 const NPI=new Proxy({},{get:(_,k)=>ICON[k]});
@@ -3289,7 +3309,7 @@ async function asave(){const o=OB.find(x=>x.id==DT.id);if(AM=='payedit')return p
  const edit=AM=='invedit',ins={...p,line_items:items},adEl=$('#iadj'),dv=adEl&&adEl.dataset.v?+adEl.dataset.v:0,oldIv=edit?(DT.inv||[]).find(v=>String(v.id)==String(EINV)):null;ins.price_adjustment=dv?dv:null;if(adjOn&&note)ins.price_note=note;else if(oldIv&&oldIv.price_note)ins.price_note=null;if(!edit)ins.user_id=uid;if(!ins.contract_numbers||!ins.contract_numbers.length)ins.contract_numbers=[o.no];
  const run=()=>edit?sb.from('invoices').update(ins).eq('id',EINV).select('id').single():sb.from('invoices').insert(ins);let{error}=await run();
  if(error&&'price_note'in ins&&/price_note/i.test(error.message||'')){delete ins.price_note;({error}=await run());if(!error)toast('Saved. Run the SQL setup to also keep the price note')}
- if(error)return toast(error.code=='PGRST116'?'You don’t have permission to edit this invoice':error.message);DT.inv=null;await pre(o);mailDone(ins.invoice_number);fin(()=>{AM=null;DI=2;detail(o.id,1)})}
+ if(error)return toast(error.code=='PGRST116'?'You don’t have permission to edit this invoice':error.message);DT.inv=null;await pre(o);await mailDone(ins.invoice_number);fin(()=>{AM=null;DI=2;detail(o.id,1)})}
 const LD=()=>new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
 const TSO=[['Follow-ups','fu'],['Today','today']],
  tdFU=()=>E.filter(e=>openFu(e)&&e.date!=today()).sort((a,b)=>(a.ord??1e9)-(b.ord??1e9)||a.date.localeCompare(b.date)),
@@ -3401,7 +3421,7 @@ function render(keep){if((tab==2||tab==5||tab==6)&&innerWidth>=900)tab=0;io&&io.
 const PH=()=>innerWidth<900;
 const MIC={home:'<path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 20v-5.5h4V20"/>',srch:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',plus:'<path d="M12 5v14M5 12h14"/>',back:'<path d="m15 5-7 7 7 7"/>',chev:'<path d="m9 5 7 7-7 7"/>',cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',set:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
  pend:'<rect x="4" y="4" width="16" height="16" rx="5"/><path d="m8.5 12.2 2.4 2.4 4.6-5"/>',reply:'<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 6 6v4"/>',send:'<path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/>',out:'<path d="M9 4H5.5A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20H9"/><path d="M16 8l4 4-4 4M20 12H9"/>',dl:'<path d="M12 4v11M7 10l5 5 5-5"/><path d="M5 20h14"/>',
- flag:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',journal:'<path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h11"/><path d="M10 8h5"/>',check:'<circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.3 2.3 4.7-5"/>',share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 12v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/>'},
+ flag:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',journal:'<path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h11"/><path d="M10 8h5"/>',check:'<circle cx="12" cy="12" r="8.5"/><path d="m8.5 12.3 2.3 2.3 4.7-5"/>',share:'<path d="M12 15V4M8 8l4-4 4 4"/><path d="M6 12v7a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-7"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="m13.5 6.5 4 4"/>',tick:'<path d="m5 12.5 4.5 4.5L19 7.5"/>',trash:'<path d="M4.5 7h15"/><path d="M9.5 7V4.8h5V7"/><path d="m6.5 7 .9 12.2a1 1 0 0 0 1 .8h7.2a1 1 0 0 0 1-.8L17.5 7"/><path d="M10.2 11v5.5M13.8 11v5.5"/>'},
  mI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${MIC[k]||''}</svg>`,
  /* small flat colour icons (Home actions, More) */
  FIC={pend:'<svg class="fi" viewBox="0 0 28 28"><circle cx="14" cy="14" r="13" fill="#F5A524"/><path d="m8.5 14.3 3.6 3.6 7.4-7.6" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -3443,11 +3463,23 @@ function mRender(keep,f){const v=$('#view');
  first=false;slide();mbarSync();if(uid)hbLoad()}
 /* Home: today's journal, follow-ups, then what is waiting */
 /* tap a journal entry: its options slide open underneath (conversation, follow up or done) */
-const mXa=e=>{const o=openFu(e);return `<div class="mxa"><button class="mxb" data-hth="${e.id}">${mI('chat')}Conversation</button>${o?`<button class="mxb pri" data-done="${e.id}">${mI('check')}Done</button>`:`<button class="mxb" data-fu="${e.id}">${mI('flag')}Follow up</button>`}</div>`};
-function mLi(e){const n=cnt(e.key),o=openFu(e);
- return `<div class="mli ct mx" data-mx="${e.id}" data-id="${e.id}" role="button" tabindex="0" aria-expanded="false"><div class="mlt"><h3>${esc(e.title)}</h3>${o||e.fdone||n>1?`<span class="mlr">${o?`<i class="mfl" title="Follow-up">${mI('flag')}</i>`:e.fdone?`<i class="mok" title="Follow-up done">${mI('check')}</i>`:''}${n>1?`<span class="mcn" title="${n} entries in this conversation">${mI('chat')}${n}</span>`:''}</span>`:''}</div>${e.body?`<p>${esc(e.body)}</p>`:''}${mXa(e)}</div>`}
-function mFuLi(e){return `<div class="mli fr ct mx" data-mx="${e.id}" data-id="${e.id}" role="button" tabindex="0" aria-expanded="false"><div class="t"><div class="frh"><h3>${esc(e.title)}</h3><span class="frd">${fmWd(e.date)}</span></div>${e.body?`<p class="frb">${esc(e.body)}</p>`:''}${mXa(e)}</div></div>`}
-function mEx(t){const on=!t.classList.contains('ex');document.querySelectorAll('.mx.ex').forEach(r=>{if(r!==t){r.classList.remove('ex');r.setAttribute('aria-expanded','false')}});t.classList.toggle('ex',on);t.setAttribute('aria-expanded',String(on));try{navigator.vibrate&&navigator.vibrate(5)}catch(e){}}
+/* text of a note, tidied: no empty lines, single spaces (so 3 lines show real words) */
+const mCmp=v=>String(v||'').replace(/\r/g,'').split('\n').map(l=>l.replace(/[ \t ]+/g,' ').trim()).filter(Boolean).join('\n');
+/* icon buttons that slide out under a tapped entry: conversation, follow up or done, edit, delete (asks first) */
+const MXB=(a,ic,lab,c)=>`<button class="mxi${c?' '+c:''}" ${a} aria-label="${lab}" title="${lab}">${mI(ic)}</button>`;
+const mXa=(e,cv)=>{const o=openFu(e);return `<div class="mxa">${cv?'':MXB(`data-hth="${e.id}"`,'chat','Open the conversation')}${o?MXB(`data-done="${e.id}"`,'tick','Mark the follow-up done','pri'):MXB(`data-fu="${e.id}"`,'flag','Follow up')}${MXB(`data-edit="${e.id}"`,'pen','Edit')}${MXB(`data-del="${e.id}"`,'trash','Delete','rm')}</div>`};
+/* Today and Follow-ups use the same row: title, up to 3 lines of the note, tap for the whole note and the buttons */
+function mRow(e,fu){const n=cnt(e.key),o=openFu(e),b=mCmp(e.body),
+  r=(fu?`<span class="mjd">${fmWd(e.date)}</span>`:o?`<i class="mfl" title="Follow-up">${mI('flag')}</i>`:e.fdone?`<i class="mok" title="Follow-up done">${mI('check')}</i>`:'')+(n>1?`<span class="mcn" title="${n} entries in this conversation">${mI('chat')}${n}</span>`:'');
+ return `<div class="mli mjr ct mx" data-mx="${e.id}" data-id="${e.id}" role="button" tabindex="0" aria-expanded="false"><div class="mlt"><h3>${esc(e.title)}</h3>${r?`<span class="mlr">${r}</span>`:''}</div>${b?`<p class="mjb">${esc(b)}</p><button class="mjmo" data-hth="${e.id}">Read the whole note in the conversation</button>`:''}${mXa(e)}</div>`}
+const mLi=e=>mRow(e),mFuLi=e=>mRow(e,1);
+/* open or close one entry (the others close); the note grows smoothly */
+function mExSet(r,on){const p=r.querySelector('.mjb');if(!p){r.classList.toggle('ex',on);r.setAttribute('aria-expanded',String(on));return}
+ const h0=p.offsetHeight;if(!on)p.style.setProperty('-webkit-line-clamp','none');r.classList.toggle('ex',on);r.setAttribute('aria-expanded',String(on));
+ const h1=on?p.offsetHeight:(()=>{p.style.removeProperty('-webkit-line-clamp');const x=p.offsetHeight;p.style.setProperty('-webkit-line-clamp','none');return x})();
+ if(on)r.classList.toggle('cut',p.scrollHeight>p.clientHeight+2);
+ if(h0!=h1&&p.animate){const a=p.animate([{maxHeight:h0+'px'},{maxHeight:h1+'px'}],{duration:300,easing:'cubic-bezier(.2,.9,.25,1)'});a.onfinish=a.oncancel=()=>{if(!on)p.style.removeProperty('-webkit-line-clamp')}}else if(!on)p.style.removeProperty('-webkit-line-clamp')}
+function mEx(t){const on=!t.classList.contains('ex');document.querySelectorAll('.mx.ex').forEach(r=>{if(r!==t)mExSet(r,false)});mExSet(t,on);try{navigator.vibrate&&navigator.vibrate(5)}catch(e){}}
 function mActs(){const pn=mPendN(),rp=mReplies(),ap=mApprove(),ml=MAIL.n||0,od=obAt?OB.filter(isOver).length:0,wk=obAt?OB.filter(isWeek).length:0,op=OB.filter(isOp).length,
   T=(a,ic,t,x,dot)=>`<button class="mat" ${a}>${FIC[ic]}${dot?'<i class="nd"></i>':''}<b>${t}</b><small>${x}</small></button>`;
  return T('data-mt="5"','pend','Pending actions',pn==null?'Loading…':pn?pn+' to do':'All clear',pn>0)
@@ -3498,7 +3530,7 @@ document.addEventListener('touchend',()=>{const s=SWP;SWP=null;if(!s||!s.go)retu
  const n=dx<0?i+1:i-1;if(n<0||n>=MPG.length)return back();mGo(MPG[n],dx<0?1:-1)},{passive:true});
 document.addEventListener('touchcancel',()=>{if(SWP&&SWP.go){SWP.p.style.transform='';SWP.p.style.opacity=''}SWP=null},{passive:true});
 /* journal card on phone lists (Earlier, Search): tap opens the conversation */
-function mCard(e,i,k,th){const n=cnt(e.key),o=openFu(e);return `<div class="card mjw ct mx" data-id="${e.id}" data-mx="${e.id}" style="--i:${i}" role="button" tabindex="0" aria-expanded="false"><div class="mjh"><h3>${hl(e.title,k)}</h3>${o?'<span class="mtg">Follow-up</span>':e.fdone?'<span class="mtg ok">Done</span>':''}</div>${e.body?`<p>${hl(e.body,k)}</p>`:''}${th||n>1?`<div class="mjm">${th?`<span>${mI('cal')}${dl(e.date)}</span>`:''}${n>1?`<span>${mI('chat')}${n} in conversation</span>`:''}</div>`:''}${mXa(e)}</div>`}
+function mCard(e,i,k,th){const n=cnt(e.key),o=openFu(e);return `<div class="card mjw ct mx" data-id="${e.id}" data-mx="${e.id}" style="--i:${i}" role="button" tabindex="0" aria-expanded="false"><div class="mjh"><h3>${hl(e.title,k)}</h3>${o?'<span class="mtg">Follow-up</span>':e.fdone?'<span class="mtg ok">Done</span>':''}</div>${e.body?`<p class="mjb">${hl(mCmp(e.body),k)}</p><button class="mjmo" data-hth="${e.id}">Read the whole note in the conversation</button>`:''}${th||n>1?`<div class="mjm">${th?`<span>${mI('cal')}${dl(e.date)}</span>`:''}${n>1?`<span>${mI('chat')}${n} in conversation</span>`:''}</div>`:''}${mXa(e)}</div>`}
 /* phone: every <select> becomes the same pull-down as the contract form (the select stays underneath and keeps its value) */
 function pxsFill(sl,t){t.dataset.ch=JSON.stringify([...sl.options].map(o=>o.text));t.value=(sl.options[sl.selectedIndex]||{}).text||'';try{grow(t)}catch(e){}}
 function phSel(root){if(!PH()||!root)return;root.querySelectorAll('select.ei:not([data-pxd])').forEach(sl=>{const w=sl.closest('.kv');if(!w)return;sl.dataset.pxd='1';w.classList.add('pkw');const t=document.createElement('textarea');t.rows=1;t.className='ei pxs';t.readOnly=true;t.dataset.pxs='1';t.setAttribute('aria-label',(w.querySelector('span')||{}).textContent||'Choose');sl.after(t);const c=document.createElement('div');c.className='cl';t.after(c);sl.style.display='none';pxsFill(sl,t)})}
@@ -3587,11 +3619,11 @@ function pDoneC(r,c,x){switch(r.done){case 'invoice':return x.F.length?pFirst(x.
  case 'paid':{const f=x.full[x.full.length-1];return f?f.date||'x':''}case 'payment':{const f=x.paid[x.paid.length-1];return f?f.date||'x':''}
  case 'debit':return x.dn;case 'inspected':return c.status=='Inspected'?c.updated_at||'x':''}return''}
 function pText(r,v){return esc(r.text||'').replace(/\{(no|supplier|buyer|awbbl|days|due)\}/g,(m,k)=>k=='no'?`<b>${esc(v.no)}</b>`:k=='supplier'?`<b>${esc(v.sup)}</b>`:k=='buyer'?esc(v.buyer):k=='awbbl'?(v.ab||'AWB or BL'):k=='days'?esc(v.days||''):v.due?fmDm(v.due):'')}
-function paItems(){const T=today(),D=PA.done,R=[],ib={},dnA={},o30=back(30),RL=pRules().filter(r=>r&&r.on!==false&&r.text);
+function paItems(){const T=today(),D=PA.done,R=[],ib={},dnA={},o30=back(30),o3=back(2),RL=pRules().filter(r=>r&&r.on!==false&&r.text);
  PA.inv.forEach(i=>(i.contract_numbers||[]).forEach(n=>{const k=IVK(n);if(k)(ib[k]||(ib[k]=[])).push(i)}));
  PA.dn.forEach(d=>paSplit(d.contract_no).forEach(k=>{if(!dnA[k]||String(d.created_at)<String(dnA[k]))dnA[k]=d.created_at}));
  const add=(r,id,st,dv,v,ex)=>{const key=r.id+':'+id,man=r.done=='tick',m=D[key];let done,at;if(man){done=!!m;at=m||''}else{done=!!dv;at=dv&&dv!='x'?dv:''}
-  if(done&&!(PDAY(at)==T||(man&&PA.old&&PDAY(at)>=o30)))return;const t=pText(r,{...v,due:st.due});
+  if(done&&!(PDAY(at)>=o3||(man&&PA.old&&PDAY(at)>=o30)))return;const t=pText(r,{...v,due:st.due});
   R.push({key,id,man,done,at,t,s:st.s,w:st.w,due:st.due,kind:r.to=='letter'?'letter':'contract',sup:v.sup||'',cat:PCAT[r.done]||'other',dl:pLab(PDONE[r.to||'contract'],r.done).toLowerCase(),hay:[t.replace(/<[^>]+>/g,''),st.s,ex].join(' ').toLowerCase()})};
  PA.c.forEach(c=>{const x=pFacts(c,ib,dnA);if(!x.k)return;RL.forEach(r=>{if((r.to||'contract')!='contract'||!pTermsOk(r,x.pt))return;const st=pStartC(r,c,x);if(st)add(r,c.id,st,pDoneC(r,c,x),{no:x.no,sup:x.sup,buyer:x.buyer,ab:x.ab,days:x.dm?x.dm[1]:''},[x.no,x.supF,x.buyer,c.payment_terms].join(' '))})});
  PA.lt.forEach(l=>{if(/complet|cancel/i.test(l.status||''))return;const has=!!String(l.courier_reference||'').trim();RL.forEach(r=>{if(r.to!='letter')return;let st=null;
@@ -3600,7 +3632,7 @@ function paItems(){const T=today(),D=PA.done,R=[],ib={},dnA={},o30=back(30),RL=p
  return R.sort((a,b)=>(a.done-b.done)||(a.done?cmp(String(a.at||''),String(b.at||'')):cmp(a.w||'9',b.w||'9')))}
 const paEmpty=(t,x)=>`<div class="paem"><b>${t}</b>${x}</div>`,paSk=n=>'<div class="pask"></div>'.repeat(n),
  PCHK='<svg viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.8"/></svg>';
-function paHTML(L,k){if(!PA.loaded)return paSk(3);const T=today(),o30=back(30),nOld=Object.values(PA.done).filter(v=>{const d=PDAY(v);return d<T&&d>=o30}).length,
+function paHTML(L,k){if(!PA.loaded)return paSk(3);const o3=back(2),o30=back(30),nOld=Object.values(PA.done).filter(v=>{const d=PDAY(v);return d<o3&&d>=o30}).length,
   more=nOld&&!k?`<button class="paold" data-paold>${PA.old?'Hide items ticked earlier':'Show items ticked in the last 30 days'}</button>`:'';
  if(!L.length)return(k?paEmpty('No pending actions match','Try another word.'):paEmpty('Nothing pending','Actions appear here as contracts move from inspection to invoice, shipment, payment and debit note, and when a letter is due.'))+more;
  return L.map(x=>{const n=x.due&&!x.done?dDiff(x.due):null,dl=n==null?'':n<0?`<span class="pdt od">${-n} day${n==-1?'':'s'} late</span>`:n==0?'<span class="pdt soon">Today</span>':n==1?'<span class="pdt soon">Tomorrow</span>':`<span class="pdt">${fmWd(x.due)}</span>`,
@@ -3632,8 +3664,8 @@ let PPF='';
 const PCAT={invoice:'docs',bill:'docs',paid:'pay',payment:'pay',debit:'pay',courier:'cour',tick:'cour'},
  PCATN={docs:'Invoices and AWB / BL',pay:'Payments and debit notes',cour:'Couriers and follow-ups',other:'Other'},PTILE={docs:'Documents',pay:'Payments',cour:'Couriers'},
  PCATI={docs:'<path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v4h4M9 13h6M9 17h4"/>',pay:'<rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18M7 15h3"/>',cour:'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/>'};
-function ppHTML(L){if(!PA.loaded)return '<div class="card sk"></div>'.repeat(3);const T=today(),o30=back(30),open=L.filter(x=>!x.done),isLate=x=>!x.done&&x.due&&dDiff(x.due)<0,late=open.filter(isLate).length,cnt=k=>open.filter(x=>x.cat==k).length;
- if(PPF=='late'&&!late)PPF='';const nOld=Object.values(PA.done).filter(v=>{const d=PDAY(v);return d<T&&d>=o30}).length,more=nOld?`<button class="paold" data-paold>${PA.old?'Hide items ticked earlier':'Show items ticked in the last 30 days'}</button>`:'';
+function ppHTML(L){if(!PA.loaded)return '<div class="card sk"></div>'.repeat(3);const o3=back(2),o30=back(30),open=L.filter(x=>!x.done),isLate=x=>!x.done&&x.due&&dDiff(x.due)<0,late=open.filter(isLate).length,cnt=k=>open.filter(x=>x.cat==k).length;
+ if(PPF=='late'&&!late)PPF='';const nOld=Object.values(PA.done).filter(v=>{const d=PDAY(v);return d<o3&&d>=o30}).length,more=nOld?`<button class="paold" data-paold>${PA.old?'Hide items ticked earlier':'Show items ticked in the last 30 days'}</button>`:'';
  let h=`<div class="mpt">${['docs','pay','cour'].map((k,j)=>`<button class="mptt${PPF==k?' on':''}" data-ppf="${k}" aria-pressed="${PPF==k}"><b>${cnt(k)}</b><span>${PTILE[k]}</span></button>`).join('')}</div>`;
  if(late)h+=`<div class="orad"><button class="orp${PPF=='late'?' on':''}" data-ppf="late">Late<b>${late}</b></button></div>`;
  const F=L.filter(x=>!PPF||(PPF=='late'?isLate(x):x.cat==PPF));
@@ -3642,7 +3674,7 @@ function ppHTML(L){if(!PA.loaded)return '<div class="card sk"></div>'.repeat(3);
   const sup=x.sup&&!x.t.includes('<b>'+esc(x.sup)+'</b>')?x.sup:'',sub=x.sup?String(x.s||'').split(' · ').filter(p=>p!=x.sup).join(' · '):x.s;
   return `<div class="mpa${x.done?' dn':''}" style="--i:${i++}"><i class="mpi c-${x.done?'done':x.cat}">${x.done?'<svg viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2L18.5 7.8"/></svg>':PCATS[x.cat]||PCATS.other}</i><button class="mpat" data-orow="${x.id}"><span class="mpkk">${x.kind=='letter'?'Letter':'Contract'}${sup?' · '+esc(sup):''}</span><span class="pt1">${x.t}</span>${sub?`<small>${esc(sub)}</small>`:''}</button>${pill}${x.man?`<button class="pdo${x.done?' un':''}" data-patk="${esc(x.key)}">${x.done?'Undo':'Done'}</button>`:''}</div>`};
  ['docs','pay','cour','other'].forEach(k=>{const G=F.filter(x=>!x.done&&x.cat==k);if(G.length)h+=`<div class="mgh">${PCATN[k]}</div><div class="mgrp">`+G.map(card).join('')+'</div>'});
- const D=F.filter(x=>x.done);if(D.length)h+=`<div class="mgh">Done today</div><div class="mgrp">`+D.map(card).join('')+'</div>';return h+more}
+ const D=F.filter(x=>x.done);if(D.length)h+=`<div class="mgh">Done in the last 3 days</div><div class="mgrp">`+D.map(card).join('')+'</div>';return h+more}
 const PCATS={docs:'<svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v4h4M9 13h6M9 17h4"/></svg>',pay:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2.5"/><path d="M3 10h18M7 15h3"/></svg>',cour:'<svg viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg>',other:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2"/></svg>'};
 /* Settings > Pending actions: the rules */
 function prList(){const L=pRules();return `<p class="fbpt" style="margin:0 0 12px">Each rule writes one line on your Pending actions list. It shows from the step you choose and strikes off by itself when the data is entered, or when you tick it if the rule says so.</p><div class="ux-list">${L.map(r=>{const to=r.to||'contract';return uxRow(`data-sv="rule:${esc(r.id)}"`,esc(pPlain(r.text)),esc([(to=='letter'?'Letters':'Contracts')+(r.on===false?' · Off':''),'From: '+pLab(PSTART[to],r.start).replace(/ \(.*/,'')+(/due|delivery/.test(r.start||'')?' ('+(+r.days||0)+' days)':''),'Strikes off: '+pLab(PDONE[to],r.done).toLowerCase(),r.terms?'Terms: '+r.terms:''].filter(Boolean).join(' · ')),{ic:'list'})}).join('')}</div><button class="btn wide" data-sv="rule:new" style="margin-top:12px">Add a rule</button><button class="btn ghost wide" data-prreset>Put back the original rules</button>`}
@@ -3664,9 +3696,9 @@ async function prStore(L,rm){const data={list:L,removed:rm};const{error}=await s
 async function prSave(){const f=$('#prf');if(!f)return;const g=k=>{const el=f.querySelector(`[data-pr="${k}"]`);return el?el.value:''},id0=f.dataset.id,
   r={id:id0=='new'?'r'+Date.now().toString(36):id0,on:!!g('on'),to:g('to'),text:g('text').trim(),start:g('start'),done:g('done'),days:Math.max(0,Math.min(120,Math.round(+g('days')||0))),terms:g('to')=='letter'?'':g('terms').trim(),not:g('to')=='letter'?'':g('not').trim()};
  if(!r.text){toast('Write the line that should appear on the list');return}const L=pRules().map(x=>({...x})),i=L.findIndex(x=>x.id==r.id);if(i>=0)L[i]=r;else L.push(r);
- if(await prStore(L,PA.rrm||[])){toast('Rule saved');settings('rules')}}
-async function prDel(){const f=$('#prf');if(!f)return;const id=f.dataset.id;if(await prStore(pRules().filter(x=>x.id!=id),[...new Set([...(PA.rrm||[]),id])])){toast('Rule deleted');settings('rules')}}
-async function prReset(){if(await prStore(PDEF.map(x=>({...x})),[])){toast('Original rules are back');settings('rules')}}
+ if(await prStore(L,PA.rrm||[]))fin(()=>{toast('Rule saved');settings('rules')})}
+async function prDel(){const f=$('#prf');if(!f)return;const id=f.dataset.id;if(await prStore(pRules().filter(x=>x.id!=id),[...new Set([...(PA.rrm||[]),id])]))fin(()=>{toast('Rule deleted');settings('rules')})}
+async function prReset(){if(await prStore(PDEF.map(x=>({...x})),[]))fin(()=>{toast('Original rules are back');settings('rules')})}
 /* computer Home search: results show in the journal and orderbook panels themselves */
 function jSearchHTML(f){const k=q.trim(),P=qParse(k.toLowerCase()),L=E.filter(e=>P.test((e.title+' '+e.body+' '+(e.label||'')).toLowerCase())).sort((a,b)=>cmp(b.date,a.date)||b.t-a.t),tot=Math.max(1,Math.ceil(L.length/PS));pgT=Math.min(pgT,tot);const S=L.slice((pgT-1)*PS,pgT*PS);
  return `<div class="chipj"><span>${L.length?L.length+(L.length==1?' journal entry matches':' journal entries match'):'No journal entries match'} “${esc(k)}”</span><button data-sclr>Clear</button></div>`+(S.length?S.map((e,i)=>card(e,f?i:0,k,1)).join(''):'<div class="empty"><b>Nothing in the journal</b>Try another word, or look in the orderbook beside.</div>')+pgr(pgT,tot,'pt')}
@@ -3708,17 +3740,23 @@ function cardTap(el){const id=el.dataset.card,now=Date.now(),c=el.closest('.card
 async function upd(e,patch){const{error}=await sb.from(T).update(patch).eq('id',e.id);if(error){toast(error.message);return false}return true}
 function refresh(){render(1);if($('#sr'))results();const a=ctx&&E.find(x=>x.key==ctx);if(a)thread(a.id);else close()}
 let busy=false,HOLD=false,FIN=null,FINMS=0,hp=null;const fin=(fn,ms)=>{if(HOLD){FIN=fn;FINMS=ms||0}else fn()},sl=ms=>new Promise(r=>setTimeout(r,ms));
+/* every delete asks twice: the first tap turns the button red and asks, the second deletes (3 seconds to decide) */
+function armAsk(t,word){if(t.dataset.arm==='1')return false;const w=word||'delete',ico=!!t.querySelector('svg')&&!t.textContent.trim();clearTimeout(t._at);t.dataset.arm='1';t._oh=t.innerHTML;
+ t.innerHTML=ico?t._oh+`<span class="armq">${w[0].toUpperCase()+w.slice(1)}?</span>`:(innerWidth>=900?'Click':'Tap')+' again to '+w;t.classList.add('armd');try{navigator.vibrate&&navigator.vibrate(8)}catch(e){}
+ const back=()=>{if(!t.isConnected||t.dataset.arm!=='1')return;if(t.classList.contains('mph')){t._at=setTimeout(back,700);return}t.dataset.arm='';t.classList.remove('armd');t.innerHTML=t._oh};t._at=setTimeout(back,3000);return true}
+/* the save / delete animation: button turns into a spinner, then a tick, then the change shows */
+async function heavyRun(t,run){if(busy)return;busy=true;const mp=!t.classList.contains('pk');FIN=null;FINMS=0;if(mp){HOLD=true;hp=hideSibs(t).then(()=>mphOn(t))}else t.classList.add('ld');
+ const SLOW={};let wd;try{if(await Promise.race([run(t),new Promise(r=>{wd=setTimeout(()=>r(SLOW),25000)})])===SLOW){FIN=null;toast('No answer from the server yet. Check the connection and try again.')}}finally{clearTimeout(wd);busy=false;HOLD=false;t.classList.remove('ld')}
+ if(mp){await hp;if(FIN){mphOk(t);await sl(FINMS||780);const f=FIN;FIN=null;await f();if(t.isConnected&&t.classList.contains('mph'))mphOff(t)}else mphOff(t)}}
 function hideSibs(t){const x=[...t.parentElement.children].filter(c=>c!==t&&c.tagName=='BUTTON');x.forEach(c=>c.classList.add('sh'));return sl(x.length?250:0)}
-function mphOn(t){t.parentElement.classList.add('mphp');t._w=t.offsetWidth;t._h=t.offsetHeight;t.style.flex='none';t.style.width=t._w+'px';t.style.height=t._h+'px';t.style.justifySelf='center';t.style.alignSelf='center';void t.offsetWidth;t.style.width=t._h+'px';t.classList.add('mph');t.insertAdjacentHTML('beforeend','<span class="mi"><svg viewBox="0 0 24 24" class="spn"><circle cx="12" cy="12" r="9" stroke-dasharray="42 60"/></svg></span>')}
+function mphOn(t){t.parentElement.classList.add('mphp');if(getComputedStyle(t).position=='static'){t.style.position='relative';t._ps=1}t.style.overflow='hidden';t._w=t.offsetWidth;t._h=t.offsetHeight;t.style.flex='none';t.style.width=t._w+'px';t.style.height=t._h+'px';t.style.justifySelf='center';t.style.alignSelf='center';void t.offsetWidth;t.style.width=t._h+'px';t.classList.add('mph');t.insertAdjacentHTML('beforeend','<span class="mi"><svg viewBox="0 0 24 24" class="spn"><circle cx="12" cy="12" r="9" stroke-dasharray="42 60"/></svg></span>')}
 function mphOk(t){t.classList.add('okk');const m=t.querySelector('.mi');if(m)m.innerHTML='<svg viewBox="0 0 24 24" class="tk"><path d="M5.5 12.5l4.2 4.2L18.5 7.8"/></svg>'}
-function mphOff(t){t.classList.remove('mph','okk');const m=t.querySelector('.mi');if(m)m.remove();t.style.width=t._w+'px';[...t.parentElement.children].forEach(c=>c.classList.remove('sh'));setTimeout(()=>{['width','height','flex','justifySelf','alignSelf'].forEach(k=>t.style[k]='');t.parentElement.classList.remove('mphp')},330)}
+function mphOff(t){t.classList.remove('mph','okk');const m=t.querySelector('.mi');if(m)m.remove();t.style.width=t._w+'px';[...t.parentElement.children].forEach(c=>c.classList.remove('sh'));setTimeout(()=>{['width','height','flex','justifySelf','alignSelf','overflow'].concat(t._ps?['position']:[]).forEach(k=>t.style[k]='');t._ps=0;t.parentElement&&t.parentElement.classList.remove('mphp')},330)}
 document.addEventListener('click',async ev=>{const t=ev.target.closest('button,.ct');if(!t)return;
  if(t.tagName=='BUTTON'){const n=Date.now();if(t._c&&n-t._c<450)return;t._c=n}
- const k=t.dataset,heavy=('save'in k)||('fsave'in k)||('dexp'in k)||('cosave'in k)||('cnsave'in k)||('ldsave'in k)||('ldlsave'in k)||('ldadd'in k)||('lddel'in k&&k.arm==='1')||('cdel'in k&&k.arm==='1')||(k.cdelx&&k.arm==='1')||('esave'in k)||('asave'in k)||k.done||k.fu||k.obnext||k.obback||k.reorder||k.pick||k.send||k.tick||(k.del&&k.arm==='1')||('fdel'in k&&k.arm==='1');
- if(heavy){if(busy)return;busy=true;const mp=!t.classList.contains('pk');FIN=null;FINMS=0;if(mp){HOLD=true;hp=hideSibs(t).then(()=>mphOn(t))}else t.classList.add('ld');
-  try{await onClick(t)}finally{busy=false;HOLD=false;t.classList.remove('ld')}
-  if(mp){await hp;if(FIN){mphOk(t);await sl(FINMS||780);const f=FIN;FIN=null;f();if(t.isConnected&&t.classList.contains('mph'))mphOff(t)}else mphOff(t)}}
- else await onClick(t)});
+ const k=t.dataset,heavy=('save'in k)||('fsave'in k)||('dexp'in k)||('cosave'in k)||('cnsave'in k)||('ldsave'in k)||('ldlsave'in k)||('ldadd'in k)||('lddel'in k&&k.arm==='1')||('cdel'in k&&k.arm==='1')||(k.cdelx&&k.arm==='1')||('esave'in k)||('asave'in k)||k.done||k.fu||k.obnext||k.obback||k.reorder||k.pick||k.send||k.tick||(k.del&&k.arm==='1')||('fdel'in k&&k.arm==='1')
+  ||('prsave'in k)||('prdel'in k&&k.arm==='1')||('prreset'in k&&k.arm==='1')||('ousave'in k)||('ousendsave'in k)||('pwsave'in k)||('imsave'in k)||k.sgsave||(k.sgdel&&k.arm==='1')||('aladd'in k)||(k.aldel!==undefined&&k.arm==='1')||('invdel'in k&&k.arm==='1')||(k.ldfdel&&k.arm==='1')||(k.clrm&&k.arm==='1')||k.ouok||('ouokall'in k&&k.arm==='1');
+ if(heavy)await heavyRun(t,onClick);else await onClick(t)});
 async function onClick(t){const d=t.dataset;
  const wasSheet=innerWidth>=900&&B.classList.contains('so')&&t.closest('#side')&&!('out'in d);if(wasSheet)close();
  if(d.stm){const same=SMB===t;closeSM();if(!same)stMenu(t,d.stm)}
@@ -3739,8 +3777,8 @@ async function onClick(t){const d=t.dataset;
  else if('paold'in d){PA.old=!PA.old;paPaint()}
  else if(d.ppf){PPF=PPF==d.ppf?'':d.ppf;paPaint()}
  else if('prsave'in d)await prSave()
- else if('prdel'in d)await prDel()
- else if('prreset'in d)await prReset()
+ else if('prdel'in d){if(armAsk(t))return;await prDel()}
+ else if('prreset'in d){if(armAsk(t,'bring back the original rules'))return;await prReset()}
  else if(d.gt){const g=t.closest('.bd');GC[d.gt]=!GC[d.gt];g.classList.toggle('bcl',!!GC[d.gt])}
  else if(d.hth)thread(d.hth)
  else if(d.t!==undefined){if(+d.t==tab){if(wasSheet){first=true;window.scrollTo(0,0);render()}return}dir=ORD.indexOf(+d.t)>ORD.indexOf(tab)?1:-1;tab=+d.t;jump=null;pgT=pgE=pgS=pgO=1;first=true;window.scrollTo(0,0);render()}
@@ -3768,7 +3806,7 @@ async function onClick(t){const d=t.dataset;
   else if(w=='dn'){const L=DT.dn||[];if(L.length==1){EM=true;loadCB();detail(L[0].id)}else if(L.length>1){AM='pick';PK={pg:4,act:'edit'};detail(DT.id,1)}}}
  else if(d.pgexp){const L=DT.dn||[];if(L.length==1)await exportDnRec(L[0]);else if(L.length>1){AM='pick';PK={pg:4,act:'export'};detail(DT.id,1)}}
  else if(d.pickid){if(PK.pg==2){AM='invedit';EINV=d.pickid;detail(DT.id,1)}else{const dn=(DT.dn||[]).find(v=>String(v.id)==d.pickid);if(!dn)return;if(PK.act=='edit'){AM=null;EM=true;loadCB();detail(dn.id)}else{AM=null;detail(DT.id,1);await exportDnRec(dn)}}}
- else if('invdel'in d){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to delete';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Delete'},3000);return}
+ else if('invdel'in d){if(armAsk(t))return;
   const o=OB.find(x=>x.id==DT.id),{data,error}=await sb.from('invoices').delete().eq('id',EINV).select('id');if(error)return toast(error.message);if(!data||!data.length)return toast('You don’t have permission to delete this invoice');
   const pays=cPays(DT.rec);if(pays.some(p=>String(p.invoice)==String(EINV))){const a=pays.map(p=>String(p.invoice)==String(EINV)?{...p,invoice:null}:p);await sb.from('contracts').update({payments:a}).eq('id',o.id);DT.rec.payments=a}
   AM=null;DT.inv=null;await pre(o);detail(o.id,1);toast('Invoice deleted')}
@@ -3813,18 +3851,18 @@ async function onClick(t){const d=t.dataset;
  else if('cadd'in d){if(!cPane('cnew'))settings('cnew')}
  else if(d.cpane)cPane(d.cpane)
  else if('cnsave'in d)await cnsave()
- else if('cdel'in d){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to delete';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Delete'},3000);return}await cdel(SV.slice(2))}
- else if(d.cdelx){if(d.arm!=='1'){t.dataset.arm='1';t.textContent=innerWidth>=900?'Click again to delete':'Tap again to delete';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Delete'},3000);return}await cdel(d.cdelx)}
+ else if('cdel'in d){if(armAsk(t))return;await cdel(SV.slice(2))}
+ else if(d.cdelx){if(armAsk(t))return;await cdel(d.cdelx)}
  else if(d.clogo){const f=document.querySelector(`[data-clf="${d.clogo}"]`);f&&f.click()}
- else if(d.clrm)await cLogoSet(d.clrm,null)
+ else if(d.clrm){if(armAsk(t,'remove'))return;await cLogoSet(d.clrm,null)}
  else if('cflogo'in d){const f=document.querySelector('[data-cff]');f&&f.click()}
  else if('cfrm'in d)cFormLogo('')
  else if('aladd'in d){const el=$('#alin');if(!el)return;const parts=el.value.split('=').map(x=>x.trim().replace(/\s+/g,' ')).filter(Boolean);if(parts.length<2)return toast('Write at least two names with = between them');
   const line=parts.join(' = '),L=SALL.map(g=>g.join(' = ')),ed=el.dataset.edit;if(ed!==undefined&&ed!==''&&L[+ed]!==undefined)L[+ed]=line;else if(!L.some(x=>x.toLowerCase()==line.toLowerCase()))L.push(line);
-  aliasSave(L.join('\n'));el.value='';delete el.dataset.edit;t.textContent='Save shortcut';grow(el);const lb=$('#allist');if(lb)lb.innerHTML=aliasList();toast('Shortcut saved')}
+  aliasSave(L.join('\n'));fin(()=>{el.value='';delete el.dataset.edit;t.textContent='Save shortcut';grow(el);const lb=$('#allist');if(lb)lb.innerHTML=aliasList();toast('Shortcut saved')})}
  else if(d.aledit!==undefined){const el=$('#alin'),g=SALL[+d.aledit];if(!el||!g)return;el.value=g.join(' = ');el.dataset.edit=d.aledit;grow(el);const b=document.querySelector('[data-aladd]');if(b)b.textContent='Update shortcut';el.focus();el.scrollIntoView({block:'center',behavior:'smooth'})}
- else if(d.aldel!==undefined){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Remove'},3000);return}
-  const L=SALL.map(g=>g.join(' = '));L.splice(+d.aldel,1);aliasSave(L.join('\n'));const el=$('#alin');if(el){delete el.dataset.edit;const b=document.querySelector('[data-aladd]');if(b)b.textContent='Save shortcut'}const lb=$('#allist');if(lb)lb.innerHTML=aliasList();toast('Shortcut removed')}
+ else if(d.aldel!==undefined){if(armAsk(t,'remove'))return;
+  const L=SALL.map(g=>g.join(' = '));L.splice(+d.aldel,1);aliasSave(L.join('\n'));fin(()=>{const el=$('#alin');if(el){delete el.dataset.edit;const b=document.querySelector('[data-aladd]');if(b)b.textContent='Save shortcut'}const lb=$('#allist');if(lb)lb.innerHTML=aliasList();toast('Shortcut removed')})}
  else if('sback'in d)settings(SV.startsWith('rule:')?'rules':SV.startsWith('ws:')?'sheets':SV.startsWith('ce:')?'c:'+SV.slice(3):SV.startsWith('c:')||SV=='cnew'?'contacts':'home')
  else if(d.pc){pgC=+d.pc;const l=$('#cl2');l.innerHTML=contactsList();fade(l);$('.tl2').scrollTo({top:0,behavior:'smooth'})}
  else if('addnote'in d){t.insertAdjacentHTML('beforebegin',noteRow(''));const q=document.querySelectorAll('.nrow textarea');q[q.length-1].focus()}
@@ -3836,7 +3874,7 @@ async function onClick(t){const d=t.dataset;
  else if(d.sgx){SGO=SGO==d.sgx?null:d.sgx;document.querySelectorAll('.sga').forEach(x=>{const o=x.dataset.sg==SGO;x.classList.toggle('ex',o);const b=x.querySelector('.sgh');if(b)b.setAttribute('aria-expanded',o)})}
  else if(d.sgup){const f=document.querySelector(`[data-sgf="${d.sgup}"]`);if(f)f.click()}
  else if(d.sgsave){const s=sgSaveFields(d.sgsave),c=document.querySelector(`.sgc[data-sg="${d.sgsave}"]`);if(!s)return;if(!s.name&&!s.img){sgSt(c,'err','Add a name and upload the signature image first.');return}await sgPersist(s,d.sgsave)}
- else if(d.sgdel){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to remove';setTimeout(()=>{t.dataset.arm='';t.textContent='Remove'},3000);return}const z=getSigs().find(q=>q.id==d.sgdel);if(z&&z.cloud){const{error}=await sb.from('signatures').delete().eq('id',z.id);if(error){sgSt(t.closest('.sgc'),'err',sigMsg(error));return}}putSigs(getSigs().filter(q=>q.id!=d.sgdel));toast('Signature removed');settings('sigs')}
+ else if(d.sgdel){if(armAsk(t,'remove'))return;const z=getSigs().find(q=>q.id==d.sgdel);if(z&&z.cloud){const{error}=await sb.from('signatures').delete().eq('id',z.id);if(error){sgSt(t.closest('.sgc'),'err',sigMsg(error));return}}putSigs(getSigs().filter(q=>q.id!=d.sgdel));fin(()=>{toast('Signature removed');settings('sigs')})}
  else if('additem'in d){t.insertAdjacentHTML('beforebegin',liSec(mrec(),'',[{s:''}]));const L=document.querySelectorAll('.li');L[L.length-1].querySelector('textarea').focus()}
  else if('rmitem'in d){const L=document.querySelectorAll('.li');if(L.length>1)t.closest('.li').remove();else{t.closest('.li').querySelectorAll('.sr').forEach((w,i)=>i?w.remove():w.querySelectorAll('[data-li]').forEach(e=>e.value=''));t.closest('.li').querySelector('[data-li="color"]').value='';t.closest('.li').querySelector('[data-li="article"]').value=''}calcInv()}
  else if('addsel'in d){const c=t.closest('.li');c.querySelector('.srs').insertAdjacentHTML('beforeend',selRow(mrec(),c.querySelector('[data-li="color"]').value,'','','','',c.querySelector('[data-li="article"]').value));const q=c.querySelectorAll('.sr');q[q.length-1].querySelector('textarea').focus();calcInv()}
@@ -3851,7 +3889,7 @@ async function onClick(t){const d=t.dataset;
  else if('dexp'in d)await exportPdf()
  else if('dback'in d)detail(DT.id,1)
  else if('fsave'in d)await fsave()
- else if('fdel'in d){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to delete';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Delete'},3000);return}await delD()}
+ else if('fdel'in d){if(armAsk(t))return;await delD()}
  else if(d.dadd){if(d.dadd=='inv'){AM='inv';DI=2}else if(d.dadd=='insp'){AM='inspedit';DI=1}else if(d.dadd=='pay'){AM='payedit';DI=3}else if(d.dadd=='dn'){return newDebit()}else EM=true;detail(DT.id,1)}
  else if(d.ob)detail(d.ob)
  else if('ldnew'in d)ldNewForm()
@@ -3864,8 +3902,8 @@ async function onClick(t){const d=t.dataset;
  else if('ldadd'in d)await ldAdd()
  else if('ldlsave'in d)await ldLSave()
  else if('ldsave'in d)await ldSave()
- else if('lddel'in d){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to delete';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Delete'},3000);return}await ldDel()}
- else if(d.ldfdel){if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to remove';setTimeout(()=>{t.dataset.arm='';t.textContent=t.dataset.txt||'Remove'},3000);return}await ldFDel(d.ldfdel)}
+ else if('lddel'in d){if(armAsk(t))return;await ldDel()}
+ else if(d.ldfdel){if(armAsk(t,'remove'))return;await ldFDel(d.ldfdel)}
  else if('ldcopy'in d){try{await navigator.clipboard.writeText(LSQL);toast('SQL copied')}catch(e){const r=document.createRange();r.selectNodeContents($('#ldsql'));const g=getSelection();g.removeAllRanges();g.addRange(r);toast('Select and copy the SQL')}}
 else if(d.lmode){lmode=d.lmode;renderLeads(1)}
  else if('fbsync'in d)await fbSync()
@@ -3902,13 +3940,13 @@ else if(d.lmode){lmode=d.lmode;renderLeads(1)}
  else if('ouq'in d)outQueue()
  else if('ouall'in d)await outBatch()
  else if('ouredoall'in d)await outRedoAll()
- else if('ouokall'in d){const L=outWait();if(d.arm!=='1'){t.dataset.arm='1';t.textContent='Tap again to approve all '+L.length;setTimeout(()=>{t.dataset.arm='';t.textContent='Approve all '+L.length},4000);return}let ok=0,bad=0;for(const x of L){const c=document.querySelector(`.oud[data-odid="${x.id}"]`),f=c?outRead(c):{to_email:x.to_email,body:x.body,subject:x.subject};if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.to_email||'')||!(f.body||'').trim()){bad++;continue}if(await outUpd(x.id,{...f,status:'approved',approved_at:new Date().toISOString()}))ok++}toast(bad?`${ok} approved, ${bad} need an address`:ok+' approved');outQueue();fbPaint()}
+ else if('ouokall'in d){const L=outWait();if(armAsk(t,'approve all '+L.length))return;let ok=0,bad=0;for(const x of L){const c=document.querySelector(`.oud[data-odid="${x.id}"]`),f=c?outRead(c):{to_email:x.to_email,body:x.body,subject:x.subject};if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.to_email||'')||!(f.body||'').trim()){bad++;continue}if(await outUpd(x.id,{...f,status:'approved',approved_at:new Date().toISOString()}))ok++}fin(()=>{toast(bad?`${ok} approved, ${bad} need an address`:ok+' approved');outQueue();fbPaint()})}
  else if('oucopy'in d){try{await navigator.clipboard.writeText(OUSQL);toast('SQL copied')}catch(e){toast('Select and copy the SQL')}}
  else if('ouretry'in d){OUT.loaded=false;OUT.ok=true;await outLoad(true);if(OUT.ok)settings('outreach');else toast('Tables still not found')}
  else if('ousave'in d)await outSave()
  else if(d.ouwrite){const g=fbGroupById(d.ouwrite);if(!g)return;t.disabled=true;t.textContent='Writing… about 15 seconds';let er='';try{await outWrite(g,'intro')}catch(e){er=e.message||'Could not write the email'}if(er){t.disabled=false;t.textContent='Write email';let x=t.parentElement.querySelector('[data-ouerr]');if(!x){x=document.createElement('div');x.className='impw2';x.dataset.ouerr='';t.after(x)}x.textContent=er;return}const b=$('#oub');if(b)b.outerHTML=outBlock(g);fbPaint()}
  else if(d.ouok||d.ouskip||d.ouun||d.ouredo){const id=d.ouok||d.ouskip||d.ouun||d.ouredo,c=t.closest('.oud'),dr=OUT.drafts.find(x=>x.id==id);if(!dr)return;
-  if(d.ouok){const f=c?outRead(c):{};if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.to_email||'')){toast('Add a valid email address first');return}if(!(f.body||'').trim()){toast('The email is empty');return}if(await outUpd(id,{...f,status:'approved',approved_at:new Date().toISOString()}))toast('Approved')}
+  if(d.ouok){const f=c?outRead(c):{};if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.to_email||'')){toast('Add a valid email address first');return}if(!(f.body||'').trim()){toast('The email is empty');return}if(await outUpd(id,{...f,status:'approved',approved_at:new Date().toISOString()}))fin(()=>toast('Approved'))}
   else if(d.ouskip){await outUpd(id,{status:'skipped'})}
   else if(d.ouun){await outUpd(id,{status:'draft',approved_at:null})}
   else{t.disabled=true;t.textContent='Writing…';try{await outRedo(dr)}catch(e){toast(e.message||'Could not write');t.disabled=false;t.textContent='Write it again'}}
@@ -3927,8 +3965,8 @@ else if(d.lmode){lmode=d.lmode;renderLeads(1)}
  else if(d.card)cardTap(t)
  else if(d.edit)form(d.edit)
  else if(d.fu){const e=E.find(x=>x.id==d.fu);if(await upd(e,{follow_up_required:true,follow_up_completed_at:null})){e.fu=true;e.fdone=false;fin(refresh)}}
- else if(d.done){const e=E.find(x=>x.id==d.done);if(await upd(e,{follow_up_completed_at:new Date().toISOString()})){e.fdone=true;fin(async()=>{if(tab==0&&e.date!=today()&&!B.classList.contains('so'))await out(e.id);refresh()})}}
- else if(d.del){if(t.dataset.arm!=='1'){t.dataset.arm='1';t.textContent='Confirm?';setTimeout(()=>{t.dataset.arm='';t.textContent='Delete'},2500);return}
+ else if(d.done){const e=E.find(x=>x.id==d.done);if(await upd(e,{follow_up_completed_at:new Date().toISOString()})){e.fdone=true;fin(async()=>{if(tab==0&&e.date!=today()&&!B.classList.contains('so'))await out(e.id);refresh();toast('Follow-up done','Undo',async()=>{if(await upd(e,{follow_up_completed_at:null})){e.fdone=false;refresh()}})})}}
+ else if(d.del){if(armAsk(t))return;
   const e=E.find(x=>x.id==d.del),{error}=await sb.from(T).delete().eq('id',e.id);if(error)return toast(error.message);fin(async()=>{await out(e.id);E=E.filter(x=>x!=e);link();refresh()})}
  else if('close'in d)close()
  else if('save'in d)await save(d.save,d.anchor)
@@ -3945,7 +3983,7 @@ function close(){wsLeave();B.classList.remove('kb');if(DT&&DT.id=='draft')DRAFT=
 /* conversation view: every entry of a thread, oldest first, grouped by day (no clock times) */
 const CVI={cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',plus:'<path d="M12 5v14M5 12h14"/>',link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',pen:'<path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/>'},
  cvI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${CVI[k]}</svg>`;
-function cvCard(x,i,cur){const o=openFu(x);return `<div class="card cvc${cur?' cur':''}${o?' fu':''}" data-id="${x.id}" style="--i:${i}"><h3>${esc(x.title)}</h3>${x.body?`<p>${esc(x.body)}</p>`:''}<div class="cvtags">${o?'<span class="mtg fu">Follow-up</span>':x.fdone?'<span class="mtg ok">Follow-up done</span>':''}</div><div class="cva"><button data-edit="${x.id}">Edit</button>${o?`<button data-done="${x.id}">Mark done</button>`:`<button data-fu="${x.id}">Follow up</button>`}<button class="rm" data-del="${x.id}">Delete</button></div></div>`}
+function cvCard(x,i,cur){const o=openFu(x),ph=PH();return `<div class="card cvc${cur?' cur':''}${o?' fu':''}${ph?' ct mx':''}" data-id="${x.id}"${ph?` data-mx="${x.id}" role="button" tabindex="0" aria-expanded="false"`:''} style="--i:${i}"><h3>${esc(x.title)}</h3>${x.body?`<p>${esc(x.body)}</p>`:''}<div class="cvtags">${o?'<span class="mtg fu">Follow-up</span>':x.fdone?'<span class="mtg ok">Follow-up done</span>':''}</div>${ph?mXa(x,1):`<div class="cva"><button data-edit="${x.id}">Edit</button>${o?`<button data-done="${x.id}">Mark done</button>`:`<button data-fu="${x.id}">Follow up</button>`}<button class="rm" data-del="${x.id}">Delete</button></div>`}</div>`}
 function thread(id){const e=E.find(x=>x.id==id);if(!e)return;ctx=e.key;const it=E.filter(x=>x.key==e.key).sort((a,b)=>a.date.localeCompare(b.date)||a.t-b.t),root=it[0],lst=it[it.length-1],fo=it.filter(openFu).length,fd=!fo&&it.some(x=>x.fdone);let h='',ld='';
  it.forEach((x,i)=>{if(x.date!=ld){ld=x.date;h+=`<div class="cvd"><span>${dlf(x.date)}</span></div>`}h+=cvCard(x,i,x.id==e.id&&it.length>1)});
  const tags=fo?`<span class="mtg fu">${fo>1?fo+' follow-ups open':'Follow-up open'}</span>`:fd?'<span class="mtg ok">Follow-up done</span>':'';
@@ -4101,9 +4139,9 @@ async function sgPersist(s,id){let c=document.querySelector(`.sgc[data-sg="${id}
  if(s._new||!s.cloud)r=await sb.from('signatures').insert(row).select(sel).single();else r=await sb.from('signatures').update(row).eq('id',s.id).select(sel).single();
  if(r.error){SIGERR='';sgSt(c,'err',sigMsg(r.error));return false}
  const L=getSigs(),i=L.findIndex(z=>z.id==id);if(i<0)return false;if(s.id!=r.data.id){remapSel(s.id,r.data.id);if(SGO==s.id)SGO=r.data.id}L[i]={id:r.data.id,name:r.data.name||'',role:r.data.role||'',img:r.data.img||'',cloud:1};putSigs(L);SIGERR='';SIGT=Date.now();
- if(c){c.outerHTML=sigCard(L[i]);document.querySelectorAll('.ei').forEach(grow);c=document.querySelector(`.sgc[data-sg="${r.data.id}"]`)}
+ fin(()=>{if(c){c.outerHTML=sigCard(L[i]);document.querySelectorAll('.ei').forEach(grow);c=document.querySelector(`.sgc[data-sg="${r.data.id}"]`)}
  sgSt(c,'ok',L[i].name&&L[i].img?'Saved to cloud. “'+L[i].name+'” can now be picked in the Signature field of contracts, letters and debit notes, and prints on their PDFs.':L[i].img?'Image saved to cloud. Add a name and tap Save so you can pick it on documents.':'Saved to cloud. Upload the signature image to use it.');
- toast('Signature saved');return true}
+ toast('Signature saved')});return true}
 document.addEventListener('change',async e=>{const el=e.target;if(!el||!el.dataset)return;
  if(el.dataset.sgf&&el.files&&el.files[0]){const id=el.dataset.sgf,c=el.closest('.sgc'),f=el.files[0];const s=sgSaveFields(id);if(!s)return;sgSt(c,'busy','Reading image…');let img;try{img=await prepSig(f)}catch(err){sgSt(c,'err','Could not read that image. Try a clearer photo on white paper.');return}
   s.img=img;const L=getSigs(),z=L.find(q=>q.id==id);if(z){z.img=img;putSigs(L)}const c2=document.querySelector(`.sgc[data-sg="${id}"]`);if(c2){const p=c2.querySelector('.sgp');if(p)p.innerHTML=`<img src="${img}" alt="">`}await sgPersist(z||s,id)}});
@@ -4294,7 +4332,7 @@ const prepCLogo=f=>new Promise((res,rej)=>{const r=new FileReader();r.onerror=re
  if(x1<x0){x0=0;y0=0;x1=W-1;y1=H-1}const sw=x1-x0+1,sh=y1-y0+1,S=200,c=document.createElement('canvas');c.width=c.height=S;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,S,S);
  const pd=S*(sw/sh>1.6||sh/sw>1.6?.08:.16),m=Math.min((S-2*pd)/sw,(S-2*pd)/sh),w=sw*m,h=sh*m;x.imageSmoothingEnabled=true;x.imageSmoothingQuality='high';x.drawImage(t,x0,y0,sw,sh,(S-w)/2,(S-h)/2,w,h);
  let u=c.toDataURL('image/webp',.9);if(!u.startsWith('data:image/webp'))u=c.toDataURL('image/png');res(u)};im.src=r.result};r.readAsDataURL(f)});
-async function cLogoSet(id,lg){const{data,error}=await sb.from('contact_book').update({logo:lg}).eq('id',id).select(CBF).single();if(error)return toast(/logo/.test(error.message||'')?'Logo could not be saved yet. Please try again later.':error.message);CB=(CB||[]).map(x=>x.id==id?data:x);toast(lg?'Logo saved':'Logo removed');if(!cPane(SV))settings(SV)}
+async function cLogoSet(id,lg){const{data,error}=await sb.from('contact_book').update({logo:lg}).eq('id',id).select(CBF).single();if(error)return toast(/logo/.test(error.message||'')?'Logo could not be saved yet. Please try again later.':error.message);CB=(CB||[]).map(x=>x.id==id?data:x);fin(()=>{toast(lg?'Logo saved':'Logo removed');if(!cPane(SV))settings(SV)})}
 function cHead(c,dk){return `<div class="cxh"><button class="cxav" data-clogo="${c.id}" title="${c.logo?'Change the logo':'Add the company logo'}">${cAv(c,'xl')}<i>${cxSvg('cam')}</i></button><div class="cxn">${dk?`<h2>${esc(c.name)}</h2>`:''}${[c.mark,c.contact_person].filter(Boolean).length?`<p>${esc([c.mark,c.contact_person].filter(Boolean).join(' · '))}</p>`:''}<div class="cxll"><button class="lnk" data-clogo="${c.id}">${c.logo?'Change logo':'Add logo'}</button>${c.logo?`<button class="lnk" data-clrm="${c.id}">Remove logo</button>`:''}</div></div><input type="file" accept="image/*" hidden data-clf="${c.id}"></div>`}
 function cLogoRow(c){return `<div class="kv ed cxlr"><span>Logo</span><div class="cxlf"><span id="cflv">${cAv(c)}</span><button type="button" class="lnk" data-cflogo>${c.logo?'Change':'Upload logo'}</button><button type="button" class="lnk" data-cfrm ${c.logo?'':'hidden'}>Remove</button><input type="file" accept="image/*" hidden data-cff><input type="hidden" data-cn="logo" value="${esc(c.logo||'')}"></div></div>`}
 function cFormLogo(lg){const h=document.querySelector('[data-cn="logo"]');if(!h)return;h.value=lg||'';const nm=(document.querySelector('[data-cn="name"]')||{}).value||'';$('#cflv').innerHTML=cAv({name:nm,logo:lg});const r=document.querySelector('[data-cfrm]');if(r)r.hidden=!lg;const u=document.querySelector('[data-cflogo]');if(u)u.textContent=lg?'Change':'Upload logo'}
@@ -4389,7 +4427,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
+const APP_LOG=[['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
 ['53','9 Nov 2026',['New phone app: a bottom bar with Home, Orders, a big + button, Pending and More. Home has a week strip (tap a day to read it), quick chips for what needs you, today\'s entries and follow-ups you tick off. Orders has a type switch, status tiles, supplier logos and a status button on every row. Pending has tiles and grouped lists. More holds Buyers, Contacts, Reports, Worksheets, Invoice mail, Settings, dark mode and Install. Pages open full screen, the phone back button works everywhere, and the keyboard never hides what you type. Installable as an app on iPhone and Android, with shortcuts for New entry, Orders and Pending. Settings no longer repeats pages that are in the menu']],
 ['52','9 Nov 2026',['Orderbook on the computer redesigned: five tiles (Issued, Inspected, Completed, Overdue, Due this week) that filter, rows grouped by month with the supplier logo or initials and the buyer under it, and new icons across the app: a contract is a page with a signature, a letter is a page with a stamp, a debit note is a receipt with a % sign. Settings on the computer no longer repeats Contacts, Reports, Worksheets and Invoice mail (they are in the side menu). Invoice mail now shows only what waits for approval; the Gmail address and allowed senders moved to Settings > Invoice mail setup']],
 ['51','8 Nov 2026',['Phone Pending page redesigned like the rest of the app: three tiles (Documents, Payments, Couriers) that filter, a Late chip when something is late, grouped cards with Contract or Letter, the supplier mark and a due pill, Mark done on the two hand-ticked follow-ups, and Done today at the bottom']],
@@ -4437,7 +4475,7 @@ async function pwSave(){const c=document.querySelector('.pwc');if(!c)return;cons
  sgSt(c,'busy','Checking…');let em=userEmail();if(!em){try{em=(await sb.auth.getUser()).data.user.email}catch(e){}}
  const v=await sb.auth.signInWithPassword({email:em||'',password:cur});if(v.error)return sgSt(c,'err','Your current password is not correct.');
  const u=await sb.auth.updateUser({password:n1});if(u.error)return sgSt(c,'err',u.error.message);
- c.querySelectorAll('[data-pw]').forEach(i=>i.value='');sgSt(c,'ok','Password updated. Use the new password next time you log in.');toast('Password updated')}
+ c.querySelectorAll('[data-pw]').forEach(i=>i.value='');sgSt(c,'ok','Password updated. Use the new password next time you log in.');fin(()=>toast('Password updated'))}
 /* ================= Reports ================= */
 const RP={buyer:'',supplier:'',company:'',from:'',to:'',rng:'3',type:'contract',cache:{},out:null,seq:0};
 const RNG=[['1','1 month'],['3','3 months'],['4','4 months'],['6','6 months'],['12','1 year']],
@@ -5125,7 +5163,7 @@ async function wsAct(a,d,b){
  if(a=='open')return settings('ws:'+d.wsv);
  if(a=='back')return settings('sheets');
  if(a=='dup')return wsDup(d.wsv);
- if(a=='del'){if(b.dataset.arm!=='1'){b.dataset.arm='1';b.textContent='Tap again';setTimeout(()=>{b.dataset.arm='';b.textContent=b.dataset.txt||'Delete'},3000);return}await wsDelete(d.wsv);toast('Deleted');return settings('sheets')}
+ if(a=='del'){if(armAsk(b))return;return heavyRun(b,async()=>{await wsDelete(d.wsv);fin(()=>{toast('Worksheet deleted');settings('sheets')})})}
  if(!WS.cur)return;
  switch(a){
   case'undo':wsEndEdit(true);wsUndo();break;case'redo':wsEndEdit(true);wsRedo();break;
@@ -5330,7 +5368,7 @@ async function mailSecret(){if(!MAIL.cloud||(MAIL.set&&MAIL.set.secret))return;i
   const g=await sb.from('mail_settings').select('secret').eq('id','main').maybeSingle();
   if(g.data&&g.data.secret){MAIL.set={...(MAIL.set||{id:'main'}),secret:g.data.secret};MAIL.nosec=false;const i=$('#msec');if(i)i.value=g.data.secret}}catch(e){}}
 function mailBadge(){const b=$('#mailbd');if(b){b.textContent=MAIL.n;b.hidden=!MAIL.n}document.body.classList.toggle('mpend',!!MAIL.n)}
-async function mailPoll(){if(typeof uid==='undefined'||!uid||document.hidden)return;try{const{count,error}=await sb.from('mail_inbox').select('id',{count:'exact',head:true}).eq('status','pending');if(error)return;const n=count||0,was=MAIL.n,fst=!MAIL.polled;MAIL.polled=1;MAIL.n=n;mailBadge();mChipsPaint();mbarSync();if(n>was&&!(fst&&PH()))toast(n+(n==1?' document is':' documents are')+' waiting in Invoice mail','Open',()=>settings('mail'))}catch(e){}}
+async function mailPoll(){if(typeof uid==='undefined'||!uid||document.hidden)return;try{const{count,error}=await sb.from('mail_inbox').select('id',{count:'exact',head:true}).eq('status','pending');if(error)return;const n=count||0,was=MAIL.n,fst=!MAIL.polled;MAIL.polled=1;MAIL.n=n;mailBadge();mChipsPaint();mbarSync();if(n!=was&&MAIL.rows&&MAIL.rows.length)mailLoad().then(()=>{if(SV=='mail'&&B.classList.contains('so')&&!$('#mpv *'))settings('mail')}).catch(()=>{});if(n>was&&!(fst&&PH()))toast(n+(n==1?' document is':' documents are')+' waiting in Invoice mail','Open',()=>settings('mail'))}catch(e){}}
 setTimeout(mailPoll,6000);setInterval(mailPoll,180000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)mailPoll()});
 const mailAgo=t=>{if(!t)return'';const m=Math.round((Date.now()-Date.parse(t))/60000);return m<1?'just now':m<60?m+' min ago':m<1440?Math.round(m/60)+' h ago':new Date(t).toLocaleDateString('en-GB',{day:'numeric',month:'short'})};
 function mailCard(r){const d=r.data||{},cs=impContracts(d),from=String(r.sender||'').replace(/<.*>/,'').trim()||String(r.sender||'');
@@ -5357,14 +5395,18 @@ function mailSetPage(){const M=MAIL,st=M.set||{enabled:true,gmail:'',allowed:[]}
  <li>Tap <b>Copy script</b>. In the Gmail account, open script.google.com, New project, paste, Save, then run <b>setup</b> once and allow access.</li></ol>
  <button class="btn ghost wide" data-mcopy>Copy script</button><small class="ivh">The script only sends mail that has PDF or photo attachments, and marks it with a label called Journal-done so it is never read twice.</small>`);
  return h}
-async function mailMark(id,status){const{error}=await sb.from('mail_inbox').update({status,applied_at:new Date().toISOString()}).eq('id',id);if(error)return toast(error.message);const r=MAIL.rows.find(x=>x.id==id);if(r)r.status=status;MAIL.n=MAIL.rows.filter(x=>x.status=='pending').length;mailBadge()}
-function mailDone(no){if(MAILJOB&&no&&impNk(MAILJOB.no)==impNk(no)){const id=MAILJOB.id;MAILJOB=null;mailMark(id,'applied')}}
+/* invoice mail counts on Home, the bottom bar, More and the computer menu all change at once */
+function mailSync(){MAIL.n=(MAIL.rows||[]).filter(x=>x.status=='pending').length;mailBadge();try{mChipsPaint();mbarSync();if(tab==6&&PH()&&$('#view .mm')&&!B.classList.contains('so'))mMore(0)}catch(e){}}
+async function mailMark(id,status){const{error}=await sb.from('mail_inbox').update({status,applied_at:new Date().toISOString()}).eq('id',id);if(error){toast(error.message);return false}const r=(MAIL.rows||[]).find(x=>x.id==id);if(r)r.status=status;mailSync();return true}
+/* saving the invoice opened from Invoice mail marks that mail done, and any other copy of the same invoice still waiting */
+async function mailDone(no){const j=MAILJOB;if(!j)return;const same=no&&impNk(j.no)==impNk(no);if(!same&&!(DT&&DT.id==j.host&&Date.now()-j.at<3600000))return;MAILJOB=null;await mailMark(j.id,'applied');
+ const k=impNk(no||j.no);for(const r of (MAIL.rows||[]).filter(x=>x.status=='pending'&&x.kind=='invoice'&&x.id!=j.id&&k&&impNk(x.doc_number||(x.data||{}).invoice_number)==k))await mailMark(r.id,'applied')}
 async function mailOpenInvoice(r){const d=r.data||{},cs=impContracts(d).filter(c=>c.no),first=cs[0];
  if(!first){toast('None of the contract numbers on this invoice are in your orderbook yet');return}
  const nos=cs.map(c=>c.no),{data}=await sb.from('invoices').select('*').overlaps('contract_numbers',nos),k=impNk(d.invoice_number),ex=k?(data||[]).find(v=>impNk(v.invoice_number)==k):null;
  let host=OB.find(x=>x.k=='contract'&&ck(x.no)==ck(first.no));
  if(ex){const h2=OB.find(x=>x.k=='contract'&&(ex.contract_numbers||[]).some(n=>ck(n)==ck(x.no)));if(h2)host=h2}
- if(!host)return;MAILJOB={id:r.id,no:d.invoice_number};
+ if(!host)return;MAILJOB={id:r.id,no:d.invoice_number,host:host.id,at:Date.now()};
  detail(host.id);const wait=async(f,n)=>{for(let i=0;i<n&&!f();i++)await new Promise(z=>setTimeout(z,100))};
  await wait(()=>DT&&DT.id==host.id&&DT.rec&&DT.inv,80);AM=ex?'invedit':'inv';if(ex)EINV=ex.id;DI=2;detail(host.id,1);
  await wait(()=>$('#impst'),60);
@@ -5383,17 +5425,17 @@ async function mailBill(r){const d=r.data||{},cs=impContracts(d).filter(c=>c.no)
 async function mailApprove(id){const r=MAIL.rows.find(x=>x.id==id),d=r&&r.data;if(!d)return;const ids=[...document.querySelectorAll('[data-mpk]:checked')].map(e=>e.dataset.mpk);if(!ids.length)return toast('Tick at least one invoice');
  const patch={bill_type:r.kind=='airway_bill'?'Airway Bill':'Bill of Lading',bill_number:d.bill_number};if(d.shipping_date)patch.shipping_date=d.shipping_date;
  for(const i of ids){const{data,error}=await sb.from('invoices').update(patch).eq('id',i).select('id');if(error)return toast(error.message);if(!data||!data.length)return toast('You don’t have permission to edit this invoice')}
- await mailMark(id,'applied');try{obAt=0;loadOB()}catch(e){}toast('Updated '+ids.length+(ids.length==1?' invoice':' invoices'));settings('mail')}
+ await mailMark(id,'applied');try{obAt=0;loadOB()}catch(e){}fin(()=>{toast('Updated '+ids.length+(ids.length==1?' invoice':' invoices'));settings('mail')})}
 async function mailSave(){const g=k=>document.querySelector('[data-ms="'+k+'"]'),row={id:'main',enabled:g('enabled').checked,gmail:g('gmail').value.trim(),allowed:g('allowed').value.split(/[\n,;]+/).map(x=>x.trim().toLowerCase()).filter(Boolean),updated_at:new Date().toISOString()};
- const{error}=await sb.from('mail_settings').upsert(row);if(error)return toast(/mail_settings/.test(error.message)?'Run supabase-mailbox.sql in Supabase first':error.message);MAIL.set={...(MAIL.set||{}),...row};toast('Saved')}
+ const{error}=await sb.from('mail_settings').upsert(row);if(error)return toast(/mail_settings/.test(error.message)?'Run supabase-mailbox.sql in Supabase first':error.message);MAIL.set={...(MAIL.set||{}),...row};fin(()=>toast('Saved'))}
 async function mailCopy(){const sec=($('#msec')||{}).value||(MAIL.set&&MAIL.set.secret)||'PASTE-SECRET-HERE',txt=MAIL_GS.replace('__APP_URL__',location.origin).replace('__SECRET__',sec);
  try{await navigator.clipboard.writeText(txt)}catch(e){const t=document.createElement('textarea');t.value=txt;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}toast(sec=='PASTE-SECRET-HERE'?'Secret not ready yet. Run supabase-mailbox.sql once, then try again':'Script copied with your secret')}
 document.addEventListener('click',async e=>{const t=e.target.closest&&e.target.closest('[data-mrev],[data-mdis],[data-msave],[data-mcopy],[data-mgen],[data-mok],[data-mcancel]');if(!t)return;
  if(t.dataset.mrev){const r=MAIL.rows.find(x=>x.id==t.dataset.mrev);if(!r)return;return r.kind=='invoice'?mailOpenInvoice(r):mailBill(r)}
- if(t.dataset.mdis!==undefined){await mailMark(t.dataset.mdis,'dismissed');return settings('mail')}
- if('msave'in t.dataset)return mailSave();if('mcopy'in t.dataset)return mailCopy();
+ if(t.dataset.mdis!==undefined)return heavyRun(t,async()=>{if(await mailMark(t.dataset.mdis,'dismissed'))fin(()=>{toast('Dismissed');settings('mail')})});
+ if('msave'in t.dataset)return heavyRun(t,mailSave);if('mcopy'in t.dataset)return mailCopy();
  if('mgen'in t.dataset){const v=(($('#msec')||{}).value)||'';if(!v)return toast('Secret not ready yet');try{await navigator.clipboard.writeText(v)}catch(e){const q=document.createElement('textarea');q.value=v;document.body.appendChild(q);q.select();document.execCommand('copy');q.remove()}return toast('Secret copied')}
- if(t.dataset.mok)return mailApprove(t.dataset.mok);if('mcancel'in t.dataset){const b=$('#mpv');if(b)b.innerHTML=''}});
+ if(t.dataset.mok)return heavyRun(t,()=>mailApprove(t.dataset.mok));if('mcancel'in t.dataset){const b=$('#mpv');if(b)b.innerHTML=''}});
 sb.auth.getSession().then(({data})=>enter(data.session));
 </script><script>if('serviceWorker' in navigator&&location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}try{if(screen.orientation&&screen.orientation.lock)screen.orientation.lock('portrait').catch(function(){})}catch(e){}</script><script>
 (()=>{const oo=window.open,oc=window.close;let seq=0;
