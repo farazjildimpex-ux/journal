@@ -35,7 +35,7 @@ W.__bfx={busy(){return FX&&FX.b&&FX.b.isConnected&&FX.b.closest('#sheet')&&(FX.s
 </script>
 
 <script>try{if(innerWidth<900)document.documentElement.classList.add('phx');var __t=localStorage.getItem('theme');if(__t==='dark'&&innerWidth>=900){document.documentElement.setAttribute('data-theme','dark');var __m=document.querySelector('meta[name=theme-color]');if(__m)__m.setAttribute('content','#0D0F14')}}catch(e){}</script>
-<script>try{if(innerWidth<900){var __v=localStorage.getItem('accv');if(__v){var __p=__v.split(','),__s=document.documentElement.style;if(__p.length==3){__s.setProperty('--acc',__p[0]);__s.setProperty('--acct',__p[1]);__s.setProperty('--acci',__p[2])}}var __tc=document.querySelector('meta[name=theme-color]');if(__tc)__tc.setAttribute('content','#EFF2F7')}}catch(e){}</script>
+<script>try{if(innerWidth<900){var __v=localStorage.getItem('accv');if(__v){var __p=__v.split(','),__s=document.documentElement.style;if(__p.length==3){__s.setProperty('--acc',__p[0]);__s.setProperty('--acct',__p[1]);__s.setProperty('--acci',__p[2])}}var __tc=document.querySelector('meta[name=theme-color]');if(__tc)__tc.setAttribute('content','#FFFFFF')}}catch(e){}</script>
 <script>try{var __f=localStorage.getItem('fs');if(__f)document.documentElement.style.setProperty('--fs',__f)}catch(e){}</script>
 <style>:root{--sp-2:2px;--sp-4:4px;--sp-6:6px;--sp-8:8px;--sp-12:12px;--sp-16:16px;--sp-20:20px;--sp-24:24px;--fs-11:11px;--fs-12:12px;--fs-13:13px;--fs-14:14px;--fs-16:16px;--fs-18:18px;--fs-22:22px;}
 
@@ -1842,15 +1842,15 @@ html[data-theme="dark"] .pbx{box-shadow:inset 0 0 0 1.8px #4A4F5E}
  :root[data-theme="dark"] .pfn{background:var(--surf);border-color:var(--bd);color:var(--ink)}}
 </style>
 <style id="m3">
-/* ================= phone app (html.phx = under 900px), look B: calm and crisp, light only =================
-   Light cool page (#EFF2F7), white cards with a firm edge and a tight shadow, grouped lists, Figtree (same as the computer),
-   near-black titles at 600-700, the app colour (blue by default, Display can change it) for actions and the current page.
-   Colour otherwise only for status, type, section badges and counts. The "crisp" pass (v60) is the m4 block below. */
+/* ================= phone app (html.phx = under 900px), look B: calm white, light only =================
+   White page, white cards with a hairline edge and a soft shadow, grouped lists, Figtree (same as the computer),
+   regular and medium weights, the app colour (blue by default, Display can change it) for actions and the current page.
+   Colour only for status, type and small icons. Faraz tried a crisper grey-page look (v60) and chose this one (v61). */
 .mbar{display:none}
 html.phx{--f:'Figtree','Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
- --pb:#EFF2F7;--pg:#EEF1F6;--ps:#FFFFFF;--pk:#0E1320;--pk2:#2A313D;--pm:#5D6575;--pm2:#959DAA;--pl:#ECEFF4;--pl2:#D6DCE5;--pe:#E1E6ED;
- --acc:#2F6BFF;--acct:#E9EFFF;--acci:#1F4FD8;--psh:0 1px 2px rgba(15,23,42,.05),0 3px 10px -4px rgba(15,23,42,.08);--psh2:0 18px 40px -16px rgba(15,23,42,.3);--pr:16px;
- --t-bl:#E9EFFF;--k-bl:#2F6BFF;--t-or:#FFF3DA;--k-or:#B26A00;--t-gr:#E3F6EE;--k-gr:#087A54;--t-rd:#FDECEC;--k-rd:#D93A40;--t-vi:#F0EBFF;--k-vi:#6A48E8;--t-sl:#EEF0F4;--k-sl:#344054;
+ --pb:#FFFFFF;--pg:#F6F7F9;--ps:#FFFFFF;--pk:#1F2228;--pk2:#3B3E45;--pm:#6E727C;--pm2:#A3A7B0;--pl:#EDEFF2;--pl2:#DDE1E7;--pe:#E3E6EB;
+ --acc:#2F6BFF;--acct:#EEF3FF;--acci:#1F4FD8;--psh:0 1px 2px rgba(16,24,40,.05),0 8px 20px -12px rgba(16,24,40,.18);--psh2:0 18px 40px -16px rgba(30,40,60,.3);--pr:14px;
+ --t-bl:#EEF3FF;--k-bl:#2F6BFF;--t-or:#FFF4E0;--k-or:#C47A00;--t-gr:#E7F7F0;--k-gr:#0B8F62;--t-rd:#FDECEC;--k-rd:#D93A40;--t-vi:#F1ECFF;--k-vi:#6E4FF0;--t-sl:#F0F1F4;--k-sl:#3A3F4B;
  --c-am:#F59E0B;--c-gr:#12B76A;--c-vi:#7A5AF8;--c-rd:#F04438;--gh:#6A7282;
  --ease2:cubic-bezier(.2,.9,.25,1);
  --ink:var(--pk);--ink2:var(--pk2);--ink3:var(--pm);--mute:var(--pm);--line:var(--pl);--panel:var(--pb);--blue:var(--acc);--bl:var(--acct);--page:var(--pb);--edge:var(--pl);--red:var(--k-rd);
@@ -2159,7 +2159,7 @@ html.phx .mdr{display:flex;align-items:flex-start;justify-content:space-between;
 html.phx .mh .mgr h1{font-size:clamp(25px,7.2vw,32px);line-height:1.15;flex:1;min-width:0;white-space:normal}html.phx .mh .mgr h1 span{white-space:nowrap}
 html.phx .mdr .msb{margin:-2px -10px 0 0;width:46px;height:46px}html.phx .mdr .msb svg{width:25px;height:25px}
 html.phx .mh .msec{margin:30px 0 12px}html.phx .mh .msec>span{font-size:18px;font-weight:600;color:var(--pk)}html.phx .mh .msec small{font-size:14.5px}
-html.phx .mh .mplus{position:relative;width:28px;height:28px;box-shadow:0 4px 10px -6px rgba(47,107,255,.7)}html.phx .mh .mplus:after{content:"";position:absolute;inset:-8px}html.phx .mh .mplus svg{width:15px;height:15px;stroke-width:2.5}
+html.phx .mh .mplus{width:36px;height:36px}html.phx .mh .mplus svg{width:20px;height:20px}
 html.phx .mh .mli{padding:16px 18px}html.phx .mh .mli h3{font-size:17px;line-height:1.35}html.phx .mh .mli p{font-size:15px;margin-top:5px}
 html.phx .mh .mli .m{font-size:13px;margin-bottom:6px}html.phx .mh .mli .m svg{width:14px;height:14px}
 html.phx .mh .mli.mlx{padding:15px 18px;font-size:15.5px}html.phx .mh .mli.me0 b{font-size:16.5px}html.phx .mh .mli.me0 span{font-size:14.5px}
@@ -2312,7 +2312,7 @@ html.phx .dh3 .pds{margin-top:16px}html.phx .dpane{padding-top:18px}
 html.phx .mli.mjr{display:block}
 html.phx .mjr .mlt h3{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:normal}
 html.phx .mjr.ex .mlt h3{display:block}
-html.phx .mli p.mjb,html.phx .mjw p.mjb{margin:4px 0 0;white-space:pre-line;word-break:break-word;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+html.phx .mli p.mjb,html.phx .mjw p.mjb{margin:4px 0 0;white-space:pre-line;word-break:break-word;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 html.phx .mx.ex p.mjb{-webkit-line-clamp:14;color:var(--pk2)}
 html.phx .mjmo{display:none;margin-top:6px;padding:2px 0;font-size:13px;font-weight:600;color:var(--acc);text-align:left}
 html.phx .mx.ex.cut .mjmo{display:block}
@@ -2337,100 +2337,6 @@ button.armd.dl,button.armd.lnk,button.armd.ltx,button.armd.alb,.acts button.armd
 @media(max-width:359px){html.phx .mgr h1,html.phx .mhd1 h1,html.phx .mtl h1,html.phx .pane{padding-left:16px;padding-right:16px}html.phx .chs{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}html.phx .mat,html.phx .mmt{min-height:104px;padding:14px}}
 </style>
 <style id="m4">
-/* ================= v60 crisp: bolder titles, solid section badges, coloured counts, inset dividers, white bars ================= */
-html.phx body{text-rendering:optimizeLegibility}
-html.phx svg[stroke-width="1.8"]{stroke-width:2}
-html.phx .mtl1 b,html.phx .mptt b,html.phx .kv b,html.phx .mo1,html.phx .mbb{font-variant-numeric:tabular-nums}
-/* section titles: bold, with a small solid colour badge in front (no numbers next to the title) */
-html.phx .msec>span,html.phx .mh .msec>span{font-size:20px;font-weight:700;letter-spacing:-.015em;color:var(--pk)}html.phx .mh .msec small{font-size:14px;font-weight:600;color:var(--pm)}
-html.phx .msh{display:inline-flex;align-items:center;gap:10px;min-width:0}
-html.phx .msi{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;flex:none;font-style:normal;color:#fff;background:var(--acc);box-shadow:0 3px 8px -3px color-mix(in srgb,var(--acc) 70%,transparent)}
-html.phx .msi svg{width:16px;height:16px;stroke-width:2.3}
-html.phx .msi.am{background:var(--c-am);box-shadow:0 3px 8px -3px rgba(245,158,11,.7)}html.phx .msi.vi{background:var(--c-vi);box-shadow:0 3px 8px -3px rgba(122,90,248,.7)}
-html.phx .msi.am svg{fill:#fff}
-
-html.phx .mplus,html.phx .mh .mplus{box-shadow:0 4px 10px -5px color-mix(in srgb,var(--acc) 80%,transparent)}
-/* lists: white cards, inset dividers, near-black titles */
-html.phx .mli,html.phx .mob,html.phx .mob.ct,html.phx .mpa,html.phx .mrow,html.phx .ux-row{position:relative;border-top:0}
-html.phx .mli+.mli:before,html.phx .mob+.mob:before,html.phx .mpa+.mpa:before,html.phx .mrow+.mrow:before,html.phx .ux-row+.ux-row:before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--pl);pointer-events:none}
-/* Home: every entry is its own card with room around it, no lines between entries */
-html.phx .mh .mlist2{display:flex;flex-direction:column;gap:12px;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible;margin-bottom:0}
-html.phx .mh .mlist2>.mli{border:1px solid var(--pe);border-radius:var(--pr);background:var(--ps);box-shadow:var(--psh);padding:16px 18px}
-html.phx .mh .mlist2>.mli:before{content:none}
-html.phx .mh .mlist2>.mli.mlx{padding:14px 18px}
-html.phx .mh .mlist2>.mli.gone{border-width:0;box-shadow:none;margin-top:-12px}
-html.phx .mh .mli p.mjb{margin-top:6px}
-html.phx .mh .msec{margin:34px 0 14px}html.phx .mh .mgr+.msec{margin-top:20px}
-html.phx .mli h3,html.phx .mh .mli h3,html.phx .mjw h3,html.phx .pk b,html.phx .cvc h3{font-weight:600;letter-spacing:-.01em;color:var(--pk)}
-html.phx .mli p,html.phx .mjw p,html.phx .pk span{color:var(--pm)}
-html.phx .mfl{color:var(--c-am)}html.phx .mfl svg{fill:var(--c-am)}html.phx .mok{color:var(--c-gr)}
-html.phx .mcn{font-weight:600;color:var(--pm)}
-html.phx .mx.ex{background:color-mix(in srgb,var(--acc) 4%,#fff)}
-html.phx .mli.mlx,html.phx .mh .mli.mlx{font-weight:600;color:var(--acc)}html.phx .mli.mlx svg{color:var(--acc);opacity:1}
-html.phx .mjmo{color:var(--acc)}html.phx .mxi.pri{background:var(--acc);border-color:var(--acc)}
-html.phx .mxi{border-color:var(--pl2);color:var(--pk)}
-html.phx .mjw .mtg{color:var(--k-or)}html.phx .mjw .mtg.ok{color:var(--k-gr)}
-/* group labels: small capitals, grey */
-html.phx .mgh,html.phx .ux-gh,html.phx .day,html.phx #view .day,html.phx .day.gh{margin:22px 4px 10px;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gh)}
-html.phx .ds h5{margin:0 0 8px;font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--gh)}
-/* Home tiles: titles firmer, the line below takes the colour of what it says */
-html.phx .mat b,html.phx .mmt b,html.phx .mh .mat b{font-weight:600;letter-spacing:-.01em;color:var(--pk)}
-html.phx .mat small,html.phx .mmt small{font-weight:500;color:var(--pm)}
-html.phx .mat small[class^="tn-"]{font-weight:600}
-html.phx .mat small.tn-am{color:var(--k-or)}html.phx .mat small.tn-rd{color:var(--od-ink,#B42318)}html.phx .mat small.tn-gr{color:var(--k-gr)}html.phx .mat small.tn-vi{color:var(--k-vi)}html.phx .mat small.tn-bl{color:var(--acci)}
-html.phx .mat .nd{background:var(--acc);box-shadow:0 0 0 3px var(--acct)}
-/* bottom bar: the plain bar Faraz chose (blue icon and name for the current page, blue counts); counts sit a little right so they never cover the More dots */
-html.phx .mbb{left:calc(50% + 7px)}
-/* page titles */
-html.phx .mhd1 h1,html.phx .mtl h1,html.phx .head.hob h1{color:var(--pk);letter-spacing:-.025em}
-html.phx .mhd1 .mk,html.phx .mk{font-weight:500}
-html.phx .phm h1,html.phx .phm h2{font-weight:700;color:var(--pk)}
-html.phx .phb.phsc{box-shadow:0 1px 0 var(--pe)}
-/* status strip and pending tiles */
-html.phx .mtl1 b,html.phx .mptt b{font-size:23px;font-weight:700;letter-spacing:-.02em}html.phx .mtl1 span,html.phx .mptt span{font-weight:600;color:var(--pm)}
-html.phx .mtl1.on,html.phx .mptt.on{background:var(--acct);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--acc) 38%,transparent)}html.phx .mtl1.on span,html.phx .mptt.on span{color:var(--acci)}
-/* Orderbook rows */
-html.phx .mobt .mo1{font-weight:700;letter-spacing:-.01em;color:var(--pk)}
-html.phx .mobt .mo2{font-weight:600;color:var(--pk2)}
-html.phx .mobt .ddl.mo4,html.phx .mobt .ddl{font-weight:600}
-html.phx .ost,html.phx .mob .ost{font-weight:700}
-html.phx .ost.stp-Issued{background:#E8EFFF;color:#1F4FD8}html.phx .ost.stp-Inspected{background:var(--t-or);color:var(--k-or)}html.phx .ost.stp-Completed{background:var(--t-gr);color:var(--k-gr)}
-html.phx .mlg em{box-shadow:0 0 0 1px var(--pe),0 2px 4px rgba(15,23,42,.1)}
-/* segmented controls and chips */
-html.phx .mchs,html.phx .dh3 .pds,html.phx .fsr,html.phx .pfr{background:#E7EBF1;border-color:transparent}
-html.phx .mchs button,html.phx .dh3 .pd,html.phx .fsr button,html.phx .pfr button{color:var(--pm);font-weight:600}
-html.phx .mchs button.on,html.phx .dh3 .pd.act,html.phx .fsr button.on,html.phx .pfr button.on{color:var(--pk);font-weight:700;box-shadow:0 1px 2px rgba(15,23,42,.1),0 2px 6px -2px rgba(15,23,42,.12)}
-html.phx .chs .ch{background:#fff;border-color:var(--pl2);font-weight:600;color:var(--pk2)}html.phx .chs .ch.on{background:var(--acc);border-color:var(--acc);color:#fff}
-html.phx .sbox{background:#fff;border-color:var(--pl2)}html.phx .sbox:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acct)}
-/* Pending rows */
-html.phx .mpat .mpkk{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--gh)}
-html.phx .mpat .pt1{font-size:15px;font-weight:500;color:var(--pk)}html.phx .mpat .pt1 b{font-weight:700}
-html.phx .mpa .ppl{font-weight:600}html.phx .mpa .pdo{background:var(--acct);color:var(--acci);font-weight:700}
-/* More, settings rows */
-html.phx .mrow,html.phx .ux-tx b{font-weight:600;color:var(--pk)}html.phx .mrow.red{color:var(--k-rd)}
-html.phx .mver{color:var(--pm2)}
-/* content sections, values */
-html.phx .kv span{font-weight:500;color:var(--pm)}html.phx .kv b{font-weight:600;color:var(--pk)}
-html.phx .kv.ed>span{font-weight:600}html.phx .kv.ed .ei,html.phx .form .ei{color:var(--pk)}
-html.phx .edb{background:var(--acct);color:var(--acci);font-weight:600}
-html.phx .dring .t{stroke:#E3E7EE}
-html.phx .dhr .phm small{color:var(--pm);font-weight:500}
-/* buttons: firm primary, white secondary, white footer bars */
-html.phx .btn{font-weight:600;box-shadow:0 1px 2px rgba(15,23,42,.08),0 6px 14px -8px color-mix(in srgb,var(--acc) 85%,transparent)}
-html.phx .btn.ghost,html.phx .btn.gh,html.phx .btn.sec{background:#fff;border-color:var(--pl2);color:var(--pk);box-shadow:0 1px 2px rgba(15,23,42,.05)}
-html.phx .tc2{background:#fff;box-shadow:0 -1px 0 var(--pe)}
-html.phx .pbk,html.phx .sheet:not(.tall)>.th-h .x{border-color:var(--pl2);box-shadow:0 1px 2px rgba(15,23,42,.07)}
-html.phx .lnk,html.phx .ux-link,html.phx .mwide,html.phx .paold{color:var(--acc);font-weight:600}
-html.phx .chipj{background:var(--acct);color:var(--acci);font-weight:600}html.phx .chipj button{color:var(--acci)}
-html.phx .ux-bd{background:var(--acc)}html.phx .mem .ill,html.phx .mio i{background:var(--acct);color:var(--acc)}
-/* conversation */
-html.phx .cvd span{background:#fff;border-color:var(--pe);font-weight:600;color:var(--pk2)}
-html.phx .cv .card.cvc.cur{border-color:color-mix(in srgb,var(--acc) 45%,#fff);box-shadow:0 0 0 3px var(--acct)}
-html.phx .cvc p{color:var(--pk2)}
-html.phx .cv .mtg.fu{background:var(--t-or);color:var(--k-or)}html.phx .cv .mtg.ok{background:var(--t-gr);color:var(--k-gr)}
-html.phx .cvadd{background:#fff;border-color:var(--pl2)}html.phx .cvadd i{background:var(--acc)}
-/* toast */
-html.phx .toast{background:#101828;border-radius:14px}html.phx .toast button{color:color-mix(in srgb,var(--acc) 55%,#fff)}
 /* Display: app colour swatches */
 html.phx .acw{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:2px 0 4px}
 html.phx .acw button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0 6px;border-radius:12px;background:transparent;border:0;color:var(--pm);font-size:12px;font-weight:600}
@@ -3592,10 +3498,10 @@ function mActs(){const pn=mPendN(),rp=mReplies(),ap=mApprove(),ml=MAIL.n||0,od=o
   +T('data-sv="mail"','ml','Invoice mail',ml?ml+' to approve':'Nothing waiting',ml>0,ml?'bl':'')}
 function mHome(f){const v=$('#view'),t0=today(),L=E.filter(e=>e.date==t0).sort((a,b)=>b.t-a.t),FU=tdFU(),wd=new Date().toLocaleDateString('en-GB',{weekday:'long'});
  v.innerHTML=`<div class="pane mh ${f?'':'na'}"><div class="mgr"><div class="mk">${mGreet()}, ${esc(String(NAME||'').split(' ')[0])}</div><div class="mdr"><h1><button class="mdb" data-cal aria-label="Open the calendar"><b>${wd},</b> <span>${new Date().getDate()} ${new Date().toLocaleDateString('en-GB',{month:'long'})}</span></button></h1><button class="mib msb" data-mt="2" aria-label="Search">${mI('srch')}</button></div></div>
- <div class="msec"><span class="msh"><i class="msi" aria-hidden="true">${mI('journal')}</i>Today</span><button class="mplus" data-new aria-label="New journal entry">${mI('plus')}</button></div>
+ <div class="msec"><span>Today</span><button class="mplus" data-new aria-label="New journal entry">${mI('plus')}</button></div>
  <div class="mlist2" id="mtd">${L.length?L.map(mLi).join(''):'<div class="mli me0"><b>Nothing written yet today</b><span>Tap + to add what happened.</span></div>'}<button class="mli mlx" data-mt="1"><span>Earlier entries</span>${mI('chev')}</button></div>
- ${FU.length?`<div class="msec" id="mfuh"><span class="msh"><i class="msi am" aria-hidden="true">${mI('flag')}</i>Follow-ups</span><small>${FU.length} open</small></div><div class="mlist2">${FU.map(mFuLi).join('')}</div>`:''}
- <div class="msec"><span class="msh"><i class="msi vi" aria-hidden="true">${mI('bolt')}</i>Actions</span></div><div class="mact" id="mact">${mActs()}</div></div>`}
+ ${FU.length?`<div class="msec" id="mfuh"><span>Follow-ups</span><small>${FU.length} open</small></div><div class="mlist2">${FU.map(mFuLi).join('')}</div>`:''}
+ <div class="msec"><span>Actions</span></div><div class="mact" id="mact">${mActs()}</div></div>`}
 function mChipsPaint(){const a=$('#mact');if(a)a.innerHTML=mActs()}
 const mChips=()=>'';
 /* Orderbook */
@@ -4474,7 +4380,7 @@ function contactsList(){if(innerWidth>=900&&$('.cxs'))return cRows();const q=cq.
  return (pg.length?`<div class="ux-list">${pg.map(c=>uxRow(`data-cc="${c.id}"`,esc(c.name),esc([c.contact_person,c.mark,(c.contact_no||[])[0]||(c.email||[])[0]].filter(Boolean).join(' · ')||(c.address||[])[0]||''),{av:c.logo?`<img src="${esc(c.logo)}" alt="">`:uxInit(c.name)})).join('')}</div>`:em)+pgr(pgC,tot,'pc')}
 const FSO=[['Smaller','.84'],['Small','.92'],['Default','1'],['Large','1.08']];
 function isDark(){return document.documentElement.getAttribute('data-theme')==='dark'}
-function setTheme(d){const h=document.documentElement;d?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme');try{localStorage.setItem('theme',d?'dark':'light')}catch(e){}document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.setAttribute('content',d?'#0D0F14':PH()?'#EFF2F7':'#F4F5F8'))}
+function setTheme(d){const h=document.documentElement;d?h.setAttribute('data-theme','dark'):h.removeAttribute('data-theme');try{localStorage.setItem('theme',d?'dark':'light')}catch(e){}document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.setAttribute('content',d?'#0D0F14':PH()?'#FFFFFF':'#F4F5F8'))}
 document.addEventListener('change',e=>{const t=e.target;if(t&&t.matches&&t.matches('[data-dark]'))setTheme(t.checked);if(t&&t.matches&&t.matches('[data-odc]')){odSet(t.value);document.querySelectorAll('[data-od]').forEach(b=>b.classList.toggle('on',b.dataset.od.toLowerCase()==t.value.toLowerCase()))}if(t&&t.id=='bkf'&&t.files[0])doRestore(t.files[0])});
 document.addEventListener('input',e=>{const t=e.target;if(t&&t.matches&&t.matches('[data-odc]'))odApply(t.value)});
 function themeBlock(){if(PH())return'';return `<label class="sw" style="margin-bottom:14px"><span><b>Dark mode</b><small>Easier on the eyes at night</small></span><input type="checkbox" data-dark${isDark()?' checked':''}><i></i></label>`}
@@ -4538,7 +4444,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['60','9 Nov 2026',['Phone: a crisper look. The page is a light cool grey so the white cards stand out, titles are darker and bolder, and group labels are small capitals.','Home: Today, Follow-ups and Actions have bold titles with a small colour badge (blue journal, amber flag, violet bolt). Every entry is its own card with space around it, so long days no longer look cramped. Follow-ups show no date. The line under each Home tile takes the colour of what it says (amber to do, green all clear, red overdue).','Lines between rows run the full width again. Status tags, segmented switches and buttons are firmer.','Display: choose the app colour (Blue, Indigo, Violet, Teal or Graphite). Status colours stay the same.']],['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
+const APP_LOG=[['61','9 Nov 2026',['Phone back to the white look you picked: plain Today and Follow-ups titles, entries in one white card with lines between them, two lines of each note (tap an entry for the whole note and its buttons), the larger + and the plain bottom bar. Follow-ups still show no date and the App colour choice in Display stays.']],['60','9 Nov 2026',['Phone: a crisper look. The page is a light cool grey so the white cards stand out, titles are darker and bolder, and group labels are small capitals.','Home: Today, Follow-ups and Actions have bold titles with a small colour badge (blue journal, amber flag, violet bolt). Every entry is its own card with space around it, so long days no longer look cramped. Follow-ups show no date. The line under each Home tile takes the colour of what it says (amber to do, green all clear, red overdue).','Lines between rows run the full width again. Status tags, segmented switches and buttons are firmer.','Display: choose the app colour (Blue, Indigo, Violet, Teal or Graphite). Status colours stay the same.']],['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
 ['53','9 Nov 2026',['New phone app: a bottom bar with Home, Orders, a big + button, Pending and More. Home has a week strip (tap a day to read it), quick chips for what needs you, today\'s entries and follow-ups you tick off. Orders has a type switch, status tiles, supplier logos and a status button on every row. Pending has tiles and grouped lists. More holds Buyers, Contacts, Reports, Worksheets, Invoice mail, Settings, dark mode and Install. Pages open full screen, the phone back button works everywhere, and the keyboard never hides what you type. Installable as an app on iPhone and Android, with shortcuts for New entry, Orders and Pending. Settings no longer repeats pages that are in the menu']],
 ['52','9 Nov 2026',['Orderbook on the computer redesigned: five tiles (Issued, Inspected, Completed, Overdue, Due this week) that filter, rows grouped by month with the supplier logo or initials and the buyer under it, and new icons across the app: a contract is a page with a signature, a letter is a page with a stamp, a debit note is a receipt with a % sign. Settings on the computer no longer repeats Contacts, Reports, Worksheets and Invoice mail (they are in the side menu). Invoice mail now shows only what waits for approval; the Gmail address and allowed senders moved to Settings > Invoice mail setup']],
 ['51','8 Nov 2026',['Phone Pending page redesigned like the rest of the app: three tiles (Documents, Payments, Couriers) that filter, a Late chip when something is late, grouped cards with Contract or Letter, the supplier mark and a due pill, Mark done on the two hand-ticked follow-ups, and Done today at the bottom']],
