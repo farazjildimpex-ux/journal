@@ -80,3 +80,7 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 - Forms everywhere on the phone (entry form, login, settings, rules) use the contract-form look: a white section, small grey label, value text, light line between rows. Every <select> is turned into the contract form's pull-down (phSel keeps the real select underneath). Pop-up menus use the same card as that pull-down.
 - More has no profile row (company details live in Settings).
 - Pending rules are drawn as a flow (prFlow): When → Only if → Starts → Adds to Pending (with an example) → Strikes off when; vertical on the phone, left to right on the computer; tapping a step flashes its field.
+- Round header buttons hold real SVG icons (PBK back, PCL close); never a text glyph (Android minimum font size pushed glyph + icon off centre).
+- Home follow-ups: one line (title, date on the right, no day counter); tap opens the note plus Conversation and Done, same buttons as Today. Slide-out buttons 32px.
+- Orderbook status strip has four cells: Issued, Inspected, Completed, This week. Overdue stays a chip. Due text uses the Display overdue colour (--od-ink), not bright red.
+- Invoice fill (impFill): the invoice's own selection wins over the contract's; impNorm turns "COL - NUT" into colour NUT; price differences are listed. Reader prompt keeps every selection on its own line.
