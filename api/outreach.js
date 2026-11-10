@@ -26,17 +26,43 @@ function warmCap(daysSinceFirst, userCap) { const w = daysSinceFirst < 7 ? 10 : 
 function addWorkingDays(d, n) { const x = new Date(d); while (n > 0) { x.setUTCDate(x.getUTCDate() + 1); const w = x.getUTCDay(); if (w !== 0 && w !== 6) n--; } return x; }
 
 const smtpHost = () => envv('OUTREACH_SMTP_HOST') || 'smtpout.secureserver.net', imapHost = () => envv('OUTREACH_IMAP_HOST') || 'imap.secureserver.net';
-/* check the mailbox login without sending anything: SMTP (sending) and IMAP (reading replies) separately */
-async function checkMailbox() {
-  const out = { user: envv('OUTREACH_USER'), smtp: { host: smtpHost(), port: +envv('OUTREACH_SMTP_PORT') || 465 }, imap: { host: imapHost(), port: +envv('OUTREACH_IMAP_PORT') || 993 } };
-  const tr = mailer();
-  if (!tr) { out.smtp.ok = false; out.smtp.why = 'OUTREACH_USER or OUTREACH_PASS is missing'; out.imap.ok = false; out.imap.why = out.smtp.why; return out; }
-  try { await tr.verify(); out.smtp.ok = true; } catch (e) { out.smtp.ok = false; out.smtp.why = String(e && e.message || e).slice(0, 160); }
+/* check the mailbox login without sending anything: sending (SMTP) and reading (IMAP), side by side, each given 12 seconds */
+const plainWhy = e => { const m = String(e && e.message || e); 
+  if (/timeout|required time/i.test(m)) return 'No answer within 10 seconds. The mailbox may not be ready yet, or the server name is wrong.';
+  if (/invalid login|authenticat|535|\bLOGIN\b.*fail/i.test(m)) return 'The address or password was not accepted. Check OUTREACH_USER and OUTREACH_PASS in Vercel, then redeploy.';
+  if (/ENOTFOUND|EAI_AGAIN/i.test(m)) return 'That server name does not exist: ' + m.split(' ').pop();
+  if (/ECONNREFUSED/i.test(m)) return 'The server refused the connection on that port.';
+  if (/certificate|self.signed/i.test(m)) return 'The security certificate did not match the server name.';
+  return m.slice(0, 180); };
+const withTimeout = (p, ms, what) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('No answer from ' + what + ' within ' + (ms / 1000) + ' seconds. The server may be wrong or the port blocked.')), ms))]);
+async function checkSmtp(host, port) {
+  const user = envv('OUTREACH_USER'), pass = envv('OUTREACH_PASS');
+  const tr = require('nodemailer').createTransport({ host, port, secure: port === 465, auth: { user, pass }, connectionTimeout: 10000, greetingTimeout: 10000, socketTimeout: 10000 });
+  try { await withTimeout(tr.verify(), 12000, 'the sending server'); return { ok: true }; }
+  catch (e) { return { ok: false, why: plainWhy(e) }; }
+  finally { try { tr.close(); } catch (e) { /* already closed */ } }
+}
+async function checkImap(host, port) {
+  const { ImapFlow } = require('imapflow');
+  let c;
   try {
-    const { ImapFlow } = require('imapflow');
-    const c = new ImapFlow({ host: out.imap.host, port: out.imap.port, secure: true, auth: { user: envv('OUTREACH_USER'), pass: envv('OUTREACH_PASS') }, logger: false });
-    await c.connect(); const st = await c.status('INBOX', { messages: true }); out.imap.ok = true; out.imap.messages = st.messages; await c.logout();
-  } catch (e) { out.imap.ok = false; out.imap.why = String(e && e.message || e).slice(0, 160); }
+    c = new ImapFlow({ host, port, secure: true, auth: { user: envv('OUTREACH_USER'), pass: envv('OUTREACH_PASS') }, logger: false, connectionTimeout: 10000, greetingTimeout: 10000, socketTimeout: 10000, emitLogs: false });
+    c.on('error', () => { /* without this an IMAP error crashes the whole function */ });
+    await withTimeout(c.connect(), 12000, 'the reading server');
+    const st = await withTimeout(c.status('INBOX', { messages: true }), 8000, 'the inbox');
+    return { ok: true, messages: st && st.messages };
+  } catch (e) { return { ok: false, why: plainWhy(e) }; }
+  finally { if (c) { try { await c.logout(); } catch (e) { try { c.close(); } catch (e2) { /* gone */ } } } }
+}
+async function checkMailbox() {
+  const smtp = { host: smtpHost(), port: +envv('OUTREACH_SMTP_PORT') || 465 }, imap = { host: imapHost(), port: +envv('OUTREACH_IMAP_PORT') || 993 };
+  const out = { user: envv('OUTREACH_USER'), smtp, imap };
+  if (!envv('OUTREACH_USER') || !envv('OUTREACH_PASS')) {
+    const why = 'OUTREACH_USER or OUTREACH_PASS is not set in Vercel (add them, then redeploy)';
+    smtp.ok = false; smtp.why = why; imap.ok = false; imap.why = why; return out;
+  }
+  const [a, b] = await Promise.all([checkSmtp(smtp.host, smtp.port), checkImap(imap.host, imap.port)]);
+  Object.assign(smtp, a); Object.assign(imap, b);
   return out;
 }
 function mailer() {
@@ -230,7 +256,7 @@ module.exports = async (req, res) => {
       const { send } = await settings(), fs = await firstSent(), days = fs ? Math.floor((now - fs) / 86400000) : 0;
       return res.status(200).json({ ok: true, connected, from: connected ? envv('OUTREACH_USER') : '', smtp_host: smtpHost(), imap_host: imapHost(), enabled: !!send.enabled, cap_today: warmCap(days, +send.daily_cap || 15), sent_today: await sentToday(now), has_secret: !!(send.secret || envv('OUTREACH_SECRET')) });
     }
-    if (b.action === 'check') return res.status(200).json({ ok: true, ...(await checkMailbox()) });
+    if (b.action === 'check') { try { return res.status(200).json({ ok: true, ...(await checkMailbox()) }); } catch (e) { return res.status(200).json({ ok: true, user: envv('OUTREACH_USER'), smtp: { host: smtpHost(), ok: false, why: String(e && e.message || e).slice(0, 180) }, imap: { host: imapHost(), ok: false, why: 'not checked' } }); } }
     if (b.action === 'test') {
       const tr = mailer(); if (!tr) return res.status(400).json({ error: 'The mailbox is not connected yet. Add OUTREACH_USER and OUTREACH_PASS in Vercel, then redeploy.' });
       if (!me) return res.status(400).json({ error: 'Your sign-in has no email address to send the test to.' });
