@@ -1,6 +1,6 @@
 // Sends approved outreach emails through the new mailbox. Nothing here writes or approves emails.
 // Vercel environment variables: SUPABASE_SERVICE_KEY (already set), OUTREACH_USER, OUTREACH_PASS,
-// optional OUTREACH_SMTP_HOST (default smtp.titan.email), OUTREACH_SMTP_PORT (default 465), OUTREACH_FROM_NAME, OUTREACH_SECRET.
+// optional OUTREACH_SMTP_HOST (default smtpout.secureserver.net, GoDaddy), OUTREACH_SMTP_PORT (default 465), OUTREACH_IMAP_HOST (default imap.secureserver.net), OUTREACH_FROM_NAME, OUTREACH_SECRET.
 // Actions: status and test (signed-in user), tick (scheduler, header x-outreach-secret).
 const crypto = require('crypto');
 const { envv } = require('./_env');
@@ -25,12 +25,26 @@ function istDayStart(now) { const off = 330 * 60000; return new Date(Math.floor(
 function warmCap(daysSinceFirst, userCap) { const w = daysSinceFirst < 7 ? 10 : daysSinceFirst < 14 ? 15 : 20; return Math.max(1, Math.min(userCap || 15, w)); }
 function addWorkingDays(d, n) { const x = new Date(d); while (n > 0) { x.setUTCDate(x.getUTCDate() + 1); const w = x.getUTCDay(); if (w !== 0 && w !== 6) n--; } return x; }
 
+const smtpHost = () => envv('OUTREACH_SMTP_HOST') || 'smtpout.secureserver.net', imapHost = () => envv('OUTREACH_IMAP_HOST') || 'imap.secureserver.net';
+/* check the mailbox login without sending anything: SMTP (sending) and IMAP (reading replies) separately */
+async function checkMailbox() {
+  const out = { user: envv('OUTREACH_USER'), smtp: { host: smtpHost(), port: +envv('OUTREACH_SMTP_PORT') || 465 }, imap: { host: imapHost(), port: +envv('OUTREACH_IMAP_PORT') || 993 } };
+  const tr = mailer();
+  if (!tr) { out.smtp.ok = false; out.smtp.why = 'OUTREACH_USER or OUTREACH_PASS is missing'; out.imap.ok = false; out.imap.why = out.smtp.why; return out; }
+  try { await tr.verify(); out.smtp.ok = true; } catch (e) { out.smtp.ok = false; out.smtp.why = String(e && e.message || e).slice(0, 160); }
+  try {
+    const { ImapFlow } = require('imapflow');
+    const c = new ImapFlow({ host: out.imap.host, port: out.imap.port, secure: true, auth: { user: envv('OUTREACH_USER'), pass: envv('OUTREACH_PASS') }, logger: false });
+    await c.connect(); const st = await c.status('INBOX', { messages: true }); out.imap.ok = true; out.imap.messages = st.messages; await c.logout();
+  } catch (e) { out.imap.ok = false; out.imap.why = String(e && e.message || e).slice(0, 160); }
+  return out;
+}
 function mailer() {
   if (T.transport) return T.transport;
   const user = envv('OUTREACH_USER'), pass = envv('OUTREACH_PASS');
   if (!user || !pass) return null;
   const port = +envv('OUTREACH_SMTP_PORT') || 465;
-  return require('nodemailer').createTransport({ host: envv('OUTREACH_SMTP_HOST') || 'smtp.titan.email', port, secure: port === 465, auth: { user, pass } });
+  return require('nodemailer').createTransport({ host: smtpHost(), port, secure: port === 465, auth: { user, pass } });
 }
 const fromAddr = () => { const u = envv('OUTREACH_USER'); const n = String(process.env.OUTREACH_FROM_NAME || '').replace(/[\r\n"<>]/g, '').trim(); return { name: n, address: u }; };
 
@@ -79,7 +93,7 @@ function classify(m) {
 function bouncedAddress(m) { const t = String(m.text || ''); const x = /(?:final-recipient|original-recipient)[^\n]*?([\w.+'-]+@[\w.-]+\.\w+)/i.exec(t) || /(?:to|address|recipient)[^\n@]{0,60}?<?([\w.+'-]+@[\w.-]+\.\w+)>?/i.exec(t); return x ? x[1].toLowerCase() : ''; }
 async function fetchMailReal(lastUid) {
   const { ImapFlow } = require('imapflow'), { simpleParser } = require('mailparser');
-  const c = new ImapFlow({ host: envv('OUTREACH_IMAP_HOST') || 'imap.titan.email', port: +envv('OUTREACH_IMAP_PORT') || 993, secure: true, auth: { user: envv('OUTREACH_USER'), pass: envv('OUTREACH_PASS') }, logger: false });
+  const c = new ImapFlow({ host: imapHost(), port: +envv('OUTREACH_IMAP_PORT') || 993, secure: true, auth: { user: envv('OUTREACH_USER'), pass: envv('OUTREACH_PASS') }, logger: false });
   const out = [];
   await c.connect();
   try {
@@ -214,10 +228,11 @@ module.exports = async (req, res) => {
     const connected = !!(envv('OUTREACH_USER') && envv('OUTREACH_PASS'));
     if (b.action === 'status') {
       const { send } = await settings(), fs = await firstSent(), days = fs ? Math.floor((now - fs) / 86400000) : 0;
-      return res.status(200).json({ ok: true, connected, from: connected ? envv('OUTREACH_USER') : '', enabled: !!send.enabled, cap_today: warmCap(days, +send.daily_cap || 15), sent_today: await sentToday(now), has_secret: !!(send.secret || envv('OUTREACH_SECRET')) });
+      return res.status(200).json({ ok: true, connected, from: connected ? envv('OUTREACH_USER') : '', smtp_host: smtpHost(), imap_host: imapHost(), enabled: !!send.enabled, cap_today: warmCap(days, +send.daily_cap || 15), sent_today: await sentToday(now), has_secret: !!(send.secret || envv('OUTREACH_SECRET')) });
     }
+    if (b.action === 'check') return res.status(200).json({ ok: true, ...(await checkMailbox()) });
     if (b.action === 'test') {
-      const tr = mailer(); if (!tr) return res.status(400).json({ error: 'The mailbox is not connected yet. Add OUTREACH_USER and OUTREACH_PASS in Vercel and redeploy.' });
+      const tr = mailer(); if (!tr) return res.status(400).json({ error: 'The mailbox is not connected yet. Add OUTREACH_USER and OUTREACH_PASS in Vercel, then redeploy.' });
       if (!me) return res.status(400).json({ error: 'Your sign-in has no email address to send the test to.' });
       const { main } = await settings(), imgs = await pickImages(main);
       const msg = build({ subject: 'Test email from your outreach mailbox', body: 'Hello,\n\nThis is a test. It shows how your emails will look, with your signature, logo and opt-out line below.\n\n---\n\nBuongiorno,\n\nQuesta è una prova di come appariranno le sue email.' }, main, imgs, me);
