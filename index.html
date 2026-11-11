@@ -1923,7 +1923,7 @@ html.phx .mli h3{margin:0;font-size:15.5px;font-weight:500;letter-spacing:-.005e
 html.phx .mli p{margin:4px 0 0;font-size:13.5px;line-height:1.45;color:var(--pm);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}
 html.phx .mli.fr{display:flex;align-items:center;gap:12px}html.phx .mli.fr .t{flex:1;min-width:0}html.phx .mli.fr h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 html.phx .mli>svg,html.phx .mli .chv{width:17px;height:17px;color:var(--pm2);flex:none}
-html.phx .mli.mlx{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:14px;font-weight:500;color:var(--acc)}html.phx .mli.mlx svg{color:var(--acc);opacity:.7}
+html.phx .mli.mvpn{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;font-size:14px;font-weight:500;color:var(--acc)}html.phx .mli.mvpn svg{color:var(--acc);opacity:.7}
 html.phx .mli.me0{cursor:default;padding:22px 16px;text-align:center}html.phx .mli.me0 b{display:block;font-size:15px;font-weight:500}html.phx .mli.me0 span{display:block;margin-top:3px;font-size:13.5px;color:var(--pm)}
 /* white journal card (Earlier, Search) */
 html.phx .card.mjw{position:relative;display:block;width:100%;text-align:left;background:var(--ps);border:1px solid var(--pe);border-radius:var(--pr);padding:14px 16px;margin:0 0 10px;box-shadow:var(--psh);color:var(--pk);user-select:none;-webkit-user-select:none;animation:p3in .35s var(--ease2) both;animation-delay:calc(min(var(--i,0),8)*30ms)}
@@ -2174,7 +2174,7 @@ html.phx .mh .msec{margin:30px 0 12px}html.phx .mh .msec>span{font-size:18px;fon
 html.phx .mplus,html.phx .mh .mplus{position:relative;width:32px;height:32px;border-radius:10px}html.phx .mplus:after{content:"";position:absolute;inset:-6px}html.phx .mh .mplus svg{width:18px;height:18px}
 html.phx .mh .mli{padding:16px 18px}html.phx .mh .mli h3{font-size:17px;line-height:1.35}html.phx .mh .mli p{font-size:15px;margin-top:5px}
 html.phx .mh .mli .m{font-size:13px;margin-bottom:6px}html.phx .mh .mli .m svg{width:14px;height:14px}
-html.phx .mh .mli.mlx{padding:15px 18px;font-size:15.5px}html.phx .mh .mli.me0 b{font-size:16.5px}html.phx .mh .mli.me0 span{font-size:14.5px}
+html.phx .mh .mli.mvpn{padding:15px 18px;font-size:15.5px}html.phx .mh .mli.me0 b{font-size:16.5px}html.phx .mh .mli.me0 span{font-size:14.5px}
 html.phx .mh .mli>svg{width:19px;height:19px}
 html.phx .mh .mact{gap:14px}html.phx .mh .mat{min-height:138px;padding:18px}html.phx .mh .mat .fi{width:34px;height:34px}
 html.phx .mh .mat b{font-size:17px}html.phx .mh .mat small{font-size:13.5px}html.phx .mh .mat .nd{width:9px;height:9px;right:16px;top:16px}
@@ -2382,6 +2382,7 @@ button.armd.dl,button.armd.lnk,button.armd.ltx,button.armd.alb,.acts button.armd
 .omvh h3{font-size:calc(18px*var(--fs,1));font-weight:600;letter-spacing:-.015em;line-height:1.3}
 .omvh p{margin:4px 0 0;font-size:calc(13px*var(--fs,1));color:var(--mute)}
 .omvb{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);white-space:pre-wrap;word-break:break-word;font-size:calc(15px*var(--fs,1));line-height:1.6;color:var(--ink)}
+.ds>.omvb:first-child{margin-top:0;padding-top:0;border-top:0}
 .ombk{display:inline-flex;align-items:center;gap:2px;margin:0 0 12px;padding:6px 10px 6px 4px;border-radius:9px;color:var(--blue);font-size:calc(15px*var(--fs,1));font-weight:600}
 .ombk svg{width:18px;height:18px}
 .ombk:active{opacity:.6}
@@ -2393,6 +2394,62 @@ html.phx .omsr{background:var(--pg);color:var(--pm)}
 html.phx .omtb.on{color:var(--acc)}
 html.phx .oml.nw .omu{background:var(--acc)}
 html.phx .omqt{color:var(--acc)}
+/* ---------- two panes on the computer: the list on the left, the email on the right ---------- */
+.sheet.tall>.tl2:has(>.mvpn){overflow:hidden;padding-bottom:var(--sp-24)}
+.sheet.tall>.tl2>.mvpn{max-width:none;height:100%}
+.mvpn{display:grid;grid-template-columns:minmax(290px,360px) minmax(0,1fr);gap:var(--sp-20);height:100%;min-height:0}
+.mvpl,.mvpr{min-height:0;overflow-y:auto;scrollbar-width:none;padding-bottom:var(--sp-24)}
+.mvpl::-webkit-scrollbar,.mvpr::-webkit-scrollbar{display:none;width:0}
+.mvpr{border-left:1px solid var(--line);padding-left:var(--sp-20);transition:opacity .2s}
+.mvpr.wait{opacity:.5;pointer-events:none}
+.mvpn .omtop{position:static;padding-top:0}
+.mvpn .oml.on{background:var(--bl)}
+.mvpn .oml.on .omr b{color:var(--blue)}
+.mv0{padding:48px 16px;text-align:center;color:var(--mute);font-size:calc(14px*var(--fs,1))}
+.mvtop{display:flex;align-items:flex-start;gap:var(--sp-16);flex-wrap:wrap;margin:0 0 var(--sp-16)}
+.mvtt{flex:1;min-width:180px}
+.mvtt h3{font-size:calc(18px*var(--fs,1));font-weight:600;letter-spacing:-.015em;line-height:1.3}
+.mvtt p{margin:3px 0 0;font-size:calc(13px*var(--fs,1));color:var(--mute)}
+.mvta{display:flex;gap:var(--sp-8);flex:none;flex-wrap:wrap}
+.mvta .btn{width:auto;min-width:0;padding:0 var(--sp-16);margin:0}
+.mvbulk{display:flex;gap:var(--sp-8)}
+.mvbulk .btn{flex:1;width:auto;margin:0;padding:0 var(--sp-12);font-size:var(--s13)}
+.ds.mvrw{margin:0 0 var(--sp-16);animation:mvrwin .22s ease}
+@keyframes mvrwin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.mvrwt{font-size:var(--s13);font-weight:700;margin-bottom:var(--sp-8)}
+.mvrw .ei{border-bottom:1.5px dashed var(--krd3d3dc,#D3D3DC)!important;padding-bottom:var(--sp-8)}
+.mvrw .ei{width:100%}
+.mvrwc{display:flex;gap:var(--sp-8);flex-wrap:wrap;margin:var(--sp-12) 0}
+.mvrwc .btn{width:auto;min-width:0;margin:0;height:32px;padding:0 var(--sp-12);font-size:var(--s13)}
+.mvrwa{display:flex;gap:var(--sp-8)}
+.mvrwa .btn{width:auto;margin:0;padding:0 var(--sp-16)}
+.mvrwh{margin:var(--sp-8) 0 0}
+.mvpace{margin:0 0 var(--sp-12)}
+.mvpl>.impw2{margin:0 0 var(--sp-12)}
+.oud.rwait{opacity:.45;pointer-events:none;transition:opacity .2s}
+.oud.rwnew{animation:mvrwin .35s ease}
+.oud .ds.mvrw{margin:var(--sp-12) 0 0;box-shadow:none;background:var(--bg,#F4F5F9);padding:var(--sp-16)}
+html.phx .mvrwa .btn{flex:1}
+.mvpr .oud>.ldk{display:none}
+.mvacts{display:flex;flex-direction:column;gap:var(--sp-8);margin-top:var(--sp-12)}
+.mvacts .btn{margin:0}
+.mvnote{font-size:calc(13px*var(--fs,1));color:var(--mute);align-self:center}
+.omrf{flex:none;width:26px;height:26px;border-radius:7px;color:var(--mute);display:grid;place-items:center}
+.omrf svg{width:16px;height:16px}
+.omrf:hover{background:var(--surf);color:var(--blue)}
+/* in the right pane the email fills the width: label above, field below */
+.mvpr .oud .kv{display:block}
+.mvpr .oud .kv>span{display:block;width:auto;margin-bottom:var(--sp-4)}
+.mvpr .oud .kv>b{display:block}
+.mvpr .oud .kv .ei{width:100%}
+.mvpr .oud textarea.ei[data-ouf="body"]{min-height:260px}
+@media(max-width:899px){.mvpn{display:block}.mvpr{display:none}.omrf{display:none}}
+/* the phone list sits closer together */
+html.phx .oml{padding:11px 12px 11px 8px}
+html.phx .omp{-webkit-line-clamp:2}
+html.phx .omv,html.phx .mvtop{margin-bottom:12px}
+html.phx .mvta{width:100%}
+html.phx .mvta .btn{flex:1}
 </style>
 <style id="m4">
 /* ---------- v62: floating glass docks (bottom bar, and the button bar on full-screen pages) ---------- */
@@ -3035,14 +3092,27 @@ const fbBase=n=>String(n||'').split(/\s+[-–—]\s+/)[0].trim();
 const fbKey=n=>fbBase(n).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\b(s\.?r\.?l\.?|s\.?p\.?a\.?|s\.?a\.?s\.?|s\.?n\.?c\.?|s\.?l\.?u?\.?|s\.?a\.?|ltd|limited|gmbh|co|inc|llc|lda|ltda|pvt|private|the)\b/g,' ').replace(/[^a-z0-9]+/g,'');
 function fbApiTok(){return sb.auth.getSession().then(({data})=>data&&data.session?data.session.access_token:'')}
 async function fbApi(body,url){const tok=await fbApiTok();const r=await fetch(url||'/api/lwg',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+tok},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||(r.status==504?'The server took too long to answer. Try again.':'The server answered with an error ('+r.status+'). Try again in a moment.'));return j}
+const FBC1='id,name,site_type,rating,country,city,domain,website,phone,address,animals,materials,urn,detail_at,first_seen,source,contact_email,contact_name',FBC2='id,name,site_type,rating,country,city,domain,website,phone,address,animals,materials,urn,detail_at,first_seen';
+let FBC=FBC1;
+const fbPage=f=>sb.from('lwg_companies').select(FBC,{count:'exact'}).range(f,f+999);
+/* the directory is big, so ask for everything at once instead of one call after another */
 async function fbLoad(){if(FB.loading)return;FB.loading=true;
- try{let all=[],from=0;for(;;){let q=await sb.from('lwg_companies').select('id,name,site_type,rating,country,city,domain,website,phone,address,animals,materials,urn,detail_at,first_seen,source,contact_email,contact_name').range(from,from+999);if(q.error&&/source|contact_email|contact_name|column/i.test(q.error.message||''))q=await sb.from('lwg_companies').select('id,name,site_type,rating,country,city,domain,website,phone,address,animals,materials,urn,detail_at,first_seen').range(from,from+999);const{data,error}=q;
-   if(error){if(/lwg_companies|schema cache|does not exist/i.test(error.message||''))FB.ok=false;else toast(error.message);break}
-   all=all.concat(data||[]);if(!data||data.length<1000)break;from+=1000}
-  if(FB.ok)FB.rows=all;FB.loaded=true;
-  const rr=await sb.from('lwg_research').select('*').limit(5000);if(rr.error){if(/lwg_research|schema cache|does not exist/i.test(rr.error.message||''))FRok=false}else{FRok=true;FR={};(rr.data||[]).forEach(x=>FR[x.group_key]=x)}}catch(e){toast('Could not load the buyer directory')}finally{FB.loading=false}
- try{await loadCB()}catch(e){}
- await outLoad();await fbViewLoad();
+ try{
+  const side=(async()=>{try{await loadCB()}catch(e){}try{await outLoad();await fbViewLoad()}catch(e){}})();
+  const research=sb.from('lwg_research').select('*').limit(5000);
+  let q=await fbPage(0);
+  if(q.error&&/source|contact_email|contact_name|column/i.test(q.error.message||'')){FBC=FBC2;q=await fbPage(0)}
+  if(q.error){if(/lwg_companies|schema cache|does not exist/i.test(q.error.message||''))FB.ok=false;else toast(q.error.message)}
+  else{FB.rows=q.data||[];FB.loaded=true;
+   const total=q.count||FB.rows.length;
+   await side;if(tab==4&&lmode=='find')fbPaint();
+   if(total>FB.rows.length){const ps=[];for(let f=FB.rows.length;f<total;f+=1000)ps.push(fbPage(f));
+    const rs=await Promise.all(ps);rs.forEach(r=>{if(r&&r.data)FB.rows=FB.rows.concat(r.data)})}}
+  const rr=await research;
+  if(rr.error){if(/lwg_research|schema cache|does not exist/i.test(rr.error.message||''))FRok=false}
+  else{FRok=true;FR={};(rr.data||[]).forEach(x=>FR[x.group_key]=x)}
+  await side;
+ }catch(e){toast('Could not load the buyer directory')}finally{FB.loading=false}
  if(tab==4&&lmode=='find')fbPaint()}
 function fbCustomers(){const dom=new Set(),keys=new Set();const add=(n,e,w)=>{const k=fbKey(n);if(k.length>=4)keys.add(k);[e,w].forEach(x=>{String(x||'').split(/[,;\s]+/).forEach(p=>{const d=fbDom(p.includes('@')?p.split('@')[1]:p);if(d)dom.add(d)})})};
  (CB||[]).forEach(c=>add(c.name,c.email,''));(LDX||[]).forEach(l=>add(l.company_name,l.email,l.website));return{dom,keys}}
@@ -3226,20 +3296,25 @@ function outSigHtml(){const lg=coProf((COMP||[]).find(c=>c.id==OUT.s.logo_id)||{
 const outKey=g=>g.dom?'d:'+g.dom:'n:'+fbKey(g.rows[0].name);
 const outFor=k=>OUT.drafts.filter(d=>d.group_key==k);
 const outFull=d=>(d.body||'').trim()+'\n\n'+(OUT.s.signature||'').trim()+(OUT.s.optout?'\n\n'+OUT.s.optout.trim():'');
-async function outGen(g,step,prev,country){const r=fbRes(g);if(!r||!r.profile){toast('Research this company first');return}if(r.business_type=='not_relevant'){toast('The website shows no leather or footwear business');return}
- if(!(OUT.s.catalogue||'').trim()){toast('Add what you can supply in Settings > Outreach first');return}
+async function outGen(g,step,prev,country,note,current){const r=fbRes(g);if(!r||!r.profile)throw new Error('Research this company first');if(r.business_type=='not_relevant')throw new Error('The website shows no leather or footwear business');
+ if(!(OUT.s.catalogue||'').trim())throw new Error('Add what you can supply in Settings > Outreach first');
  const p=r.profile,mails=fbMails(r),ct=(p.contacts||[]).find(c=>c.email)||null,to=ct?ct.email:(mails.find(m=>!/^(info|office|contact|sales|admin)@/i.test(m))||mails[0]||''),nm=ct&&ct.email==to?ct.name:'';
- const j=await fbApi({settings:OUT.s,company:{name:g.name,country:country||FB.country,profile:p},to_email:to,to_name:nm,step,previous:prev||''},'/api/draft'),e=j.email;
+ const j=await fbApi({settings:OUT.s,company:{name:g.name,country:country||FB.country,profile:p},to_email:to,to_name:nm,step,previous:prev||'',note:note||'',current:current||''},'/api/draft'),e=j.email;
  return{to,nm,e}}
 async function outWrite(g,step,prev){const{to,nm,e}=await outGen(g,step,prev);
  const row={group_key:outKey(g),company:g.name,country:FB.country,to_email:to,to_name:nm,step,subject:e.subject,body:e.body,language:e.language,basis:{offered:e.offered,based_on:e.based_on,confidence:e.confidence},status:'draft'};
  const{data,error}=await sb.from('outreach_drafts').insert(row).select('*').single();if(error)throw new Error(error.message);OUT.drafts.unshift(data);return data}
 function outGroupOf(dr){return fbGroups(FB.rows.filter(r=>(r.country||'Unknown')==dr.country)).find(x=>outKey(x)==dr.group_key)}
-async function outRedo(dr){if(dr.step=='reply')throw new Error('Open the Inbox and tap Write a reply again for this one');const g=outGroupOf(dr);if(!g)throw new Error('Company not found');const{to,nm,e}=await outGen(g,dr.step,'',dr.country),keepTo=dr.to_email&&dr.to_email!=to?dr.to_email:to;
+async function fbNeed(){if(!FB.loaded&&!FB.loading)await fbLoad();for(let i=0;i<200&&FB.loading;i++)await new Promise(r=>setTimeout(r,150))}
+async function outRedo(dr,note){if(dr.step=='reply')throw new Error('Open the Inbox and tap Write a reply again for this one');await fbNeed();const g=outGroupOf(dr);if(!g)throw new Error('This company is no longer in the directory');
+ const pv=dr.step!='intro'?((OUT.drafts.find(x=>x.group_key==dr.group_key&&x.status=='sent'&&x.id!=dr.id)||{}).body||''):'';
+ const{to,nm,e}=await outGen(g,dr.step,pv,dr.country,note,dr.body),keepTo=dr.to_email&&dr.to_email!=to?dr.to_email:to;
  await outUpd(dr.id,{to_email:keepTo,to_name:nm,subject:e.subject,body:e.body,language:e.language,basis:{offered:e.offered,based_on:e.based_on,confidence:e.confidence},status:'draft',approved_at:null})}
 let OUbusy='';
 async function outRedoAll(){if(OUbusy)return;const L=outWait().filter(d=>d.step!='reply');if(!L.length)return;OUbusy='x';let n=0,fail=0;
- for(const dr of L){n++;const b=document.querySelector('[data-ouredoall]');if(b){b.disabled=true;b.textContent=`Rewriting ${n} of ${L.length}…`}try{await outRedo(dr)}catch(e){fail++;if(/not set up|sign in|ANTHROPIC|credit|billing|rate/i.test(e.message||'')){toast(e.message);break}}}
+ for(const dr of L){n++;const b=document.querySelector('[data-ouredoall]');if(b){b.disabled=true;b.textContent=`Rewriting ${n} of ${L.length}…`}
+  try{await outRedo(dr);if(mvDesk()&&$('#mvlist')){oqPaint();if(MVS.queue==dr.id)mvRight(mvDraft(OUT.drafts.find(x=>x.id==dr.id)))}}
+  catch(e){fail++;if(/not set up|sign in|ANTHROPIC|credit|billing|rate/i.test(e.message||'')){toast(e.message);break}}}
  OUbusy='';toast(fail?`${fail} could not be rewritten`:'All rewritten');outQueue();fbPaint()}
 function outReady(G){return G.filter(g=>!g.cust&&fbScore(g)>=3&&fbMails(fbRes(g)).length&&!outFor(outKey(g)).length)}
 async function outBatch(){if(FRbusy)return;if(!(OUT.s.catalogue||'').trim()){toast('Add what you can supply in Settings > Outreach first');return}
@@ -3248,26 +3323,41 @@ async function outBatch(){if(FRbusy)return;if(!(OUT.s.catalogue||'').trim()){toa
   n++;FRbusy=`Writing… ${n} of ${todo.length} · ${g.name}`;FB.rpct=n/todo.length*100;fbPaint()}
  FRbusy='';fbPaint();toast(fail?`${fail} could not be written`:'Ready for your approval')}
 const OUSTAT={draft:'Waiting for you',approved:'Approved',skipped:'Skipped',sent:'Sent',failed:'Could not send'};
-function outCard(d){const b=d.basis||{},ed=d.status=='draft';
- return`<section class="ds oud" data-odid="${d.id}"><div class="ldk">${esc(d.company||'')} · ${d.step=='intro'?'First email':d.step=='follow1'?'Follow-up 1':d.step=='reply'?'Reply':'Follow-up 2'}${d.replied_at?' · Replied':''} · ${OUSTAT[d.status]||d.status}</div>
+const outStep=d=>d.step=='intro'?'First email':d.step=='follow1'?'Follow-up 1':d.step=='reply'?'Reply':'Follow-up 2';
+function outFields(d){const b=d.basis||{},ed=d.status=='draft';
+ return`<div class="ldk">${esc(d.company||'')} · ${outStep(d)}${d.replied_at?' · Replied':''} · ${OUSTAT[d.status]||d.status}</div>
  <div class="kv ed"><span>To</span>${ed?`<input class="ei" data-ouf="to_email" value="${esc(d.to_email||'')}" placeholder="No address found. Type one">`:`<b>${esc(d.to_email||'')}</b>`}</div>
  <div class="kv ed"><span>Subject</span>${ed?`<input class="ei" data-ouf="subject" value="${esc(d.subject||'')}">`:`<b>${esc(d.subject||'')}</b>`}</div>
  <div class="kv ed"><span>Email${d.language?' · '+esc(d.language):''}</span>${ed?`<textarea rows="9" class="ei" data-ouf="body">${esc(d.body||'')}</textarea>`:`<b style="white-space:pre-wrap">${esc(d.body||'')}</b>`}</div>
  <div class="fbpt">Added automatically under your email:</div>${outSigHtml()}
  ${b.confidence=='thin'?'<div class="impw2">Little to personalise with. Read it carefully.</div>':''}
  ${(b.offered||[]).length?`<div class="fbf">Offers: ${esc(b.offered.join('; '))}</div>`:''}${(b.based_on||[]).length?`<div class="fbf">Based on: ${esc(b.based_on.join('; '))}</div>`:''}
- ${d.last_error&&d.status!='sent'?`<div class="impw2">${esc(d.last_error)}</div>`:''}${d.sent_at?`<div class="fbpt">Sent ${esc(new Date(d.sent_at).toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}))}</div>`:''}
- ${ed?`<button class="btn wide" data-ouok="${d.id}" style="margin-top:10px">Approve</button><button class="btn ghost wide" data-ouredo="${d.id}">Write it again</button><button class="ldq" data-ouskip="${d.id}">Skip this company</button>`:d.status=='approved'?`<p class="fbpt">Approved. It will go out on the next weekday after the mailbox is connected.</p><button class="ldq" data-ouun="${d.id}">Take back</button>`:''}</section>`}
+ ${d.last_error&&d.status!='sent'?`<div class="impw2">${esc(d.last_error)}</div>`:''}${d.sent_at?`<div class="fbpt">Sent ${esc(new Date(d.sent_at).toLocaleString([], {day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}))}</div>`:''}`}
+function outActs(d,wide){const ed=d.status=='draft',w=wide?' wide':'';
+ return ed?`<button class="btn${w}" data-ouok="${d.id}">Approve</button><button class="btn ghost${w}" data-ouredo="${d.id}">Write it again</button><button class="btn ghost${w}" data-ouskip="${d.id}">Skip this company</button>`
+  :d.status=='approved'?`<span class="mvnote">Approved. It goes out on the next working day, in their working hours.</span><button class="btn ghost${w}" data-ouun="${d.id}">Take back</button>`:''}
+function outRwBox(id){return`<div class="ds mvrw" data-rwfor="${id}"><div class="mvrwt">What should change?</div><input class="ei" data-ourwn placeholder="For example: offer goat linings" autocomplete="off"><div class="mvrwc">${['Shorter','More formal','Warmer','English only'].map(x=>`<button class="btn ghost" data-ourwc="${x}">${x}</button>`).join('')}</div><div class="mvrwa"><button class="btn" data-ourwgo="${id}">Rewrite</button><button class="btn ghost" data-ourwx>Cancel</button></div><p class="fbpt mvrwh">Leave it empty for a fresh version. Your current text is replaced.</p></div>`}
+function outCard(d){return`<section class="ds oud" data-odid="${d.id}">${outFields(d)}<div class="mvacts">${outActs(d,1)}</div></section>`}
+/* the computer shows the email beside the list, with its buttons on top */
+function mvDraft(d){if(!d)return'<div class="mv0">Choose an email on the left.</div>';
+ return`<div class="mvtop"><div class="mvtt"><h3>${esc(d.company||d.to_email||'')}</h3><p>${esc(outStep(d))} · ${esc(OUSTAT[d.status]||d.status)}</p></div><div class="mvta">${outActs(d)}</div></div>
+ <section class="ds oud" data-odid="${d.id}">${outFields(d)}</section>`}
 function outBlock(g){const k=outKey(g),L=outFor(k),r=fbRes(g);if(!r||!r.profile)return'';
  if(!OUT.ok)return`<section class="ds"><p class="fbp">Set up Outreach in Settings first.</p></section>`;
  const cur=L[0];return`<div id="oub">${cur?outCard(cur):`<section class="ds"><div class="ldk">Email</div><p class="fbp">${(OUT.s.catalogue||'').trim()?'Writes a first email from what this company buys and what you supply.':'Add what you can supply in Settings > Outreach first.'}</p><button class="btn wide" data-ouwrite="${esc(g.rows[0].id)}">Write email</button></section>`}</div>`}
 async function outUpd(id,patch){const{error}=await sb.from('outreach_drafts').update(patch).eq('id',id);if(error){toast(error.message);return false}const d=OUT.drafts.find(x=>x.id==id);if(d)Object.assign(d,patch);return true}
-function outSent(f){f=f||'sent';const A=OUT.drafts,C={sent:A.filter(d=>d.status=='sent'||d.status=='sending'),queued:A.filter(d=>d.status=='approved'),failed:A.filter(d=>d.status=='failed'),skipped:A.filter(d=>d.status=='skipped')},L=C[f]||[];
- const chips=[['sent','Sent'],['queued','Waiting to go out'],['failed','Could not send'],['skipped','Skipped']].map(([k,l])=>`<button class="ch c-ld ${f==k?'on':''}" data-ousf="${k}">${l} · ${C[k].length}</button>`).join('');
- const sorted=L.slice().sort((a,b)=>String(b.sent_at||b.approved_at||b.created_at).localeCompare(String(a.sent_at||a.approved_at||a.created_at)));
- const dueN=A.filter(d=>d.status=='sent'&&d.follow_due&&new Date(d.follow_due)<=new Date()&&!d.replied_at).length;
- ldSheet('Sent mail',A.filter(d=>d.status=='sent').length+' sent',(dueN?`<section class="ds"><p class="fbp">${dueN} email${dueN==1?' has':'s have'} had no reply for a few working days. Follow-ups are written for you to approve.</p><button class="btn wide" data-oufu>Write follow-ups now</button></section>`:'')+`<div class="chs">${chips}</div>`+(sorted.length?sorted.map(outCard).join(''):'<p class="fbp">Nothing here yet.</p>')+(f=='sent'?'<p class="fbpt">Replies from buyers will appear here once the mailbox is connected and reply reading is switched on.</p>':''),false)}
-/* Inbox, laid out like a mail app: a list of messages, then the whole message on its own page */
+/* ---------- the three mail screens: a list beside the message on the computer, list then page on the phone ---------- */
+const mvDesk=()=>innerWidth>=900;
+const MVS={inbox:null,queue:null,sent:null};
+const mvWrap=(top,rows,right)=>mvDesk()
+ ?`<div class="mvpn"><div class="mvpl">${top}<div id="mvlist">${rows}</div></div><div class="mvpr" id="mvright">${right}</div></div>`
+ :`${top}<div id="mvlist">${rows}</div>`;
+function mvRight(h){const r=$('#mvright');if(r){r.innerHTML=h;r.scrollTop=0;r.querySelectorAll('.ei').forEach(grow)}}
+function mvMark(k,id){MVS[k]=id;document.querySelectorAll('#mvlist .oml').forEach(e=>e.classList.toggle('on',e.dataset.mvid==id))}
+const mvPrev=t=>esc(String(t||'').replace(/\s+/g,' ').trim().slice(0,200));
+const mvRow=(id,act,who,when,sub,prev,nw,tag)=>`<button class="oml${nw?' nw':''}${MVSK&&MVS[MVSK]==id?' on':''}" ${act}="${id}" data-mvid="${id}"><i class="omu" aria-hidden="true"></i><div class="omb"><div class="omr"><b>${esc(who)}</b><span class="omd">${esc(when||'')}${OICO}</span></div><div class="oms">${esc(sub||'(no subject)')}${tag||''}</div>${prev?`<div class="omp">${prev}</div>`:''}</div></button>`;
+let MVSK='';
+/* Inbox */
 const OMQ={f:'reply',q:''};
 const omDt=x=>{const d=new Date(x),n=new Date(),sd=d.toDateString()==n.toDateString();
  return sd?d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):d.getFullYear()==n.getFullYear()?d.toLocaleDateString([],{day:'numeric',month:'short'}):d.toLocaleDateString([],{day:'numeric',month:'short',year:'numeric'})};
@@ -3279,37 +3369,72 @@ function omRows(){const K=omSet(),q=OMQ.q.trim().toLowerCase();
  let L=K[OMQ.f]||[];
  if(q)L=L.filter(m=>(omWho(m)+' '+(m.from_addr||'')+' '+(m.subject||'')+' '+(m.body||'')).toLowerCase().includes(q));
  if(!L.length)return `<div class="om0">${q?'No message matches “'+esc(OMQ.q)+'”.':OMQ.f=='reply'?'No replies yet. They arrive by themselves once buyers write back; tap Check for new mail to look now.':OMQ.f=='stop'?'Nobody has asked to be left alone, and nothing has bounced.':'No automatic replies.'}</div>`;
- return `<div class="omlist">`+L.map(m=>{const p=omQuote(m.body).main.replace(/\s+/g,' ').trim();
-  return `<button class="oml${m.is_read?'':' nw'}" data-oumsg="${m.id}"><i class="omu" aria-hidden="true"></i><div class="omb"><div class="omr"><b>${esc(omWho(m))}</b><span class="omd">${esc(omDt(m.received_at))}${OICO}</span></div><div class="oms">${esc(m.subject||'(no subject)')}${m.kind=='optout'?' <em class="omt rd">Asked to stop</em>':m.kind=='bounce'?' <em class="omt rd">Not delivered</em>':m.kind=='auto'?' <em class="omt">Automatic</em>':''}</div>${p?`<div class="omp">${esc(p.slice(0,200))}</div>`:''}</div></button>`}).join('')+`</div>`}
+ MVSK='inbox';
+ return `<div class="omlist">`+L.map(m=>mvRow(m.id,'data-oumsg',omWho(m),omDt(m.received_at),m.subject,mvPrev(omQuote(m.body).main),!m.is_read,omTag(m))).join('')+`</div>`}
+const ORFR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11.5A8 8 0 1 1 17.3 6"/><path d="M20 4.5V10h-5.5"/></svg>';
 const OBCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>';
 const OICO='<svg class="omc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+const omTag=m=>m.kind=='optout'?' <em class="omt rd">Asked to stop</em>':m.kind=='bounce'?' <em class="omt rd">Not delivered</em>':m.kind=='auto'?' <em class="omt">Automatic</em>':'';
 function omPaint(){const b=$('#omlist');if(b)b.innerHTML=omRows()}
+function omMsgHTML(m,back){const q=omQuote(m.body),sd=(OUT.drafts||[]).find(d=>d.id==m.draft_id);
+ return `${back?`<button class="ombk" data-oumback>${OBCK}Inbox</button>`:''}
+  <div class="mvtop"><div class="mvtt"><h3>${esc(m.subject||'(no subject)')}</h3><p>${esc(omWho(m))} · ${esc(m.from_addr||'')}</p><p>${esc(new Date(m.received_at).toLocaleString([],{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}))}${sd?' · reply to your email of '+esc(new Date(sd.sent_at||sd.created_at).toLocaleDateString([],{day:'numeric',month:'short'})):''}</p></div>
+  <div class="mvta">${m.kind=='reply'?`<button class="btn" data-ourep="${m.id}">Write a reply</button>`:''}<button class="btn ghost" data-oumunread="${m.id}">Mark as unread</button></div></div>
+  <section class="ds"><div class="omvb">${esc(q.main)||'<i>This message has no text.</i>'}</div>
+  ${q.rest?`<button class="omqt" data-oumq2>Show the earlier emails</button><div class="omvb omvq" id="omq2" hidden>${esc(q.rest)}</div>`:''}</section>
+  ${m.kind=='optout'?'<div class="impw2">This address is on the do-not-contact list. Nothing more will be sent to it.</div>':''}
+  ${m.kind=='bounce'?'<div class="impw2">This email could not be delivered. The address has been set aside.</div>':''}`}
+function omSel(id){const m=(OUT.inbox||[]).find(x=>x.id==id);if(!m)return;
+ if(!m.is_read){m.is_read=true;sb.from('outreach_inbox').update({is_read:true}).eq('id',id).then(()=>{try{fbPaint()}catch(e){}})}
+ mvMark('inbox',id);const r=document.querySelector(`#mvlist .oml[data-mvid="${id}"]`);if(r)r.classList.remove('nw');
+ mvRight(omMsgHTML(m,false))}
 function outInbox(f){if(f)OMQ.f=f;const K=omSet(),un=K.reply.filter(m=>!m.is_read).length;
  const tabs=[['reply','Replies',K.reply.length],['stop','Opt-outs',K.stop.length],['auto','Automatic',K.auto.length]]
   .map(([k,l,n])=>`<button class="omtb${OMQ.f==k?' on':''}" data-ouinf="${k}">${l}${n?` <span>${n}</span>`:''}</button>`).join('');
- ldSheet('Inbox',un?un+(un==1?' new message':' new messages'):'',
-  `<div class="omtop"><div class="omsr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg><input id="omq" placeholder="Search" value="${esc(OMQ.q)}" autocomplete="off" spellcheck="false"><button class="omx" data-oumclr aria-label="Clear" ${OMQ.q?'':'hidden'}>✕</button></div>
-   <div class="omtabs">${tabs}</div></div>
-   <div id="omlist">${omRows()}</div>
-   <button class="btn ghost wide" data-oupoll style="margin-top:14px">Check for new mail</button>`,false);
+ const top=`<div class="omtop"><div class="omsr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg><input id="omq" placeholder="Search" value="${esc(OMQ.q)}" autocomplete="off" spellcheck="false"><button class="omx" data-oumclr aria-label="Clear" ${OMQ.q?'':'hidden'}>✕</button><button class="omrf" data-oupoll title="Check for new mail" aria-label="Check for new mail">${ORFR}</button></div>
+   <div class="omtabs">${tabs}</div></div>`;
+ const rows=omRows(),cur=(OUT.inbox||[]).find(x=>x.id==MVS.inbox);
+ ldSheet('Inbox',un?un+(un==1?' new message':' new messages'):'',mvWrap(top,rows,cur?omMsgHTML(cur,false):'<div class="mv0">Choose a message on the left.</div>')+(mvDesk()?'':'<button class="btn ghost wide" data-oupoll style="margin-top:14px">Check for new mail</button>'),false);
  const i=$('#omq');if(i)i.oninput=()=>{OMQ.q=i.value;const x=document.querySelector('[data-oumclr]');if(x)x.hidden=!i.value;omPaint()}}
-/* one message, on its own page */
+/* one message on its own page (phone) */
 async function outMsg(id){const m=(OUT.inbox||[]).find(x=>x.id==id);if(!m)return;
  if(!m.is_read){m.is_read=true;sb.from('outreach_inbox').update({is_read:true}).eq('id',id).then(()=>{try{fbPaint()}catch(e){}})}
- const q=omQuote(m.body),sd=(OUT.drafts||[]).find(d=>d.id==m.draft_id);
- ldSheet(omWho(m),'',
-  `<button class="ombk" data-oumback>${OBCK}Inbox</button><div class="omv"><div class="omvh"><h3>${esc(m.subject||'(no subject)')}</h3><p>${esc(m.from_name?m.from_name+' · ':'')}${esc(m.from_addr)}</p><p>${esc(new Date(m.received_at).toLocaleString([],{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}))}${sd?' · in reply to your email of '+esc(new Date(sd.sent_at||sd.created_at).toLocaleDateString([],{day:'numeric',month:'short'})):''}</p></div>
-   <div class="omvb">${esc(q.main)||'<i>This message has no text.</i>'}</div>
-   ${q.rest?`<button class="omqt" data-oumq2>Show the earlier emails</button><div class="omvb omvq" id="omq2" hidden>${esc(q.rest)}</div>`:''}
-   ${m.kind=='optout'?'<div class="impw2">This address is on the do-not-contact list. Nothing more will be sent to it.</div>':''}
-   ${m.kind=='bounce'?'<div class="impw2">This email could not be delivered. The address has been set aside.</div>':''}</div>
-   ${m.kind=='reply'?`<button class="btn wide" data-ourep="${m.id}">Write a reply</button>`:''}
-   <button class="btn ghost wide" data-oumunread="${m.id}">Mark as unread</button>`,false)}
+ ldSheet(omWho(m),'',omMsgHTML(m,true),false)}
+/* ---------- Emails to approve ---------- */
+function oqRows(){const L=outWait();MVSK='queue';
+ if(!L.length)return '<div class="om0">Nothing waiting. Open the Buyers page, research a company and tap Write email.</div>';
+ return `<div class="omlist">`+L.map(d=>mvRow(d.id,'data-mvqp',d.company||d.to_email||'',outStep(d),d.subject,mvPrev(d.body),false,d.to_email?'':' <em class="omt rd">No address</em>')).join('')+`</div>`}
+function oqPaint(){const l=$('#mvlist');if(l)l.innerHTML=oqRows()}
+function osPaint(){const l=$('#mvlist');if(l)l.innerHTML=osRows()}
+/* one plain line that says what happens to approved emails, so nobody has to guess */
+function outPace(){const n=(OUT.drafts||[]).filter(d=>d.status=='approved').length,on=!!(OUT.send&&OUT.send.enabled);
+ if(!on)return n?`<div class="impw2">Sending is switched off, so ${n} approved email${n==1?' is':'s are'} waiting. <button class="lnk" data-ouset>Switch it on</button></div>`:'';
+ return n?`<div class="fbpt mvpace">${n} approved email${n==1?'':'s'} waiting. They go out by themselves, about 10 to 20 on each working day. You do not need to press anything.</div>`:''}
+function outQueue(){const L=outWait();
+ const bulk=L.length>1?`<div class="mvbulk"><button class="btn ghost" data-ouredoall>Rewrite all ${L.length}</button><button class="btn ghost" data-ouokall>Approve all ${L.length}</button></div>`:'';
+ if(!mvDesk()){ldSheet('Emails to approve',L.length?L.length+' waiting':'',outPace()+`<div class="omtop">${bulk}</div><div id="mvlist">${oqRows()}</div>`,false);return}
+ if(!L.some(d=>d.id==MVS.queue))MVS.queue=L.length?L[0].id:null;
+ const top=outPace()+`<div class="omtop">${bulk}</div>`;
+ ldSheet('Emails to approve',L.length?L.length+' waiting for you':'',mvWrap(top,oqRows(),mvDraft(L.find(d=>d.id==MVS.queue))),false)}
+/* ---------- Sent mail ---------- */
+const OSF={f:'sent'};
+function osList(){const A=OUT.drafts,C={sent:A.filter(d=>d.status=='sent'||d.status=='sending'),queued:A.filter(d=>d.status=='approved'),failed:A.filter(d=>d.status=='failed'),skipped:A.filter(d=>d.status=='skipped')};return C}
+function osRows(){const C=osList(),L=(C[OSF.f]||[]).slice().sort((a,b)=>String(b.sent_at||b.approved_at||b.created_at).localeCompare(String(a.sent_at||a.approved_at||a.created_at)));MVSK='sent';
+ if(!L.length)return '<div class="om0">Nothing here yet.</div>';
+ return `<div class="omlist">`+L.map(d=>mvRow(d.id,'data-mvsp',d.company||d.to_email||'',d.sent_at?omDt(d.sent_at):'',d.subject,mvPrev(d.body),false,d.replied_at?' <em class="omt">Replied</em>':d.status=='failed'?' <em class="omt rd">Not sent</em>':'')).join('')+`</div>`}
+function outSent(f){if(f)OSF.f=f;const C=osList(),A=OUT.drafts;
+ const dueN=A.filter(d=>d.status=='sent'&&d.follow_due&&new Date(d.follow_due)<=new Date()&&!d.replied_at).length;
+ const tabs=[['sent','Sent',C.sent.length],['queued','Waiting',C.queued.length],['failed','Not sent',C.failed.length],['skipped','Skipped',C.skipped.length]]
+  .map(([k,l,n])=>`<button class="omtb${OSF.f==k?' on':''}" data-ousf="${k}">${l}${n?` <span>${n}</span>`:''}</button>`).join('');
+ const fu=dueN?`<div class="impw2">${dueN} email${dueN==1?' has':'s have'} had no reply for a few working days. <button class="lnk" data-oufu>Write the follow-ups</button></div>`:'';
+ if(!mvDesk()){ldSheet('Sent mail',C.sent.length+' sent',outPace()+fu+`<div class="omtop"><div class="omtabs">${tabs}</div></div><div id="mvlist">${osRows()}</div>`,false);return}
+ const L=C[OSF.f]||[];if(!L.some(d=>d.id==MVS.sent))MVS.sent=L.length?osRowsFirst(C):null;
+ ldSheet('Sent mail',C.sent.length+' sent',mvWrap(outPace()+fu+`<div class="omtop"><div class="omtabs">${tabs}</div></div>`,osRows(),mvDraft(A.find(d=>d.id==MVS.sent))),false)}
+function osRowsFirst(C){const L=(C[OSF.f]||[]).slice().sort((a,b)=>String(b.sent_at||b.approved_at||b.created_at).localeCompare(String(a.sent_at||a.approved_at||a.created_at)));return L.length?L[0].id:null}
 async function outReply(id){const m=(OUT.inbox||[]).find(x=>x.id==id);if(!m)return;const sd=OUT.drafts.find(d=>d.id==m.draft_id),r=m.group_key&&FR[m.group_key];
  const j=await fbApi({settings:OUT.s,company:{name:m.company||m.from_name||m.from_addr,country:sd?sd.country:'',profile:r?r.profile:null},to_email:m.from_addr,to_name:m.from_name||'',step:'reply',previous:sd?sd.body:'',incoming:m.body},'/api/draft'),e=j.email;
  const row={group_key:m.group_key||'r:'+m.from_addr,company:m.company||m.from_name||m.from_addr,country:sd?sd.country:'',to_email:m.from_addr,to_name:m.from_name||'',step:'reply',subject:'Re: '+String(m.subject||'').replace(/^(re|r|aw):\s*/ig,''),body:e.body,language:e.language,basis:{offered:e.offered,based_on:e.based_on,confidence:e.confidence},status:'draft',in_reply_to:m.message_id||null,inbox_id:m.id};
  const{data,error}=await sb.from('outreach_drafts').insert(row).select('*').single();if(error)throw new Error(error.message);OUT.drafts.unshift(data);await sb.from('outreach_inbox').update({is_read:true}).eq('id',id);m.is_read=true}
-function outQueue(){const L=outWait();ldSheet('Emails to approve',L.length?L.length+' waiting':'',L.length?((!(OUT.s.samples||'').trim()||!(OUT.s.intro||'').trim()?'<div class="impw2">Add your introduction and 2 or 3 past emails in Settings > Outreach, then tap Rewrite all. The emails will sound much more like you.</div>':'')+(L.length>1?`<section class="ds"><p class="fbp">Read each one, edit what you like, then approve. Or approve them all once you have read them.</p><button class="btn ghost wide" data-ouredoall>Rewrite all ${L.length} with my current settings</button><button class="btn ghost wide" data-ouokall>Approve all ${L.length}</button></section>`:'')+L.map(outCard).join('')):'<p class="fbp">Nothing waiting. Open a researched company and tap Write email.</p>',false)}
 function outRead(card){const o={};card.querySelectorAll('[data-ouf]').forEach(el=>o[el.dataset.ouf]=el.value.trim());return o}
 /* ---- Import lists: customs data, fair exhibitors, any CSV ---- */
 const IMSQL=`alter table lwg_companies add column if not exists source text;
@@ -4065,7 +4190,11 @@ async function onClick(t){const d=t.dataset;
  else if(d.ldlog)ldLogForm(d.ldlog)
  else if(d.ldf){lf=d.ldf;$('#ldch').innerHTML=ldChips();$('#ll').innerHTML=ldList()}
  else if('oumback'in d)outInbox()
-else if(d.oumsg)await outMsg(d.oumsg)
+else if(d.oumsg){if(mvDesk())omSel(d.oumsg);else await outMsg(d.oumsg)}
+else if(d.mvqp){const dr=OUT.drafts.find(x=>x.id==d.mvqp);if(dr){if(mvDesk()){mvMark('queue',d.mvqp);mvRight(mvDraft(dr))}else ldSheet(dr.company||'Email','',`<button class="ombk" data-ouqback>${OBCK}Emails to approve</button>`+outCard(dr),false)}}
+else if(d.mvsp){const dr=OUT.drafts.find(x=>x.id==d.mvsp);if(dr){if(mvDesk()){mvMark('sent',d.mvsp);mvRight(mvDraft(dr))}else ldSheet(dr.company||'Email','',`<button class="ombk" data-ousback>${OBCK}Sent mail</button>`+outCard(dr),false)}}
+else if('ouqback'in d)outQueue()
+else if('ousback'in d)outSent()
 else if('oumclr'in d){OMQ.q='';outInbox()}
 else if('oumq2'in d){const b=$('#omq2');if(b){b.hidden=!b.hidden;t.textContent=b.hidden?'Show the earlier emails':'Hide the earlier emails'}}
 else if(d.oumunread){await sb.from('outreach_inbox').update({is_read:false}).eq('id',d.oumunread);const m=OUT.inbox.find(x=>x.id==d.oumunread);if(m)m.is_read=false;try{fbPaint()}catch(e){}outInbox()}
@@ -4119,12 +4248,34 @@ else if(d.lmode){lmode=d.lmode;renderLeads(1)}
  else if('ouretry'in d){OUT.loaded=false;OUT.ok=true;await outLoad(true);if(OUT.ok)settings('outreach');else toast('Tables still not found')}
  else if('ousave'in d)await outSave()
  else if(d.ouwrite){const g=fbGroupById(d.ouwrite);if(!g)return;t.disabled=true;t.textContent='Writing… about 15 seconds';let er='';try{await outWrite(g,'intro')}catch(e){er=e.message||'Could not write the email'}if(er){t.disabled=false;t.textContent='Write email';let x=t.parentElement.querySelector('[data-ouerr]');if(!x){x=document.createElement('div');x.className='impw2';x.dataset.ouerr='';t.after(x)}x.textContent=er;return}const b=$('#oub');if(b)b.outerHTML=outBlock(g);fbPaint()}
- else if(d.ouok||d.ouskip||d.ouun||d.ouredo){const id=d.ouok||d.ouskip||d.ouun||d.ouredo,c=t.closest('.oud'),dr=OUT.drafts.find(x=>x.id==id);if(!dr)return;
+ else if('ouset'in d){settings('outreach')}
+ else if('ourwx'in d){const bx=t.closest('.mvrw');bx&&bx.remove()}
+ else if(d.ourwc){const i=t.closest('.mvrw').querySelector('input');i.value=i.value.trim()?i.value.trim().replace(/[,;.]$/,'')+', '+d.ourwc.toLowerCase():d.ourwc;i.focus()}
+ else if(d.ourwgo){const id=d.ourwgo,bx=t.closest('.mvrw'),dr=OUT.drafts.find(x=>x.id==id),c=document.querySelector(`.oud[data-odid="${id}"]`);if(!dr||OUbusy)return;
+  const note=bx.querySelector('input').value.trim(),f=c?outRead(c):{};if(f.body!==undefined)Object.assign(dr,{to_email:f.to_email,subject:f.subject,body:f.body});
+  OUbusy='x';t.disabled=true;t.textContent='Writing… about 15 seconds';const rp=document.querySelector('#mvright'),dim=mvDesk()&&rp?rp:c;if(c)c.classList.add('rwait');let er='';
+  try{await outRedo(dr,note)}catch(e){er=e.message||'Could not write the email'}
+  OUbusy='';if(c)c.classList.remove('rwait');
+  if(er){t.disabled=false;t.textContent='Rewrite';toast(er);return}
+  const fresh=OUT.drafts.find(x=>x.id==id),q=document.querySelector('.th-h h2'),ttl=q?q.textContent:'';
+  if(mvDesk()&&$('#mvright')){mvRight(mvDraft(fresh));if(/Emails to approve/.test(ttl)){oqPaint();mvMark('queue',id)}}
+  else if(c){c.outerHTML=outCard(fresh)}
+  const nc=document.querySelector(`.oud[data-odid="${id}"]`);if(nc){nc.classList.add('rwnew');setTimeout(()=>nc.classList.remove('rwnew'),900)}
+  toast('Rewritten. Read it before you approve')}
+ else if(d.ouok||d.ouskip||d.ouun||d.ouredo){const id=d.ouok||d.ouskip||d.ouun||d.ouredo,c=t.closest('.oud')||document.querySelector(`.oud[data-odid="${id}"]`),dr=OUT.drafts.find(x=>x.id==id);if(!dr)return;
   if(d.ouok){const f=c?outRead(c):{};if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.to_email||'')){toast('Add a valid email address first');return}if(!(f.body||'').trim()){toast('The email is empty');return}if(await outUpd(id,{...f,status:'approved',approved_at:new Date().toISOString()}))fin(()=>toast('Approved'))}
   else if(d.ouskip){await outUpd(id,{status:'skipped'})}
   else if(d.ouun){await outUpd(id,{status:'draft',approved_at:null})}
-  else{t.disabled=true;t.textContent='Writing…';try{await outRedo(dr)}catch(e){toast(e.message||'Could not write');t.disabled=false;t.textContent='Write it again'}}
-  const q=document.querySelector('.th-h h2');if(q&&/Emails to approve/.test(q.textContent))outQueue();else{const g=fbGroups(FB.rows.filter(r=>(r.country||'Unknown')==FB.country)).find(x=>outKey(x)==dr.group_key);const b=$('#oub');if(g&&b)b.outerHTML=outBlock(g)}fbPaint()}
+  else{let bx=document.querySelector('.mvrw');if(bx){bx.remove();return}
+   if(dr.step=='reply'){toast('Open the Inbox and tap Write a reply again for this one');return}
+   const w=document.createElement('div');w.innerHTML=outRwBox(id);bx=w.firstChild;const ac=c&&c.querySelector('.mvacts');if(ac)ac.before(bx);else if(c)c.before(bx);
+   bx.scrollIntoView({block:'nearest',behavior:'smooth'});const inp=bx.querySelector('input');inp.focus({preventScroll:true});inp.addEventListener('keydown',ev=>{if(ev.key=='Enter'){ev.preventDefault();bx.querySelector('[data-ourwgo]').click()}});return}
+  const q=document.querySelector('.th-h h2'),ttl=q?q.textContent:'';
+  if(mvDesk()&&/Emails to approve/.test(ttl)){const fresh=OUT.drafts.find(x=>x.id==id);outQueue()}
+  else if(mvDesk()&&/Sent mail/.test(ttl)){const fresh=OUT.drafts.find(x=>x.id==id);mvRight(mvDraft(fresh));osPaint()}
+  else if(/Emails to approve/.test(ttl))outQueue();
+  else if(/Sent mail/.test(ttl))outSent();
+  else{const g=fbGroups(FB.rows.filter(r=>(r.country||'Unknown')==FB.country)).find(x=>outKey(x)==dr.group_key);const b=$('#oub');if(g&&b)b.outerHTML=outBlock(g)}fbPaint()}
  else if('fbmore'in d){FB.more+=60;fbPaint()}
  else if('fbcsv'in d)fbCsv()
  else if(d.fbopen)fbOpen(d.fbopen)
@@ -4622,7 +4773,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['68','11 Nov 2026',['Inbox: rebuilt like a mail app. A list of messages with the sender, subject, two lines of the text, the date and a blue dot for unread; tap one to read the whole message on its own page, with the earlier emails tucked away. Search at the top, and Replies / Opt-outs / Automatic above the list.']],['67','10 Nov 2026',['Outreach signature: the app now tells you when the logo or signature image is missing from the cloud, so an email does not go out without them. A logo saved only on one device no longer counts as saved.']],['66','10 Nov 2026',['Check the mailbox connection now gives up after 12 seconds and says exactly what went wrong, instead of hanging and showing a confusing message.']],['65','10 Nov 2026',['Outreach mailbox: the app now uses the GoDaddy mail servers by default, and Settings › Outreach › Mailbox and sending has a Check the mailbox connection button that tests sending and reading separately, without sending anything.']],['64','10 Nov 2026',['Debit notes: Add debit note shows it is working, then opens already filled from the invoice. If the contract has more than one invoice, a box at the top asks you to choose the invoice. Picking an invoice now brings in every contract on it, the quantity, value and commission.','New contract or letter: a box at the top asks you to choose the buyer (or the supplier for a letter) first, so the number fills in by itself.','Buyer and supplier pull-downs: a last line, Add a new contact, saves a new contact without leaving the form.']],['63','10 Nov 2026',['Invoices: every line now has its own Price you can type in. It starts with the contract price; a different price (for example air instead of sea) is used straight away, with no switch and no reason needed. An invoice read from email fills in its own price and total and tells you what is different, in plain words.','Orderbook and Pending: choosing Issued, This week and the others no longer draws a blue box; the name turns blue and the others fade.','Conversation: larger text, and two buttons at the bottom (Link an entry, Add entry).','Pending: icons sit centred beside the text.']],['62','10 Nov 2026',['Phone: the bottom bar is now a floating glass dock, and so are the button bars on contracts, letters, debit notes, the entry form and conversations. The page scrolls softly behind them.','The + buttons are rounded squares, a little smaller, to match the cards.']],['61','9 Nov 2026',['Phone back to the white look you picked: plain Today and Follow-ups titles, entries in one white card with lines between them, two lines of each note (tap an entry for the whole note and its buttons), the larger + and the plain bottom bar. Follow-ups still show no date and the App colour choice in Display stays.']],['60','9 Nov 2026',['Phone: a crisper look. The page is a light cool grey so the white cards stand out, titles are darker and bolder, and group labels are small capitals.','Home: Today, Follow-ups and Actions have bold titles with a small colour badge (blue journal, amber flag, violet bolt). Every entry is its own card with space around it, so long days no longer look cramped. Follow-ups show no date. The line under each Home tile takes the colour of what it says (amber to do, green all clear, red overdue).','Lines between rows run the full width again. Status tags, segmented switches and buttons are firmer.','Display: choose the app colour (Blue, Indigo, Violet, Teal or Graphite). Status colours stay the same.']],['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
+const APP_LOG=[['69','11 Nov 2026',['Inbox, Emails to approve and Sent mail on the computer: the list is on the left and the email you click opens on the right, with its buttons on top. On the phone: a tight list, tap to open.','Write it again now asks what should change (shorter, more formal, your own words) and keeps the edits you made as the starting point. It also works when opened from Home.','Emails to approve and Sent mail say plainly whether sending is on and how many approved emails are waiting.','Buyers opens faster.']],['68','11 Nov 2026',['Inbox: rebuilt like a mail app. A list of messages with the sender, subject, two lines of the text, the date and a blue dot for unread; tap one to read the whole message on its own page, with the earlier emails tucked away. Search at the top, and Replies / Opt-outs / Automatic above the list.']],['67','10 Nov 2026',['Outreach signature: the app now tells you when the logo or signature image is missing from the cloud, so an email does not go out without them. A logo saved only on one device no longer counts as saved.']],['66','10 Nov 2026',['Check the mailbox connection now gives up after 12 seconds and says exactly what went wrong, instead of hanging and showing a confusing message.']],['65','10 Nov 2026',['Outreach mailbox: the app now uses the GoDaddy mail servers by default, and Settings › Outreach › Mailbox and sending has a Check the mailbox connection button that tests sending and reading separately, without sending anything.']],['64','10 Nov 2026',['Debit notes: Add debit note shows it is working, then opens already filled from the invoice. If the contract has more than one invoice, a box at the top asks you to choose the invoice. Picking an invoice now brings in every contract on it, the quantity, value and commission.','New contract or letter: a box at the top asks you to choose the buyer (or the supplier for a letter) first, so the number fills in by itself.','Buyer and supplier pull-downs: a last line, Add a new contact, saves a new contact without leaving the form.']],['63','10 Nov 2026',['Invoices: every line now has its own Price you can type in. It starts with the contract price; a different price (for example air instead of sea) is used straight away, with no switch and no reason needed. An invoice read from email fills in its own price and total and tells you what is different, in plain words.','Orderbook and Pending: choosing Issued, This week and the others no longer draws a blue box; the name turns blue and the others fade.','Conversation: larger text, and two buttons at the bottom (Link an entry, Add entry).','Pending: icons sit centred beside the text.']],['62','10 Nov 2026',['Phone: the bottom bar is now a floating glass dock, and so are the button bars on contracts, letters, debit notes, the entry form and conversations. The page scrolls softly behind them.','The + buttons are rounded squares, a little smaller, to match the cards.']],['61','9 Nov 2026',['Phone back to the white look you picked: plain Today and Follow-ups titles, entries in one white card with lines between them, two lines of each note (tap an entry for the whole note and its buttons), the larger + and the plain bottom bar. Follow-ups still show no date and the App colour choice in Display stays.']],['60','9 Nov 2026',['Phone: a crisper look. The page is a light cool grey so the white cards stand out, titles are darker and bolder, and group labels are small capitals.','Home: Today, Follow-ups and Actions have bold titles with a small colour badge (blue journal, amber flag, violet bolt). Every entry is its own card with space around it, so long days no longer look cramped. Follow-ups show no date. The line under each Home tile takes the colour of what it says (amber to do, green all clear, red overdue).','Lines between rows run the full width again. Status tags, segmented switches and buttons are firmer.','Display: choose the app colour (Blue, Indigo, Violet, Teal or Graphite). Status colours stay the same.']],['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
 ['53','9 Nov 2026',['New phone app: a bottom bar with Home, Orders, a big + button, Pending and More. Home has a week strip (tap a day to read it), quick chips for what needs you, today\'s entries and follow-ups you tick off. Orders has a type switch, status tiles, supplier logos and a status button on every row. Pending has tiles and grouped lists. More holds Buyers, Contacts, Reports, Worksheets, Invoice mail, Settings, dark mode and Install. Pages open full screen, the phone back button works everywhere, and the keyboard never hides what you type. Installable as an app on iPhone and Android, with shortcuts for New entry, Orders and Pending. Settings no longer repeats pages that are in the menu']],
 ['52','9 Nov 2026',['Orderbook on the computer redesigned: five tiles (Issued, Inspected, Completed, Overdue, Due this week) that filter, rows grouped by month with the supplier logo or initials and the buyer under it, and new icons across the app: a contract is a page with a signature, a letter is a page with a stamp, a debit note is a receipt with a % sign. Settings on the computer no longer repeats Contacts, Reports, Worksheets and Invoice mail (they are in the side menu). Invoice mail now shows only what waits for approval; the Gmail address and allowed senders moved to Settings > Invoice mail setup']],
 ['51','8 Nov 2026',['Phone Pending page redesigned like the rest of the app: three tiles (Documents, Payments, Couriers) that filter, a Late chip when something is late, grouped cards with Contract or Letter, the supplier mark and a due pill, Mark done on the two hand-ticked follow-ups, and Done today at the bottom']],

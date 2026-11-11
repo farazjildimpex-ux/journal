@@ -82,7 +82,7 @@ ${clean(s.samples, 5000) || '(none)'}
 ${step === 'reply' ? 'INCOMING MESSAGE FROM THE BUYER\n' + clean(b.incoming, 4000) + '\n' : ''}${step !== 'intro' && b.previous ? 'EMAIL ALREADY SENT\n' + clean(b.previous, 2500) + '\n' : ''}RESEARCH ON ${clean(co.name, 120)} (${clean(co.country, 60)})
 ${JSON.stringify(co.profile || {}).slice(0, 7000)}
 Recipient: ${clean(b.to_name, 80) || '(unknown)'} ${clean(b.to_email, 120)}
-Other notes from the sender: ${clean(b.note, 600) || '(none)'}`;
+${b.current ? 'CURRENT DRAFT (the sender asked for it to be written again: write a clearly different, better version, and follow his change request below exactly)\n' + clean(b.current, 3000) + '\n' : ''}${b.current ? 'CHANGE REQUESTED BY THE SENDER' : 'Other notes from the sender'}: ${clean(b.note, 600) || '(none)'}`;
   {
     let r, j;
     for (const m of [...new Set([MODEL, 'claude-haiku-5-5'])]) {   // fall back to the model the invoice reader already uses
