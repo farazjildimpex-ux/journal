@@ -119,3 +119,10 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 - `index.html` is the public company page (own palette and fonts in `fonts/`; it is not part of the app's design system). The app is `app.html`, served at `/app` and `/login` (rewrites in `vercel.json`). The landing page sends the installed app (standalone mode, or `?go=`) straight to `/app`. `robots.txt` keeps crawlers out of `/app` and `/api`.
 - Computer forms use `dfm([html],[html],[html,1]…)`: two cells per row in the order of the printed document, `[html,1]` takes the full width. Contract: Supplier | Contract, Buyer | Very important, Specifications, Lines, Terms. Letter: Supplier | Sample, Specifications, Lines, Notes. Debit note: Supplier & buyer | Debit note, Invoice | Contracts, Commission.
 - Very important notes: `noteList()` is the one place that decides numbering (form, view, PDF). Hand-typed numbers are never changed; otherwise lines are numbered automatically. Notes are stored without numbers.
+
+## v72
+- Contract on the computer: `dfm([Contract,1,'one'],[Supplier+Buyer],[Very important],[Specifications,1],[Lines,1],[Terms,1])`. `.dfc.one` puts six fields on one line.
+- Phone Home: each entry is its own card (`.mh .mlist2 > .mli`); journal row buttons: Delete left (`.rm`), Edit / Conversation / Follow up right with tinted icons (`.c-sl`, `.c-bl`, `.c-or`), icons `xedit`, `xconv`, `xbell`, `xdone`.
+- Never rename a class with a blanket search and replace: `.mli.mlx` (Home, Earlier entries) was broken that way in v69.
+- Drafted emails show `outWhy(d)` (`.mvwhy`): why the offer, facts used, research. Buyer replies: `data-ounoi` (Not interested / Contact again, uses `outreach_suppress`), `data-oujr` (Note in journal).
+- Email writing rules live in `api/draft.js` (short, buyer first, one offer, one question).
