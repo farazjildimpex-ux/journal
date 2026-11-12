@@ -109,3 +109,8 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 - Write it again opens `.ds.mvrw` (one edit box, quick choices, Rewrite / Cancel). Never rewrite without showing this box.
 - `outPace()` puts one plain line on top saying whether sending is on and how many approved emails wait.
 - Use `.ds` cards, `.btn` / `.btn.ghost`, `.ei` edit boxes, `.fbpt` hints, `.impw2` warnings. No new button or field styles.
+
+## Phone mail pages and Buyers (v70)
+- One email on the phone = `mvPhone(title,sub,body,dock,back)`: round back button returns to the list (`data-mvback`), buttons live in the floating glass dock (`.tc2.mvdk`), primary on the right. No in-page back links, no stacked full-width buttons.
+- After Approve or Skip the next waiting email opens; when none are left the list shows.
+- Buyers country page on the phone: companies are `uxRow` rows in one card (`fbRowP`); filter / research / write tools fold into one row (`data-fbtools`, `.fbtl`).
