@@ -114,3 +114,8 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 - One email on the phone = `mvPhone(title,sub,body,dock,back)`: round back button returns to the list (`data-mvback`), buttons live in the floating glass dock (`.tc2.mvdk`), primary on the right. No in-page back links, no stacked full-width buttons.
 - After Approve or Skip the next waiting email opens; when none are left the list shows.
 - Buyers country page on the phone: companies are `uxRow` rows in one card (`fbRowP`); filter / research / write tools fold into one row (`data-fbtools`, `.fbtl`).
+
+## v71: landing page, /app, computer forms
+- `index.html` is the public company page (own palette and fonts in `fonts/`; it is not part of the app's design system). The app is `app.html`, served at `/app` and `/login` (rewrites in `vercel.json`). The landing page sends the installed app (standalone mode, or `?go=`) straight to `/app`. `robots.txt` keeps crawlers out of `/app` and `/api`.
+- Computer forms use `dfm([html],[html],[html,1]…)`: two cells per row in the order of the printed document, `[html,1]` takes the full width. Contract: Supplier | Contract, Buyer | Very important, Specifications, Lines, Terms. Letter: Supplier | Sample, Specifications, Lines, Notes. Debit note: Supplier & buyer | Debit note, Invoice | Contracts, Commission.
+- Very important notes: `noteList()` is the one place that decides numbering (form, view, PDF). Hand-typed numbers are never changed; otherwise lines are numbered automatically. Notes are stored without numbers.

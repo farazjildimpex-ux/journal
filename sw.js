@@ -1,5 +1,5 @@
-const CACHE='journal-shell-v122';
-const SHELL=['./','./index.html','./icons/icon-192.png','./icons/icon-512.png'];
+const CACHE='journal-shell-v123';
+const SHELL=['./app.html','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE&&x!=='journal-cdn-v1').map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
@@ -19,7 +19,9 @@ self.addEventListener('fetch',e=>{
     return;
   }
   if(r.mode==='navigate'){
-    e.respondWith(fetch(r).then(res=>{const cp=res.clone();caches.open(CACHE).then(c=>c.put('./index.html',cp));return res}).catch(()=>caches.match('./index.html')));
+    // the app lives at /app; the public landing page is at /. Offline, any page opens the saved app.
+    const isApp=/\/(app|app\.html|login)$/.test(u.pathname);
+    e.respondWith(fetch(r).then(res=>{if(isApp&&res.ok){const cp=res.clone();caches.open(CACHE).then(c=>c.put('./app.html',cp))}return res}).catch(()=>caches.match('./app.html')));
     return;
   }
   e.respondWith(caches.match(r).then(h=>h||fetch(r).then(res=>{const cp=res.clone();caches.open(CACHE).then(c=>c.put(r,cp));return res})));

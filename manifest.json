@@ -2,7 +2,7 @@
   "name": "Journal · Jild Impex",
   "short_name": "Journal",
   "description": "Journal, orderbook, pending actions and buyers for Jild Impex",
-  "start_url": "./index.html",
+  "start_url": "./app",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -43,7 +43,7 @@
     {
       "name": "New journal entry",
       "short_name": "New entry",
-      "url": "./index.html?go=new",
+      "url": "./app?go=new",
       "icons": [
         {
           "src": "icons/icon-192.png",
@@ -54,7 +54,7 @@
     {
       "name": "Orderbook",
       "short_name": "Orders",
-      "url": "./index.html?go=orders",
+      "url": "./app?go=orders",
       "icons": [
         {
           "src": "icons/icon-192.png",
@@ -65,7 +65,7 @@
     {
       "name": "Pending actions",
       "short_name": "Pending",
-      "url": "./index.html?go=pending",
+      "url": "./app?go=pending",
       "icons": [
         {
           "src": "icons/icon-192.png",
