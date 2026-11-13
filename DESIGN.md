@@ -126,3 +126,7 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 - Never rename a class with a blanket search and replace: `.mli.mlx` (Home, Earlier entries) was broken that way in v69.
 - Drafted emails show `outWhy(d)` (`.mvwhy`): why the offer, facts used, research. Buyer replies: `data-ounoi` (Not interested / Contact again, uses `outreach_suppress`), `data-oujr` (Note in journal).
 - Email writing rules live in `api/draft.js` (short, buyer first, one offer, one question).
+
+## v73
+- Anything read back from `lwg_research.profile` or `outreach_drafts.basis` may be a plain string where a list is expected. `outWhyIn` coerces every field; `outWhy` and `mvDraft` catch so one bad record can never stop a page opening.
+- Before any deploy run `node scratchpad/syntax.js`: it parses every inline script. A plain apostrophe inside a single-quoted version note broke the whole app once.
