@@ -130,3 +130,8 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 ## v73
 - Anything read back from `lwg_research.profile` or `outreach_drafts.basis` may be a plain string where a list is expected. `outWhyIn` coerces every field; `outWhy` and `mvDraft` catch so one bad record can never stop a page opening.
 - Before any deploy run `node scratchpad/syntax.js`: it parses every inline script. A plain apostrophe inside a single-quoted version note broke the whole app once.
+
+## v74
+- `obOpen` starts true only on the computer. The phone Orderbook lists everything, newest first, grouped by month, `MOBN` 30 at a time with `data-mobm`. The `Open only` chip (`data-obo`, `.mch.op`) narrows it; a status tile clears it.
+- `.mch` is tinted like a warning by default, so a plain filter chip needs its own colours (`.mch.op`).
+- Phone Home: `mFuList` shows the first `MFUN` follow-ups with a Show all row (`data-mfum`); `.msec small` sits beside the + button.
