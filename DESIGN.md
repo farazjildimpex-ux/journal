@@ -135,3 +135,6 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 - `obOpen` starts true only on the computer. The phone Orderbook lists everything, newest first, grouped by month, `MOBN` 30 at a time with `data-mobm`. The `Open only` chip (`data-obo`, `.mch.op`) narrows it; a status tile clears it.
 - `.mch` is tinted like a warning by default, so a plain filter chip needs its own colours (`.mch.op`).
 - Phone Home: `mFuList` shows the first `MFUN` follow-ups with a Show all row (`data-mfum`); `.msec small` sits beside the + button.
+
+## v75
+- Both pages carry `<link rel="manifest">` and register `sw.js`: the app is installable from `/` as well as `/app`, and the manifest starts it at `/app`. The landing page keeps the apple-mobile-web-app metas so an iPhone Add to Home Screen opens the app, through the standalone redirect in `index.html`.

@@ -15,6 +15,9 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jildimpex.in/">
 <meta name="theme-color" content="#EEF2F3">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Journal"><meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
@@ -331,6 +334,7 @@ footer a:hover{color:var(--ox)}
   var top=document.getElementById('top');
   addEventListener('scroll',function(){top.classList.toggle('s',scrollY>8)},{passive:true});
   document.getElementById('yr').textContent=new Date().getFullYear();
+  if('serviceWorker' in navigator&&location.protocol!=='file:')addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
   var bs=[].slice.call(document.querySelectorAll('.filters button')),sw=[].slice.call(document.querySelectorAll('#grid .sw'));
   bs.forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;
     bs.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
