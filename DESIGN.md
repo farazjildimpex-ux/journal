@@ -138,3 +138,7 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 
 ## v75
 - Both pages carry `<link rel="manifest">` and register `sw.js`: the app is installable from `/` as well as `/app`, and the manifest starts it at `/app`. The landing page keeps the apple-mobile-web-app metas so an iPhone Add to Home Screen opens the app, through the standalone redirect in `index.html`.
+
+## v76
+- `payExp(contract, invoices)` is the one place that decides when money is expected: CAD / letter of credit = the days in the terms from the latest BL or AWB date; before shipment = proforma or invoice date + 2 days; anything else returns null. The Payments page (`payExpHTML`, `.pexd`) and the Pending rule `paydue` both use it, so they can never disagree.
+- An airway bill number gets a Track link (`billRow`, `.kv .trk`); a bill of lading gets none.
