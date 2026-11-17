@@ -148,3 +148,7 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 - `askStatus(o,status,why)` asks before changing a contract status. Fired after an invoice is saved (Issued → Inspected), after a payment clears the invoice, and after a shortfall is marked settled (→ Completed).
 - A shortfall is never written off silently: `payment_settled_at` on the contract is set only when the user answers the question on the Payments page (`.nbask`). `payOpen()` and the pending rule both read it.
 - AWB: `AWBA` maps the 3-digit prefix to the airline and, where the page is known, its tracking page. `awbInfo()` formats the number; the Track button copies it.
+
+## v77
+- `impNm(a,b)` compares two document numbers: equal, or one is a prefix of the other once stripped to letters and digits (at least 5 characters). A bill usually names an invoice short, without its date. Use it instead of `impNk(a)==impNk(b)` wherever a bill is matched to an invoice.
+- `mailBill` looks an invoice up four ways: by contract numbers, by exact invoice number, by `ilike` on each number, and finally across the last 400 invoices with `impNm`.
