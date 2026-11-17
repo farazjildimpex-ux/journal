@@ -142,3 +142,9 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 ## v76
 - `payExp(contract, invoices)` is the one place that decides when money is expected: CAD / letter of credit = the days in the terms from the latest BL or AWB date; before shipment = proforma or invoice date + 2 days; anything else returns null. The Payments page (`payExpHTML`, `.pexd`) and the Pending rule `paydue` both use it, so they can never disagree.
 - An airway bill number gets a Track link (`billRow`, `.kv .trk`); a bill of lading gets none.
+
+## v76 (continued)
+- `askBox({title,text,yes,no,go})` is the one yes/no popup: same `.impb` backdrop and `.impc` card as the New contact box, buttons in `.qcb`. Use it for any "do you also want to…" question; never invent another dialog.
+- `askStatus(o,status,why)` asks before changing a contract status. Fired after an invoice is saved (Issued → Inspected), after a payment clears the invoice, and after a shortfall is marked settled (→ Completed).
+- A shortfall is never written off silently: `payment_settled_at` on the contract is set only when the user answers the question on the Payments page (`.nbask`). `payOpen()` and the pending rule both read it.
+- AWB: `AWBA` maps the 3-digit prefix to the airline and, where the page is known, its tracking page. `awbInfo()` formats the number; the Track button copies it.
