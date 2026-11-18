@@ -152,3 +152,32 @@ Faraz rejected the pastel/dark-bar phone draft (too many colours, dark bottom ba
 ## v77
 - `impNm(a,b)` compares two document numbers: equal, or one is a prefix of the other once stripped to letters and digits (at least 5 characters). A bill usually names an invoice short, without its date. Use it instead of `impNk(a)==impNk(b)` wherever a bill is matched to an invoice.
 - `mailBill` looks an invoice up four ways: by contract numbers, by exact invoice number, by `ilike` on each number, and finally across the last 400 invoices with `impNm`.
+
+## v79 — Track as a link, and Home one day at a time
+
+**AWB Track.** The installed app drew `window.open(url,'_blank','noopener')` as a half-height
+panel that never painted (iOS standalone). The control is now a real
+`<a class="trk" href target="_blank" rel="noopener">`, so the browser itself takes the link,
+and a small listener copies the number on the way out (no `preventDefault`). The row is
+`.kv.awbr`, forced to `display:block` over the 36%/1fr `.ds>.kv` grid so the number, the
+airline and the two pills (`Track with <airline>`, `Copy number`) stack full width under the
+label. The old `data-awburl` branch in the click handler is gone; `data-copy` does the copy
+button. Destination is still the carrier page on trackandtrace.com (no aggregator with a
+documented number-in-URL format could be verified), so the paste is still one step.
+
+**Home, day by day.** `MHD` is the day Home is showing ('' means today) and `MHSW` is the
+mode flag. `mhD()`/`mhSh(n)` read and step the day, never past today. Hold anywhere on `.mh`
+that is not an input, link or button for 520ms (`MLP`, cancelled by a 12px move) and
+`mSwMode` flips the mode: the greeting becomes "Day by day", a banner appears (`.mdsw`,
+tap it to leave), and `+`, "Earlier entries", Follow-ups and Actions are hidden because they
+belong to today. While the mode is on, the existing touchend swipe calls `mDay(±1)` instead
+of `mGo`, with `inl`/`inr` giving it the same slide as a page change. Holding again, tapping
+the banner, or leaving the tab (`mGo` resets `MHSW`/`MHD`) puts the page swipe back.
+`LPC=Date.now()` in `mSwMode` swallows the tap that ends the hold — the same guard the
+`.tstk` long-press uses — so the first tap after a hold does nothing for 700ms.
+`.mh` is `user-select:none` and its `contextmenu` is prevented, or iOS turns the hold into a
+text selection.
+
+Tests: `scratchpad/v7/day.py` (22), `scratchpad/v7/awb.py` (12).
+`wh/ptest2.py` fixtures now compute the two payment dates from today instead of hardcoding
+them, since the mock dates its invoices relative to the clock.
