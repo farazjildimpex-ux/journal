@@ -181,3 +181,28 @@ text selection.
 Tests: `scratchpad/v7/day.py` (22), `scratchpad/v7/awb.py` (12).
 `wh/ptest2.py` fixtures now compute the two payment dates from today instead of hardcoding
 them, since the mock dates its invoices relative to the clock.
+
+## v80 — the bottom bar carries the days, and a second tap opens the conversation
+
+The v79 hold is gone: `MBAR` (`#mbar`) takes its own `touchstart/move/end`, and a horizontal
+swipe of 36px or more calls `mDayGo(±1)`, which turns day mode on the first time and steps
+the day after that. `swOk` ignores touches that start on `#mbar` while `tab==0`, so the bar
+swipe never drags the pages along; on any other tab the bar still swipes between pages as
+before. The swipe's own tap is swallowed by a capture listener on the bar alone (`DSWT`,
+400ms) instead of the global `LPC`, which used to eat the next tap anywhere for 700ms.
+
+Leaving: `nonRoot()` now counts `MHSW`, so `mSwMode(1)` pushes a history entry through
+`navSync()` and the Android back gesture pops it — `popstate` calls `mSwMode(0)` before the
+tab-0 branch, so back returns to today instead of closing the app. The banner is three
+controls (`.mdsa` arrows with `data-dstep`, `.mdsc` Back to today), so the days can be
+tapped as well as swiped; the forward arrow is `disabled` on today.
+
+`data-mday` was already taken by the calendar day cells — the arrows use `data-dstep`.
+Check an attribute name the same way as a class name before using it.
+
+**Double tap.** `mEx` now mirrors `cardTap`: the same `tap={id,at}` state, 340ms, second tap
+closes the row and calls `thread(id)`. Putting it in `mEx` rather than a document listener
+keeps the gesture inside the row's own handler, so a second tap that lands on a button of
+the strip that just slid open still does what that button says.
+
+Test: `scratchpad/v7/day2.py` (28). `v7/day.py` covered the hold and is superseded.
