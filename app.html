@@ -1557,6 +1557,109 @@ html[data-theme="dark"] .ux-list,html[data-theme="dark"] .ux-pnl,html[data-theme
  .fbx-m .card.fbg .ct{display:block}
 }
 
+/* ===== Intelligence ===== */
+.inkpis{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--sp-8);margin-top:var(--sp-12)}
+.inkpi{display:block;padding:var(--sp-12) var(--sp-16);border:1px solid var(--line);border-radius:16px;background:var(--kbffffff,#fff);text-align:left;cursor:pointer}
+.inkpi b{display:block;font-size:calc(22px*var(--fs,1));font-weight:700;letter-spacing:-.02em}
+.inkpi span{display:block;font-size:var(--fs-13);color:var(--mute)}
+.inkpi.on{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+@media (min-width:900px){.inkpis{grid-template-columns:repeat(4,1fr)}}
+.inb{display:inline-block;margin-left:var(--sp-6);padding:1px 7px;border-radius:99px;background:var(--panel);color:var(--ink2);font-size:calc(11px*var(--fs,1));font-weight:700;font-style:normal;vertical-align:1px}
+.inb.ok{background:var(--bl);color:var(--blue)}
+.inb.hi{background:#FDF0E7;color:#B4531A}
+.inb.w{background:#F0ECFD;color:#5B3FD0}
+html[data-theme="dark"] .inb.hi{background:#3A2A1C;color:#F0A66A}
+html[data-theme="dark"] .inb.w{background:#262040;color:#B9A6FF}
+.incap{padding:var(--sp-12) var(--sp-16);border:1px solid var(--line);border-radius:16px}
+.incl{display:flex;align-items:center;gap:var(--sp-8);font-size:var(--fs-13);color:var(--ink2);margin-bottom:var(--sp-6)}
+.incl b{font-size:calc(17px*var(--fs,1));color:var(--ink)}
+.incl span,.incl label{color:var(--mute)}
+.inci{width:84px;flex:none}
+.inrow{display:flex;gap:var(--sp-8);flex-wrap:wrap;margin-top:var(--sp-12)}
+.inrow .btn{flex:1 1 auto}
+.btn.sm{height:34px;padding:0 var(--sp-12);font-size:var(--fs-13);border-radius:12px}
+.fbp.warn{color:#B4531A}
+.inhd{display:flex;align-items:flex-start;gap:var(--sp-8);margin-bottom:var(--sp-8)}
+.inhd h2{font-size:calc(24px*var(--fs,1));font-weight:700;letter-spacing:-.02em;margin:0}
+.inhd .x{flex:none;width:34px;height:34px;border:0;background:none;color:var(--ink);font-size:26px;line-height:1;cursor:pointer}
+.insb{font-size:var(--fs-13);color:var(--mute)}
+.insb a{color:var(--blue)}
+.inmk{display:flex;flex-wrap:wrap;gap:var(--sp-6);margin:var(--sp-8) 0 0}
+.inrun{display:flex;align-items:center;gap:var(--sp-12);margin-top:var(--sp-12);padding:var(--sp-12) var(--sp-16);border:1px solid var(--line);border-radius:16px}
+.inrun>div{min-width:0;flex:1}
+.inrun b{display:block;font-size:calc(15px*var(--fs,1))}
+.inrun span{display:block;font-size:var(--fs-13);color:var(--mute)}
+.inspin{flex:none;width:18px;height:18px;border:2px solid var(--line);border-top-color:var(--blue);border-radius:50%;animation:inspin 1s linear infinite}
+@keyframes inspin{to{transform:rotate(360deg)}}
+.inpill{display:flex;flex-wrap:wrap;gap:var(--sp-6);margin-bottom:var(--sp-8)}
+.inpill i{padding:3px 10px;border-radius:99px;background:var(--panel);color:var(--ink2);font-size:var(--fs-13);font-weight:600;font-style:normal}
+.inbus{margin:0;font-size:calc(15.5px*var(--fs,1));line-height:1.55}
+.intags{display:flex;flex-wrap:wrap;gap:var(--sp-6);margin-top:var(--sp-12)}
+.intags span{padding:2px 9px;border:1px solid var(--line);border-radius:99px;font-size:var(--fs-13);color:var(--ink2)}
+.inunk{margin-top:var(--sp-12);font-size:var(--fs-13)}
+.inunk>span{color:var(--mute);font-weight:700}
+.inunk ul,.inog ul{margin:var(--sp-4) 0 0;padding-left:18px;color:var(--ink2)}
+.inunk li,.inog li{margin:2px 0}
+.inopp .inov{display:inline-block;padding:4px 12px;border-radius:99px;font-weight:700;font-size:var(--fs-13)}
+.inov.pursue{background:var(--bl);color:var(--blue)}
+.inov.maybe{background:var(--panel);color:var(--ink2)}
+.inov.skip{background:var(--panel);color:var(--mute)}
+.inwhy{margin:var(--sp-12) 0 0;font-size:calc(15.5px*var(--fs,1));line-height:1.55}
+.inog{margin-top:var(--sp-12);font-size:var(--fs-13)}
+.inog>span{color:var(--mute);font-weight:700}
+.innx{margin-top:var(--sp-16);padding-top:var(--sp-12);border-top:1px solid var(--line)}
+.innx span{display:block;font-size:calc(12px*var(--fs,1));font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+.innx b{display:block;margin-top:var(--sp-4);font-size:calc(15.5px*var(--fs,1));line-height:1.5}
+.inh{display:flex;align-items:baseline;gap:var(--sp-8);width:100%;border:0;background:none;padding:0 0 var(--sp-4);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.inh b{font-size:calc(15.5px*var(--fs,1))}
+.inh small{color:var(--mute);font-size:var(--fs-13)}
+.infd{padding:var(--sp-12) 0 0}
+.infd+.infd{border-top:1px solid var(--line)}
+.infd p{margin:0;font-size:calc(15px*var(--fs,1));line-height:1.5}
+.infm{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-8);margin-top:var(--sp-6);font-size:var(--fs-13)}
+.infm i{font-style:normal;font-weight:700;padding:1px 8px;border-radius:99px}
+.incl-verified{background:#E6F4EC;color:#13794A}
+.incl-supported{background:var(--bl);color:var(--blue)}
+.incl-possible{background:#FDF0E7;color:#B4531A}
+.incl-unavailable{background:var(--panel);color:var(--mute)}
+html[data-theme="dark"] .incl-verified{background:#13301F;color:#6FD39B}
+html[data-theme="dark"] .incl-possible{background:#3A2A1C;color:#F0A66A}
+.incf{background:none;color:var(--mute);font-weight:600;padding:0}
+.insrc{color:var(--blue);text-decoration:none}
+.indt{color:var(--mute)}
+.inx{margin-left:auto;border:0;background:none;color:var(--mute);font:inherit;font-size:var(--fs-13);cursor:pointer}
+.inmap{width:100%;height:auto;margin:var(--sp-8) 0}
+.inmap path{fill:none;stroke:var(--mute);stroke-width:1.4;opacity:.75}
+.inmap .inn rect{fill:var(--panel);stroke:var(--line)}
+.inmap .inn.c rect{fill:var(--bl);stroke:var(--blue)}
+.inmap .innt{font:600 12px var(--f);fill:var(--ink)}
+.inmap .inns{font:500 10px var(--f);fill:var(--mute)}
+.inlg{display:flex;gap:var(--sp-12);font-size:var(--fs-13);color:var(--mute);margin-bottom:var(--sp-8)}
+.inlg i{display:inline-block;width:18px;border-top:1.6px solid var(--mute);vertical-align:3px;margin-right:4px}
+.inlg i.l2{border-top-style:dashed}
+.inlg i.l3{border-top-style:dotted}
+.inln{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-8);padding:var(--sp-8) 0;border-top:1px solid var(--line);font-size:var(--fs-13)}
+.inln b{font-size:calc(14.5px*var(--fs,1))}
+.inst{display:inline-block;padding:4px 12px;border-radius:99px;font-weight:700;font-size:var(--fs-13);margin-bottom:var(--sp-8)}
+.inst.records{background:#E6F4EC;color:#13794A}
+.inst.aggregate{background:var(--bl);color:var(--blue)}
+.inst.none_found{background:var(--panel);color:var(--mute)}
+.intb{margin:var(--sp-8) 0}
+.intr{display:flex;flex-wrap:wrap;gap:var(--sp-8);padding:var(--sp-8) 0;border-top:1px solid var(--line);font-size:var(--fs-13);color:var(--ink2)}
+.intr b{color:var(--ink)}
+.intr a{color:var(--blue);margin-left:auto}
+.inrn{display:flex;flex-wrap:wrap;gap:var(--sp-8);padding:var(--sp-8) 0;border-top:1px solid var(--line);font-size:var(--fs-13);color:var(--mute)}
+.inrn b{color:var(--ink)}
+.inrn i{font-style:normal;color:#B4531A}
+.inadd .ei{margin-bottom:var(--sp-8)}
+.inpro{padding-bottom:var(--sp-24)}
+.inp2>div{min-width:0}
+@media (min-width:900px){.inp2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);column-gap:var(--sp-24);align-items:start}
+ .inp2>.inmapw{grid-column:1/-1}}
+html.phx .fbx.inx{display:flex;flex-direction:column}
+html.phx .fbx.inx>.fbx-m{order:1}
+html.phx .fbx.inx>.fbx-a{order:2}
+
 .fbmini{display:none}
 .ux-link .ux-bd{font-style:normal;margin-left:var(--sp-2);padding:1px var(--sp-6);min-width:0}
 @media (max-width:899px){
@@ -3155,8 +3258,9 @@ function ldList(){if(!LDL)return'<div class="empty">Loading clients…</div>';co
 const ldSetup=()=>`<section class="ds ldset"><div class="ldk">One-time setup</div><p>Follow-up history needs one small table in Supabase. Copy this, paste it into the SQL Editor, tap Run, then come back here.</p><pre id="ldsql">${esc(LSQL)}</pre><button class="btn ghost wide" data-ldcopy>Copy SQL</button><button class="btn wide" data-ldretry>I’ve run it</button></section>`;
 function renderLeads(keep){const v=$('#view');if(!v)return;LDX.forEach(l=>l._i=lInfo(l));const due=LDX.filter(l=>l._i.bucket<=1).length;
  const ldSub='LWG directory',ldHead=innerWidth>=900?`<div class="dtop"><div><div class="hk" id="ldn">${ldSub}</div><h1>Buyers</h1></div><div class="dacts"></div></div>`:`<div class="head hob"><h1>Buyers</h1><div class="sub" id="ldn">${ldSub}</div></div>`;
- const msw=`<div class="chs fbmode"><button class="ch c-ld ${lmode=='clients'?'on':''}" data-lmode="clients">Clients</button><button class="ch c-ld ${lmode=='find'?'on':''}" data-lmode="find">Find buyers</button></div>`;
- if(lmode=='find'){v.innerHTML=`<div class="pane ${keep?'na':''}">${ldHead}<div id="fbv">${fbView()}</div></div>`;if(!FB.loaded&&!FB.loading)fbLoad();return}
+ const msw=`<div class="chs fbmode"><button class="ch c-ld ${lmode=='clients'?'on':''}" data-lmode="clients">Clients</button><button class="ch c-ld ${lmode=='find'?'on':''}" data-lmode="find">Find buyers</button><button class="ch c-ld ${lmode=='intel'?'on':''}" data-lmode="intel">Intelligence</button></div>`;
+ if(lmode=='intel'){v.innerHTML=`<div class="pane ${keep?'na':''}">${ldHead}${msw}<div id="fbv">${inView()}</div></div>`;if(!IN.loaded)inLoad();if(!FB.loaded&&!FB.loading)fbLoad();return}
+ if(lmode=='find'){v.innerHTML=`<div class="pane ${keep?'na':''}">${ldHead}${msw}<div id="fbv">${fbView()}</div></div>`;if(!FB.loaded&&!FB.loading)fbLoad();return}
  v.innerHTML=`<div class="pane ${keep?'na':''}">${ldHead}${msw}${FUOK?'':ldSetup()}<input class="sbox" id="lq" type="search" placeholder="Search clients or articles" value="${esc(lq)}" autocomplete="off"><div class="chs" id="ldch">${ldChips()}</div><div id="ll">${ldList()}</div></div>`}
 async function loadLeads(){if(LDB)return;LDB=true;
  try{const[a,b]=await Promise.all([sb.from('leads').select('*').order('company_name').limit(2000),sb.from('lead_followups').select('*').order('done_on',{ascending:false}).limit(5000)]);
@@ -3355,6 +3459,209 @@ function fbResBody(g){const r=fbRes(g);if(!r)return`<section class="ds"><p class
  const facts=(p.facts||[]).map(f=>`<div class="fbf">${esc(f.fact)} <a href="${esc(f.source_url)}" target="_blank" rel="noopener">source</a></div>`).join('');
  return`<section class="ds"><div class="ldk">Research · ${esc(new Date(r.researched_at).toLocaleDateString('en-GB',{day:'numeric',month:'short'}))}</div>${p.summary?`<p class="fbp">${esc(p.summary)}</p>`:''}${kv('Type',FBTY[r.business_type]||'')}${kv('Buys',list(p.buys))}${kv('Sells',list(p.sells))}${kv('Animals',list(p.animals))}${kv('Markets',list(p.markets))}${kv('Language',esc(p.site_language||''))}${kv('People',ppl)}${kv('Emails',em.length?em.map(esc).join('<br>'):'<span class="fbw">none printed on the site</span>')}${(p.notes||[]).length?kv('Notes',p.notes.map(esc).join('<br>')):''}${p.unclear&&p.unclear.length?kv('Not found',list(p.unclear)):''}${facts?`<div class="ldk" style="margin-top:12px">Where it came from</div>${facts}`:''}<button class="btn ghost wide" data-fbres="${esc(g.rows[0].id)}" style="margin-top:12px">Research again</button></section>`}
 /* ---- Outreach: settings + email drafts + approval ---- */
+/* ===== Intelligence: one company at a time, and the evidence behind every line ===== */
+const ISEC={identity:'Who they are',business:'What they do',products:'Products',brands:'Brands they supply',markets:'Markets',sourcing:'Where they source',india:'India',competitors:'Traders and competitors',certifications:'Certifications',people:'People',shipments:'Shipments',news:'News and activity'};
+const ICL={verified:'Verified',supported:'Supported',possible:'Check it',unavailable:'Not found'};
+const IKD={indian_supplier:'Indian supplier',tannery:'Tannery',exporter:'Exporter',trader:'Trader',agent:'Agent',competitor:'Competitor',brand:'Brand',customer:'Customer',country:'Country'};
+const IMK={target:'Target',competitor:'Competitor',supplier:'Supplier',partner:'Partner'};
+const IIND={confirmed:'Buys from India',likely:'India likely',none_found:'No India link found'};
+const ISHP={records:'Shipment records',aggregate:'Country figures only',none_found:'No shipment record'};
+const IVD={pursue:'Worth pursuing',maybe:'Maybe',skip:'Leave it'};
+const IHS=[['4107','Bovine finished leather'],['4112','Sheep finished leather'],['4113','Goat and other finished'],['4104','Wet blue and crust'],['6406','Shoe uppers and parts'],['6403','Leather footwear'],['4203','Leather goods']];
+let IN={prof:[],find:{},link:{},runs:{},loaded:false,busy:false,sel:'',q:'',f:'all',run:null,ok:true,use:null,open:{},trade:{},add:false};
+const inYm=()=>new Date().toISOString().slice(0,7);
+const inKeyG=g=>g.dom?'d:'+g.dom:'n:'+fbKey(g.rows?g.rows[0].name:g.name);
+const inP=k=>IN.prof.find(x=>x.key==k)||null;
+const inDt=s=>s?new Date(s).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
+const inAgo=s=>{if(!s)return'not yet';const d=Math.round((Date.now()-new Date(s))/864e5);return d<=0?'today':d==1?'yesterday':d<30?d+' days ago':inDt(s)};
+const inCost=n=>'$'+(n*0.01).toFixed(2);
+const inCap=()=>(IN.use&&IN.use.cap!=null)?IN.use.cap:300;
+const inLeft=()=>inCap()-((IN.use&&IN.use.searches)||0);
+
+async function inLoad(force){if(IN.busy||(IN.loaded&&!force))return;IN.busy=true;
+ try{const[a,u]=await Promise.all([sb.from('intel_profiles').select('*').order('updated_at',{ascending:false}).limit(3000),sb.from('intel_usage').select('*').eq('ym',inYm()).maybeSingle()]);
+  if(a.error){if(/intel_|schema cache|does not exist/i.test(a.error.message||''))IN.ok=false;else toast(a.error.message)}else{IN.prof=a.data||[];IN.ok=true}
+  IN.use=(u&&u.data)||{ym:inYm(),searches:0,runs:0,cap:300}}
+ catch(e){}finally{IN.busy=false;IN.loaded=true}
+ if(tab==4&&lmode=='intel')inPaint()}
+
+async function inSelLoad(k,force){if(!k)return;if(!force&&IN.find[k])return;
+ const[f,l,r]=await Promise.all([
+  sb.from('intel_findings').select('*').eq('key',k).order('section',{ascending:true}),
+  sb.from('intel_links').select('*').eq('key',k).order('kind',{ascending:true}),
+  sb.from('intel_runs').select('id,kind,status,searches,steps,new_findings,new_links,started_at,finished_at,error,changes').eq('key',k).order('started_at',{ascending:false}).limit(10)]);
+ IN.find[k]=(f.data||[]).filter(x=>!x.hidden);IN.link[k]=(l.data||[]).filter(x=>!x.hidden);IN.runs[k]=r.data||[]}
+
+/* a company can come from the LWG list, from a past run, or typed in by hand */
+function inUniverse(){const L=IN.prof.slice(),seen=new Set(L.map(p=>p.key)),q=IN.q.trim().toLowerCase();
+ if(q.length>=2&&FB.loaded){const rs=FB.rows.filter(r=>String(r.name||'').toLowerCase().includes(q));
+  fbGroups(rs.slice(0,600)).forEach(g=>{const k=inKeyG(g);if(seen.has(k))return;seen.add(k);
+   L.push({key:k,company:g.name,country:(g.rows[0]||{}).country||'',domain:g.dom||'',website:(g.rows[0]||{}).website||'',status:'new',_new:1})})}
+ return L}
+function inRows(){let L=inUniverse();const q=IN.q.trim().toLowerCase(),f=IN.f;
+ if(q)L=L.filter(p=>(p.company+' '+(p.country||'')+' '+(p.domain||'')).toLowerCase().includes(q));
+ if(f=='watch')L=L.filter(p=>p.watch);
+ else if(f=='high')L=L.filter(p=>p.priority=='high');
+ else if(f=='india')L=L.filter(p=>p.india=='confirmed');
+ else if(f=='ship')L=L.filter(p=>p.shipment=='records');
+ else if(f=='pursue')L=L.filter(p=>((p.summary||{}).opportunity||{}).verdict=='pursue');
+ else if(f=='todo')L=L.filter(p=>p.status!='done');
+ else if(f=='new')L=L.filter(p=>p.status=='done'&&p.updated_at&&Date.now()-new Date(p.updated_at)<7*864e5);
+ const rank=p=>(p.status=='done'?0:1);
+ return L.sort((a,b)=>rank(a)-rank(b)||String(b.updated_at||'').localeCompare(String(a.updated_at||''))||String(a.company).localeCompare(String(b.company))).slice(0,300)}
+
+const inDone=()=>IN.prof.filter(p=>p.status=='done');
+function inDash(){const D=inDone(),P=IN.prof;
+ const cell=(f,n,t)=>`<button class="inkpi${IN.f==f?' on':''}" data-indf="${f}"><b>${n}</b><span>${t}</span></button>`;
+ return`<div class="inkpis">${cell('all',D.length,'Investigated')}${cell('high',P.filter(p=>p.priority=='high').length,'High priority')}${cell('india',P.filter(p=>p.india=='confirmed').length,'Buy from India')}${cell('ship',P.filter(p=>p.shipment=='records').length,'Shipment records')}${cell('pursue',P.filter(p=>((p.summary||{}).opportunity||{}).verdict=='pursue').length,'Worth pursuing')}${cell('watch',P.filter(p=>p.watch).length,'Watchlist')}${cell('new',P.filter(p=>p.status=='done'&&p.updated_at&&Date.now()-new Date(p.updated_at)<7*864e5).length,'New this week')}${cell('todo',P.filter(p=>p.status!='done').length,'Not yet looked at')}</div>`}
+
+const inBadge=p=>[p.mark?`<i class="inb mk">${IMK[p.mark]||p.mark}</i>`:'',p.india=='confirmed'?'<i class="inb ok">India</i>':'',p.shipment=='records'?'<i class="inb ok">Records</i>':'',p.watch?'<i class="inb w">Watching</i>':'',p.priority=='high'?'<i class="inb hi">High</i>':''].filter(Boolean).join('');
+function inList(){const L=inRows();
+ if(!L.length)return`<div class="empty">${IN.q?'Nothing matches. Type a company name to search the LWG list too.':'Nothing here yet. Search for a company, or add one by hand.'}</div>`;
+ return`<div class="ux-list">`+L.map(p=>{const due=p.watch&&p.last_run_at&&Date.now()-new Date(p.last_run_at)>30*864e5;
+  const sub=[p.country||'',p.status=='done'?(due?'Due a check · last looked at '+inAgo(p.last_run_at):'Looked at '+inAgo(p.last_run_at)):'Not researched',((p.summary||{}).opportunity||{}).verdict?IVD[p.summary.opportunity.verdict]:''].filter(Boolean).join(' · ');
+  return uxRow(`data-insel="${esc(p.key)}"`,esc(p.company)+inBadge(p),esc(sub),{av:uxInit(p.company)})}).join('')+`</div>`}
+
+function inAddBox(){return IN.add?`<section class="ds inadd"><div class="ldk">Add a company</div><input class="ei" id="inan" placeholder="Company name"><input class="ei" id="inac" placeholder="Country"><input class="ei" id="inaw" placeholder="Website (if you know it)"><div class="inrow"><button class="btn" data-inasave>Add</button><button class="btn ghost" data-inax>Cancel</button></div></section>`:''}
+function inCapBox(){const u=IN.use||{},s=u.searches||0;
+ return`<div class="ux-gh">This month</div><div class="incap"><div class="incl"><b>${s}</b> searches <span>${inCost(s)} in search fees, model tokens on top</span></div><div class="incl"><label>Stop at</label><input class="ei inci" id="incap" type="number" min="0" step="50" value="${inCap()}"><button class="btn ghost sm" data-incapsave>Save</button></div>${inLeft()<=0?'<p class="fbp warn">The limit is reached. Raise it to investigate more this month.</p>':''}</div>`}
+
+function inView(){if(!IN.ok)return`<section class="ds ldset"><div class="ldk">One-time setup</div><p class="fbp">The intelligence tables are not in the database yet. They were added by the app update; sign out and in again, and if this stays, tell Claude.</p></section>`;
+ if(!IN.loaded)return'<div class="empty">Loading…</div>';
+ if(IN.sel)return inProfile(IN.sel);
+ return`<div class="fbx inx"><aside class="fbx-a">${inCapBox()}<div class="ux-gh">Companies</div><div class="ux-list">${uxRow('data-inaddx','Add a company by hand','Not in the LWG list',{ic:'up'})}</div>${inAddBox()}<p class="fbp">Shipment-level records exist publicly for imports into the United States. For European buyers the page shows what the open web proves, and says so when there is no record.</p></aside><div class="fbx-m">${inDash()}<input class="sbox" id="inq" type="search" placeholder="Search your companies and the LWG list" value="${esc(IN.q)}" autocomplete="off"><div class="ux-gh">Companies<small>${inRows().length}</small></div>${inList()}</div></div>`}
+
+/* ---------- one company ---------- */
+const inSrc=f=>f.source_url?`<a class="insrc" href="${esc(f.source_url)}" target="_blank" rel="noopener">${esc(f.source_name||String(f.source_url).replace(/^https?:\/\/(www\.)?/,'').split('/')[0])}</a>`:(f.source_name?`<span class="insrc">${esc(f.source_name)}</span>`:'');
+const inClaim=f=>`<i class="incl-${f.claim||'possible'}">${ICL[f.claim]||f.claim}</i><i class="incf">${esc(f.confidence||'')}</i>`;
+function inFindRow(f){return`<div class="infd"><p>${esc(f.text)}</p><div class="infm">${inClaim(f)}${inSrc(f)}${f.source_date?`<span class="indt">${esc(f.source_date)}</span>`:''}<button class="inx" data-inhide="${f.id}" aria-label="Wrong, hide it">Hide</button></div></div>`}
+function inSections(k){const F=IN.find[k]||[];if(!F.length)return'';
+ const by={};F.forEach(f=>(by[f.section]=by[f.section]||[]).push(f));
+ return Object.keys(ISEC).filter(s=>by[s]).map(s=>{const op=IN.open[s]!==false;
+  return`<section class="ds insec"><button class="inh" data-insec="${s}"><b>${ISEC[s]}</b><small>${by[s].length}</small></button>${op?by[s].map(inFindRow).join(''):''}</section>`}).join('')}
+
+function inMap(k){const L=(IN.link[k]||[]).filter(x=>x.kind!='country');if(!L.length)return'';
+ const p=inP(k),left=L.filter(x=>['indian_supplier','tannery','exporter'].includes(x.kind)).slice(0,6),right=L.filter(x=>['trader','agent','competitor'].includes(x.kind)).slice(0,6),bot=L.filter(x=>['brand','customer'].includes(x.kind)).slice(0,5);
+ if(!left.length&&!right.length&&!bot.length)return'';
+ const W=720,rowH=46,n=Math.max(left.length,right.length,1),H=30+n*rowH+(bot.length?58:14),cy=28+(n*rowH)/2;
+ const dash=c=>c=='verified'?'':c=='supported'?'6 5':'2 6';
+ const node=(x,y,w,t,sub,cl)=>`<g class="inn ${cl}"><rect x="${x}" y="${y-15}" width="${w}" height="30" rx="8"/><text x="${x+10}" y="${y+1}" class="innt">${esc(String(t).slice(0,26))}</text>${sub?`<text x="${x+10}" y="${y+12}" class="inns">${esc(String(sub).slice(0,30))}</text>`:''}</g>`;
+ let s=`<svg viewBox="0 0 ${W} ${H}" class="inmap" role="img" aria-label="Who is connected to this company">`;
+ left.forEach((x,i)=>{const y=28+i*rowH;s+=`<path d="M190 ${y} C 235 ${y}, 240 ${cy}, 280 ${cy}" stroke-dasharray="${dash(x.claim)}"/>`});
+ right.forEach((x,i)=>{const y=28+i*rowH;s+=`<path d="M440 ${cy} C 480 ${cy}, 486 ${y}, 530 ${y}" stroke-dasharray="${dash(x.claim)}"/>`});
+ left.forEach((x,i)=>{s+=node(10,28+i*rowH,180,x.name,IKD[x.kind]||x.kind,'l')});
+ right.forEach((x,i)=>{s+=node(530,28+i*rowH,180,x.name,IKD[x.kind]||x.kind,'r')});
+ s+=node(280,cy,160,(p&&p.company)||'',p&&p.country||'','c');
+ bot.forEach((x,i)=>{const bx=10+i*145;s+=node(bx,H-20,135,x.name,IKD[x.kind]||x.kind,'b')});
+ return`<section class="ds inmapw"><div class="ldk">Who is connected</div>${s}</svg><div class="inlg"><span><i class="l1"></i>Verified</span><span><i class="l2"></i>Supported</span><span><i class="l3"></i>Needs checking</span></div>${L.map(x=>`<div class="inln"><b>${esc(x.name)}</b><i class="inb">${IKD[x.kind]||x.kind}</i>${x.country?`<span>${esc(x.country)}</span>`:''}${inClaim(x)}${inSrc(x)}<button class="inx" data-inhidel="${x.id}">Hide</button></div>`).join('')}</section>`}
+
+function inShip(k){const p=inP(k),S=((p||{}).summary||{}).shipments||null;if(!S)return'';
+ const T=IN.trade[k]||[];
+ const rows=(S.rows||[]).filter(r=>r&&r.source_url);
+ return`<section class="ds"><div class="ldk">Shipments</div><div class="inst ${S.kind}">${ISHP[S.kind]||S.kind}</div><p class="fbp">${esc(S.note||'')}</p>
+ ${rows.length?`<div class="intb">${rows.map(r=>`<div class="intr"><b>${esc(r.date||'')}</b><span>${esc(r.product||'')}</span><span>${esc(r.origin||'')}</span><span>${esc(r.supplier||'')}</span>${r.source_url?`<a href="${esc(r.source_url)}" target="_blank" rel="noopener">${esc(r.source_name||'source')}</a>`:''}</div>`).join('')}</div>`:''}
+ <div class="ux-gh">Country trade, India to ${esc((p||{}).country||'their country')}</div>
+ ${T.length?`<div class="intb">${T.map(t=>`<div class="intr"><b>${esc(t.hs)}</b><span>${esc(t.hs_name||'')}</span><span>${t.ok?'$'+Number(t.value_usd).toLocaleString('en-GB'):'—'}</span><span>${t.ok&&t.weight_kg?Number(t.weight_kg).toLocaleString('en-GB')+' kg':''}</span><span>${esc(String(t.year||''))}</span>${t.source_url?`<a href="${esc(t.source_url)}" target="_blank" rel="noopener">UN Comtrade</a>`:''}</div>`).join('')}</div><p class="fbp">These are totals for the whole country, not this company.</p>`
+ :`<button class="btn ghost wide" data-intrade="${esc(k)}">Look up the country figures</button>`}</section>`}
+
+function inOpp(k){const p=inP(k),O=((p||{}).summary||{}).opportunity||null;if(!O)return'';
+ const li=(t,a)=>(a&&a.length)?`<div class="inog"><span>${t}</span><ul>${a.slice(0,6).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:'';
+ return`<section class="ds inopp"><div class="inov ${O.verdict}">${IVD[O.verdict]||O.verdict}</div><p class="inwhy">${esc(O.why||'')}</p>${li('What to offer',O.offer)}${li('Gaps in their suppliers',O.gaps)}${li('What we have going for us',O.advantages)}<div class="innx"><span>Next move</span><b>${esc(O.next_move||'')}</b></div></section>`}
+
+function inRunBox(k){const R=IN.runs[k]||[];if(!R.length)return'';
+ return`<section class="ds"><div class="ldk">Research history</div>${R.map(r=>`<div class="inrn"><b>${r.kind=='monitor'?'Check':'Investigation'}</b><span>${inDt(r.started_at)}</span><span>${r.status=='done'?((r.new_findings||0)+' new'):r.status=='failed'?'Stopped':'Running'}</span><span>${r.searches||0} searches</span>${r.error?`<i>${esc(String(r.error).slice(0,80))}</i>`:''}</div>`).join('')}</section>`}
+
+function inProfile(k){const p=inP(k);if(!p)return'<div class="empty">Gone.</div>';
+ const S=p.summary||{},run=IN.run&&IN.run.key==k?IN.run:null,F=IN.find[k];
+ const head=`<div class="inhd"><button class="x" data-inback aria-label="Back">‹</button><div><h2>${esc(p.company)}</h2><div class="insb">${[p.country||'',p.domain?`<a href="https://${esc(p.domain)}" target="_blank" rel="noopener">${esc(p.domain)}</a>`:'',p.status=='done'?'Looked at '+inAgo(p.last_run_at):'Not researched yet'].filter(Boolean).join(' · ')}</div></div></div>`;
+ const marks=`<div class="chs inmk">${Object.entries(IMK).map(([v,t])=>`<button class="ch c-ld ${p.mark==v?'on':''}" data-inmark="${esc(k)}|${v}">${t}</button>`).join('')}<button class="ch c-ld ${p.watch?'on':''}" data-inwatch="${esc(k)}">${p.watch?'Watching':'Watch'}</button></div>`;
+ const act=run?`<div class="inrun"><div class="inspin"></div><div><b>${esc(run.note||'Working')}</b><span>Step ${run.step||0} · ${run.searches||0} searches</span></div><button class="btn ghost sm" data-instop>Stop</button></div>`
+  :`<div class="inrow">${p.status=='done'?`<button class="btn" data-inmon="${esc(k)}">Check for anything new</button><button class="btn ghost" data-ininv="${esc(k)}">Investigate again</button>`:`<button class="btn wide" data-ininv="${esc(k)}">Investigate company</button>`}</div>`;
+ const facts=p.status=='done'?`<section class="ds"><div class="inpill">${[IIND[p.india]||'',ISHP[p.shipment]||'',p.priority?p.priority+' priority':''].filter(Boolean).map(t=>`<i>${esc(t)}</i>`).join('')}</div><p class="inbus">${esc(S.business||'')}</p>${(S.segments||[]).length?`<div class="intags">${S.segments.slice(0,8).map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}${(S.unknown||[]).length?`<div class="inunk"><span>Not established</span><ul>${S.unknown.slice(0,6).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}</section>`:`<section class="ds"><p class="fbp">Nothing on file yet. Investigate reads the open web, cross-checks what it finds, and writes every line here with its source.${inLeft()<=0?' The monthly search limit is reached, so raise it first.':''}</p></section>`;
+ return`<div class="inpro">${head}${marks}${act}<div class="inp2">${inMap(k)}<div class="inpl">${facts}${inOpp(k)}${F?inSections(k):''}</div><div class="inpr">${inShip(k)}${inRunBox(k)}</div></div></div>`}
+
+function inPaint(){const el=$('#fbv');if(el&&tab==4&&lmode=='intel'){const sc=el.closest('.pane'),sy=sc?sc.scrollTop:0;el.innerHTML=inView();if(sc&&IN.keepScroll)sc.scrollTop=sy;IN.keepScroll=false}}
+
+/* ---------- opening, marking, watching ---------- */
+async function inOpen(k){const L=inUniverse(),p=L.find(x=>x.key==k);if(!p)return;
+ if(p._new||!inP(k)){const row={key:k,company:p.company,country:p.country||null,domain:p.domain||null,website:p.website||null,status:'new',updated_at:new Date().toISOString()};
+  const{error}=await sb.from('intel_profiles').upsert(row,{onConflict:'key'});if(error){toast(error.message);return}
+  if(!inP(k))IN.prof.unshift(row)}
+ IN.sel=k;inPaint();await inSelLoad(k);inPaint()}
+async function inPatch(k,patch){const{error}=await sb.from('intel_profiles').update(Object.assign({updated_at:new Date().toISOString()},patch)).eq('key',k);
+ if(error){toast(error.message);return}const p=inP(k);if(p)Object.assign(p,patch);IN.keepScroll=true;inPaint()}
+async function inHide(id,isLink){const t=isLink?'intel_links':'intel_findings';const{error}=await sb.from(t).update({hidden:true}).eq('id',id);
+ if(error)return toast(error.message);const k=IN.sel;if(isLink)IN.link[k]=(IN.link[k]||[]).filter(x=>x.id!=id);else IN.find[k]=(IN.find[k]||[]).filter(x=>x.id!=id);IN.keepScroll=true;inPaint()}
+async function inAddSave(){const n=($('#inan')||{}).value||'',c=($('#inac')||{}).value||'',w=($('#inaw')||{}).value||'';
+ if(!n.trim())return toast('A name first');const dom=fbDom(w),k=dom?'d:'+dom:'n:'+fbKey(n);
+ const row={key:k,company:n.trim(),country:c.trim()||null,domain:dom||null,website:w.trim()||null,status:'new',updated_at:new Date().toISOString()};
+ const{error}=await sb.from('intel_profiles').upsert(row,{onConflict:'key'});if(error)return toast(error.message);
+ if(!inP(k))IN.prof.unshift(row);IN.add=false;IN.q='';await inOpen(k)}
+async function inCapSave(){const v=Math.max(0,parseInt(($('#incap')||{}).value||'0',10)||0);
+ const row={ym:inYm(),searches:(IN.use&&IN.use.searches)||0,runs:(IN.use&&IN.use.runs)||0,cap:v};
+ const{error}=await sb.from('intel_usage').upsert(row,{onConflict:'ym'});if(error)return toast(error.message);IN.use=row;toast('Limit saved');IN.keepScroll=true;inPaint()}
+async function inUsed(n,runs){const row={ym:inYm(),searches:((IN.use&&IN.use.searches)||0)+(n||0),runs:((IN.use&&IN.use.runs)||0)+(runs||0),cap:inCap()};
+ IN.use=row;await sb.from('intel_usage').upsert(row,{onConflict:'ym'})}
+
+/* ---------- the trade figures ---------- */
+async function inTrade(k){const p=inP(k);if(!p||!p.country)return toast('No country on this company');
+ IN.trade[k]=[];IN.keepScroll=true;
+ for(const[hs,nm]of IHS.slice(0,4)){try{const r=await fbApi({action:'trade',country:p.country,hs},'/api/intel');IN.trade[k].push(Object.assign({hs,hs_name:nm},r||{}))}catch(e){IN.trade[k].push({hs,hs_name:nm,ok:false})}inPaint();IN.keepScroll=true}
+ inPaint()}
+
+/* ---------- the run ---------- */
+function inKnown(k){const p=inP(k),F=(IN.find[k]||[]).slice(0,60),L=IN.link[k]||[];const S=(p||{}).summary||{};
+ if(!F.length&&!S.business)return'';
+ return[S.business?'On file: '+S.business:'',F.length?'Findings already on file:':'',...F.map(f=>'- ['+f.section+'] '+f.text+(f.source_url?' ('+f.source_url+')':'')),
+  L.length?'Connections already on file:':'',...L.map(x=>'- '+x.name+' ('+(IKD[x.kind]||x.kind)+', '+x.claim+')')].filter(Boolean).join('\n').slice(0,6000)}
+function inGroupFor(k){if(!FB.loaded)return null;const rs=FB.rows.filter(r=>{const d=fbDom(r.website||r.domain);return(d&&'d:'+d==k)||'n:'+fbKey(r.name)==k});
+ return rs.length?fbGroups(rs)[0]:null}
+async function inInvestigate(k,kind){if(IN.run)return;
+ const p=inP(k);if(!p)return;
+ if(inLeft()<=0)return toast('The monthly search limit is reached. Raise it at the top of the page.');
+ const g=inGroupFor(k);
+ IN.run={key:k,note:'Starting',step:0,searches:0,kind};IN.keepScroll=true;inPaint();
+ let s=null;
+ try{
+  s=await fbApi({action:'start',key:k,company:p.company,country:p.country||'',names:g?[...new Set(g.rows.map(r=>r.name))].slice(0,4):[p.company],
+   sites:[p.website,p.domain,g&&g.dom].filter(Boolean).slice(0,3),type:g?g.types.map(t=>FBT[t]||t).join(', '):'',animals:g?(g.animals||[]).join(', '):'',
+   known:inKnown(k),sell:(OUT.s||{}).catalogue||'',kind:kind||'investigate'},'/api/intel');
+  await sb.from('intel_profiles').update({status:'researching'}).eq('key',k);p.status='researching';
+  let r={status:'running'};
+  for(let i=0;i<14&&r.status=='running'&&IN.run;i++){
+   r=await fbApi({action:'step',run_id:s.run_id},'/api/intel');
+   if(!IN.run)break;
+   IN.run={key:k,kind,note:r.note||'Working',step:r.step||0,searches:r.searches||0};IN.keepScroll=true;inPaint();
+   if(r.status=='failed')throw new Error(r.error||'The research stopped.');
+  }
+  if(r.status=='done'&&r.result){await inUsed(r.searches||0,1);await inSave(k,r.result,s.run_id,kind)}
+  else if(IN.run)throw new Error('No result came back. Try again.');
+ }catch(e){toast(e.message||'Research failed');await sb.from('intel_profiles').update({status:p.status=='researching'?'failed':p.status}).eq('key',k);p.status='failed'}
+ IN.run=null;await inSelLoad(k,1);await inLoad(1);IN.keepScroll=true;inPaint()}
+
+const inNorm=t=>String(t||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+async function inSave(k,R,runId,kind){const now=new Date().toISOString(),p=inP(k)||{};
+ const oldF=IN.find[k]||[],oldL=IN.link[k]||[];
+ const seenF=new Map(oldF.map(f=>[f.section+'|'+inNorm(f.text),f])),seenL=new Map(oldL.map(x=>[x.kind+'|'+inNorm(x.name),x]));
+ const insF=[],keepF=[],insL=[],keepL=[];
+ (R.findings||[]).slice(0,80).forEach(f=>{if(!f||!f.text)return;const kk=f.section+'|'+inNorm(f.text),o=seenF.get(kk);
+  if(o)keepF.push(o.id);else insF.push({key:k,run_id:runId,section:f.section,text:String(f.text).slice(0,900),source_name:(f.source_name||'').slice(0,120),source_url:(f.source_url||'').slice(0,500),source_date:(f.source_date||'').slice(0,40),claim:f.claim||'possible',confidence:f.confidence||'low'})});
+ (R.links||[]).slice(0,40).forEach(x=>{if(!x||!x.name)return;const kk=x.kind+'|'+inNorm(x.name),o=seenL.get(kk);
+  if(o)keepL.push(o.id);else insL.push({key:k,run_id:runId,name:String(x.name).slice(0,160),kind:x.kind,country:(x.country||'').slice(0,80),claim:x.claim||'possible',confidence:x.confidence||'low',source_name:(x.source_name||'').slice(0,120),source_url:(x.source_url||'').slice(0,500),source_date:(x.source_date||'').slice(0,40),note:(x.note||'').slice(0,300)})});
+ try{
+  if(insF.length)await sb.from('intel_findings').insert(insF);
+  if(insL.length)await sb.from('intel_links').insert(insL);
+  if(keepF.length)await sb.from('intel_findings').update({last_seen:now}).in('id',keepF);
+  if(keepL.length)await sb.from('intel_links').update({last_seen:now}).in('id',keepL);
+  const row={key:k,company:p.company,country:p.country||null,domain:p.domain||null,website:p.website||null,status:'done',summary:R,
+   india:(R.india||{}).status||null,shipment:(R.shipments||{}).kind||null,priority:R.priority||null,last_run_at:now,updated_at:now,
+   next_check_on:p.watch?new Date(Date.now()+30*864e5).toISOString().slice(0,10):null};
+  const{error}=await sb.from('intel_profiles').upsert(row,{onConflict:'key'});if(error)throw new Error(error.message);
+  Object.assign(p,row);
+  await sb.from('intel_runs').update({new_findings:insF.length,new_links:insL.length,changes:{result:R,new:insF.map(f=>f.text).slice(0,20)}}).eq('id',runId);
+  toast(kind=='monitor'?(insF.length?insF.length+' new thing'+(insF.length==1?'':'s')+' found':'Nothing new since last time'):'Done · '+insF.length+' findings');
+ }catch(e){toast(e.message||'Could not save the research')}}
+
 const OUSQL=`create table if not exists outreach_settings (
   id text primary key,
   data jsonb not null default '{}'::jsonb,
@@ -4404,7 +4711,23 @@ else if('ldback'in d)ldDetail(LS.id)
  else if('lddel'in d){if(armAsk(t))return;await ldDel()}
  else if(d.ldfdel){if(armAsk(t,'remove'))return;await ldFDel(d.ldfdel)}
  else if('ldcopy'in d){try{await navigator.clipboard.writeText(LSQL);toast('SQL copied')}catch(e){const r=document.createRange();r.selectNodeContents($('#ldsql'));const g=getSelection();g.removeAllRanges();g.addRange(r);toast('Select and copy the SQL')}}
-else if(d.lmode){lmode=d.lmode;renderLeads(1)}
+else if(d.lmode){lmode=d.lmode;IN.sel='';renderLeads(1)}
+else if(d.insel)inOpen(d.insel)
+else if('inback'in d){IN.sel='';inPaint()}
+else if(d.ininv)inInvestigate(d.ininv,'investigate')
+else if(d.inmon)inInvestigate(d.inmon,'monitor')
+else if('instop'in d){IN.run=null;toast('Stopped');inPaint()}
+else if(d.inmark){const[ik,im]=d.inmark.split('|'),ip=inP(ik);inPatch(ik,{mark:ip&&ip.mark==im?null:im})}
+else if(d.inwatch){const ip=inP(d.inwatch);inPatch(d.inwatch,{watch:!(ip&&ip.watch)})}
+else if(d.indf){IN.f=d.indf;IN.keepScroll=true;inPaint()}
+else if('inaddx'in d){IN.add=!IN.add;inPaint()}
+else if('inasave'in d)inAddSave()
+else if('inax'in d){IN.add=false;inPaint()}
+else if('incapsave'in d)inCapSave()
+else if(d.inhide)inHide(d.inhide,0)
+else if(d.inhidel)inHide(d.inhidel,1)
+else if(d.insec){IN.open[d.insec]=IN.open[d.insec]===false;IN.keepScroll=true;inPaint()}
+else if(d.intrade)inTrade(d.intrade)
  else if('fbsync'in d)await fbSync()
  else if('fbdet'in d)await fbDetails()
  else if('fbstop'in d){FB.stop=true}
@@ -5000,7 +5323,7 @@ async function doRestore(file){let o;try{o=JSON.parse(await file.text())}catch(e
   for(let i=0;i<rows.length;i+=100){const ch=rows.slice(i,i+100),{error}=await sb.from(t).upsert(ch,{onConflict:'id'});if(error){bad.push(t+': '+error.message);break}ok+=ch.length}}
  bkSt(bad.length?'Restored '+ok+' records. Problems: '+bad.join(' | '):'Restored '+ok+' records. Reloading…');if(!bad.length)setTimeout(()=>location.reload(),1200)}
 
-const APP_LOG=[['80','19 Nov 2026',['Phone Home: swipe left or right across the bottom bar to move through the days. A bar appears with Back to today and an arrow on each side, and the Android back gesture brings today back. The hold is gone.','Tap a journal entry twice, quickly, to open its conversation.']],['79','18 Nov 2026',['Track now opens in the browser itself. The link sits right under the airway bill number, with the airline named on it, and Copy number beside it.','Phone Home: hold the page and it turns into one day at a time. Swipe left or right to move through the days, hold again and the swipe goes back to Home, Orders, Pending and More.']],['78','18 Nov 2026',['Track now opens the right airline, for 30 airlines including Cathay, Emirates, Qatar, Turkish, Lufthansa, Air India, IndiGo, Etihad, Singapore, Thai, Korean and China Airlines. The number is copied, so the tracking page only needs a paste.','The Track button sits beside the airway bill number, with the airline underneath.']],['77','18 Nov 2026',['Fixed: an airway bill was not matched to its invoice when the mail named the invoice without its date, for example FL-079/26-27 for FL-079/26-27/06.11.2026. The bill now finds the invoice either way.']],['76','18 Nov 2026',['Payments page: under the payment terms it now says when the money is expected. CAD and letters of credit count the days from the BL or AWB date; payment before shipment is two days after the proforma or invoice. It turns red when it is late.','Pending: one payment reminder for each contract, reading Payment due 15 Nov for 90/2, with what the date is counted from underneath. The old separate TT reminder is gone, as it said the same thing.','If a payment lands a little short, the Payments page asks whether the rest is still coming. Mark it as settled and the contract stops counting as unpaid.','After you save an invoice the app offers to mark the contract as inspected, and once it is paid in full, to mark it as completed.','Invoice page: an airway bill shows the airline and a Track button that opens its cargo tracking page with the number copied. A bill of lading cannot be followed, so it has none.']],['75','15 Nov 2026',['Fixed: the app can be installed from jildimpex.in again. The company page now carries the app details, so Install app appears in the browser menu and the installed app opens at the login.']],['74','15 Nov 2026',['Phone Orderbook: every contract, letter and debit note is now listed, newest first, grouped by month, 30 at a time with Show more. Completed and cancelled ones are no longer hidden.','New chip: Open only, to narrow the list back to live work.','Phone Home: Today shows how many entries there are, long follow-up lists are cut to six with Show all, and the action tiles are a little tighter.']],['73','13 Nov 2026',['Fixed: Emails to approve would not open, and on the phone an email would not open, when the saved research for one company held a note in an unexpected form. The page now opens whatever is saved.']],['72','12 Nov 2026',['Sent mail, Waiting: approved emails can be rewritten before they go out, one by one or all together. A rewritten email comes back to Emails to approve.','Contract form on the computer: contract details in one line on top, supplier and buyer on the left with Very important on the right, then specifications, lines and terms.','Phone Home: every entry is its own card. The Earlier entries row is lined up again.','Tap an entry: Delete is on the left; Edit, Conversation and Follow up are on the right, with clearer coloured icons.','Computer: the page icons in the left bar have colours.','Buyer replies: Not interested stops all further emails to that buyer (Contact again undoes it). Note in journal starts a journal entry from the reply.','Emails to approve: under each email you see why the offer was chosen, the facts used and what the research found.','Emails are written in a new, shorter style that starts with the buyer, makes one offer and ends with one easy question. Use Rewrite all to redo emails still waiting.']],['71','12 Nov 2026',['Computer: the contract, letter and debit note forms are arranged in the same order as the printed document. Supplier and contract details on top, buyer beside Very important, then specifications, lines and terms.','Very important: lines are numbered by themselves. Press Enter or Add note for the next number. Contracts where you typed the numbers yourself stay exactly as they are.','PDF: the Very important numbers line up in their own column.','jildimpex.in now opens the company page. The app is at jildimpex.in/app (Log in button on the page). The installed app opens as before.']],['70','12 Nov 2026',['Phone, Emails to approve and Sent mail: tap an email to open it on its own page. Skip, Rewrite and Approve float at the bottom, and after you approve the next email opens by itself.','Phone, Inbox: the message opens on its own page with Write a reply at the bottom.','Phone, Buyers: companies are a tight list right under the country name; the filter, research and write-emails tools are folded into one row.','Fixed: the Read company pages button on the Buyers page had gone missing in version 69.','Safety: contracts and contacts can no longer be read without signing in.']],['69','11 Nov 2026',['Inbox, Emails to approve and Sent mail on the computer: the list is on the left and the email you click opens on the right, with its buttons on top. On the phone: a tight list, tap to open.','Write it again now asks what should change (shorter, more formal, your own words) and keeps the edits you made as the starting point. It also works when opened from Home.','Emails to approve and Sent mail say plainly whether sending is on and how many approved emails are waiting.','Buyers opens faster.']],['68','11 Nov 2026',['Inbox: rebuilt like a mail app. A list of messages with the sender, subject, two lines of the text, the date and a blue dot for unread; tap one to read the whole message on its own page, with the earlier emails tucked away. Search at the top, and Replies / Opt-outs / Automatic above the list.']],['67','10 Nov 2026',['Outreach signature: the app now tells you when the logo or signature image is missing from the cloud, so an email does not go out without them. A logo saved only on one device no longer counts as saved.']],['66','10 Nov 2026',['Check the mailbox connection now gives up after 12 seconds and says exactly what went wrong, instead of hanging and showing a confusing message.']],['65','10 Nov 2026',['Outreach mailbox: the app now uses the GoDaddy mail servers by default, and Settings › Outreach › Mailbox and sending has a Check the mailbox connection button that tests sending and reading separately, without sending anything.']],['64','10 Nov 2026',['Debit notes: Add debit note shows it is working, then opens already filled from the invoice. If the contract has more than one invoice, a box at the top asks you to choose the invoice. Picking an invoice now brings in every contract on it, the quantity, value and commission.','New contract or letter: a box at the top asks you to choose the buyer (or the supplier for a letter) first, so the number fills in by itself.','Buyer and supplier pull-downs: a last line, Add a new contact, saves a new contact without leaving the form.']],['63','10 Nov 2026',['Invoices: every line now has its own Price you can type in. It starts with the contract price; a different price (for example air instead of sea) is used straight away, with no switch and no reason needed. An invoice read from email fills in its own price and total and tells you what is different, in plain words.','Orderbook and Pending: choosing Issued, This week and the others no longer draws a blue box; the name turns blue and the others fade.','Conversation: larger text, and two buttons at the bottom (Link an entry, Add entry).','Pending: icons sit centred beside the text.']],['62','10 Nov 2026',['Phone: the bottom bar is now a floating glass dock, and so are the button bars on contracts, letters, debit notes, the entry form and conversations. The page scrolls softly behind them.','The + buttons are rounded squares, a little smaller, to match the cards.']],['61','9 Nov 2026',['Phone back to the white look you picked: plain Today and Follow-ups titles, entries in one white card with lines between them, two lines of each note (tap an entry for the whole note and its buttons), the larger + and the plain bottom bar. Follow-ups still show no date and the App colour choice in Display stays.']],['60','9 Nov 2026',['Phone: a crisper look. The page is a light cool grey so the white cards stand out, titles are darker and bolder, and group labels are small capitals.','Home: Today, Follow-ups and Actions have bold titles with a small colour badge (blue journal, amber flag, violet bolt). Every entry is its own card with space around it, so long days no longer look cramped. Follow-ups show no date. The line under each Home tile takes the colour of what it says (amber to do, green all clear, red overdue).','Lines between rows run the full width again. Status tags, segmented switches and buttons are firmer.','Display: choose the app colour (Blue, Indigo, Violet, Teal or Graphite). Status colours stay the same.']],['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
+const APP_LOG=[['81','21 Nov 2026',['Buyers has a third page: Intelligence. Open a company, tap Investigate, and it searches the open web, reads the pages that matter, and writes back what it found with the source, the date and how sure it is.','Every company keeps its profile: what they do, where they source, who is connected to them, whether any shipment record names them, and whether they are worth pursuing with a next move.','Shipment-level records exist publicly only for imports into the United States. For European buyers the page says so and shows the country trade figures from UN Comtrade instead of guessing.','Check for anything new re-reads a company and reports only what changed. Mark companies, watch them, and hide any line that is wrong.','Searches cost money, so the page counts them and stops at a limit you set.']],['80','19 Nov 2026',['Phone Home: swipe left or right across the bottom bar to move through the days. A bar appears with Back to today and an arrow on each side, and the Android back gesture brings today back. The hold is gone.','Tap a journal entry twice, quickly, to open its conversation.']],['79','18 Nov 2026',['Track now opens in the browser itself. The link sits right under the airway bill number, with the airline named on it, and Copy number beside it.','Phone Home: hold the page and it turns into one day at a time. Swipe left or right to move through the days, hold again and the swipe goes back to Home, Orders, Pending and More.']],['78','18 Nov 2026',['Track now opens the right airline, for 30 airlines including Cathay, Emirates, Qatar, Turkish, Lufthansa, Air India, IndiGo, Etihad, Singapore, Thai, Korean and China Airlines. The number is copied, so the tracking page only needs a paste.','The Track button sits beside the airway bill number, with the airline underneath.']],['77','18 Nov 2026',['Fixed: an airway bill was not matched to its invoice when the mail named the invoice without its date, for example FL-079/26-27 for FL-079/26-27/06.11.2026. The bill now finds the invoice either way.']],['76','18 Nov 2026',['Payments page: under the payment terms it now says when the money is expected. CAD and letters of credit count the days from the BL or AWB date; payment before shipment is two days after the proforma or invoice. It turns red when it is late.','Pending: one payment reminder for each contract, reading Payment due 15 Nov for 90/2, with what the date is counted from underneath. The old separate TT reminder is gone, as it said the same thing.','If a payment lands a little short, the Payments page asks whether the rest is still coming. Mark it as settled and the contract stops counting as unpaid.','After you save an invoice the app offers to mark the contract as inspected, and once it is paid in full, to mark it as completed.','Invoice page: an airway bill shows the airline and a Track button that opens its cargo tracking page with the number copied. A bill of lading cannot be followed, so it has none.']],['75','15 Nov 2026',['Fixed: the app can be installed from jildimpex.in again. The company page now carries the app details, so Install app appears in the browser menu and the installed app opens at the login.']],['74','15 Nov 2026',['Phone Orderbook: every contract, letter and debit note is now listed, newest first, grouped by month, 30 at a time with Show more. Completed and cancelled ones are no longer hidden.','New chip: Open only, to narrow the list back to live work.','Phone Home: Today shows how many entries there are, long follow-up lists are cut to six with Show all, and the action tiles are a little tighter.']],['73','13 Nov 2026',['Fixed: Emails to approve would not open, and on the phone an email would not open, when the saved research for one company held a note in an unexpected form. The page now opens whatever is saved.']],['72','12 Nov 2026',['Sent mail, Waiting: approved emails can be rewritten before they go out, one by one or all together. A rewritten email comes back to Emails to approve.','Contract form on the computer: contract details in one line on top, supplier and buyer on the left with Very important on the right, then specifications, lines and terms.','Phone Home: every entry is its own card. The Earlier entries row is lined up again.','Tap an entry: Delete is on the left; Edit, Conversation and Follow up are on the right, with clearer coloured icons.','Computer: the page icons in the left bar have colours.','Buyer replies: Not interested stops all further emails to that buyer (Contact again undoes it). Note in journal starts a journal entry from the reply.','Emails to approve: under each email you see why the offer was chosen, the facts used and what the research found.','Emails are written in a new, shorter style that starts with the buyer, makes one offer and ends with one easy question. Use Rewrite all to redo emails still waiting.']],['71','12 Nov 2026',['Computer: the contract, letter and debit note forms are arranged in the same order as the printed document. Supplier and contract details on top, buyer beside Very important, then specifications, lines and terms.','Very important: lines are numbered by themselves. Press Enter or Add note for the next number. Contracts where you typed the numbers yourself stay exactly as they are.','PDF: the Very important numbers line up in their own column.','jildimpex.in now opens the company page. The app is at jildimpex.in/app (Log in button on the page). The installed app opens as before.']],['70','12 Nov 2026',['Phone, Emails to approve and Sent mail: tap an email to open it on its own page. Skip, Rewrite and Approve float at the bottom, and after you approve the next email opens by itself.','Phone, Inbox: the message opens on its own page with Write a reply at the bottom.','Phone, Buyers: companies are a tight list right under the country name; the filter, research and write-emails tools are folded into one row.','Fixed: the Read company pages button on the Buyers page had gone missing in version 69.','Safety: contracts and contacts can no longer be read without signing in.']],['69','11 Nov 2026',['Inbox, Emails to approve and Sent mail on the computer: the list is on the left and the email you click opens on the right, with its buttons on top. On the phone: a tight list, tap to open.','Write it again now asks what should change (shorter, more formal, your own words) and keeps the edits you made as the starting point. It also works when opened from Home.','Emails to approve and Sent mail say plainly whether sending is on and how many approved emails are waiting.','Buyers opens faster.']],['68','11 Nov 2026',['Inbox: rebuilt like a mail app. A list of messages with the sender, subject, two lines of the text, the date and a blue dot for unread; tap one to read the whole message on its own page, with the earlier emails tucked away. Search at the top, and Replies / Opt-outs / Automatic above the list.']],['67','10 Nov 2026',['Outreach signature: the app now tells you when the logo or signature image is missing from the cloud, so an email does not go out without them. A logo saved only on one device no longer counts as saved.']],['66','10 Nov 2026',['Check the mailbox connection now gives up after 12 seconds and says exactly what went wrong, instead of hanging and showing a confusing message.']],['65','10 Nov 2026',['Outreach mailbox: the app now uses the GoDaddy mail servers by default, and Settings › Outreach › Mailbox and sending has a Check the mailbox connection button that tests sending and reading separately, without sending anything.']],['64','10 Nov 2026',['Debit notes: Add debit note shows it is working, then opens already filled from the invoice. If the contract has more than one invoice, a box at the top asks you to choose the invoice. Picking an invoice now brings in every contract on it, the quantity, value and commission.','New contract or letter: a box at the top asks you to choose the buyer (or the supplier for a letter) first, so the number fills in by itself.','Buyer and supplier pull-downs: a last line, Add a new contact, saves a new contact without leaving the form.']],['63','10 Nov 2026',['Invoices: every line now has its own Price you can type in. It starts with the contract price; a different price (for example air instead of sea) is used straight away, with no switch and no reason needed. An invoice read from email fills in its own price and total and tells you what is different, in plain words.','Orderbook and Pending: choosing Issued, This week and the others no longer draws a blue box; the name turns blue and the others fade.','Conversation: larger text, and two buttons at the bottom (Link an entry, Add entry).','Pending: icons sit centred beside the text.']],['62','10 Nov 2026',['Phone: the bottom bar is now a floating glass dock, and so are the button bars on contracts, letters, debit notes, the entry form and conversations. The page scrolls softly behind them.','The + buttons are rounded squares, a little smaller, to match the cards.']],['61','9 Nov 2026',['Phone back to the white look you picked: plain Today and Follow-ups titles, entries in one white card with lines between them, two lines of each note (tap an entry for the whole note and its buttons), the larger + and the plain bottom bar. Follow-ups still show no date and the App colour choice in Display stays.']],['60','9 Nov 2026',['Phone: a crisper look. The page is a light cool grey so the white cards stand out, titles are darker and bolder, and group labels are small capitals.','Home: Today, Follow-ups and Actions have bold titles with a small colour badge (blue journal, amber flag, violet bolt). Every entry is its own card with space around it, so long days no longer look cramped. Follow-ups show no date. The line under each Home tile takes the colour of what it says (amber to do, green all clear, red overdue).','Lines between rows run the full width again. Status tags, segmented switches and buttons are firmer.','Display: choose the app colour (Blue, Indigo, Violet, Teal or Graphite). Status colours stay the same.']],['59','9 Nov 2026',['Phone Home: Today and Follow-ups now look the same. Each entry shows its title and up to 3 lines of the note; tap it to read the whole note (long notes are tidied and trimmed, with a link to the full conversation) and to slide out small icon buttons: conversation, follow up or done, edit and delete.','Delete asks twice everywhere: the first tap turns the button red and asks, the second tap deletes with the same animation as Save. Done on a follow-up can be undone.','Conversation: the buttons under each entry stay hidden until you tap the entry.','Save buttons all show the spinner and tick, including rules, sending settings, Invoice mail setup, password, signatures and shortcuts. A slow connection no longer blocks the buttons.','Invoice mail: once you save the invoice from Review, it leaves the waiting list straight away (and so does any second copy of the same invoice), and the counts on Home, the bottom bar and More update at once.','Pending: finished items stay on the list, struck out, for 3 days.','Home: the + button is smaller.']],['58','9 Nov 2026',['Invoice reading: every selection is kept as the invoice lists it (for example CORZO GH, IJ and KL stay three lines, each with its own pieces and quantity), and COL - NUT is read as colour NUT. Price differences between the invoice and the contract are listed, and the notes use plainer words.','Phone: back and close buttons are centred on every page, page headers are a little larger with more room before the tabs, and Review and Dismiss in Invoice mail are the same size.','Phone Home: follow-ups show one line (title and date); tap one to see its note with Conversation and Done. The slide-out buttons are smaller.','Phone Orderbook: Due this week sits in the status box with Issued, Inspected and Completed, and due dates use your overdue colour instead of bright red.']],['57','9 Nov 2026',['Phone: tap a journal entry or a follow-up and its options slide open underneath: Conversation (or Open), and Follow up or Done.','Phone Home: the conversation count sits on the right of each entry title, search lines up with the date, less space above Today, and a slimmer bottom bar.','Phone: every page has the same header now, a round back button with the title beside it. Conversations have no side line.','Contracts, letters and debit notes on the phone: the status is a ring at the top right (tap it to change the status), the tabs are a sliding switch, and the bottom buttons are smaller.','Phone Orderbook rows read “KH to MARTI”, with the logo and status centred. More no longer repeats your company at the top.','Pending action rules are drawn as a flow: when, only if, starts, what it adds, and when it strikes off. Tap a step to change it.','All fields, pull-downs and pop-ups on the phone, the login included, now look like the contract form.']],['56','9 Nov 2026',['Phone Home: starts with the greeting, search sits on the date line, and everything on Home is larger.','Phone Orderbook: each row shows the number and status, supplier mark → buyer mark, article and colour, then when it is due.','Phone: firmer card edges and shadows, a clearer selected filter, and names under the bottom bar icons.']],['55','9 Nov 2026',['New phone design: calm white with the blue and font of the computer view, grouped lists, a plain white bottom bar with four pages, and every page redone in the same style (Home, Orderbook, Pending, More, Earlier, Search, Buyers, conversations, entries, contracts, letters, debit notes, Contacts, Settings and the rest).','Home: today\'s entries, follow-ups and four action tiles (Pending actions, Orderbook, Buyer replies or Emails to approve, Invoice mail). Tap the date to open the calendar.','No tick boxes: tap a follow-up to open its conversation and mark it done there (with Undo).','Swipe left or right to move between Home, Orderbook, Pending and More; on Earlier, Search and Buyers a swipe right goes back.','Conversations (phone and computer) show the entries on a timeline by day, with no clock times, and an Add to this conversation bar.','The phone app is light only; dark mode stays on the computer.']],['54','9 Nov 2026',['Fixed: the invoice, sea (BL) and air (AWB) icons in the orderbook lost their shape and spilled over the status; they now sit neatly in their own space on Home and on the Orderbook page. The sea or air icon shows only once the BL or AWB number is entered (a contract with two shipments, one by sea and one by air, shows both). Orderbook filter chips are compact again. Letters now have a leather hide icon so they no longer look like contracts']],
 ['53','9 Nov 2026',['New phone app: a bottom bar with Home, Orders, a big + button, Pending and More. Home has a week strip (tap a day to read it), quick chips for what needs you, today\'s entries and follow-ups you tick off. Orders has a type switch, status tiles, supplier logos and a status button on every row. Pending has tiles and grouped lists. More holds Buyers, Contacts, Reports, Worksheets, Invoice mail, Settings, dark mode and Install. Pages open full screen, the phone back button works everywhere, and the keyboard never hides what you type. Installable as an app on iPhone and Android, with shortcuts for New entry, Orders and Pending. Settings no longer repeats pages that are in the menu']],
 ['52','9 Nov 2026',['Orderbook on the computer redesigned: five tiles (Issued, Inspected, Completed, Overdue, Due this week) that filter, rows grouped by month with the supplier logo or initials and the buyer under it, and new icons across the app: a contract is a page with a signature, a letter is a page with a stamp, a debit note is a receipt with a % sign. Settings on the computer no longer repeats Contacts, Reports, Worksheets and Invoice mail (they are in the side menu). Invoice mail now shows only what waits for approval; the Gmail address and allowed senders moved to Settings > Invoice mail setup']],
 ['51','8 Nov 2026',['Phone Pending page redesigned like the rest of the app: three tiles (Documents, Payments, Couriers) that filter, a Late chip when something is late, grouped cards with Contract or Letter, the supplier mark and a due pill, Mark done on the two hand-ticked follow-ups, and Done today at the bottom']],
@@ -5266,7 +5589,8 @@ const noteRow=v=>`<div class="kv ed nrow"><i class="nno"></i><textarea rows="1" 
 function noteRenum(){const R2=[...document.querySelectorAll('.nrow')],man=R2.some(r=>/^\d+\s*[.)]/.test(r.querySelector('textarea').value.trim()));let k=0;R2.forEach(r=>{const v=r.querySelector('textarea').value.trim(),n=r.querySelector('.nno');if(n)n.textContent=man||NOTE_NO.test(v)?'':(++k)+'.';r.classList.toggle('nman',man)})}
 const grow=el=>{if(el.tagName=='TEXTAREA'){el.style.height='auto';el.style.height=el.scrollHeight+'px'}};
 const dbn=(f,ms)=>{let t;return()=>{clearTimeout(t);t=setTimeout(f,ms)}},_lqr=dbn(()=>{const l=$('#ll');if(l)l.innerHTML=ldList()},110),_cqr=dbn(()=>{const l=$('#cl2');if(l)l.innerHTML=contactsList()},110),_obr=dbn(()=>obRefresh(),110);
-document.addEventListener('input',e=>{if(e.target.id=='lq'){lq=e.target.value;_lqr()}if(e.target.id=='cq'){cq=e.target.value;pgC=1;_cqr()}if(e.target.classList&&e.target.classList.contains('ei')){grow(e.target);if(e.target.dataset.pk)cl(e.target)}});
+document.addEventListener('input',e=>{if(e.target.id=='inq'){IN.q=e.target.value;IN.keepScroll=true;clearTimeout(IN._t);IN._t=setTimeout(()=>{const el=$('#inq'),a=el&&document.activeElement==el,ss=el?el.selectionStart:0;inPaint();const n=$('#inq');if(n&&a){n.focus();try{n.setSelectionRange(ss,ss)}catch(x){}}},220)}
+ if(e.target.id=='lq'){lq=e.target.value;_lqr()}if(e.target.id=='cq'){cq=e.target.value;pgC=1;_cqr()}if(e.target.classList&&e.target.classList.contains('ei')){grow(e.target);if(e.target.dataset.pk)cl(e.target)}});
 document.addEventListener('focusin',e=>{const el=e.target;if(el.dataset&&el.dataset.ch)chList(el)});
 document.addEventListener('input',e=>{const el=e.target;if(!el||!el.dataset)return;if(el.id=='ffs'){const c=$('#ff');if(c)c.checked=el.value=='Follow up later'}
  if(el.dataset.pxs){const sl=el.parentElement.querySelector('select[data-pxd]');if(!sl)return;const o=[...sl.options].find(x=>x.text==el.value);if(o&&sl.value!=o.value){sl.value=o.value;sl.dispatchEvent(new Event('change',{bubbles:true}))}setTimeout(()=>{const f=el.closest('section,.tl2,#sheet');f&&f.querySelectorAll('textarea.pxs').forEach(t=>{const ss=t.parentElement.querySelector('select[data-pxd]');ss&&pxsFill(ss,t)})},0)}

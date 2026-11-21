@@ -206,3 +206,45 @@ keeps the gesture inside the row's own handler, so a second tap that lands on a 
 the strip that just slid open still does what that button says.
 
 Test: `scratchpad/v7/day2.py` (28). `v7/day.py` covered the hold and is superseded.
+
+## v81 — Intelligence: deep research on one company, with its evidence
+
+A third mode on the Buyers page (`lmode=='intel'`), beside Clients and Find buyers. Nothing
+was removed: the 6 clients and their follow-up history, the LWG directory sync, the cheap
+country sweep and the outreach machinery all stay as they were. The mode switch is now
+rendered in Find buyers too — it was missing there, so there was no way back to Clients.
+
+**Tables** (migration `intel_centre`): `intel_profiles` (one per company, keyed like
+`lwg_research.group_key`: `d:<domain>` or `n:<namekey>`), `intel_findings` (one line of
+evidence each, with source name, URL, source date, claim type and confidence),
+`intel_links` (relationship edges), `intel_runs` (history, and the run state while it works),
+`intel_usage` (searches per month and the cap), `trade_stats`. RLS matches the lwg tables.
+
+**`api/intel.js`** is the engine, and it runs in short steps so no single request runs long:
+`start` writes a run row with the opening message, then the app calls `step` until the run
+says done. Each step is one model turn plus whatever client tools it asked for. Tools:
+Anthropic's server-side `web_search_20250305` (`max_uses` 10, which counts across the whole
+run because the steps are one turn), `read_page` (the SSRF-guarded fetcher in `_web.js`,
+3 pages a step), `trade_lookup` (UN Comtrade's free public preview, no key, country totals
+only), and `record` for the structured result. The system prompt carries the evidence rules:
+claim types, never inventing a shipment, never presenting an inference as a relationship,
+never claiming access to paid customs data, and `none_found` as the honest answer. Prompt
+caching is on the system block and the newest user block; `pause_turn` is sent straight back
+untouched, as the docs require, and search results keep their `encrypted_content`.
+
+**What is actually knowable.** ImportYeti is US sea imports, website only, no free API.
+UN Comtrade and Eurostat are country aggregates with no company names. EU customs publishes
+no company-level import records. So the shipments panel states which of `records`,
+`aggregate` or `none_found` it is, and the page says plainly where records exist at all.
+
+**The client** holds the diff, so research accumulates instead of being overwritten:
+`inSave` matches new findings against stored ones on section + normalised text, inserts only
+what is new, and touches `last_seen` on the rest. "Check for anything new" is the same engine
+with `kind:'monitor'`, and it says "Nothing new since last time" when that is the truth.
+Hide marks a line `hidden` rather than deleting it.
+
+**Cost** is visible: `intel_usage` counts searches a month, the page shows the fee at
+$10/1,000, and `inInvestigate` refuses once the cap is reached. Default cap 300.
+
+Test: `scratchpad/v8/intel.py` (39), with `/api/intel` stubbed in the page.
+`v3/mock8.js` now matches upserts on `key` for intel_profiles and `ym` for intel_usage.
