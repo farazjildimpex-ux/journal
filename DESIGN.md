@@ -248,3 +248,29 @@ $10/1,000, and `inInvestigate` refuses once the cap is reached. Default cap 300.
 
 Test: `scratchpad/v8/intel.py` (39), with `/api/intel` stubbed in the page.
 `v3/mock8.js` now matches upserts on `key` for intel_profiles and `ym` for intel_usage.
+
+## v82 — the trade-partner hunt
+
+v81 shipped an engine that mostly read the company's own website, and a prompt that told it
+`none_found` was the honest answer for European buyers. That was wrong, and Faraz was right
+to say so. Checked by hand: `importgenius.com/suppliers/<slug>` gives, free and without a
+login, a company's importers and suppliers by name with the main port, the most recent
+shipment date, container counts, weights and recent product descriptions — for
+3C Lavorazione Pelli, one of our own LWG rows, that is 82 shipments, 11 partners and five
+named customers. `panjiva.com/<Company>/<id>` names customers with counts, dates and HS
+codes. Trademo lists buyers by name and country. Seair publishes Indian export rows (no
+company names). Volza refuses server-side fetches, so its search snippets are the fallback.
+
+Changes: the system prompt leads with the hunt and names the sources and their URL shapes;
+`start` seeds the opening message with importgenius and eximpedia addresses built from the
+company name, which `read_page` can open without spending a search; the budget is 26
+searches, 18 steps, 4 reads a step, 6,500 characters a page; `_web.js` sends a browser
+user agent, because these sites serve nothing to an obvious robot; `intel_links` carries
+`shipments` and `last_date`; `intel_profiles.sources_tried` records every source tried and
+what it gave, including the dead ends, so a thin answer is explainable.
+
+The no-invention rules are unchanged: copy counts and dates exactly, record only what a page
+shows, never fill in what a paywall hides, never claim access to a paid database.
+
+UI: a Trade partners table above the opportunity, and a "Where I looked" panel.
+Default monthly cap 1,000 searches (about $10 in search fees). Test: `scratchpad/v8/intel.py` (42).

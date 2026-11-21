@@ -8,7 +8,7 @@ const { getPage, toText, pageDate } = require('./_web');
 const SB_URL = 'https://ethhzxagxejxfxkzgndk.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0aGh6eGFneGVqeGZ4a3pnbmRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MDQwNjIsImV4cCI6MjA2NDI4MDA2Mn0.FMCc_AwksmDGQqGdCoazcxIJ7i3635fkrJinx5gNucA';
 const MODEL = process.env.INTEL_MODEL || 'claude-sonnet-5-5';
-const MAXSTEP = 10, MAXSEARCH = 10, PAGE_CHARS = 4500;
+const MAXSTEP = 18, MAXSEARCH = 26, PAGE_CHARS = 6500, READS = 4;
 const clean = v => String(v == null ? '' : v).replace(/\s+/g, ' ').trim();
 
 /* ---------- Supabase, as the person who is signed in ---------- */
@@ -121,7 +121,7 @@ const TOOLS = [
         },
         links: {
           type: 'array', description: 'Companies, brands and countries this one is connected to, one row each. Only where a source supports it.',
-          items: { type: 'object', properties: { name: S, kind: { type: 'string', enum: ['indian_supplier', 'tannery', 'exporter', 'trader', 'agent', 'competitor', 'brand', 'customer', 'country'] }, country: S, claim: CLAIM, confidence: CONF, source_name: S, source_url: S, source_date: S, note: S }, required: ['name', 'kind', 'claim', 'confidence'] }
+          items: { type: 'object', properties: { name: S, kind: { type: 'string', enum: ['indian_supplier', 'tannery', 'exporter', 'trader', 'agent', 'competitor', 'brand', 'customer', 'supplier', 'forwarder', 'country'] }, country: S, shipments: { type: 'string', description: 'The shipment count the page shows for this pair, copied exactly. Leave empty if the page shows none.' }, last_date: { type: 'string', description: 'The date of the most recent shipment the page shows, copied exactly.' }, claim: CLAIM, confidence: CONF, source_name: S, source_url: S, source_date: S, note: S }, required: ['name', 'kind', 'claim', 'confidence'] }
         },
         opportunity: {
           type: 'object', properties: {
@@ -134,29 +134,47 @@ const TOOLS = [
             confidence: CONF
           }, required: ['verdict', 'why', 'next_move']
         },
+        sources_tried: {
+          type: 'array', description: 'Every trade-data source you searched or opened, and what it gave. Fill this in even when a source gave nothing.',
+          items: { type: 'object', properties: { source: S, url: S, found: { type: 'string', enum: ['partners', 'shipments', 'profile', 'nothing', 'blocked'] }, note: S }, required: ['source', 'found'] }
+        },
         unknown: { type: 'array', items: S, description: 'What could not be established, plainly.' },
         priority: { type: 'string', enum: ['high', 'medium', 'low'] }
       },
-      required: ['business', 'india', 'shipments', 'findings', 'opportunity']
+      required: ['business', 'india', 'shipments', 'findings', 'opportunity', 'sources_tried']
     }
   }
 ];
 
 const SYS = `You research one company at a time for JILD IMPEX, a leather sourcing agency in Chennai, India. It supplies Indian finished leather, linings and uppers, and leather products, to buyers overseas. Faraz reads what you find and decides whether to approach the company and what to say.
 
-How to work
-- Search the open web. Try the exact name, the registered legal name, other spellings, the name with its country, and the name with words like leather, supplier, sourcing, India, tannery, supplier list, sustainability report, exhibitor.
-- Read the pages worth reading with read_page: their own site, supplier or sustainability lists, fair exhibitor directories, company filings, trade press.
-- Cross-reference. One page saying a thing is not a fact. Two independent sources make it one.
-- Use trade_lookup once or twice for the country picture: does this buyer's country import Indian leather at all, and in what. That is a statistic about countries, never about this company.
-- Stop once the picture is clear. Six to eight searches is usually enough.
+The job is to find out who this company actually trades with and what it buys. Their own website is where you start, not where you stop. A report built only from their website is a failed report.
+
+Where trade partners are published
+Public company pages on trade-data sites name real trading partners, with shipment counts, dates and HS codes, and they are indexed by search engines. Work through these by name:
+- importgenius.com — the richest free pages. https://www.importgenius.com/suppliers/<company-slug> lists importers and suppliers by name, with the main port, the most recent shipment date, container counts and weights, and recent shipment rows with product descriptions. The slug is the name in lower case with hyphens, so "3C Lavorazione Pelli Srl" becomes 3c-lavorazione-pelli-srl. It also has https://www.importgenius.com/india/suppliers/<slug> and https://www.importgenius.com/india/importers/<slug> for Indian customs records. Build these addresses and read them directly: that costs no search.
+- panjiva.com — public company pages name customers and suppliers with shipment counts, dates and HS codes. Search the company name with panjiva to get the page address.
+- importyeti.com — United States imports, free, and it names the supplier on every shipment.
+- volza.com — company profile pages headed "Buyers, Suppliers, full Export Import details". They often refuse to open; when that happens use what the search result itself showed.
+- eximpedia.app/companies/<slug>, trademo.com, exportgenius.in, seair.co.in, infodriveindia.com, cybex.in, 52wmb.com, tendata.com, connect2india.com — the same kind of page, different coverage. Try several, not one.
+Also search the company name together with: import data, export data, shipments, bill of lading, consignee, supplier list, and its country.
+Then work the Indian side, which is where our competitors show up: search for Indian exporters of this product to their country, and search the names of Indian tanneries together with this company's name. An Indian exporter already shipping to them is worth naming.
+Beyond trade data: supplier and sustainability lists, fair exhibitor directories (Lineapelle, APLF, Premiere Vision, Micam), company filings, trade press, job adverts that name sourcing offices, and their customers' own supplier disclosures.
+
+How to treat what you find
+- A name printed on a public page is evidence. Record it, with the page address and the date the page shows.
+- Many of these pages show a few rows and hide the rest behind a subscription. Record exactly what is shown and mark the rest as not available. Never fill in what is hidden. Never guess a count, a date, a quantity or a partner.
+- Copy counts and dates exactly as the page prints them.
+- If a page will not load, mark it blocked in sources_tried and use what the search result itself showed.
+- Fill in sources_tried for every trade-data source you searched or opened, including the ones that gave nothing. A thin answer that shows where you looked is worth more than a confident one that does not.
+
+You have about 25 searches. Use them. Do not call record after two or three searches because the website looked complete.
 
 Never
 - Never invent a shipment, a date, a quantity, a supplier or a purchase.
 - Never present an inference as a confirmed relationship.
-- Never say or suggest you have access to private customs records or a paid database. You do not have either.
+- Never say or suggest you have access to a paid database or to private customs records. Everything you use is a public page.
 - Never treat two companies as connected because they are in the same industry, the same town or the same directory.
-- A paywalled trade-data page that shows a teaser is at best "possible", and only if the teaser itself states the thing plainly. Never fill in what the teaser hides.
 
 Evidence
 Every finding carries its source name, the page address, the date the page shows if it shows one, a claim type and a confidence.
@@ -167,9 +185,9 @@ Every finding carries its source name, the page address, the date the page shows
 Confidence is high, medium or low, and it is about how good the evidence is, not how likely the thing feels.
 
 Shipments
-- records means a real shipment-level record, a bill of lading or a customs entry, naming this company. Publicly, these exist for imports into the United States and almost nowhere else.
-- aggregate means country-level trade statistics, which say nothing about this company on their own.
-- none_found is the honest answer for most European buyers, and you should use it rather than dress up an aggregate as a purchase.
+- records: a page shows shipment rows, or a named trading partner, for this company. Put the partners in links with their counts and dates, and the rows in shipments.rows.
+- aggregate: all you have is country-level statistics, which say nothing about this company on their own.
+- none_found: only after you have worked through the sources above and they had nothing on this company. Say which ones you tried.
 
 Write every line short and plain, the way one trader writes to another. No marketing words.`;
 
@@ -210,12 +228,12 @@ async function runTools(blocks) {
     if (b.type !== 'tool_use' || b.name === 'record') continue;
     let content = '';
     if (b.name === 'read_page') {
-      if (reads >= 3) content = 'Not read: too many pages in one step. Ask for it again in the next step if it still matters.';
+      if (reads >= READS) content = 'Not read: too many pages in one step. Ask for it again in the next step if it still matters.';
       else {
         reads++;
         const p = await getPage((b.input || {}).url, 8000);
         content = p ? ('PAGE ' + p.url + (pageDate(p.html) ? '\nPage date: ' + pageDate(p.html) : '') + '\n' + toText(p.html).slice(0, PAGE_CHARS))
-          : 'That page could not be read (it blocked us, timed out, or is not a public web page). Do not guess what it said.';
+          : 'That page could not be read: it blocked the request, timed out, or is not a public web page. Record it in sources_tried as blocked, use whatever the search result itself showed, and do not guess the rest.';
       }
     } else if (b.name === 'trade_lookup') {
       const i = b.input || {};
@@ -255,6 +273,8 @@ module.exports = async (req, res) => {
       const sites = (Array.isArray(b.sites) ? b.sites : []).map(clean).filter(Boolean).slice(0, 3);
       const known = clean(b.known).slice(0, 6000);
       const sell = clean(b.sell).slice(0, 900);
+      const sl = company.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
+      const seeds = ['https://www.importgenius.com/suppliers/' + sl, 'https://www.importgenius.com/india/suppliers/' + sl, 'https://www.importgenius.com/india/importers/' + sl, 'https://www.eximpedia.app/companies/' + sl];
       const ask = [
         'Company: ' + company,
         names.length > 1 ? 'Also written as: ' + names.join(' / ') : '',
@@ -262,6 +282,9 @@ module.exports = async (req, res) => {
         sites.length ? 'Website: ' + sites.join(', ') : 'Website: not known, find it',
         clean(b.type) ? 'Listed in the LWG directory as: ' + clean(b.type) : '',
         clean(b.animals) ? 'LWG animal types: ' + clean(b.animals) : '',
+        '',
+        'Addresses built from the name, worth opening first because read_page costs no search. If one is not found, say so in sources_tried and move on:',
+        ...seeds.map(x => '- ' + x),
         '',
         'What JILD IMPEX can supply: ' + (sell || 'Indian finished leather, linings, uppers, and leather products.'),
         '',
@@ -272,7 +295,7 @@ module.exports = async (req, res) => {
         '',
         kind === 'monitor'
           ? 'Check for new suppliers, new sourcing countries, new products, new certifications, expansion, new purchasing people, and fair participation. Then call record with the full picture, old and new together.'
-          : 'Find out who they are, what they make and buy, where they source it, which Indian suppliers or tanneries are named anywhere, which traders or agents serve them, and whether any shipment record names them. Then call record.'
+          : 'Work in this order. First, who they are and what they make, from their own site. Second, and this is the part that matters, who they trade with: go through the trade-data sites named above, by name, and find their suppliers, their customers, their shipment counts and dates, and any Indian exporter already shipping to them. Third, what the country figures say. Only then call record.'
       ].filter(x => x !== '').join('\n');
       const state = { messages: [{ role: 'user', content: [{ type: 'text', text: ask, cache_control: { type: 'ephemeral' } }] }], step: 0, searches: 0 };
       const row = await sbq(tok, 'intel_runs', {

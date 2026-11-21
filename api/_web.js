@@ -2,7 +2,8 @@
 // Same guards as the buyer research: public hosts only, never anything local or private, checked again after redirects.
 const dns = require('dns').promises;
 const net = require('net');
-const UA = 'Mozilla/5.0 (compatible; Journal-buyer-research/1.0)';
+// Trade-data sites serve nothing to an obvious robot, so the reader asks for pages the way a browser does.
+const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
 
 async function safeHost(host) {
   host = String(host || '').toLowerCase();
