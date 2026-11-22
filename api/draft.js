@@ -14,7 +14,7 @@ const TOOL = {
       body: { type: 'string', description: 'Plain text. Greeting to sign-off. Do not add the signature or opt-out line; they are added after.' },
       language: { type: 'string', description: 'Language the email is written in, e.g. English, Italian.' },
       offered: { type: 'array', items: { type: 'string' }, description: 'Catalogue items you offered, copied exactly from the catalogue.' },
-      based_on: { type: 'array', items: { type: 'string' }, description: 'The researched facts the personal parts rely on.' },
+      based_on: { type: 'array', items: { type: 'string' }, description: 'The researched facts the personal parts and the choice of offer rely on. Say which came from TRADE RECORDS.' },
       confidence: { type: 'string', enum: ['good', 'thin'], description: 'thin = research gave little to personalise with.' },
       angle: { type: 'string', description: 'One plain sentence for the sender: why this offer was chosen for this company.' }
     },
@@ -68,9 +68,10 @@ SHAPE OF A FIRST EMAIL
 6. "Best regards," and nothing after it.
 
 HARD RULES
-- Offer ONLY items from the CATALOGUE, at most 2, and only those that fit the RESEARCH. If nothing fits well, offer the closest one, ask what they are looking for, and set confidence "thin".
+- Offer ONLY items from the CATALOGUE, at most 2. When TRADE RECORDS are given, they decide the offer: pick the catalogue items closest to what the records show this company actually buying, and prefer those over anything the website suggests. If nothing fits well, offer the closest one, ask what they are looking for, and set confidence "thin".
+- TRADE RECORDS are for choosing what to offer and how to put it, never for quoting. Never mention shipment records, customs data, their suppliers' names, volumes, dates or that you looked anything up. Write as someone who knows the trade, not as someone who has studied their file. "Many finishers in your area buy goat crust from Chennai" is fine; "I saw you imported 8 tonnes of crust in August" is not.
 - Never state a price, volume, certification or customer unless it is written in the CATALOGUE or SENDER FACTS.
-- Say only things about the buyer that are in RESEARCH, and say them as something you saw, not as a verdict on their business: "I saw on your website that you finish cow leather for footwear", not "You make footwear leather" and not "It appears your company is a trader". Do not label them (trader, manufacturer, agent). Do not ask them to correct you. Do not quote founding years or history.
+- Say only things about the buyer that are in RESEARCH or TRADE RECORDS, and say them as something you saw, not as a verdict on their business: "I saw on your website that you finish cow leather for footwear", not "You make footwear leather" and not "It appears your company is a trader". Do not label them (trader, manufacturer, agent). Do not ask them to correct you. Do not quote founding years or history.
 - Speak to them as "you". Never write the company name in the body.
 - GREETING: if a named person is known for this recipient, "Dear Mr/Ms Surname," only if the gender is certain, otherwise "Dear FirstName,". If no person is known, write only "Hello,". Never "Dear Sir or Madam", never "Dear Sir", never "Hi <company> team".
 - No flattery ("impressive", "leading", "renowned"), no "I hope this finds you well", no "turbulent times", no pressure, no "looking forward to your positive reply".
@@ -94,7 +95,10 @@ SENDER'S OWN EARLIER EMAILS (match the voice, but improve them; do not copy thei
 ${clean(s.samples, 5000) || '(none)'}
 
 ${step === 'reply' ? 'INCOMING MESSAGE FROM THE BUYER\n' + clean(b.incoming, 4000) + '\n' : ''}${step !== 'intro' && b.previous ? 'EMAIL ALREADY SENT\n' + clean(b.previous, 2500) + '\n' : ''}RESEARCH ON ${clean(co.name, 120)} (${clean(co.country, 60)})
-${JSON.stringify(co.profile || {}).slice(0, 7000)}
+${JSON.stringify(co.profile || {}).slice(0, 6000)}
+
+TRADE RECORDS (published customs records: who they trade with and what; use them to choose the offer, never quote them)
+${co.trade ? JSON.stringify(co.trade).slice(0, 4000) : '(none found)'}
 Recipient: ${clean(b.to_name, 80) || '(unknown)'} ${clean(b.to_email, 120)}
 ${b.current ? 'CURRENT DRAFT (the sender asked for it to be written again: write a clearly different, better version, and follow his change request below exactly)\n' + clean(b.current, 3000) + '\n' : ''}${b.current ? 'CHANGE REQUESTED BY THE SENDER' : 'Other notes from the sender'}: ${clean(b.note, 600) || '(none)'}`;
   {

@@ -7,8 +7,8 @@ const { getPage, toText, pageDate } = require('./_web');
 
 const SB_URL = 'https://ethhzxagxejxfxkzgndk.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0aGh6eGFneGVqeGZ4a3pnbmRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MDQwNjIsImV4cCI6MjA2NDI4MDA2Mn0.FMCc_AwksmDGQqGdCoazcxIJ7i3635fkrJinx5gNucA';
-const MODEL = process.env.INTEL_MODEL || 'claude-sonnet-5-5';
-const MAXSTEP = 18, MAXSEARCH = 26, PAGE_CHARS = 6500, READS = 4;
+const MODEL = process.env.INTEL_MODEL || 'claude-haiku-5-5';
+const MAXSTEP = 7, MAXSEARCH = 6, PAGE_CHARS = 4000, READS = 3;
 const clean = v => String(v == null ? '' : v).replace(/\s+/g, ' ').trim();
 
 /* ---------- Supabase, as the person who is signed in ---------- */
@@ -93,109 +93,109 @@ const TOOLS = [
     input_schema: { type: 'object', properties: { url: { type: 'string' }, why: { type: 'string', description: 'A few words on what you expect to find.' } }, required: ['url'] }
   },
   {
-    name: 'trade_lookup', description: 'Country-level import totals from India, from UN Comtrade. Aggregate statistics about countries, never about one company. Use it for context on whether this buyer\'s country buys Indian leather at all.',
-    input_schema: { type: 'object', properties: { country: { type: 'string' }, hs: { type: 'string', description: 'HS heading, 4 digits: 4107 bovine finished leather, 4112 sheep, 4113 goat, 4104 wet blue or crust, 6403 leather footwear, 6406 shoe uppers, 4203 leather goods.' }, year: { type: 'string' } }, required: ['country', 'hs'] }
-  },
-  {
-    name: 'record', description: 'Record what the research established. Call this once, when the picture is clear or the search is exhausted.',
+    name: 'record', description: 'Record the trading partners, what is traded, and whether it fits. Call this once.',
     input_schema: {
       type: 'object',
       properties: {
-        legal_name: S, aka: { type: 'array', items: S }, hq: S, founded: S, size: S,
-        business: { type: 'string', description: 'What the company does, in two or three plain sentences.' },
-        segments: { type: 'array', items: S, description: 'Leather segments: finished leather, linings, uppers, footwear, leather goods, automotive, furniture, raw hides, wet blue.' },
-        products: { type: 'array', items: S },
-        markets: { type: 'array', items: S, description: 'Countries or regions they sell to.' },
-        india: { type: 'object', properties: { status: { type: 'string', enum: ['confirmed', 'likely', 'none_found'] }, note: S }, required: ['status', 'note'] },
-        shipments: {
-          type: 'object', properties: {
-            kind: { type: 'string', enum: ['records', 'aggregate', 'none_found'] },
-            note: { type: 'string', description: 'Say plainly what was found and what was not available.' },
-            rows: { type: 'array', items: { type: 'object', properties: { date: S, product: S, hs: S, origin: S, qty: S, supplier: S, source_name: S, source_url: S }, required: ['source_url'] } },
-            stats: { type: 'array', items: { type: 'object', properties: { reporter: S, partner: S, hs: S, year: S, value_usd: S, weight_kg: S, source_name: S, source_url: S } } }
-          }, required: ['kind', 'note']
-        },
-        findings: {
-          type: 'array', description: 'Every point worth keeping, one line each, with where it came from.',
-          items: { type: 'object', properties: { section: { type: 'string', enum: ['identity', 'business', 'products', 'brands', 'markets', 'sourcing', 'india', 'competitors', 'certifications', 'people', 'shipments', 'news'] }, text: S, source_name: S, source_url: S, source_date: S, claim: CLAIM, confidence: CONF }, required: ['section', 'text', 'claim', 'confidence'] }
-        },
+        direction: { type: 'string', enum: ['imports', 'exports'], description: 'imports: who this company buys from. exports: who this company sells to.' },
+        business: { type: 'string', description: 'One sentence on what the company is.' },
         links: {
-          type: 'array', description: 'Companies, brands and countries this one is connected to, one row each. Only where a source supports it.',
-          items: { type: 'object', properties: { name: S, kind: { type: 'string', enum: ['indian_supplier', 'tannery', 'exporter', 'trader', 'agent', 'competitor', 'brand', 'customer', 'supplier', 'forwarder', 'country'] }, country: S, shipments: { type: 'string', description: 'The shipment count the page shows for this pair, copied exactly. Leave empty if the page shows none.' }, last_date: { type: 'string', description: 'The date of the most recent shipment the page shows, copied exactly.' }, claim: CLAIM, confidence: CONF, source_name: S, source_url: S, source_date: S, note: S }, required: ['name', 'kind', 'claim', 'confidence'] }
+          type: 'array', description: 'The trading partners in the direction asked, one row each, only as a page shows them.',
+          items: { type: 'object', properties: { name: S, kind: { type: 'string', enum: ['supplier', 'customer', 'indian_supplier', 'exporter', 'tannery', 'trader', 'agent', 'forwarder'] }, country: S, shipments: { type: 'string', description: 'The count the page shows for this partner, copied exactly.' }, last_date: { type: 'string', description: 'The latest shipment date the page shows, copied exactly.' }, note: { type: 'string', description: 'Product or volume the page shows for this partner.' }, claim: CLAIM, confidence: CONF, source_name: S, source_url: S, source_date: S }, required: ['name', 'kind', 'claim', 'confidence'] }
         },
-        opportunity: {
+        buys: {
+          type: 'array', description: 'What is traded in that direction: for imports, what they buy; for exports, what they sell. As the record words it.',
+          items: { type: 'object', properties: { product: S, hs: S, from: { type: 'string', description: 'For imports, where it comes from. For exports, where it goes.' }, qty: { type: 'string', description: 'Volume or weight as printed.' }, last_date: S, source_name: S, source_url: S, claim: CLAIM, confidence: CONF }, required: ['product', 'claim', 'confidence'] }
+        },
+        fit: {
           type: 'object', properties: {
-            verdict: { type: 'string', enum: ['pursue', 'maybe', 'skip'] },
-            why: { type: 'string', description: 'Two or three sentences, built on the evidence above.' },
-            offer: { type: 'array', items: S, description: 'What JILD IMPEX could put in front of them, specifically.' },
-            gaps: { type: 'array', items: S, description: 'Gaps in their supplier network that a source actually shows.' },
-            advantages: { type: 'array', items: S },
-            next_move: { type: 'string', description: 'The one thing to do next.' },
-            confidence: CONF
-          }, required: ['verdict', 'why', 'next_move']
+            verdict: { type: 'string', enum: ['strong', 'partial', 'none', 'unclear'] },
+            why: { type: 'string', description: 'One or two sentences naming the products on both sides.' },
+            match: { type: 'array', items: S, description: 'What we sell that they trade in.' },
+            miss: { type: 'array', items: S, description: 'What they trade in that we do not sell.' }
+          }, required: ['verdict', 'why']
         },
+        next_move: { type: 'string', description: 'One practical sentence: what to offer them, or what to check next.' },
         sources_tried: {
-          type: 'array', description: 'Every trade-data source you searched or opened, and what it gave. Fill this in even when a source gave nothing.',
+          type: 'array', description: 'Every page or site tried and what it gave, including the empty ones.',
           items: { type: 'object', properties: { source: S, url: S, found: { type: 'string', enum: ['partners', 'shipments', 'profile', 'nothing', 'blocked'] }, note: S }, required: ['source', 'found'] }
-        },
-        unknown: { type: 'array', items: S, description: 'What could not be established, plainly.' },
-        priority: { type: 'string', enum: ['high', 'medium', 'low'] }
+        }
       },
-      required: ['business', 'india', 'shipments', 'findings', 'opportunity', 'sources_tried']
+      required: ['direction', 'links', 'buys', 'fit', 'next_move', 'sources_tried']
     }
   }
 ];
 
-const SYS = `You research one company at a time for JILD IMPEX, a leather sourcing agency in Chennai, India. It supplies Indian finished leather, linings and uppers, and leather products, to buyers overseas. Faraz reads what you find and decides whether to approach the company and what to say.
+const SYS = `You find the trading partners of one company for JILD IMPEX, a leather sourcing agency in Chennai, India, that supplies Indian finished leather, linings, uppers and leather products to buyers overseas.
 
-The job is to find out who this company actually trades with and what it buys. Their own website is where you start, not where you stop. A report built only from their website is a failed report.
+Only three things matter, nothing else:
+1. Its trading partners in the direction asked. For a company outside India: who it imports from, Indian suppliers first. For a company in India: who it exports to, its foreign buyers.
+2. What is traded in that direction: the product as the record words it, the HS code, the volume, the latest date.
+3. Whether that lines up with what JILD IMPEX sells, and the one thing to do next.
+No company history, no management, no certifications, no marketing copy.
 
-Where trade partners are published
-Public company pages on trade-data sites name real trading partners, with shipment counts, dates and HS codes, and they are indexed by search engines. Work through these by name:
-- importgenius.com — the richest free pages. https://www.importgenius.com/suppliers/<company-slug> lists importers and suppliers by name, with the main port, the most recent shipment date, container counts and weights, and recent shipment rows with product descriptions. The slug is the name in lower case with hyphens, so "3C Lavorazione Pelli Srl" becomes 3c-lavorazione-pelli-srl. It also has https://www.importgenius.com/india/suppliers/<slug> and https://www.importgenius.com/india/importers/<slug> for Indian customs records. Build these addresses and read them directly: that costs no search.
-- panjiva.com — public company pages name customers and suppliers with shipment counts, dates and HS codes. Search the company name with panjiva to get the page address.
-- importyeti.com — United States imports, free, and it names the supplier on every shipment.
-- volza.com — company profile pages headed "Buyers, Suppliers, full Export Import details". They often refuse to open; when that happens use what the search result itself showed.
-- eximpedia.app/companies/<slug>, trademo.com, exportgenius.in, seair.co.in, infodriveindia.com, cybex.in, 52wmb.com, tendata.com, connect2india.com — the same kind of page, different coverage. Try several, not one.
-Also search the company name together with: import data, export data, shipments, bill of lading, consignee, supplier list, and its country.
-Then work the Indian side, which is where our competitors show up: search for Indian exporters of this product to their country, and search the names of Indian tanneries together with this company's name. An Indian exporter already shipping to them is worth naming.
-Beyond trade data: supplier and sustainability lists, fair exhibitor directories (Lineapelle, APLF, Premiere Vision, Micam), company filings, trade press, job adverts that name sourcing offices, and their customers' own supplier disclosures.
+The partner pages have already been opened for you and are in the first message. Read them first. If they name partners, call record straight away without searching.
+Search only when those pages gave nothing, and then only a few searches: the company name with import data, export data, shipments, importgenius, panjiva, importyeti or volza. Open a result with read_page only when its snippet shows trade data. Stop as soon as you have partners, or once you have tried those.
 
-How to treat what you find
-- A name printed on a public page is evidence. Record it, with the page address and the date the page shows.
-- Many of these pages show a few rows and hide the rest behind a subscription. Record exactly what is shown and mark the rest as not available. Never fill in what is hidden. Never guess a count, a date, a quantity or a partner.
-- Copy counts and dates exactly as the page prints them.
-- If a page will not load, mark it blocked in sources_tried and use what the search result itself showed.
-- Fill in sources_tried for every trade-data source you searched or opened, including the ones that gave nothing. A thin answer that shows where you looked is worth more than a confident one that does not.
+Rules
+- Record only what a page shows. Copy names, counts, weights and dates exactly as printed. Never fill in what a paywall hides. Never guess.
+- Never invent a partner, a shipment, a date or a quantity, and never claim access to a paid database.
+- Every partner and product line carries the page address it came from, a claim and a confidence. claim: verified (the page states it about this company), supported (more than one source), possible (one weak source), unavailable (nothing found).
+- List every source tried in sources_tried, including the empty ones.
+- If nothing is published, say so. An honest "nothing published" is a useful answer.
 
-You have about 25 searches. Use them. Do not call record after two or three searches because the website looked complete.
+fit: strong when they trade in what we sell, partial for some of it, none when they do not, unclear when there is not enough to tell. Name the products on both sides.
+next_move: one practical sentence, such as which product to offer them, or which partner to look at next.
 
-Never
-- Never invent a shipment, a date, a quantity, a supplier or a purchase.
-- Never present an inference as a confirmed relationship.
-- Never say or suggest you have access to a paid database or to private customs records. Everything you use is a public page.
-- Never treat two companies as connected because they are in the same industry, the same town or the same directory.
+Short plain lines, the way one trader writes to another.`;
 
-Evidence
-Every finding carries its source name, the page address, the date the page shows if it shows one, a claim type and a confidence.
-- verified: the source states it plainly about this company.
-- supported: a strong inference from more than one source.
-- possible: one weak or indirect source. Someone has to check it.
-- unavailable: you looked and there was nothing.
-Confidence is high, medium or low, and it is about how good the evidence is, not how likely the thing feels.
-
-Shipments
-- records: a page shows shipment rows, or a named trading partner, for this company. Put the partners in links with their counts and dates, and the rows in shipments.rows.
-- aggregate: all you have is country-level statistics, which say nothing about this company on their own.
-- none_found: only after you have worked through the sources above and they had nothing on this company. Say which ones you tried.
-
-Write every line short and plain, the way one trader writes to another. No marketing words.`;
+/* ---------- the partner pages, fetched before the model starts ---------- */
+const slug = n => String(n || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
+const TRIM = /-(s-?p-?a|s-?r-?l-?s?|srl|spa|gmbh|bv|nv|sa|sas|sarl|ltd|limited|llc|inc|co|kg|ag|ab|as|oy|plc|pvt|sl|slu|lda)$/;
+// Customs records spell the legal form both ways, so try "-spa" and "-s-p-a" before giving up.
+function altSlug(a) {
+  if (/-s-p-a$/.test(a)) return a.replace(/-s-p-a$/, '-spa');
+  if (/-spa$/.test(a)) return a.replace(/-spa$/, '-s-p-a');
+  if (/-s-r-l$/.test(a)) return a.replace(/-s-r-l$/, '-srl');
+  if (/-srl$/.test(a)) return a.replace(/-srl$/, '-s-r-l');
+  return '';
+}
+// An Indian company: who it exports to. Anyone else: who it imports from.
+// /suppliers/ is the company as a shipper (its buyers); /importers/ is the company as a buyer (its suppliers).
+function seedUrls(names, indian) {
+  const sl = [];
+  const add = x => { if (x && sl.indexOf(x) < 0 && sl.length < 3) sl.push(x); };
+  (names || []).forEach(n => { const a = slug(n); add(a); add(altSlug(a)); add(a.replace(TRIM, '')); });
+  const G = 'https://www.importgenius.com/';
+  const out = [];
+  sl.forEach((x, i) => {
+    if (indian) {
+      out.push(['ImportGenius, as exporter', G + 'suppliers/' + x]);
+      if (i === 0) out.push(['ImportGenius India, as exporter', G + 'india/exporters/' + x]);
+    } else {
+      out.push(['ImportGenius, as importer', G + 'importers/' + x]);
+      if (i === 0) { out.push(['ImportGenius India, as buyer', G + 'india/importers/' + x]); out.push(['ImportGenius, as exporter', G + 'suppliers/' + x]); }
+    }
+  });
+  return out.slice(0, 6);
+}
+async function seedFetch(names, indian) {
+  const list = seedUrls(names, indian);
+  const got = await Promise.all(list.map(async ([nm, u]) => {
+    const p = await getPage(u, 9000);
+    if (!p) return { nm, u, text: '' };
+    const t = toText(p.html);
+    return { nm, u, text: /no (results|records|shipments) found|page not found|404/i.test(t.slice(0, 2500)) ? '' : t.slice(0, 3200) };
+  }));
+  return got;
+}
 
 /* ---------- the model turn ---------- */
-async function turn(key, messages, force) {
+async function turn(key, messages, force, noWeb) {
   const body = {
     model: MODEL, max_tokens: 4000, system: [{ type: 'text', text: SYS, cache_control: { type: 'ephemeral' } }],
-    tools: TOOLS, messages
+    tools: noWeb ? TOOLS.filter(t => t.name !== 'web_search') : TOOLS, messages
   };
   if (force) body.tool_choice = { type: 'tool', name: 'record' };
   const r = await fetch('https://api.anthropic.com/v1/messages', {
@@ -273,29 +273,29 @@ module.exports = async (req, res) => {
       const sites = (Array.isArray(b.sites) ? b.sites : []).map(clean).filter(Boolean).slice(0, 3);
       const known = clean(b.known).slice(0, 6000);
       const sell = clean(b.sell).slice(0, 900);
-      const sl = company.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
-      const seeds = ['https://www.importgenius.com/suppliers/' + sl, 'https://www.importgenius.com/india/suppliers/' + sl, 'https://www.importgenius.com/india/importers/' + sl, 'https://www.eximpedia.app/companies/' + sl];
+      const indian = /^\s*india\b/i.test(clean(b.country));
+      const pages = await seedFetch([company].concat(names), indian);
+      const hit = pages.filter(x => x.text);
       const ask = [
         'Company: ' + company,
         names.length > 1 ? 'Also written as: ' + names.join(' / ') : '',
         'Country: ' + (clean(b.country) || 'not stated'),
-        sites.length ? 'Website: ' + sites.join(', ') : 'Website: not known, find it',
-        clean(b.type) ? 'Listed in the LWG directory as: ' + clean(b.type) : '',
-        clean(b.animals) ? 'LWG animal types: ' + clean(b.animals) : '',
+        sites.length ? 'Website: ' + sites.join(', ') : '',
         '',
-        'Addresses built from the name, worth opening first because read_page costs no search. If one is not found, say so in sources_tried and move on:',
-        ...seeds.map(x => '- ' + x),
+        indian
+          ? 'This is an Indian company. Find who it EXPORTS to: its foreign buyers, what it ships them, how much and when. direction is exports.'
+          : 'This company is outside India. Find who it IMPORTS from: its suppliers, Indian ones first, what it buys from them, how much and when. direction is imports.',
         '',
-        'What JILD IMPEX can supply: ' + (sell || 'Indian finished leather, linings, uppers, and leather products.'),
+        'What JILD IMPEX sells: ' + (sell || 'Indian finished leather, linings, uppers, and leather products.'),
+        '',
+        hit.length
+          ? 'Partner pages already opened for you (read these first; if they name partners, call record now without searching):'
+          : 'The partner pages below were opened and had nothing on this company. Try a few searches, then call record.',
+        ...pages.map(x => '\n--- ' + x.nm + ' · ' + x.u + '\n' + (x.text || '(nothing on this company here)')),
         '',
         known ? (kind === 'monitor'
-          ? 'This company was researched before. Below is what is already on file. Look only for what is NEW or what has changed since then, and say plainly if nothing has changed.\n\n' + known
-          : 'Some of this is already on file, so do not spend searches repeating it. Go deeper than this.\n\n' + known)
-          : 'Nothing is on file yet.',
-        '',
-        kind === 'monitor'
-          ? 'Check for new suppliers, new sourcing countries, new products, new certifications, expansion, new purchasing people, and fair participation. Then call record with the full picture, old and new together.'
-          : 'Work in this order. First, who they are and what they make, from their own site. Second, and this is the part that matters, who they trade with: go through the trade-data sites named above, by name, and find their suppliers, their customers, their shipment counts and dates, and any Indian exporter already shipping to them. Third, what the country figures say. Only then call record.'
+          ? 'Already on file from the last check. Report the partners and products as they stand now, and say in next_move what is new since then, or that nothing is:\n' + known
+          : 'Already on file:\n' + known) : ''
       ].filter(x => x !== '').join('\n');
       const state = { messages: [{ role: 'user', content: [{ type: 'text', text: ask, cache_control: { type: 'ephemeral' } }] }], step: 0, searches: 0 };
       const row = await sbq(tok, 'intel_runs', {
@@ -317,7 +317,11 @@ module.exports = async (req, res) => {
       const last = st.step + 1 >= MAXSTEP;
       let j;
       try {
-        j = await turn(akey, st.messages, last);
+        try { j = await turn(akey, st.messages, last, st.noWeb); }
+        catch (e1) {
+          if (st.noWeb || st.step > 0 || !/web.?search|server tool|tool type|not supported/i.test(String(e1.message || ''))) throw e1;
+          st.noWeb = true; j = await turn(akey, st.messages, last, true);
+        }
       } catch (e) {
         await sbq(tok, 'intel_runs?id=eq.' + id, { method: 'PATCH', body: { status: 'failed', error: String(e.message || e).slice(0, 400), finished_at: new Date().toISOString() } });
         return res.status(502).json({ status: 'failed', error: e.message || 'The research step failed.' });
@@ -350,4 +354,4 @@ module.exports = async (req, res) => {
     return res.status(e.status || 502).json({ error: e.message || 'That did not work.' });
   }
 };
-module.exports._t = { cCode, tradeLook, noteOf, HSN };
+module.exports._t = { cCode, tradeLook, noteOf, HSN, slug, seedUrls };

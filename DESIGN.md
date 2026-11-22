@@ -274,3 +274,51 @@ shows, never fill in what a paywall hides, never claim access to a paid database
 
 UI: a Trade partners table above the opportunity, and a "Where I looked" panel.
 Default monthly cap 1,000 searches (about $10 in search fees). Test: `scratchpad/v8/intel.py` (42).
+
+## v83 — the lookup answers one question, cheaply, and the drafts use it
+
+Faraz: "I don't care about the full research of a company… for a foreign company its import
+partners, for an Indian company its export partners… the Claude API usage is excessive."
+
+**Direction.** `start` reads the country: India means exports (who it ships to), anything
+else means imports (who it buys from). `seedUrls(names, indian)` picks the pages to match.
+ImportGenius `/suppliers/<slug>` is the company as a shipper, so it lists its buyers — that
+is the verified page, and it is what an Indian exporter's export partners look like.
+`/importers/<slug>` is the company as a buyer (its suppliers); `/india/importers/` and
+`/india/exporters/` are tried too. Unverified paths are cheap to try: a failed fetch costs
+nothing. Slugs are tried both ways for the legal form (`-spa` and `-s-p-a`), because the
+customs record decides which one exists.
+
+**Cost.** The server fetches up to six pages before the model starts and puts their text in
+the first message. Default model is now `claude-haiku-5-5` (INTEL_MODEL overrides), with 7
+steps, 6 searches and 3 page reads at most. The brief says: if the opened pages name
+partners, call record without searching. `trade_lookup` is gone from the model's tools
+(country statistics were not what he wanted). If the organisation has web search switched
+off, the first step retries without it and still reads the opened pages.
+
+**Schema.** `record` requires only direction, links (partners with count and latest date as
+printed), buys (what is traded in that direction), fit, next_move and sources_tried. The old
+essay fields are optional and no longer asked for; old profiles still render.
+
+**Page.** The profile opens with the fit and the next move, then "Who they import from" or
+"Who they export to", then "What they buy" or "What they sell". "No partners published" is
+stated outright, with where it looked. The dashboard is four counters. The connections
+diagram no longer repeats the partner list under itself.
+
+**Drafts.** `outGen` calls `inEnsure(g)`, which returns the stored lookup or runs one
+(quietly) if there is none or it predates the fit field; over the monthly limit it returns
+null and the draft goes ahead without it. `inTradeFor` sends the drafter partners, products
+and fit without source links. `api/draft.js` gets a TRADE RECORDS block: the records choose
+the offer, and are never quoted — no shipment data, no supplier names, no "I looked you up".
+The draft's `basis.trade` is shown on the approval page.
+
+**Home.** The hidden hold-to-swipe mode is gone (`MHSW` removed). A week strip (`.mwk`,
+Monday first) sits under the date: tap a day, swipe the strip for a week, swipe the bottom
+bar for a day. Days with entries carry a dot; days after today are disabled. `mSet(day,dir)`
+is the one way to move; `nonRoot()` counts `MHD`, so the back gesture brings today back.
+
+**Class clash, again.** The strip's today marker was first called `.td`, which is the
+journal's date divider (`margin-left:34px`), and squeezed the selected day into a sliver.
+It is `.mwt` now. Grep for `^\.name{` as well as `[ ,}]\.name` before using a class name.
+
+Tests: `v8/intel2.py` (29) replaces `v8/intel.py`; `v7/day2.py` (30) covers the strip.
