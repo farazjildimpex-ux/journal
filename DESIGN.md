@@ -322,3 +322,42 @@ journal's date divider (`margin-left:34px`), and squeezed the selected day into 
 It is `.mwt` now. Grep for `^\.name{` as well as `[ ,}]\.name` before using a class name.
 
 Tests: `v8/intel2.py` (29) replaces `v8/intel.py`; `v7/day2.py` (30) covers the strip.
+
+## v84 — what the production runs showed, and the fix
+
+Read `intel_runs` before changing anything. Faraz's three lookups were all Arnold Klümpen
+(Kevelaer). The two Sonnet runs (v81/v82) found the right picture — imports mainly from
+Pakistan (Eastern Leather, M S Dada, Muhammad Shafi Tanneries), plus Bangladesh, India,
+Turkey, Colombia; and sales into India (Suri Shoes, Model Tanners, Super Tannery) — but
+wrote it all into prose fields. `links` and `findings` came back empty, so the page showed
+an essay and no partners. The v83 Haiku re-check filled `links`, but with "Three unnamed
+suppliers", a list of countries, and a partner put in India on doubtful evidence, and it
+omitted fit and next_move although the schema required them. Its summary then replaced the
+better one.
+
+So: Sonnet is the default again (INTEL_MODEL overrides); the `record` tool is `strict: true`
+with `additionalProperties: false` on every object, so the rows have to be filled in;
+web_search carries `allowed_domains` limited to customs-data sites (`TRADE_SITES`), so no
+search lands on news or the company's own site; 10 searches, 9 steps, 2 page reads (most of
+these sites refuse server reads — the search results carry the facts). The brief now names
+customs spellings (ü→ue, "GmbH & Co. KG"→"GMBH CO KG"), says a partner row is one named
+company with the country the page prints, and allows building ImportGenius addresses from a
+spelling found. Pages the server opened are reported by the server (`st.seeds`, Cloudflare
+challenge pages counted as blocked) and merged into `sources_tried`.
+
+Client: `inSave` merges a re-check into the stored summary (links and buys unioned, fit and
+next move kept unless replaced), writes newer country/count/date back onto a known partner,
+and checks against all rows including hidden ones (`IN.linkAll`), so a hidden partner is
+never re-inserted. `inHide` also removes the partner from `summary.links`, which is what
+the drafter reads. `inEnsure` does not repeat a lookup under a day old.
+
+The three rows from the Haiku run were set `hidden` (not deleted) and dropped from the
+Klümpen summary.
+
+Home: no greeting; the journal gets its own header button (`.mjnb` — not `.msb`, which is
+search, and which a shared class made ambiguous); the selected day glows (radial tint,
+blue type) like the bottom bar's active tab; cards use `--pcard` with a press on the `scale`
+property (the entrance animation holds `transform`); no coloured edge. Journal page: sorted
+by date then time, "Yesterday" named by `dlf`, sticky blurred day headers.
+
+Tests: `v8/intel2.py` (34), `v7/day2.py` (32), `v3/mtest4.py` (80) updated for the header.
