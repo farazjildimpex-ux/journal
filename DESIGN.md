@@ -361,3 +361,11 @@ property (the entrance animation holds `transform`); no coloured edge. Journal p
 by date then time, "Yesterday" named by `dlf`, sticky blurred day headers.
 
 Tests: `v8/intel2.py` (34), `v7/day2.py` (32), `v3/mtest4.py` (80) updated for the header.
+
+## v85 — the week strip as a segmented track
+
+The glow on the selected day (v84) read as blurry. The strip is now a segmented control:
+the seven days sit in a soft grey track (`.mwk`, rgba(16,24,40,.045), radius 22px) and the
+chosen day lifts out as a white chip carrying the bottom bar's own shadow (`--glsh`, with
+its inset highlight), number and letter in blue. On a past day the header month is short
+("22 Nov") so the date is not clipped by the Today chip.
