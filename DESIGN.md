@@ -442,3 +442,54 @@ Completed in the last 120 days (by `updated_at`); for those only rules that star
 payment apply, and only for a payment in the last 90 days (`PFIN`), so 2024 contracts do
 not come back. Live data: YRL 1109 (paid in full 14 Nov, no debit note) is the one item
 this adds. Test: `v10/dn.py` (20).
+
+## v88 — calm motion everywhere
+
+He said cards were still not smooth ("on closing the text cuts off"), the invoice Track and
+Copy buttons were out of place, and Intelligence's buttons and animation were "crazy". Filmed
+at a tenth of the speed (`v11/frames.py`, CDP `Animation.setPlaybackRate`), the v87 glide
+showed the card edge slicing through lines of the note while it closed.
+
+Cards (`cardMove` in the script, phone rows, Journal cards, conversation entries and computer
+cards): two parts move on one curve (`cubic-bezier(.4,0,.2,1)`, 300 ms open, 250 ms close).
+The note's `max-height` goes from its clamped lines to the whole note, and the open-only part
+(`.mxx` on the phone: the "whole note" link and the buttons; `.acts` and `.ld` on the
+computer) goes from 0 to its height while it fades. While the note moves, a mask
+(`.mko`/`.mkc`, registered `--mk`/`--mf` lengths animated by WAAPI) keeps its cut edge soft;
+closing, the edge runs ahead of the box (it reaches two lines at 60% of the way), so extra
+lines have faded before the card reaches them. Closing reuses the height the note had before
+it opened (`r._n0`), so it measures nothing. The title keeps its two-line clamp in both states.
+Everything is inline and cleared at the end; a tap mid-way carries on from where it is.
+Measured: 300 ms over 18 frames, no step above 15–18%, no dropped frames.
+
+Save feedback (`heavyRun`): the button keeps its size; the label hides, a spinner shows, then a
+green tick for at most 600 ms. Buttons beside it dim (`.sh`) instead of collapsing; nothing is
+re-centred. The old version shrank the button into a circle with a springy width transition
+and popped the tick with an overshoot.
+
+Press: one rule for every button, `scale:.97`. Rules that added their own
+`transform:scale(.9…​.96)` on top (it multiplied, down to .87) are gone; list rows highlight
+instead of shrinking; cards keep their gentle .985. Every overshooting curve (y > 1) became
+`cubic-bezier(.2,0,0,1)`. The greeting name no longer rings for ever when mail waits.
+
+Entrances play once: `.card`, `.ds`, `.ux-list` and the other entrance animations replayed on
+every innerHTML change, so typing a search or each step of a lookup slid the page in again. A
+page in `#view` gets `.settled` 700 ms after it appears (a MutationObserver; at once for
+keep-renders), and `open()` settles a sheet at once when it re-draws the same page (same title
+and classes). `.settled :is(…)` turns those entrances off. The phone's `.pane.na *` rule that
+also froze spinners now names the entrance classes only.
+
+Invoice airway bill (`billRow`): its classes clashed with the contract stage tracker `.trk`
+(24 px top margin inside `.dpane`, a 64 px pill for Copy). Now `.awbn` holds the number with a
+32 px copy icon button (`data-awbcp`, turns into a tick), the airline under it, and `.awbt`, a
+36 px tinted Track button with an external-link icon.
+
+Intelligence: the spinner was stretched by `.inrun>div{flex:1}` into a wide ellipse sweeping
+the page; the text block is `.inrt` now. The Hide buttons shared `.inx` with the whole layout
+(which got `margin-left:auto` and 13 px text); they are `.inhb`. The phone counters use the
+Pending tile card (`.mpt/.mptt`); partner and product rows are three lines (name and kind, the
+facts, the source); section titles are sentence case; small buttons stay 36 px on the phone.
+
+Tests: `v11/motion.py` (25), `v11/audit.py` (every page, phone and computer: buttons that
+overlap, spill, are cut or oddly sized, endless animations), `v11/btnfilm.py`,
+`v11/shot_inv.py`, `v11/shot_intel.py`; `v7/awb.py` updated for the new classes.
