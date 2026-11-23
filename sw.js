@@ -1,5 +1,5 @@
-const CACHE='journal-shell-v138';
-const SHELL=['./app.html','./icons/icon-192.png','./icons/icon-512.png'];
+const CACHE='journal-shell-v139';
+const SHELL=['./app.html','./icons/icon-192.png','./icons/icon-512.png','./icons/badge-96.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE&&x!=='journal-cdn-v1').map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
@@ -25,4 +25,24 @@ self.addEventListener('fetch',e=>{
     return;
   }
   e.respondWith(caches.match(r).then(h=>h||fetch(r).then(res=>{const cp=res.clone();caches.open(CACHE).then(c=>c.put(r,cp));return res})));
+});
+
+// Notifications arrive here even when the app is closed.
+self.addEventListener('push',e=>{
+  let d={};try{d=e.data?e.data.json():{}}catch(x){d={title:'Journal',body:e.data?e.data.text():''}}
+  e.waitUntil(self.registration.showNotification(d.title||'Journal',{
+    body:d.body||'',tag:d.tag||undefined,renotify:!!d.tag,
+    icon:'./icons/icon-192.png',badge:'./icons/badge-96.png',
+    data:{url:d.url||'./app'},requireInteraction:!!d.urgent
+  }));
+});
+// Tapping one opens the app at the right place: an open window is reused, otherwise a new one opens.
+self.addEventListener('notificationclick',e=>{
+  e.notification.close();
+  const url=new URL((e.notification.data||{}).url||'./app',self.location.origin).href;
+  e.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(list=>{
+    const w=list.find(c=>/\/(app|app\.html|login)(\?|$)/.test(new URL(c.url).pathname+new URL(c.url).search))||list[0];
+    if(w){w.postMessage({type:'open',url});return w.focus()}
+    return self.clients.openWindow(url);
+  }));
 });

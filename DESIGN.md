@@ -369,3 +369,44 @@ the seven days sit in a soft grey track (`.mwk`, rgba(16,24,40,.045), radius 22p
 chosen day lifts out as a white chip carrying the bottom bar's own shadow (`--glsh`, with
 its inset highlight), number and letter in blue. On a past day the header month is short
 ("22 Nov") so the date is not clipped by the Today chip.
+
+## v86 — notifications with the app closed, and reminders on entries
+
+Web Push with VAPID keys, no Firebase project and nothing for him to set up beyond tapping
+"Turn on" once per device. `api/push.js` makes the key pair and a cron secret the first
+time it is asked (`push_keys`, row 1, RLS on with no policies, so only the service key reads
+it) and sends with the `web-push` package. Android delivers with the app closed; the computer
+while Chrome or Edge is running; an iPhone only from the Home Screen app.
+
+Tables: `push_subs` (one row per device; 404/410 from the push service removes it),
+`push_prefs` (row 1: a switch per kind, quiet hours, morning hour, watermarks for replies
+and mail, the pending snapshot the app writes hourly), `push_log` (a unique `qkey` is
+claimed before sending, so a kind never goes out twice). pg_cron `push-tick` posts to
+`/api/push` every 5 minutes with the secret, only once a key and a device exist, with a 30 s
+timeout (the function has 30 s on Vercel).
+
+A tick sends: entry reminders (at the time set, else the morning hour; three or more at once
+come as one), client calls due today (morning), buyer replies (urgent, held 22:00–07:00 when
+quiet hours are on), invoice and airway bill mail, and one morning summary. A kind switched
+off advances its watermark, and switched-off entry reminders are marked sent, so nothing
+piles up to arrive later. Queries for unsent reminders use `reminder_sent=not.is.true`:
+PostgREST's `is.false` does not match NULL.
+
+The service worker shows the notification (tag per item, so a repeat replaces, badge
+`icons/badge-96.png`) and on a tap posts `{type:'open',url}` to an open window or opens
+`/app?...`. `goLink` reads `?e=<entry>` (conversation), `?go=pending|orders|clients|inbox|mail`.
+
+Entries: the form has a Remind me row (`remRow`): Tomorrow, In 3 days, Next week in a soft
+track with the chosen one lifted white (the week strip's look), and Pick a date, which turns
+into a calendar icon in a narrow row (container query on `.rmq`). Date and time appear once a
+day is set; the hint says when the notification comes, warns when the time has passed, and
+offers to turn notifications on for this device without leaving the form (`pushOn(1)`). The
+reminder is written only when the row changed (`remRead` compares with `data-r0`), using the
+existing `reminder_*` columns. A pending reminder shows a bell pill (`.mrm`) on rows, a line
+on Journal cards, a tag in the conversation and a badge on computer cards. Home lists
+reminders on earlier entries that are not open follow-ups under Reminders, above Follow-ups,
+so each shows once. `remSync` drops the bell once the server has sent it.
+
+Tests: `v9/rem.py` (46), `v9/swpush.py` (9, full Chromium: the headless shell cannot grant
+notifications), `pushtest/tick.test.js` (39, its mock is now strict about `is` and supports
+`not.` and `in.`).

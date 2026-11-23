@@ -121,6 +121,9 @@
     },
     "api/lwg.js": {
       "maxDuration": 30
+    },
+    "api/push.js": {
+      "maxDuration": 30
     }
   },
   "rewrites": [
