@@ -410,3 +410,35 @@ so each shows once. `remSync` drops the bell once the server has sent it.
 Tests: `v9/rem.py` (46), `v9/swpush.py` (9, full Chromium: the headless shell cannot grant
 notifications), `pushtest/tick.test.js` (39, its mock is now strict about `is` and supports
 `not.` and `in.`).
+
+## v87 — cards glide; the debit note survives Completed
+
+Cards opened in pieces: the note's max-height ran on WAAPI, the buttons row on a CSS
+max-height transition (0→56px, so the visible part finished early), and the title unclamp
+and "Read the whole note" link snapped at once. Measured frame by frame, the first frame
+jumped 53px (26% of the move), then a 150 ms tail crawled the last 20px; closing ran in two
+phases when both mechanisms fought.
+
+Now `glide(el,on,set)` animates the card's own height (offsetHeight, so the press `scale`
+does not skew it) from where it is to where the new state lands. The content switches at
+once and the card clips it (`overflow:hidden` only while moving); closing keeps the open
+content until the end and then removes `.ex`. Duration grows with the distance
+(200 + 0.25 px, at most 300 ms; closing ×0.85) on `cubic-bezier(.3,.6,.2,1)`, which in
+per-frame terms starts softer than (.32,.72,0,1) and never moves more than about a fifth of
+the way in one frame. The buttons have no height or transition of their own
+(`display:none` → `flex`); they fade in with WAAPI and fade out while closing. A tap
+mid-way turns the card round from its current height (`isEx` reads where it is going, not
+the class). Reduced motion: no glide. Desktop cards use the same (`cardEx`; the `.acts`
+grid-rows transition is gone, or the measured height would miss the buttons).
+
+Results on a 4× slowed CPU: open 267 ms / 16 frames, close 233 ms / 14 frames, largest
+step 18–20%, no dropped frames at 1× and 2×. Test: `v10/glide.py` (21), measuring
+`v10/perf.py`.
+
+Pending: the default rule "Raise debit note for {no}" (start: payment received, done:
+debit note raised) never fired in practice, because a paid contract gets marked Completed
+and `paLoad` read only Issued and Inspected contracts. It now also reads contracts
+Completed in the last 120 days (by `updated_at`); for those only rules that start from the
+payment apply, and only for a payment in the last 90 days (`PFIN`), so 2024 contracts do
+not come back. Live data: YRL 1109 (paid in full 14 Nov, no debit note) is the one item
+this adds. Test: `v10/dn.py` (20).
