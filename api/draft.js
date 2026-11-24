@@ -23,7 +23,8 @@ const TOOL = {
 };
 const STEPS = {
   intro: 'First email to someone who does not know the sender. Follow SHAPE OF A FIRST EMAIL.',
-  follow1: 'A follow-up about 4 working days after the first email, which got no reply. It must give something NEW and useful, not a reminder: a different catalogue item that fits them, a concrete detail (thickness, selection, delivery time) from the CATALOGUE, or an offer to send cuttings. One short line may refer to the earlier email; never write "just following up", "bumping this" or "did you see my email". End with one easy question, different from the first email. Use the same language format as the previous email (English plus their language if the previous email had both). 40 to 70 words per language.',
+  follow1: 'A follow-up about 4 working days after the first email, which got no reply. It must give something NEW and useful, not a reminder: a different catalogue item that fits them, a concrete detail (thickness, selection, delivery time) from the CATALOGUE, or an offer to send cuttings. One short line may refer to the earlier email; never write "just following up", "bumping this" or "did you see my email". End with one easy question, different from the first email. Use the same language format as the previous email (English plus their language if the previous email had both). 40 to 70 words per language. If EMAIL ALREADY SENT is not given, the earlier contact happened outside this app: refer to it only as the sender describes it under WHAT THE SENDER ASKED FOR; if he says nothing about it, write a short, friendly note that offers something new and do not claim any earlier email.',
+  custom: 'An email for the purpose the sender describes under WHAT THE SENDER ASKED FOR. Do exactly that, in plain words, 50 to 120 words per language. Use only facts he gives there or that are in the CATALOGUE or SENDER FACTS; never invent dates, prices, places, events or samples. If they have never had an email from the sender (no EMAIL ALREADY SENT), include one plain sentence on who the sender is, from INTRODUCTION. If EMAIL ALREADY SENT is given, it is the last email they had from the sender: do not repeat it. End with one easy question if it suits the purpose.',
   reply: 'A reply to the message the buyer just sent (INCOMING MESSAGE below). Answer exactly what they asked or said, warmly and briefly (60 to 140 words). Reply in the language they wrote in, one language only, no English plus translation. If they ask for prices, specifications, samples or anything not in the CATALOGUE or SENDER FACTS, do not invent it: say you will send it shortly and ask for one detail that helps (article, quantity, thickness). Do not repeat the first email.',
   follow2: 'A last, very short and kind note about 10 days after the first email. Say you do not want to disturb them, leave the door open, make it easy to say no or to ask for the price list later. Use the same language format as the previous email. 25 to 45 words per language. No new offer.'
 };
@@ -46,14 +47,15 @@ module.exports = async (req, res) => {
 async function generate(b, key) {
   const s = b.settings || {}, co = b.company || {}, step = STEPS[b.step] ? b.step : 'intro';
   if (!clean(s.catalogue)) throw Object.assign(new Error('Add what you can supply in Settings > Outreach first.'), { status: 400 });
-  if (!co.profile && step === 'intro') throw Object.assign(new Error('Research this company first.'), { status: 400 });
+  if (!co.profile && !co.trade && !co.intel && step === 'intro') throw Object.assign(new Error('Research this company first.'), { status: 400 });
+  if (step === 'custom' && !clean(b.brief)) throw Object.assign(new Error('Say what this email should do.'), { status: 400 });
   const prompt = `You write outreach emails for ${clean(s.sender_name, 80) || 'the sender'} of ${clean(s.company, 120) || 'a leather sourcing agency'}.
 
 GOAL: get a reply. Not a sale, not a meeting: one short answer from a busy leather buyer who has never heard of the sender and reads this on a phone, often in his second language.
 
 WHAT WORKS (from large studies of cold email; follow all of it)
 - SHORT. A first email is 55 to 95 words per language, 4 to 6 short sentences. Every extra sentence lowers the chance of a reply.
-- ABOUT THEM FIRST. The first sentence after the greeting is one concrete thing noticed about their business, taken from RESEARCH. Never open with who the sender is ("My name is", "I am writing to", "I came across your contact", "I would like to introduce").
+- ABOUT THEM FIRST. The first sentence after the greeting is one concrete thing noticed about their business, taken from RESEARCH. Never open with who the sender is ("My name is", "I am writing to", "I came across your contact", "I would like to introduce"). If RESEARCH is empty, you have seen nothing about them yourself: open instead with one plain sentence about the kind of leather their line of business works with, said as someone who knows the trade, never as something you saw or looked up.
 - DO NOT PITCH. No list of services, no "we help companies", no adjectives about quality or price. One relevant offer, said plainly.
 - PLAIN WORDS. Write as a person writes to a colleague: common words, sentences under 18 words, no idioms, no jargon, no exclamation marks. A 12-year-old should understand it.
 - ONE EASY QUESTION at the end, about interest, that can be answered in one line. Good: "Is this something you buy at the moment?", "Would a few cuttings be useful?", "Who looks after lining purchases at your company?". Never ask for a call or a meeting. Only one question in the whole email.
@@ -70,6 +72,7 @@ SHAPE OF A FIRST EMAIL
 HARD RULES
 - Offer ONLY items from the CATALOGUE, at most 2. When TRADE RECORDS are given, they decide the offer: pick the catalogue items closest to what the records show this company actually buying, and prefer those over anything the website suggests. If nothing fits well, offer the closest one, ask what they are looking for, and set confidence "thin".
 - TRADE RECORDS are for choosing what to offer and how to put it, never for quoting. Never mention shipment records, customs data, their suppliers' names, volumes, dates or that you looked anything up. Write as someone who knows the trade, not as someone who has studied their file. "Many finishers in your area buy goat crust from Chennai" is fine; "I saw you imported 8 tonnes of crust in August" is not.
+- OUR NOTES follow the same rule as TRADE RECORDS: use them to choose the offer and the angle, never quote them, never name their suppliers, partners or customers, and never mention shipments, customs data or that anyone looked them up.
 - Never state a price, volume, certification or customer unless it is written in the CATALOGUE or SENDER FACTS.
 - Say only things about the buyer that are in RESEARCH or TRADE RECORDS, and say them as something you saw, not as a verdict on their business: "I saw on your website that you finish cow leather for footwear", not "You make footwear leather" and not "It appears your company is a trader". Do not label them (trader, manufacturer, agent). Do not ask them to correct you. Do not quote founding years or history.
 - Speak to them as "you". Never write the company name in the body.
@@ -99,7 +102,7 @@ ${JSON.stringify(co.profile || {}).slice(0, 6000)}
 
 TRADE RECORDS (published customs records: who they trade with and what; use them to choose the offer, never quote them)
 ${co.trade ? JSON.stringify(co.trade).slice(0, 4000) : '(none found)'}
-Recipient: ${clean(b.to_name, 80) || '(unknown)'} ${clean(b.to_email, 120)}
+${co.intel ? 'OUR NOTES ON THIS COMPANY (our own trade research: what they do, how well our range fits, what to offer next; use them to choose the offer, never quote them)\n' + JSON.stringify(co.intel).slice(0, 3000) + '\n' : ''}${clean(b.brief) ? 'WHAT THE SENDER ASKED FOR (his own words for this email; follow them, they come before the usual shape where the two differ)\n' + clean(b.brief, 800) + '\n' : ''}Recipient: ${clean(b.to_name, 80) || '(unknown)'} ${clean(b.to_email, 120)}
 ${b.current ? 'CURRENT DRAFT (the sender asked for it to be written again: write a clearly different, better version, and follow his change request below exactly)\n' + clean(b.current, 3000) + '\n' : ''}${b.current ? 'CHANGE REQUESTED BY THE SENDER' : 'Other notes from the sender'}: ${clean(b.note, 600) || '(none)'}`;
   {
     let r, j;

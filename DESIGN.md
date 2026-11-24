@@ -555,3 +555,39 @@ while typing.
 
 Tests: `v12/letter.py` (60: four computer widths, view and edit, with and without comments,
 bold in line), `v12/phone_bold.py`.
+
+## v92 — write from Intelligence; quicker phone cards; one Notes heading
+
+**Intelligence emails.** He said the intelligence "just sits there". A done profile now has
+*Write to them* (`inMailBox`, `#inml`) right under the fit and next move: kind chips
+(Introduction `intro`, Follow-up `follow1`, Other `custom`, class `inmkd`, since `inmk` is the
+marks row), a To field and a note. To is the address last used for this company, else the best
+one in its website research (`lwg_research` by the same key, loaded into `FR` on demand), and
+stays as he types it (`toTyped`). `inMailNew` sends `/api/draft` the website research as
+`profile` (or null), `inTradeFor(summary)` as `trade`, `inMailIntel(summary)` as the new
+`intel`, and his note as the new `brief`, then inserts an `outreach_drafts` row with
+`basis.from='intel'` and `basis.note`. A follow-up after a sent email takes `Re:` + that subject,
+`parent_id` and `in_reply_to`, so it threads. Waiting drafts show inline with the usual
+`outCard` (Approve / Write it again / Skip), and in Emails to approve (`outWait` always shows
+`from:'intel'`). `outRedo` sends intel drafts (and any company that is only in Intelligence) to
+`inMailRedo`, which keeps the original brief and adds the change request. `fbPaint` repaints
+Intelligence when it is open, instead of replacing it with Find buyers (the approve handler
+calls it). `outStep`/`WSTEP` name `custom` *Other email*. Nothing sends without approval; the
+sender treats `custom` like any step and sets no automatic follow-up for it.
+
+`api/draft.js`: new `custom` step (needs `brief`; one line on who the sender is when they have
+had nothing from him); `follow1` without an earlier email relies only on what the brief says;
+an introduction is allowed with `trade` or `intel` and no website research, and is then told it
+has seen nothing itself; OUR NOTES are never quoted and never name suppliers or partners.
+
+**Phone cards.** Open 190 ms, close 160 ms (were 300/250), standard curve; the buttons fade in
+by 55% of the opening and out by 35% of the closing. The four buttons are equal tiles across the
+card, 44 px tall, 22 px icons; Delete? takes the extra room while armed.
+
+**Letter notes heading.** `.ds.ds-notes:has(>.kv)>h5` is hidden; on the computer the two field
+labels take the section-heading style, so each column has one heading. With no notes at all the
+section title stays.
+
+Tests: `v12/intelmail.py` (58, computer and phone, with the stub's group_key merge turned off
+for `outreach_drafts`), `v12/draft.test.js` (13), `v12/btns.py` (18, three phone widths),
+`v12/letter.py` (68), `v11/motion.py` (25, new timings).
