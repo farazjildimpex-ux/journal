@@ -493,3 +493,26 @@ facts, the source); section titles are sentence case; small buttons stay 36 px o
 Tests: `v11/motion.py` (25), `v11/audit.py` (every page, phone and computer: buttons that
 overlap, spill, are cut or oddly sized, endless animations), `v11/btnfilm.py`,
 `v11/shot_inv.py`, `v11/shot_intel.py`; `v7/awb.py` updated for the new classes.
+
+## v89 — status bar follows the page; no large icon on Android notifications
+
+He saw the white status bar sitting on Home's tinted top. On the phone the status bar is the
+`theme-color` meta, which Chrome repaints whenever it changes. `syncBar()` sets it to the
+colour at the very top of the screen: Home's tint (`#F4F5FF`), and as Home scrolls the colour
+the tint has faded to (it runs 56–380 px, so the bar reaches white as the tint scrolls away);
+the page colour elsewhere; a full-screen sheet's colour; and while a small sheet is open, the
+page blended with the scrim (`mixC` with the scrim's own rgba). It runs on scroll (once per
+frame, and only when the hex changes), on new pages in `#view`, on body and sheet class
+changes, and when the app comes back. Home's wash became one vertical gradient so its top
+edge is a single colour (the old two radial washes differed left to right, which no single bar
+colour could match). The inline head script starts the phone at `#F4F5FF`, since it opens on
+Home. The bottom system bar is coloured by Chrome from the manifest `theme_color` (white),
+and every page's bottom is white, so it already matches.
+
+Notifications: Android shows `icon` as the large picture on the right, and the `badge` (the
+monochrome J) is already on the left, so `sw.js` leaves `icon` out on Android (user agent of
+the worker) and keeps it on computers, where it is the only picture.
+
+Tests: `v11/bars.py` (16: every page's top pixels against the bar), `v11/swicon.py` (4: real
+Android user agent via `--user-agent`, since Playwright's device emulation does not reach the
+service worker); `v3/mtest4.py` now expects Home's tint.
