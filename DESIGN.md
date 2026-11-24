@@ -516,3 +516,22 @@ the worker) and keeps it on computers, where it is the only picture.
 Tests: `v11/bars.py` (16: every page's top pixels against the bar), `v11/swicon.py` (4: real
 Android user agent via `--user-agent`, since Playwright's device emulation does not reach the
 service worker); `v3/mtest4.py` now expects Home's tint.
+
+## v90 — no letter on the right of Android notifications
+
+Leaving `icon` out (v89) made Chrome draw its own picture: `NotificationBuilderBase.ensureNormalizedIcon`
+generates a grey rounded letter from the origin whenever the icon is missing or empty (Chromium
+source, checked Nov 2026). A fully transparent 96 px PNG (`icons/blank-96.png`, precached in
+`sw.js`) is a real bitmap, so Chrome uses it as given and nothing shows. Android still keeps the
+slot, so the text ends a little before the right edge. Computers keep `icon-192.png`.
+
+The bottom bar, for when it comes up again. Chrome paints an installed app's navigation bar with
+the manifest `theme_color` (`WebappIntentDataProvider.ColorProviderImpl.getNavigationBarColor`,
+behind `WebAppNavigationBarThemeColor`, on by default in Chrome 155 to 160). The dark-mode
+plumbing exists (`dark_theme_color`), but Blink's manifest parser reads no dark field, so one
+colour serves both modes. Without a `theme_color` the bar falls back to Android's own day and
+night colour. Installed apps draw under the bars only behind `WebAppShortEdgesCutoutMode`, which
+is off by default even in 160. The phone app is light only, so white is right. A phone dark mode
+would mean dropping `theme_color`, so the bottom follows the phone in Android's colours, not ours.
+
+Tests: `v11/swicon.py` (Android expects `blank-96.png`, the computer `icon-192.png`).
