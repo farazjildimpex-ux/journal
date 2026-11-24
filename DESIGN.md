@@ -535,3 +535,23 @@ is off by default even in 160. The phone app is light only, so white is right. A
 would mean dropping `theme_color`, so the bottom follows the phone in Android's colours, not ours.
 
 Tests: `v11/swicon.py` (Android expects `blank-96.png`, the computer `icon-192.png`).
+
+## v91 — letter notes 70 / customer comments 30 on the computer
+
+He asked for the notes to be bigger and the customer comments smaller: 70% and 30% of the
+width. The old `.dfm .ds-notes{display:block}` never applied, because `.dpane .ds` (same
+specificity, later in the sheet) made the section an auto-fill grid of 210 px columns, so both
+fields sat in narrow columns with most of the box empty. Now `.dpane .ds.ds-notes` is a
+`minmax(0,7fr) minmax(0,3fr)` grid with a 24 px gap and a hairline before the comments. A
+section with only one field (view mode drops an empty one) gives it the whole row through
+`:not(:has(>.kv+.kv))`. Edit mode always has both editors, so the split holds while typing.
+Text sizes are unchanged (16 px view, 15 px editor).
+
+Bold inside notes: `.kv b` (the value style for fields: block, 15 px, pre-line) also caught
+`<b>` inside `.rtv`/`.rtx`, so a bold phrase broke onto its own line in smaller type, and on
+the phone `html.phx .kv b` made it weight 500. Rich-text bold is now inline, inherits the
+font and colour, and is 700. The notes editor is weight 500 like the notes view, so bold shows
+while typing.
+
+Tests: `v12/letter.py` (60: four computer widths, view and edit, with and without comments,
+bold in line), `v12/phone_bold.py`.
