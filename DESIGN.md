@@ -718,3 +718,15 @@ role. Test: `v15/qc.py` (46, computer and phone).
 **Home.** Section heads 21/800 with 30 px above; each section's rows sit in a `#F7F8FA` panel
 (radius 18, Today tinted with the accent) like the Journal. No red "days open" tag on Home
 (the Journal keeps "Follow-up open").
+
+## v96 — price with words; certificate signature and colours
+
+**Contract price** is free text on every device (no decimal keypad). `curFix` keeps exactly one
+currency in front: tapping an empty price fills the contract currency; a price without it gets it
+on focus; currency words or symbols typed again (EUR, EURO, €, USD, $ …) are folded in on leaving.
+
+**Quality certificate.** Goods table: one row per article + colour (selections summed), columns
+Article, Colour, Pieces, Quantity. A Signature section shows the saved signature images as tiles
+(no names) plus "No signature", the contract's one picked; "Name under the signature" starts from
+that signature's name and is typed per certificate (the L/C signatory). The PDF prints the image
+and "(NAME)" only, no role. Choice and name are kept in `invoices.qc` with the other hand edits.
