@@ -730,3 +730,13 @@ Article, Colour, Pieces, Quantity. A Signature section shows the saved signature
 (no names) plus "No signature", the contract's one picked; "Name under the signature" starts from
 that signature's name and is typed per certificate (the L/C signatory). The PDF prints the image
 and "(NAME)" only, no role. Choice and name are kept in `invoices.qc` with the other hand edits.
+
+## v97 — Journal option A (days like Home)
+
+Chosen from the canvas ("Journal A: each day like Home"); replaces the v94 date column and month
+tabs. Header unchanged. `#mjsw` month switcher: a `#F6F7F9` bar, 48 px, radius 16: older month
+(white 36 px button, left), the month 16/700 with its count (tapping it opens the month sheet),
+newer month (right; greyed when there is none). Each day `.mjd` is `.mjdh` (21/800 Today,
+Yesterday or the weekday; the date 14/600 muted; the count right in `#9AA0AA`) over `.mjdp`, the
+same soft panel as Home (`#F7F8FA`, radius 18, today tinted). Switching month always goes to the
+top and slides the list in from the side the month lies on. "Go to <month>" stays at the end.
