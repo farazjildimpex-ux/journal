@@ -626,3 +626,74 @@ The bottom-bar day swipe and taps use the same motion. Swipes on the rest of Hom
 between pages.
 
 Tests: `v13/strip.py` (24), `v7/day2.py` (32, updated for three rows and the pill).
+
+## v94 — option 9: a quiet edge bar, Home with the big date, the month, the Journal by month
+
+Chosen from the design canvas ("Option 9, refined" and "Journal, redesigned"). Phone only;
+the computer is untouched. Everything new lives in `<style id="o9">` after `m4`.
+
+**Bar** (`#mbar`). Five icon-only buttons in the order Journal (1), Pending (5), Home (0, the
+middle), Orders (3), More (6); each has an `aria-label`, which `mbarSync` extends with the count
+("Pending, 10 to do", "Orders, 1 overdue", "More, 3 new"). A white edge bar, 58 px plus the
+safe area beyond 6 px (`--mbh`), a `#ECEDF0` hairline on top, no radius, no blur. Icons 23 px
+(Home 24), `#8A8F99`, 1.8 stroke; the current page is `var(--acc)`, 2.15 stroke, lifted 3 px,
+with a 4 px dot under it (`::after`). Dots, not numbers: `#mbpd` amber (pending), `#mbod` red
+(overdue orders), `#mbmo` blue (invoice mail + buyer replies). Search (tab 2) lights the page it
+was opened from (`MSRC`); its back button and a right swipe return there. Page swipes follow
+the bar: `MPG=[1,5,0,3,6]`. `.pane` ends `--mbh + 28px` above the bottom; the toast sits
+12 px above the bar. The floating glass bar on full-screen pages (`.sheet.tall>.tc2`) stays.
+
+**Home** (`mHome`, `.pane.mh.m9`).
+- Header `.mgr.m9h` (still the day-swipe target): an `h1.m9t` holding the date button
+  (`data-mmon="h"` opens the month): `.m9n` the day number 56/800 in `var(--acc)`, tabular;
+  beside it the weekday 20/700 and "November 2026 ⌄" 14/600 muted. On a past day a compact
+  Today pill sits before search; under 400 px wide the year (`.m9yr`, this year only) drops so
+  nothing overlaps. Search is a 44 px round `#F3F4F6` button (`.m9s`, also used in the Journal).
+- The week strip from v93 (pill radius 15, dots `acc` 45% on white).
+- What is waiting (`#mcnt`, `mCounts`): a `#F6F7F9` box, radius 18, rows 46 px: a dot, the line
+  (15/600, shown in full first), a detail right-aligned (14/500 muted, takes what is left), a
+  chevron. Pending (amber; detail: late or due today), Orders (red if overdue, amber if due
+  this week), Buyer replies (violet; the senders) or Emails to approve, Invoice mail (blue,
+  only when waiting). `mChipsPaint` repaints it and the bar.
+- The day (`#mdy`): a head `.m9sh.m9s0` ("Today" or the weekday / "Yesterday", the count in
+  `#9AA0AA`, a 40 px accent "New" pill; on a past day New writes for that day). Rows (below).
+  On today only: Reminders, Follow-ups (`#mfu`, first 6, "Show all"), then the six days before
+  today, each a head (weekday + date) and its rows. An entry already shown above (a reminder or
+  an open follow-up) is not repeated below. The end: "Home shows the last 7 days" and an
+  outline button to the Journal. A past day shows only its own entries.
+- Slim bar `#m9c`: sticky at the top, full bleed, 64 px plus the safe area, a hairline under;
+  the day number in a 34 px accent circle, "Wednesday, 25 Nov", a Today chip (scrolls to the
+  top) and search. Hidden (`inert`, `visibility:hidden`) until the strip has gone under it
+  (an IntersectionObserver on `#mwk`, top margin −64 px). For sticky to work `#view` now
+  clips sideways (`overflow-x:clip`) instead of being a hidden-overflow scroll box.
+
+**Rows** (`mRow`, Home and Journal alike). Flat: no card, no padding at the sides, a `#EDEEF1`
+hairline between. Title 16/600 (two lines at most), the note 14/500 muted on one line, then
+tags: the conversation ("4 in the conversation", in the Journal just "4"), a reminder (amber
+`#FFF3DC` / `#8A5200`, "Tomorrow, 10 am"), a follow-up (blue tint today; red `#FDEDEB` /
+`#B3261E` from earlier days with how long it has been open; the Journal says "Follow-up open"),
+done (green). No clock times anywhere. Tap opens the whole note and the buttons (unchanged
+motion), two taps the conversation.
+
+**Month sheet** (`mMonth(ctx)`, `#sheet.mmon`, state `MM={ctx,k,sel}`). Prev / next as 44 px
+round buttons (no month before the first entry, none after this one), the month centred
+18/700, weekday letters, then always six weeks (`.mmgr`, 40 px rows) so the height never
+jumps. Today is a filled accent circle, the picked day a 2 px accent ring, days with entries a
+dot, days to come greyed and not buttons. Under a hairline: the picked day (17/700) with its
+count and two of its entries, then "Today" (outline) and "Open 12 November" (accent). Open on
+Home turns Home to that day (`mSet`); in the Journal it opens that month and brings the day
+into view with a short accent ring (`mjShow`). A sideways swipe on the days changes month (the
+click guard `LPC` stops it picking a day).
+
+**Journal** (`mJournal`, `.pane.mj`, state `JM` = "YYYY-MM", newest month on entry and when the
+Journal icon is tapped again). Title "Journal" 30/800 with "Every day you wrote, newest first",
+search and calendar buttons. Month tabs (`#mjtb`, scrolls sideways, `data-noswipe`): the chosen
+one filled accent, the others `#F3F4F6` with their counts; months of another year carry it.
+Then "November 2026" 20/800 and the count, and the days newest first: a 44 px date column
+(22/800 number, short weekday; today in accent, labelled Today) beside a `#F7F8FA` panel
+(today tinted with the accent) of rows. Open follow-ups stay in their own day. At the end:
+"That is all for November" and "Go to October". Switching months slides the list in from the
+side the month lies on (240 ms).
+
+Tests: `v14/o9.py` (73), `v14/mtest5.py` (83, the phone run-through updated for the new bar,
+Home and Journal); updated `v7/day2.py`, `v13/strip.py`, `v11/motion.py`, `v9/rem.py`.
