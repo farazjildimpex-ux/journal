@@ -697,3 +697,24 @@ side the month lies on (240 ms).
 
 Tests: `v14/o9.py` (73), `v14/mtest5.py` (83, the phone run-through updated for the new bar,
 Home and Journal); updated `v7/day2.py`, `v13/strip.py`, `v11/motion.py`, `v9/rem.py`.
+
+## v95 — quality certificate; Home days in panels; Buyer ref / LC no
+
+**Quality certificate.** Each invoice card on a contract's Invoice page ends with a ghost
+"Quality certificate" button (`.qcb`, only when the invoice has a number). It loads the
+invoice's contracts (`contracts` by `contract_no`), builds defaults (`qcDefaults`): date = invoice
+date; reference = "CJV 893 dated 04/09/2026, CJV 894 dated …"; shipper; final destination
+without the Incoterm (`qcDest`: FOB, CIF, CFR, …); description(s); L/C = the contracts'
+`buyers_reference` (now labelled "Buyer ref / LC no"); "Despatched to Spain, A/c. M/s. <buyer>".
+The form (`AM='qc'`, `qcForm`) shows them editable plus the invoice facts (colours, pieces –
+quantity with the unit from the contract quantities, amount); the footer is Cancel / Create PDF.
+Only fields that differ from the defaults are kept in `invoices.qc` (jsonb, `supabase-qc.sql`).
+The PDF (`exportPdf` branch `o.k=='qc'`) uses the same letterhead as the other documents, a
+spaced underlined title, a label/value table with hairlines (grey labels, reference and amount
+bold), a "Goods shipped" table from the invoice lines with a total, the despatch line, the
+certification in a soft grey box, and "For <company>" with the contract's signature, name and
+role. Test: `v15/qc.py` (46, computer and phone).
+
+**Home.** Section heads 21/800 with 30 px above; each section's rows sit in a `#F7F8FA` panel
+(radius 18, Today tinted with the accent) like the Journal. No red "days open" tag on Home
+(the Journal keeps "Follow-up open").
