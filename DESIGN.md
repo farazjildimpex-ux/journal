@@ -591,3 +591,38 @@ section title stays.
 Tests: `v12/intelmail.py` (58, computer and phone, with the stub's group_key merge turned off
 for `outreach_drafts`), `v12/draft.test.js` (13), `v12/btns.py` (18, three phone widths),
 `v12/letter.py` (68), `v11/motion.py` (25, new timings).
+
+## v93 — week strip on the page, and motion for days and weeks
+
+He asked for the strip to have the page's background with just a bolder blue highlight, and for
+day and week swipes to animate.
+
+**Strip.** `.mwk` has no background or padding. It holds a `.mwtr` track of three `.mwr` rows
+(previous, current, next week; neighbours are `inert`), shifted `translateX(-100%)` so the
+current week shows. The chosen day is a `.mwp` pill in the row, `var(--acc)`, sized to one
+column, placed with `--mwi` (its index) and `transform:translateX(calc(var(--mwi)*(100% + 4px)))`;
+its button is `.on` (white, weight 800). Today when not chosen: blue, weight 800. Neighbour rows
+carry a pill on the day a week swipe would land on (`mWkTo`), so a drag shows the right day
+before it commits.
+
+**Motion** (`mSet` → `mHome(0)` → `mHomeMove`, direction from the dates, skipped for reduced
+motion):
+- same week: the pill FLIPs from the old index to the new; the two buttons swap `.on` in the
+  same frame and their colours cross-fade (0.22 s);
+- one week away: the track slides from the neighbour row (the week you came from, its pill moved
+  to where it was) to the current one, 320 ms; further jumps fade the row in;
+- the date at the top eases in from the side;
+- the day (`#mdy`, now `display:flow-root` so its first margin stays inside) moves on a shared
+  axis: the old one, re-parented as an absolute overlay with its ids removed, fades out in 110 ms
+  as it moves 48 px; the new one stays clear for the first 30% of 330 ms, then slides in.
+  `.mh .mdy>.msec:first-child` keeps 20 px wherever the overlay sits.
+
+**Gestures.** The strip follows the finger (`WSW`): rubber band at a quarter speed where there
+is no week (the current week has no next one), commit past 20% of the width or on a flick
+(more than 0.45 px/ms over the last 100 ms, same direction), then glide (0.24 s) and
+`mSet(...,{strip:1})`, which renders the same picture without a jump. A sideways swipe on the
+date at the top (`.mgr`, now `data-noswipe`) turns the day; the date leans with the finger.
+The bottom-bar day swipe and taps use the same motion. Swipes on the rest of Home still move
+between pages.
+
+Tests: `v13/strip.py` (24), `v7/day2.py` (32, updated for three rows and the pill).
