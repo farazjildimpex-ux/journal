@@ -1,9 +1,12 @@
 // Vercel serverless function: the research engine behind the Intelligence page.
-// One company at a time, in short steps so no single request runs long: the app calls "start" once,
-// then "step" until the run says done. The run's state lives in intel_runs, written as the signed-in user.
+// One company at a time, in short steps so no single request runs long. The run's state lives in intel_runs,
+// written as the signed-in user. With "bg" the server drives the steps itself after answering (waitUntil), handing
+// over to a fresh request before the time limit, so the research goes on when the app is closed or the page changes;
+// the app only watches intel_runs. Older apps still call "step" themselves.
 // Needs ANTHROPIC_API_KEY on Vercel. Optional: INTEL_MODEL (default Sonnet).
 const { envv } = require('./_env');
 const { getPage, toText, pageDate } = require('./_web');
+const { waitUntil } = require('@vercel/functions');
 
 const SB_URL = 'https://ethhzxagxejxfxkzgndk.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0aGh6eGFneGVqeGZ4a3pnbmRrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg3MDQwNjIsImV4cCI6MjA2NDI4MDA2Mn0.FMCc_AwksmDGQqGdCoazcxIJ7i3635fkrJinx5gNucA';
@@ -309,6 +312,7 @@ module.exports = async (req, res) => {
         method: 'POST', headers: { Prefer: 'return=representation' },
         body: { key, kind, status: 'running', model: MODEL, state }
       });
+      if (b.bg) waitUntil(drive(tok, akey, row[0].id, originOf(req)));
       return res.status(200).json({ run_id: row[0].id, status: 'running', step: 0, note: 'Starting' });
     }
 
@@ -316,46 +320,18 @@ module.exports = async (req, res) => {
       if (!akey) return res.status(500).json({ error: 'Research is not set up yet. Add ANTHROPIC_API_KEY in Vercel and redeploy.' });
       const id = clean(b.run_id);
       if (!/^[0-9a-f-]{36}$/i.test(id)) return res.status(400).json({ error: 'No run given.' });
-      const got = await sbq(tok, 'intel_runs?id=eq.' + id + '&select=*');
-      const run = got && got[0];
-      if (!run) return res.status(404).json({ error: 'That run is gone.' });
-      if (run.status !== 'running') return res.status(200).json({ status: run.status, step: run.steps, note: 'Finished', result: (run.changes || {}).result || null });
-      const st = run.state || { messages: [], step: 0, searches: 0 };
-      const last = st.step + 1 >= MAXSTEP;
-      let j;
-      try {
-        try { j = await turn(akey, st.messages, last, st.noWeb); }
-        catch (e1) {
-          if (st.noWeb || st.step > 0 || !/web.?search|server tool|tool type|not supported/i.test(String(e1.message || ''))) throw e1;
-          st.noWeb = true; j = await turn(akey, st.messages, last, true);
-        }
-      } catch (e) {
-        await sbq(tok, 'intel_runs?id=eq.' + id, { method: 'PATCH', body: { status: 'failed', error: String(e.message || e).slice(0, 400), finished_at: new Date().toISOString() } });
-        return res.status(502).json({ status: 'failed', error: e.message || 'The research step failed.' });
-      }
-      const blocks = j.content || [];
-      const used = ((j.usage || {}).server_tool_use || {}).web_search_requests || 0;
-      st.searches += used; st.step += 1;
-      st.messages.push({ role: 'assistant', content: blocks });
-      const rec = blocks.find(x => x.type === 'tool_use' && x.name === 'record');
-      if (rec) {
-        const tried = (rec.input.sources_tried || []), seen = new Set(tried.map(x => x.url).filter(Boolean));
-        rec.input.sources_tried = (st.seeds || []).filter(x => !seen.has(x.url)).concat(tried);
-        await sbq(tok, 'intel_runs?id=eq.' + id, {
-          method: 'PATCH', body: { status: 'done', steps: st.step, searches: st.searches, state: null, changes: { result: rec.input }, finished_at: new Date().toISOString() }
-        });
-        return res.status(200).json({ status: 'done', step: st.step, searches: st.searches, result: rec.input });
-      }
-      const results = await runTools(blocks);
-      if (results.length) st.messages.push({ role: 'user', content: results });
-      else if (j.stop_reason === 'pause_turn') { /* a long search turn: send it straight back, untouched */ }
-      else if (j.stop_reason === 'end_turn' || j.stop_reason === 'max_tokens') st.messages.push({ role: 'user', content: [{ type: 'text', text: 'Now call record with everything you have. Leave out nothing you established, and be plain about what you could not find.' }] });
-      // keep the cache marker on the newest block only
-      st.messages.forEach((m, i) => { if (Array.isArray(m.content)) m.content.forEach(c => { if (c && c.cache_control && i < st.messages.length - 2) delete c.cache_control; }); });
-      const tail = st.messages[st.messages.length - 1];
-      if (tail && Array.isArray(tail.content) && tail.content.length) { const c = tail.content[tail.content.length - 1]; if (c && typeof c === 'object' && c.type !== 'tool_result') c.cache_control = { type: 'ephemeral' }; }
-      await sbq(tok, 'intel_runs?id=eq.' + id, { method: 'PATCH', body: { state: st, steps: st.step, searches: st.searches } });
-      return res.status(200).json({ status: 'running', step: st.step, searches: st.searches, note: noteOf(blocks) });
+      const r = await stepRun(tok, akey, id);
+      return res.status(r.code || 200).json(r.body);
+    }
+
+    if (b.action === 'drive') {
+      if (!akey) return res.status(500).json({ error: 'Research is not set up yet. Add ANTHROPIC_API_KEY in Vercel and redeploy.' });
+      const id = clean(b.run_id);
+      if (!/^[0-9a-f-]{36}$/i.test(id)) return res.status(400).json({ error: 'No run given.' });
+      const got = await sbq(tok, 'intel_runs?id=eq.' + id + '&select=id,status');
+      if (!got || !got[0]) return res.status(404).json({ error: 'That run is gone.' });
+      if (got[0].status === 'running') waitUntil(drive(tok, akey, id, originOf(req)));
+      return res.status(200).json({ ok: true, status: got[0].status });
     }
 
     return res.status(400).json({ error: 'Unknown request.' });
@@ -363,4 +339,69 @@ module.exports = async (req, res) => {
     return res.status(e.status || 502).json({ error: e.message || 'That did not work.' });
   }
 };
+
+/* ---------- one step of a run, and the driver that runs the steps on the server ---------- */
+async function stepRun(tok, akey, id) {
+  const got = await sbq(tok, 'intel_runs?id=eq.' + id + '&select=*');
+  const run = got && got[0];
+  if (!run) return { code: 404, body: { error: 'That run is gone.' } };
+  if (run.status !== 'running') return { body: { status: run.status, step: run.steps, note: 'Finished', result: (run.changes || {}).result || null } };
+  const st = run.state || { messages: [], step: 0, searches: 0 };
+  const last = st.step + 1 >= MAXSTEP;
+  let j;
+  try {
+    try { j = await turn(akey, st.messages, last, st.noWeb); }
+    catch (e1) {
+      if (st.noWeb || st.step > 0 || !/web.?search|server tool|tool type|not supported/i.test(String(e1.message || ''))) throw e1;
+      st.noWeb = true; j = await turn(akey, st.messages, last, true);
+    }
+  } catch (e) {
+    await sbq(tok, 'intel_runs?id=eq.' + id, { method: 'PATCH', body: { status: 'failed', error: String(e.message || e).slice(0, 400), finished_at: new Date().toISOString() } });
+    return { code: 502, body: { status: 'failed', error: e.message || 'The research step failed.' } };
+  }
+  const blocks = j.content || [];
+  const used = ((j.usage || {}).server_tool_use || {}).web_search_requests || 0;
+  st.searches += used; st.step += 1;
+  st.messages.push({ role: 'assistant', content: blocks });
+  const rec = blocks.find(x => x.type === 'tool_use' && x.name === 'record');
+  if (rec) {
+    const tried = (rec.input.sources_tried || []), seen = new Set(tried.map(x => x.url).filter(Boolean));
+    rec.input.sources_tried = (st.seeds || []).filter(x => !seen.has(x.url)).concat(tried);
+    await sbq(tok, 'intel_runs?id=eq.' + id, {
+      method: 'PATCH', body: { status: 'done', steps: st.step, searches: st.searches, state: null, changes: { result: rec.input }, finished_at: new Date().toISOString() }
+    });
+    return { body: { status: 'done', step: st.step, searches: st.searches, result: rec.input } };
+  }
+  const results = await runTools(blocks);
+  if (results.length) st.messages.push({ role: 'user', content: results });
+  else if (j.stop_reason === 'pause_turn') { /* a long search turn: send it straight back, untouched */ }
+  else if (j.stop_reason === 'end_turn' || j.stop_reason === 'max_tokens') st.messages.push({ role: 'user', content: [{ type: 'text', text: 'Now call record with everything you have. Leave out nothing you established, and be plain about what you could not find.' }] });
+  // keep the cache marker on the newest block only
+  st.messages.forEach((m, i) => { if (Array.isArray(m.content)) m.content.forEach(c => { if (c && c.cache_control && i < st.messages.length - 2) delete c.cache_control; }); });
+  const tail = st.messages[st.messages.length - 1];
+  if (tail && Array.isArray(tail.content) && tail.content.length) { const c = tail.content[tail.content.length - 1]; if (c && typeof c === 'object' && c.type !== 'tool_result') c.cache_control = { type: 'ephemeral' }; }
+  st.note = noteOf(blocks); st.at = Date.now();
+  // stopped from the app while this step ran: keep it stopped
+  const now = await sbq(tok, 'intel_runs?id=eq.' + id + '&select=status');
+  if (!now || !now[0] || now[0].status !== 'running') return { body: { status: (now && now[0] && now[0].status) || 'stopped' } };
+  await sbq(tok, 'intel_runs?id=eq.' + id, { method: 'PATCH', body: { state: st, steps: st.step, searches: st.searches } });
+  return { body: { status: 'running', step: st.step, searches: st.searches, note: st.note } };
+    }
+const BUDGET = 150000;   // hand over to a fresh request well before the function's time limit
+const originOf = req => 'https://' + String(req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim();
+async function drive(tok, akey, id, origin) {
+  const t0 = Date.now();
+  try {
+    for (let i = 0; i < MAXSTEP + 2; i++) {
+      const r = await stepRun(tok, akey, id);
+      if (!r.body || r.body.status !== 'running') return;
+      if (Date.now() - t0 > BUDGET) {
+        await fetch(origin + '/api/intel', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + tok }, body: JSON.stringify({ action: 'drive', run_id: id }) });
+        return;
+      }
+    }
+  } catch (e) {
+    try { await sbq(tok, 'intel_runs?id=eq.' + id, { method: 'PATCH', body: { status: 'failed', error: String(e.message || e).slice(0, 400), finished_at: new Date().toISOString() } }); } catch (e2) {}
+  }
+}
 module.exports._t = { cCode, tradeLook, noteOf, HSN, slug, seedUrls, TOOLS, SYS };

@@ -740,3 +740,16 @@ newer month (right; greyed when there is none). Each day `.mjd` is `.mjdh` (21/8
 Yesterday or the weekday; the date 14/600 muted; the count right in `#9AA0AA`) over `.mjdp`, the
 same soft panel as Home (`#F7F8FA`, radius 18, today tinted). Switching month always goes to the
 top and slides the list in from the side the month lies on. "Go to <month>" stays at the end.
+
+## v98 — research and writing in the background
+
+`/api/intel` "start" with `bg` answers at once and drives the steps itself with `waitUntil`
+(`@vercel/functions`), handing over to a fresh "drive" request after 150 s (function limit 300 s).
+Each step stores `state.note` and `state.at`; a step finding the run no longer "running" stops.
+The app only watches the row (`inWatch`, every 3 s, 8 s when hidden) and nudges "drive" if it has
+been quiet 150 s; Stop marks the run "stopped". `inReattach` (after `inLoad`) picks up companies
+left "researching": a running run is watched again, a finished one saved, a lost one failed.
+`/api/draft` takes `save` (the draft row without its text) and inserts the draft itself, so an email
+being written survives leaving the page or the app; the app keeps a per-company writing flag
+(`IN.wr`) and tells you when it is done if you are elsewhere. Home: conversation count is the
+number only; every open follow-up is listed. Test: `v16/bg.py` (13).

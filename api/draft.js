@@ -41,7 +41,23 @@ module.exports = async (req, res) => {
   } catch (e) { return res.status(502).json({ error: 'Could not check your sign in.' }); }
   let b = req.body; if (typeof b === 'string') { try { b = JSON.parse(b); } catch (e) { b = null; } }
   b = b || {};
-  try { return res.status(200).json({ ok: true, email: await generate(b, key) }); }
+  try {
+    const email = await generate(b, key);
+    // "save": the app's draft row without the text. Saved here, so the email is kept even if the app was closed
+    // or the page changed while it was being written.
+    let draft = null;
+    if (b.save && typeof b.save === 'object') {
+      const row = Object.assign({}, b.save);
+      row.subject = clean(row.subject) || email.subject; row.body = email.body; row.language = email.language;
+      row.basis = Object.assign({}, row.basis || {}, { offered: email.offered, based_on: email.based_on, confidence: email.confidence, angle: email.angle || '' });
+      row.status = 'draft';
+      const r = await fetch(SB_URL + '/rest/v1/outreach_drafts', { method: 'POST', headers: { apikey: SB_KEY, Authorization: 'Bearer ' + tok, 'Content-Type': 'application/json', Prefer: 'return=representation' }, body: JSON.stringify(row) });
+      const t = await r.json().catch(() => null);
+      if (!r.ok) throw Object.assign(new Error((t && (t.message || t.error)) || 'The email was written but could not be saved.'), { status: 502 });
+      draft = Array.isArray(t) ? t[0] : t;
+    }
+    return res.status(200).json({ ok: true, email, draft });
+  }
   catch (e) { return res.status(e.status || 502).json({ error: e.message || 'Failed.' }); }
 };
 async function generate(b, key) {

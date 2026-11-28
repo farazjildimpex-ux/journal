@@ -2,6 +2,7 @@
   "name": "journal",
   "private": true,
   "dependencies": {
+    "@vercel/functions": "^3.12.0",
     "imapflow": "^1.7.8",
     "mailparser": "^3.14.2",
     "nodemailer": "^6.9.16",

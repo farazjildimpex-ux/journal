@@ -124,6 +124,9 @@
     },
     "api/push.js": {
       "maxDuration": 30
+    },
+    "api/intel.js": {
+      "maxDuration": 300
     }
   },
   "rewrites": [
