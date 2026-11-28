@@ -753,3 +753,26 @@ left "researching": a running run is watched again, a finished one saved, a lost
 being written survives leaving the page or the app; the app keeps a per-company writing flag
 (`IN.wr`) and tells you when it is done if you are elsewhere. Home: conversation count is the
 number only; every open follow-up is listed. Test: `v16/bg.py` (13).
+
+## v99 — Mail
+
+One page for the outreach mailbox (`mailOpen(folder, sel)`, state `MX`), opened from the More tile
+"Mail", the computer's side bar, Home's replies line and every old Inbox / Emails to approve / Sent
+link (`outInbox`, `outQueue`, `outSent`, `omSel`, `outMsg` now open it). Layout reuses the mail
+screens: `ldSheet` + `mvWrap` (list beside the message on the computer, list then a page on the
+phone, `mvPhone` with back `mail`). Top: Write, search, check for new mail; folder tabs Inbox
+(unread count), Drafts, Outbox, Sent, Bin; Inbox filters All, Unread, Starred, Opt-outs and bounces,
+Automatic. Nothing opens until you choose it, so opening the page never marks mail read.
+- Inbox rows: `outreach_inbox` (now with to, cc, attachment names, starred, deleted_at).
+- Drafts: `outreach_drafts` status draft (approval drafts as before; hand-written ones are
+  `step:'manual'` and never counted as emails to approve). Outbox: approved, sending, failed.
+- Sent: the app's sent drafts plus `mail_sent` (read from the mailbox's Sent folder by `poll`,
+  skipping what the app sent itself). Bin: anything with `deleted_at` (and skipped drafts); Restore
+  clears it. Nothing is deleted for good.
+- Writing (`mxCompose`): To, Cc, Subject, Message, files (`mail_files`, 5 MB each, 15 MB in all);
+  autosaved after 1.2 s; Send calls `/api/outreach` `sendnow`. Reply / Reply all (without your own
+  address) quote the message and thread it (`in_reply_to`); Forward brings the files along.
+- Server: `deliver` builds the raw message (hand-written: signature, no opt-out line or
+  List-Unsubscribe), sends it and appends it to the Sent folder (`\Seen`); the scheduler's sends use
+  it too. `att` returns one attachment (up to 3.5 MB) read from the mailbox. Schema:
+  `supabase-mail.sql`. Test: `v17/mail.py` (51, phone and computer).

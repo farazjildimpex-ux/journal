@@ -1,7 +1,9 @@
 // Sends approved outreach emails through the new mailbox. Nothing here writes or approves emails.
 // Vercel environment variables: SUPABASE_SERVICE_KEY (already set), OUTREACH_USER, OUTREACH_PASS,
 // optional OUTREACH_SMTP_HOST (default smtpout.secureserver.net, GoDaddy), OUTREACH_SMTP_PORT (default 465), OUTREACH_IMAP_HOST (default imap.secureserver.net), OUTREACH_FROM_NAME, OUTREACH_SECRET.
-// Actions: status and test (signed-in user), tick (scheduler, header x-outreach-secret).
+// Actions: status, test, poll, sendnow (send one email now), att (open an attachment) for the signed-in user;
+// tick (scheduler, header x-outreach-secret). Reading the mailbox also copies the Sent folder (mail sent from other
+// devices) into mail_sent, and every email the app sends is saved into that Sent folder, so both sides match.
 const crypto = require('crypto');
 const { envv } = require('./_env');
 const SB_URL = 'https://ethhzxagxejxfxkzgndk.supabase.co';
@@ -117,32 +119,83 @@ function classify(m) {
   return 'reply';
 }
 function bouncedAddress(m) { const t = String(m.text || ''); const x = /(?:final-recipient|original-recipient)[^\n]*?([\w.+'-]+@[\w.-]+\.\w+)/i.exec(t) || /(?:to|address|recipient)[^\n@]{0,60}?<?([\w.+'-]+@[\w.-]+\.\w+)>?/i.exec(t); return x ? x[1].toLowerCase() : ''; }
-async function fetchMailReal(lastUid) {
-  const { ImapFlow } = require('imapflow'), { simpleParser } = require('mailparser');
-  const c = new ImapFlow({ host: imapHost(), port: +envv('OUTREACH_IMAP_PORT') || 993, secure: true, auth: { user: envv('OUTREACH_USER'), pass: envv('OUTREACH_PASS') }, logger: false });
-  const out = [];
-  await c.connect();
+function imapc() { const { ImapFlow } = require('imapflow'); return new ImapFlow({ host: imapHost(), port: +envv('OUTREACH_IMAP_PORT') || 993, secure: true, auth: { user: envv('OUTREACH_USER'), pass: envv('OUTREACH_PASS') }, logger: false }); }
+async function sentBox(c) { const L = await c.list(); const s = L.find(x => x.specialUse === '\\Sent') || L.find(x => /^(inbox[./])?sent( items| messages| mail)?$/i.test(x.path)); return s ? s.path : null; }
+const addrs = a => ((a && a.value) || []).map(x => x.name ? x.name.replace(/[",]/g, '') + ' <' + x.address + '>' : x.address).filter(Boolean).join(', ');
+const atts = p => (p.attachments || []).map((a, i) => ({ i, name: a.filename || '', type: a.contentType || '', size: a.size || 0, inline: a.contentDisposition === 'inline' && !!a.cid })).filter(a => !a.inline || a.name).map(a => ({ i: a.i, name: a.name || 'attachment', type: a.type, size: a.size }));
+async function readBox(c, box, lastUid, days, max) {
+  const out = [], lock = await c.getMailboxLock(box);
   try {
-    const lock = await c.getMailboxLock('INBOX');
+    let range = lastUid ? (lastUid + 1) + ':*' : null;
+    if (!range) { const ids = await c.search({ since: new Date(Date.now() - days * 86400000) }, { uid: true }); if (!ids.length) return out; range = Math.min(...ids) + ':*'; }
+    const { simpleParser } = require('mailparser');
+    for await (const msg of c.fetch(range, { uid: true, source: true }, { uid: true })) {
+      if (lastUid && msg.uid <= lastUid) continue;
+      const p = await simpleParser(msg.source);
+      out.push({ uid: msg.uid, messageId: p.messageId || null, inReplyTo: p.inReplyTo || null, references: p.references || [], from: p.from && p.from.value && p.from.value[0] || {}, to: addrs(p.to), cc: addrs(p.cc), subject: p.subject || '', text: p.text || '', date: p.date || new Date(), autoSubmitted: String(p.headers.get('auto-submitted') || ''), att: atts(p) });
+      if (out.length >= max) break;
+    }
+  } finally { lock.release(); }
+  return out;
+}
+async function fetchMailReal(lastUid, lastSentUid) {
+  const c = imapc(); await c.connect();
+  try {
+    const inbox = await readBox(c, 'INBOX', lastUid, 14, 60);
+    let sent = [], box = null;
+    try { box = await sentBox(c); if (box) sent = await readBox(c, box, lastSentUid, 30, 60); } catch (e) { /* the Sent folder is a bonus */ }
+    return { inbox, sent, box };
+  } finally { await c.logout().catch(() => {}); }
+}
+/* one attachment, read from the mailbox when it is opened */
+async function attOf(box, uid, i) {
+  const c = imapc(); await c.connect();
+  try {
+    const name = box === 'Sent' ? await sentBox(c) : 'INBOX'; if (!name) throw new Error('No Sent folder in this mailbox.');
+    const lock = await c.getMailboxLock(name);
     try {
-      let range = lastUid ? (lastUid + 1) + ':*' : null;
-      if (!range) { const ids = await c.search({ since: new Date(Date.now() - 14 * 86400000) }, { uid: true }); if (!ids.length) return out; range = Math.min(...ids) + ':*'; }
-      for await (const msg of c.fetch(range, { uid: true, source: true }, { uid: true })) {
-        if (lastUid && msg.uid <= lastUid) continue;
-        const p = await simpleParser(msg.source);
-        out.push({ uid: msg.uid, messageId: p.messageId || null, inReplyTo: p.inReplyTo || null, references: p.references || [], from: p.from && p.from.value && p.from.value[0] || {}, subject: p.subject || '', text: p.text || '', date: p.date || new Date(), autoSubmitted: String(p.headers.get('auto-submitted') || '') });
-        if (out.length >= 60) break;
-      }
+      const m = await c.fetchOne(String(uid), { source: true }, { uid: true }); if (!m) throw new Error('This email is no longer in the mailbox.');
+      const p = await require('mailparser').simpleParser(m.source), a = (p.attachments || [])[i]; if (!a) throw new Error('Attachment not found.');
+      if (a.size > 3.5 * 1048576) throw new Error('This file is too large to open here. Open it from your webmail.');
+      return { name: a.filename || 'attachment', type: a.contentType || 'application/octet-stream', data: a.content.toString('base64') };
     } finally { lock.release(); }
   } finally { await c.logout().catch(() => {}); }
-  return out;
+}
+/* the message itself, sent and then kept in the mailbox's Sent folder so other devices see it */
+async function deliver(tr, d, main, opts) {
+  const o = opts || {}, manual = d.step === 'manual';
+  const list = s => String(s || '').split(/[,;]+/).map(x => x.trim()).filter(Boolean);
+  const to = list(d.to_email), cc = list(d.cc);
+  const msg = build(d, manual ? Object.assign({}, main, { optout: '' }) : main, o.imgs || {}, to.join(', '));
+  if (manual) delete msg.headers['List-Unsubscribe'];
+  if (cc.length) msg.cc = cc.join(', ');
+  for (const f of o.files || []) msg.attachments.push({ filename: f.name, contentType: f.type || undefined, content: Buffer.from(f.data, 'base64') });
+  if (T.transport) { const info = await tr.sendMail(msg); return info && info.messageId || null; }
+  const from = msg.from.address, dom = String(from).split('@')[1] || 'mail';
+  msg.messageId = '<' + crypto.randomUUID() + '@' + dom + '>';
+  const raw = await new (require('nodemailer/lib/mail-composer'))(msg).compile().build();
+  await tr.sendMail({ envelope: { from, to: to.concat(cc) }, raw });
+  try { const c = imapc(); await c.connect(); try { const box = await sentBox(c); if (box) await c.append(box, raw, ['\\Seen']); } finally { await c.logout().catch(() => {}); } } catch (e) { /* sent anyway */ }
+  return msg.messageId;
 }
 async function poll() {
   if (!(T.fetchMail || (envv('OUTREACH_USER') && envv('OUTREACH_PASS')))) return { got: 0, why: 'mailbox not connected' };
   const pre = await sbf('outreach_inbox?select=id&limit=1'); if (!pre.ok) return { got: 0, why: 'run supabase-inbox.sql in Supabase first' };
   const { send } = await settings();
-  const msgs = await (T.fetchMail || fetchMailReal)(send.last_uid || 0);
-  if (!msgs.length) return { got: 0 };
+  const fx = await (T.fetchMail || fetchMailReal)(send.last_uid || 0, send.last_sent_uid || 0);
+  const msgs = Array.isArray(fx) ? fx : fx.inbox, outs = Array.isArray(fx) ? [] : (fx.sent || []);
+  let gotSent = 0, maxSent = send.last_sent_uid || 0;
+  if (outs.length) {
+    const mine2 = new Set(((await (await sbf('outreach_drafts?message_id=not.is.null&select=message_id&order=sent_at.desc&limit=2000')).json()) || []).map(x => x.message_id));
+    for (const m of outs) {
+      maxSent = Math.max(maxSent, m.uid || 0);
+      if (m.messageId && mine2.has(m.messageId)) continue;   // sent by the app: already in Sent
+      const when = isNaN(new Date(m.date)) ? new Date() : new Date(m.date);
+      const r = await sbf('mail_sent', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates' }, body: JSON.stringify({ uid: m.uid, message_id: m.messageId, in_reply_to: m.inReplyTo, to_addrs: m.to || '', cc_addrs: m.cc || '', subject: String(m.subject || '').slice(0, 300), body: String(m.text || '').slice(0, 20000), attachments: m.att && m.att.length ? m.att : null, sent_at: when.toISOString() }) });
+      if (r.ok) gotSent++;
+    }
+  }
+  if (!msgs.length) { if (maxSent !== (send.last_sent_uid || 0)) await sbf('outreach_settings', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates' }, body: JSON.stringify({ id: 'send', data: { ...send, last_sent_uid: maxSent }, updated_at: new Date().toISOString() }) }); return { got: 0, sent: gotSent }; }
   const sent = (await (await sbf('outreach_drafts?status=eq.sent&select=id,message_id,to_email,group_key,company,subject&order=sent_at.desc&limit=500')).json()) || [];
   const mine = (envv('OUTREACH_USER') || '').toLowerCase();
   let got = 0, maxUid = send.last_uid || 0;
@@ -155,11 +208,11 @@ async function poll() {
     if (kind === 'bounce') { const bad = bouncedAddress(m); if (bad) await sbf('outreach_suppress', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates' }, body: JSON.stringify({ email: bad, reason: 'bounced' }) }); }
     if (kind === 'optout' && d) await sbf('outreach_suppress', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates' }, body: JSON.stringify({ email: from, reason: 'asked not to be contacted' }) });
     if (kind === 'reply' && d) await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ replied_at: when.toISOString() }) });
-    const r = await sbf('outreach_inbox', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates' }, body: JSON.stringify({ uid: m.uid, message_id: m.messageId, in_reply_to: m.inReplyTo, from_addr: from, from_name: m.from.name || '', subject: String(m.subject || '').slice(0, 300), body: String(m.text || '').slice(0, 20000), received_at: when.toISOString(), draft_id: d ? d.id : null, group_key: d ? d.group_key : null, company: d ? d.company : null, kind }) });
+    const r = await sbf('outreach_inbox', { method: 'POST', headers: { Prefer: 'resolution=ignore-duplicates' }, body: JSON.stringify({ uid: m.uid, message_id: m.messageId, in_reply_to: m.inReplyTo, from_addr: from, from_name: m.from.name || '', subject: String(m.subject || '').slice(0, 300), body: String(m.text || '').slice(0, 20000), received_at: when.toISOString(), draft_id: d ? d.id : null, group_key: d ? d.group_key : null, company: d ? d.company : null, kind, to_addrs: m.to || null, cc_addrs: m.cc || null, attachments: m.att && m.att.length ? m.att : null }) });
     if (r.ok) got++;
   }
-  if (maxUid !== (send.last_uid || 0)) await sbf('outreach_settings', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates' }, body: JSON.stringify({ id: 'send', data: { ...send, last_uid: maxUid }, updated_at: new Date().toISOString() }) });
-  return { got };
+  if (maxUid !== (send.last_uid || 0) || maxSent !== (send.last_sent_uid || 0)) await sbf('outreach_settings', { method: 'POST', headers: { Prefer: 'resolution=merge-duplicates' }, body: JSON.stringify({ id: 'send', data: { ...send, last_uid: maxUid, last_sent_uid: maxSent }, updated_at: new Date().toISOString() }) });
+  return { got, sent: gotSent };
 }
 async function followups(now, max) {
   const { main, send } = await settings();
@@ -215,10 +268,10 @@ async function tick(now) {
     const claim = await sbf('outreach_drafts?id=eq.' + d.id + '&status=eq.approved', { method: 'PATCH', body: JSON.stringify({ status: 'sending' }) });
     const got = claim.ok ? await claim.json() : [];
     if (!got || !got.length) continue;
-    const imgs = await pickImages(main), msg = build(d, main, imgs, em);
+    const imgs = await pickImages(main);
     try {
-      const info = await tr.sendMail(msg);
-      const done2 = await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ status: 'sent', sent_at: now.toISOString(), message_id: info && info.messageId || null, follow_due: d.step === 'intro' ? addWorkingDays(now, 4).toISOString() : d.step === 'follow1' ? addWorkingDays(now, 6).toISOString() : null, last_error: null }) });
+      const mid = await deliver(tr, Object.assign({}, d, { to_email: em }), main, { imgs });
+      const done2 = await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ status: 'sent', sent_at: now.toISOString(), message_id: mid, follow_due: d.step === 'intro' ? addWorkingDays(now, 4).toISOString() : d.step === 'follow1' ? addWorkingDays(now, 6).toISOString() : null, last_error: null }) });
       if (!done2.ok) await sbf('outreach_drafts?id=eq.' + d.id, { method: 'PATCH', body: JSON.stringify({ status: 'sent', sent_at: now.toISOString() }) });
       return { sent: 1, to: em, company: d.company };
     } catch (e) {
@@ -266,6 +319,36 @@ module.exports = async (req, res) => {
       return res.status(200).json({ ok: true, to: me });
     }
     if (b.action === 'poll') { let pr; try { pr = await poll(); } catch (e) { return res.status(502).json({ error: 'Could not read the mailbox: ' + String(e.message || e).slice(0, 120) }); } return res.status(200).json({ ok: true, ...pr }); }
+    if (b.action === 'sendnow') {
+      const tr = mailer(); if (!tr) return res.status(400).json({ error: 'The mailbox is not connected yet. Add OUTREACH_USER and OUTREACH_PASS in Vercel, then redeploy.' });
+      const id = String(b.id || ''); if (!/^[0-9a-f-]{36}$/i.test(id)) return res.status(400).json({ error: 'No email given.' });
+      const d = ((await (await sbf('outreach_drafts?id=eq.' + id + '&select=*')).json()) || [])[0];
+      if (!d) return res.status(404).json({ error: 'This email is gone.' });
+      if (!['draft', 'approved', 'failed'].includes(d.status)) return res.status(409).json({ error: d.status === 'sent' ? 'This email has already gone out.' : 'This email is being sent already.' });
+      const all = String(d.to_email || '').split(/[,;]+/).concat(String(d.cc || '').split(/[,;]+/)).map(x => x.trim().toLowerCase()).filter(Boolean);
+      if (!all.length || all.some(x => !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x.replace(/^.*<|>$/g, '')))) return res.status(400).json({ error: 'Check the email addresses.' });
+      if (d.step !== 'manual') {
+        const sup = new Set(((await (await sbf('outreach_suppress?select=email')).json()) || []).map(x => String(x.email).toLowerCase()));
+        const bad = all.find(x => sup.has(x) || sup.has('@' + x.split('@')[1])); if (bad) return res.status(400).json({ error: bad + ' is on the do-not-contact list.' });
+      }
+      const claim = await sbf('outreach_drafts?id=eq.' + id + '&status=in.(draft,approved,failed)', { method: 'PATCH', body: JSON.stringify({ status: 'sending' }) });
+      const got = claim.ok ? await claim.json() : []; if (!got || !got.length) return res.status(409).json({ error: 'This email is being sent already.' });
+      const { main } = await settings();
+      try {
+        const files = d.step === 'manual' ? ((await (await sbf('mail_files?draft_id=eq.' + id + '&select=name,type,data')).json()) || []) : [];
+        const mid = await deliver(tr, d, main, { imgs: await pickImages(main), files });
+        await sbf('outreach_drafts?id=eq.' + id, { method: 'PATCH', body: JSON.stringify({ status: 'sent', sent_at: now.toISOString(), message_id: mid, approved_at: d.approved_at || now.toISOString(), last_error: null, follow_due: d.step === 'intro' ? addWorkingDays(now, 4).toISOString() : d.step === 'follow1' ? addWorkingDays(now, 6).toISOString() : null }) });
+        return res.status(200).json({ ok: true, message_id: mid });
+      } catch (e) {
+        await sbf('outreach_drafts?id=eq.' + id, { method: 'PATCH', body: JSON.stringify({ status: 'failed', last_error: String(e && e.message || e).slice(0, 300) }) });
+        return res.status(502).json({ error: 'Not sent: ' + String(e && e.message || e).slice(0, 160) });
+      }
+    }
+    if (b.action === 'att') {
+      const box = b.box === 'Sent' ? 'Sent' : 'INBOX', uid = +b.uid, i = +b.i;
+      if (!uid || !(i >= 0)) return res.status(400).json({ error: 'No attachment given.' });
+      try { return res.status(200).json({ ok: true, ...(await attOf(box, uid, i)) }); } catch (e) { return res.status(400).json({ error: String(e.message || e).slice(0, 160) }); }
+    }
     if (b.action === 'followups') { const fr = await followups(now, 3); return res.status(200).json({ ok: true, ...fr }); }
     if (b.action === 'secret') {
       const { send } = await settings(); if (send.secret) return res.status(200).json({ ok: true, secret: send.secret });
@@ -276,4 +359,4 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'Unknown action' });
   } catch (e) { return res.status(502).json({ error: String(e && e.message || e).slice(0, 200) }); }
 };
-module.exports._t = { T, poll, followups, classify, inWindow, tzOf, warmCap, addWorkingDays, build, istDayStart, tick };
+module.exports._t = { T, deliver, atts, addrs, poll, followups, classify, inWindow, tzOf, warmCap, addWorkingDays, build, istDayStart, tick };
